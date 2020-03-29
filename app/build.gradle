@@ -40,8 +40,6 @@ android {
 
 dependencies {
 
-    //Local Libs
-    implementation project(':data')
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -64,5 +62,10 @@ dependencies {
     implementation 'com.google.dagger:dagger-android:2.27'
     api 'com.google.dagger:dagger-android-support:2.27'
     kapt 'com.google.dagger:dagger-android-processor:2.27'
+
+    //Local Libs
+    implementation project(':repository')
+    implementation project(':domain')
+    implementation project(':remote')
 
 }

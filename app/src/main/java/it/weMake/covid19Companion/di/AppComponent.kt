@@ -1,13 +1,16 @@
 package it.weMake.covid19Companion.di
 
 import android.content.Context
-import it.weMake.covid19Companion.di.modules.ActivityBuilderModule
-import it.weMake.covid19Companion.di.modules.StarWarsApiModule
-import it.weMake.covid19Companion.di.modules.ViewModelModule
+import it.weMake.covid19Companion.di.modules.presentation.ActivityBuilderModule
+import it.weMake.covid19Companion.di.modules.remote.RetrofitModule
+import it.weMake.covid19Companion.di.modules.presentation.ViewModelModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
 import it.weMake.covid19Companion.Application
+import it.weMake.covid19Companion.di.modules.domain.DomainModule
+import it.weMake.covid19Companion.di.modules.remote.RemoteModule
+import it.weMake.covid19Companion.di.modules.repository.RepositoryModule
 import javax.inject.Singleton
 
 /**
@@ -17,7 +20,9 @@ import javax.inject.Singleton
 @Component(
     modules = [
         AndroidInjectionModule::class,
-        StarWarsApiModule::class,
+        RemoteModule::class,
+        RepositoryModule::class,
+        DomainModule::class,
         ActivityBuilderModule::class,
         ViewModelModule::class
     ]

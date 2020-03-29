@@ -1,4 +1,5 @@
 rootProject.name='Covid-19 Companion'
 include ':app'
-include ':data'
+include ':repository'
 include ':domain'
+include ':remote'
