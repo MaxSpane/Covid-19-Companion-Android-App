@@ -7,7 +7,7 @@ import it.wemake.covid19Companion.data.local.ISharedPreferencesLocal
 import it.wemake.covid19Companion.local.impl.CountryLocal
 import it.wemake.covid19Companion.local.impl.SharedPreferencesLocal
 
-@Module(includes = [SharedPreferencesModule::class])
+@Module(includes = [SharedPreferencesModule::class, RoomModule::class])
 abstract class LocalModule {
 
     @Binds

@@ -27,7 +27,6 @@ import javax.inject.Singleton
         AppModule::class,
         RemoteModule::class,
         LocalModule::class,
-        RoomModule::class,
         RepositoryModule::class,
         DomainModule::class,
         ActivityBuilderModule::class,
