@@ -13,6 +13,8 @@ import androidx.lifecycle.ViewModelProvider
 import dagger.android.AndroidInjection
 import dagger.android.support.DaggerFragment
 import it.weMake.covid19Companion.R
+import it.weMake.covid19Companion.databinding.FragmentDashboardBinding
+import it.weMake.covid19Companion.ui.landing.dashboard.adapters.CasesSummaryAdapter
 import javax.inject.Inject
 
 class DashboardFragment : DaggerFragment() {
@@ -22,14 +24,22 @@ class DashboardFragment : DaggerFragment() {
 
     protected val dashboardViewModel: DashboardViewModel by viewModels { viewModelFactory }
 
+    lateinit var fragmentBinding: FragmentDashboardBinding
+    lateinit var casesSummaryAdapter: CasesSummaryAdapter
+
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_dashboard, container, false)
+        fragmentBinding = FragmentDashboardBinding.inflate(inflater, container, false)
 
-        return root
+        casesSummaryAdapter = CasesSummaryAdapter()
+
+        fragmentBinding.casesSummaryRV.adapter = casesSummaryAdapter
+
+        return fragmentBinding.root
     }
 
 }
