@@ -7,8 +7,12 @@ import it.weMake.covid19Companion.di.modules.presentation.ViewModelModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
+import dagger.android.AndroidInjector
 import it.weMake.covid19Companion.Application
+import it.weMake.covid19Companion.di.modules.AppModule
 import it.weMake.covid19Companion.di.modules.domain.DomainModule
+import it.weMake.covid19Companion.di.modules.local.LocalModule
+import it.weMake.covid19Companion.di.modules.local.RoomModule
 import it.weMake.covid19Companion.di.modules.remote.RemoteModule
 import it.weMake.covid19Companion.di.modules.repository.RepositoryModule
 import javax.inject.Singleton
@@ -20,20 +24,32 @@ import javax.inject.Singleton
 @Component(
     modules = [
         AndroidInjectionModule::class,
+        AppModule::class,
         RemoteModule::class,
+        LocalModule::class,
+        RoomModule::class,
         RepositoryModule::class,
         DomainModule::class,
         ActivityBuilderModule::class,
         ViewModelModule::class
     ]
 )
-interface AppComponent {
+interface AppComponent: AndroidInjector<Application> {
 
-    fun inject(app: Application)
+//    @Component.Factory
+//    interface Factory {
+//        fun create(@BindsInstance context: Context): AppComponent
+//    }
 
-    @Component.Factory
-    interface Factory {
-        fun create(@BindsInstance context: Context): AppComponent
+    /**
+     * A {@see [Component.Builder]} that initializes necessary implementations
+     */
+    @Component.Builder
+    interface Builder {
+
+        @BindsInstance
+        fun application(application : Application) : Builder
+        fun build() : AppComponent
     }
 
 }

@@ -1,6 +1,6 @@
 package it.wemake.covid19Companion.data.remote
 
-import it.wemake.covid19Companion.data.models.entity.StarWarsCharacterEntity
+import it.wemake.covid19Companion.data.models.StarWarsCharacterEntity
 import kotlinx.coroutines.flow.Flow
 
 interface ICharacterSearchRemote {

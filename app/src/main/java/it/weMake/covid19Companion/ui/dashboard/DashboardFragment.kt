@@ -36,13 +36,13 @@ class DashboardFragment : DaggerFragment() {
 //            textView.text = it
 //        })
 
-        dashboardViewModel.searchResultsStarWars.observe(viewLifecycleOwner, Observer {
+        dashboardViewModel.fromRoomDB.observe(viewLifecycleOwner, Observer {
 
-            textView.text = it[0].name
+            textView.text = it[0].country
 
         })
 
-        dashboardViewModel.search("ds")
+        dashboardViewModel.insert()
 
         return root
     }

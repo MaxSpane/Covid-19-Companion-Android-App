@@ -4,8 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import it.weMake.covid19Companion.mappers.toDomain
 import it.weMake.covid19Companion.mappers.toPresentation
+import it.weMake.covid19Companion.models.Country
 import it.weMake.covid19Companion.models.StarWarsCharacterUiModel
+import it.wemake.covid19Companion.domain.usecases.GetCountriesUseCase
+import it.wemake.covid19Companion.domain.usecases.InsertCountriesUseCase
 import it.wemake.covid19Companion.domain.usecases.SearchStarWarsCharacterUseCase
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.collect
@@ -14,13 +18,21 @@ import javax.inject.Inject
 
 class DashboardViewModel
     @Inject constructor(
-        val characterUseCase: SearchStarWarsCharacterUseCase
+        val characterUseCase: SearchStarWarsCharacterUseCase,
+        val getCountriesUseCase: GetCountriesUseCase,
+        val insertCountriesUseCase: InsertCountriesUseCase
     ) : ViewModel() {
 
     val searchResultsStarWars: LiveData<List<StarWarsCharacterUiModel>>
         get() = _searchResultsStarWars
 
     private var _searchResultsStarWars: MutableLiveData<List<StarWarsCharacterUiModel>> =
+        MutableLiveData()
+
+    val fromRoomDB: LiveData<List<Country>>
+        get() = _fromRoomDB
+
+    private var _fromRoomDB: MutableLiveData<List<Country>> =
         MutableLiveData()
 
     private val _text = MutableLiveData<String>().apply {
@@ -40,6 +52,29 @@ class DashboardViewModel
 
     protected val handler = CoroutineExceptionHandler { _, exception ->
 //        _uiState.value = Error(exception)
+    }
+
+    init {
+
+        viewModelScope.launch(handler) {
+            getCountriesUseCase().collect{countries ->
+                _fromRoomDB.value = countries.map {
+                    it.toPresentation()
+                }
+            }
+        }
+
+    }
+
+    fun insert(){
+        val countries = listOf<Country>(Country("nigeria", "Nigeria"), Country("america", "America"))
+
+        viewModelScope.launch(handler) {
+            insertCountriesUseCase(countries.map {
+                it.toDomain()
+            })
+        }
+
     }
 
 }

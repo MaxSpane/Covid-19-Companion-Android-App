@@ -1,4 +1,4 @@
-package it.wemake.covid19Companion.data.models.entity
+package it.wemake.covid19Companion.data.models
 
 /**
  * Provides a shallow character model with minimal data

@@ -64,8 +64,7 @@ dependencies {
     kapt 'com.google.dagger:dagger-android-processor:2.27'
 
     //Local Libs
-    implementation project(':repository')
-    implementation project(':domain')
     implementation project(':remote')
+    implementation project(':local')
 
 }
