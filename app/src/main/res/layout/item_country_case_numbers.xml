@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginStart="@dimen/horizontal_margin"
+    android:layout_marginEnd="@dimen/horizontal_margin"
+    android:layout_marginTop="12dp"
+    android:layout_marginBottom="12dp"
+    app:cardCornerRadius="8dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="26dp">
+
+        <ImageView
+            android:id="@+id/flagIV"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="fitXY"
+            tools:src="@tools:sample/backgrounds/scenic"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintDimensionRatio="H,2:1"/>
+
+        <TextView
+            android:id="@+id/countryNameTV"
+            style="@style/Covid19TextView.Body.Bold"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toBottomOf="@id/flagIV"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="@dimen/horizontal_margin"
+            android:layout_marginTop="24dp"
+            tools:text="Nigeria"/>
+
+        <TextView
+            android:id="@+id/confirmedValueTV"
+            style="@style/Covid19TextView.Body.Bold"
+            android:textColor="@color/black"
+            tools:text="200 + 5 "
+            app:layout_constraintTop_toBottomOf="@id/countryNameTV"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="@dimen/horizontal_margin"
+            android:layout_marginTop="12dp"/>
+
+        <TextView
+            android:id="@+id/confirmedTV"
+            style="@style/Covid19TextView.Body"
+            android:text="@string/confirmed_lower_case"
+            app:layout_constraintTop_toTopOf="@id/confirmedValueTV"
+            app:layout_constraintStart_toEndOf="@id/confirmedValueTV"/>
+
+        <TextView
+            android:id="@+id/recoveredValueTV"
+            style="@style/Covid19TextView.Body.Bold"
+            android:textColor="@color/colorPrimaryDark"
+            tools:text="120 + 3 "
+            app:layout_constraintTop_toBottomOf="@id/confirmedValueTV"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="@dimen/horizontal_margin"
+            android:layout_marginTop="4dp"/>
+
+        <TextView
+            android:id="@+id/recoveredTV"
+            style="@style/Covid19TextView.Body"
+            android:text="@string/recovered_lower_case"
+            app:layout_constraintTop_toTopOf="@id/recoveredValueTV"
+            app:layout_constraintStart_toEndOf="@id/recoveredValueTV"/>
+
+        <TextView
+            android:id="@+id/deathsValueTV"
+            style="@style/Covid19TextView.Body.Bold"
+            android:textColor="@color/deaths"
+            tools:text="2 + 1 "
+            app:layout_constraintTop_toBottomOf="@id/recoveredValueTV"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="@dimen/horizontal_margin"
+            android:layout_marginTop="4dp"/>
+
+        <TextView
+            android:id="@+id/deathsTV"
+            style="@style/Covid19TextView.Body"
+            android:text="@string/deaths_lower_case"
+            app:layout_constraintTop_toTopOf="@id/deathsValueTV"
+            app:layout_constraintStart_toEndOf="@id/deathsValueTV"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

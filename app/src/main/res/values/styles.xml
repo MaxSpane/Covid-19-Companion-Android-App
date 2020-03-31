@@ -8,4 +8,36 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!-- Base application theme. -->
+    <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="Covid19TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="Covid19TextView.Body" parent="Covid19TextView">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="Covid19TextView.Body.Bold" parent="Covid19TextView.Body">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="Covid19TextView.Head.Title" parent="Covid19TextView">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">32sp</item>
+    </style>
+
+    <style name="Covid19TextView.Body.Title" parent="Covid19TextView">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
 </resources>

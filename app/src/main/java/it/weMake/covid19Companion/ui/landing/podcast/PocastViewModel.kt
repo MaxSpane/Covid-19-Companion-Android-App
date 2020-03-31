@@ -1,10 +1,10 @@
-package it.weMake.covid19Companion.ui.home
+package it.weMake.covid19Companion.ui.landing.podcast
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class HomeViewModel : ViewModel() {
+class PocastViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
         value = "This is home Fragment"

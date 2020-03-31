@@ -1,4 +1,4 @@
-package it.weMake.covid19Companion.ui.dashboard
+package it.weMake.covid19Companion.ui.landing.dashboard
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

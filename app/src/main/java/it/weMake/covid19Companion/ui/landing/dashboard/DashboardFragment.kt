@@ -1,4 +1,4 @@
-package it.weMake.covid19Companion.ui.dashboard
+package it.weMake.covid19Companion.ui.landing.dashboard
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -27,24 +27,7 @@ class DashboardFragment : DaggerFragment() {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-
-//        dashboardViewModel =
-//                ViewModelProvider(this).get(DashboardViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_dashboard, container, false)
-        val textView: TextView = root.findViewById(R.id.text_dashboard)
-//        dashboardViewModel.text.observe(viewLifecycleOwner, Observer {
-//            textView.text = it
-//        })
-
-        dashboardViewModel.numberOfTries.observe(viewLifecycleOwner, Observer {
-
-            textView.text = "$it"
-
-        })
-
-        textView.setOnClickListener{
-            dashboardViewModel.getNumberOfTries()
-        }
 
         return root
     }

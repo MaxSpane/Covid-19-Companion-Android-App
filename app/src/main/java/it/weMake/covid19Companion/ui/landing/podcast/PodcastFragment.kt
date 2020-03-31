@@ -1,4 +1,4 @@
-package it.weMake.covid19Companion.ui.home
+package it.weMake.covid19Companion.ui.landing.podcast
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,20 +10,20 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import it.weMake.covid19Companion.R
 
-class HomeFragment : Fragment() {
+class PodcastFragment : Fragment() {
 
-    private lateinit var homeViewModel: HomeViewModel
+    private lateinit var pocastViewModel: PocastViewModel
 
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        homeViewModel =
-                ViewModelProvider(this).get(HomeViewModel::class.java)
+        pocastViewModel =
+                ViewModelProvider(this).get(PocastViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_home, container, false)
         val textView: TextView = root.findViewById(R.id.text_home)
-        homeViewModel.text.observe(viewLifecycleOwner, Observer {
+        pocastViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })
         return root

@@ -4,7 +4,7 @@ import it.weMake.covid19Companion.di.ActivityScope
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 import it.weMake.covid19Companion.di.modules.presentation.fragmentBuilders.MainActivityFragmentBuilder
-import it.weMake.covid19Companion.ui.MainActivity
+import it.weMake.covid19Companion.ui.landing.MainActivity
 
 
 @Module

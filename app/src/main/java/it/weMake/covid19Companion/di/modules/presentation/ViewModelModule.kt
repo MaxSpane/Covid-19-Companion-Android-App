@@ -7,7 +7,7 @@ import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
 import it.weMake.covid19Companion.di.factory.ViewModelFactory
-import it.weMake.covid19Companion.ui.dashboard.DashboardViewModel
+import it.weMake.covid19Companion.ui.landing.dashboard.DashboardViewModel
 
 @Module
 abstract class ViewModelModule {
