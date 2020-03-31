@@ -9,6 +9,7 @@ import it.weMake.covid19Companion.mappers.toPresentation
 import it.weMake.covid19Companion.models.Country
 import it.weMake.covid19Companion.models.StarWarsCharacterUiModel
 import it.wemake.covid19Companion.domain.usecases.GetCountriesUseCase
+import it.wemake.covid19Companion.domain.usecases.GetNumberOfTriesUseCase
 import it.wemake.covid19Companion.domain.usecases.InsertCountriesUseCase
 import it.wemake.covid19Companion.domain.usecases.SearchStarWarsCharacterUseCase
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -20,7 +21,8 @@ class DashboardViewModel
     @Inject constructor(
         val characterUseCase: SearchStarWarsCharacterUseCase,
         val getCountriesUseCase: GetCountriesUseCase,
-        val insertCountriesUseCase: InsertCountriesUseCase
+        val insertCountriesUseCase: InsertCountriesUseCase,
+        val getNumberOfTriesUseCase: GetNumberOfTriesUseCase
     ) : ViewModel() {
 
     val searchResultsStarWars: LiveData<List<StarWarsCharacterUiModel>>
@@ -33,6 +35,12 @@ class DashboardViewModel
         get() = _fromRoomDB
 
     private var _fromRoomDB: MutableLiveData<List<Country>> =
+        MutableLiveData()
+
+    val numberOfTries: LiveData<Int>
+        get() = _numberOfTries
+
+    private var _numberOfTries: MutableLiveData<Int> =
         MutableLiveData()
 
     private val _text = MutableLiveData<String>().apply {
@@ -73,6 +81,15 @@ class DashboardViewModel
             insertCountriesUseCase(countries.map {
                 it.toDomain()
             })
+        }
+
+    }
+
+    fun getNumberOfTries(){
+        viewModelScope.launch(handler) {
+            getNumberOfTriesUseCase().collect{
+                _numberOfTries.value = it
+            }
         }
 
     }

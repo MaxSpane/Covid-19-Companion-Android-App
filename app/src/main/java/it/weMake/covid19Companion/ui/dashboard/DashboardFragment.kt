@@ -36,13 +36,15 @@ class DashboardFragment : DaggerFragment() {
 //            textView.text = it
 //        })
 
-        dashboardViewModel.fromRoomDB.observe(viewLifecycleOwner, Observer {
+        dashboardViewModel.numberOfTries.observe(viewLifecycleOwner, Observer {
 
-            textView.text = it[0].country
+            textView.text = "$it"
 
         })
 
-        dashboardViewModel.insert()
+        textView.setOnClickListener{
+            dashboardViewModel.getNumberOfTries()
+        }
 
         return root
     }
