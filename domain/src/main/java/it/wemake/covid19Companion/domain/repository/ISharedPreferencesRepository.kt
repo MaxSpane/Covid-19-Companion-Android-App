@@ -4,6 +4,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface ISharedPreferencesRepository {
 
-    suspend fun getNumberOfTries(): Flow<Int>
+    suspend fun getCasesLastUpdated(): Flow<String>
 
 }

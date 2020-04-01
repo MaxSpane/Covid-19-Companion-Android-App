@@ -1,11 +1,10 @@
 package it.weMake.covid19Companion.di.modules.local
 
-import android.app.Application
 import android.content.Context
 import dagger.Module
 import dagger.Provides
 import it.wemake.covid19Companion.local.room.AppDatabase
-import it.wemake.covid19Companion.local.room.dao.CountryDao
+import it.wemake.covid19Companion.local.room.dao.CountryCasesDao
 import javax.inject.Named
 
 @Module
@@ -15,7 +14,7 @@ class RoomModule {
     fun provideDatabase(@Named("AppContext") application: Context) = AppDatabase.invoke(application)
 
     @Provides
-    fun provideCountryDao(database: AppDatabase): CountryDao =
-        database.getCountryDao()
+    fun provideCountryDao(database: AppDatabase): CountryCasesDao =
+        database.getCountryCasesDao()
 
 }

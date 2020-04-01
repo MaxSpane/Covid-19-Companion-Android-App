@@ -1,10 +1,16 @@
 package it.wemake.covid19Companion.local.mappers
 
-import it.wemake.covid19Companion.data.models.CountryEntityModel
-import it.wemake.covid19Companion.local.models.CountryLocalModel
+import it.wemake.covid19Companion.data.models.CountryCasesEntity
+import it.wemake.covid19Companion.local.models.CountryCasesLocalModel
 
-internal fun CountryEntityModel.toLocal(): CountryLocalModel =
-    CountryLocalModel(
+internal fun CountryCasesEntity.toLocal(): CountryCasesLocalModel =
+    CountryCasesLocalModel(
         this.slug,
-        this.country
+        this.country,
+        this.newConfirmed,
+        this.totalConfirmed,
+        this.newDeaths,
+        this.totalDeaths,
+        this.newRecovered,
+        this.totalRecovered
     )

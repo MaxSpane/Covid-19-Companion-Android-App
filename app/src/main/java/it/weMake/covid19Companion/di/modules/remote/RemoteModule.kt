@@ -2,8 +2,8 @@ package it.weMake.covid19Companion.di.modules.remote
 
 import dagger.Binds
 import dagger.Module
-import it.wemake.covid19Companion.data.remote.ICharacterSearchRemote
-import it.wemake.covid19Companion.remote.impl.StarWarsCharacterSearchRemote
+import it.wemake.covid19Companion.data.remote.ICovid19CasesRemote
+import it.wemake.covid19Companion.remote.impl.Covid19CasesRemote
 import javax.inject.Singleton
 
 @Module(includes = [RetrofitModule::class])
@@ -11,8 +11,8 @@ abstract class RemoteModule {
 
     @Singleton
     @Binds
-    abstract fun bindCharacterSearchRemote(
-        starWarsCharacterSearchRemote: StarWarsCharacterSearchRemote
-    ): ICharacterSearchRemote
+    abstract fun bindCovid19CasesRemote(
+        covid19CasesRemote: Covid19CasesRemote
+    ): ICovid19CasesRemote
 
 }

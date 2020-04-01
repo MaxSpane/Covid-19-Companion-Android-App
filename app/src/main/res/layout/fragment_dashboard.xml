@@ -25,7 +25,7 @@
             android:layout_marginTop="46dp"/>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/casesSummaryRV"
+            android:id="@+id/casesStatsRV"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/welcomeTextTV"
@@ -44,7 +44,7 @@
             android:id="@+id/handHygieneCV"
             android:layout_width="0dp"
             android:layout_height="112dp"
-            app:layout_constraintTop_toBottomOf="@id/casesSummaryRV"
+            app:layout_constraintTop_toBottomOf="@id/casesStatsRV"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginStart="20dp"
@@ -145,12 +145,13 @@
             android:id="@+id/casesRV"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            tools:listitem="@layout/item_country_case_numbers"
+            tools:listitem="@layout/item_country_cases_summary"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:orientation="vertical"
             app:layout_constraintTop_toBottomOf="@id/filterIV"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

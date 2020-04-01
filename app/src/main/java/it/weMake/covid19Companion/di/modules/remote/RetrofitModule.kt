@@ -2,11 +2,11 @@ package it.weMake.covid19Companion.di.modules.remote
 
 import dagger.Module
 import dagger.Provides
-import it.wemake.covid19Companion.data.utils.BASE_URL_COVID_19
-import it.wemake.covid19Companion.data.utils.RETROFIT_COVID_19
 import it.wemake.covid19Companion.remote.api.Covid19ApiService
 import it.wemake.covid19Companion.remote.api.HttpClient
 import it.wemake.covid19Companion.remote.api.LoggingInterceptor
+import it.wemake.covid19Companion.remote.utils.BASE_URL_COVID_19
+import it.wemake.covid19Companion.remote.utils.RETROFIT_COVID_19
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

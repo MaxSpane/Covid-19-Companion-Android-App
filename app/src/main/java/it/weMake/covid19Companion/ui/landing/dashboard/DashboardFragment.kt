@@ -4,17 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.activity.viewModels
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import dagger.android.AndroidInjection
 import dagger.android.support.DaggerFragment
 import it.weMake.covid19Companion.R
 import it.weMake.covid19Companion.databinding.FragmentDashboardBinding
-import it.weMake.covid19Companion.ui.landing.dashboard.adapters.CasesSummaryAdapter
+import it.weMake.covid19Companion.ui.landing.dashboard.adapters.CasesStatsAdapter
+import it.weMake.covid19Companion.ui.landing.dashboard.adapters.CountryCasesAdapter
 import javax.inject.Inject
 
 class DashboardFragment : DaggerFragment() {
@@ -25,7 +22,8 @@ class DashboardFragment : DaggerFragment() {
     protected val dashboardViewModel: DashboardViewModel by viewModels { viewModelFactory }
 
     lateinit var fragmentBinding: FragmentDashboardBinding
-    lateinit var casesSummaryAdapter: CasesSummaryAdapter
+    lateinit var casesStatsAdapter: CasesStatsAdapter
+    lateinit var countryCasesAdapter: CountryCasesAdapter
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -35,9 +33,25 @@ class DashboardFragment : DaggerFragment() {
         val root = inflater.inflate(R.layout.fragment_dashboard, container, false)
         fragmentBinding = FragmentDashboardBinding.inflate(inflater, container, false)
 
-        casesSummaryAdapter = CasesSummaryAdapter()
+        casesStatsAdapter = CasesStatsAdapter()
+        countryCasesAdapter = CountryCasesAdapter()
 
-        fragmentBinding.casesSummaryRV.adapter = casesSummaryAdapter
+        fragmentBinding.casesStatsRV.adapter = casesStatsAdapter
+        fragmentBinding.casesRV.adapter = countryCasesAdapter
+
+        dashboardViewModel.countryCasesLastUpdated.observe(viewLifecycleOwner, Observer {
+            fragmentBinding.lastUpdatedValueTV.text = it
+        })
+
+        dashboardViewModel.casesStats.observe(viewLifecycleOwner, Observer {
+            casesStatsAdapter.updateCasesStats(it)
+        })
+
+        dashboardViewModel.countryCases.observe(viewLifecycleOwner, Observer {
+            countryCasesAdapter.refill(it)
+        })
+
+        dashboardViewModel.updateCasesSummary()
 
         return fragmentBinding.root
     }
