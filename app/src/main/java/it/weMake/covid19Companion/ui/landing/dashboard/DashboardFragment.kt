@@ -12,6 +12,7 @@ import it.weMake.covid19Companion.R
 import it.weMake.covid19Companion.databinding.FragmentDashboardBinding
 import it.weMake.covid19Companion.ui.landing.dashboard.adapters.CasesStatsAdapter
 import it.weMake.covid19Companion.ui.landing.dashboard.adapters.CountryCasesAdapter
+import it.weMake.covid19Companion.utils.getTimeFromToday
 import javax.inject.Inject
 
 class DashboardFragment : DaggerFragment() {
@@ -40,7 +41,7 @@ class DashboardFragment : DaggerFragment() {
         fragmentBinding.casesRV.adapter = countryCasesAdapter
 
         dashboardViewModel.countryCasesLastUpdated.observe(viewLifecycleOwner, Observer {
-            fragmentBinding.lastUpdatedValueTV.text = it
+            fragmentBinding.lastUpdatedValueTV.text = it.getTimeFromToday()
         })
 
         dashboardViewModel.casesStats.observe(viewLifecycleOwner, Observer {
