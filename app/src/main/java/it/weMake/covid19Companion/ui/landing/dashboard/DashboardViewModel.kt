@@ -21,10 +21,13 @@ class DashboardViewModel
         val getCasesStatsUseCase: CasesStatsUseCase
     ) : ViewModel() {
 
-    val countryCases: LiveData<List<CountryCases>>
-        get() = _countryCases
+    val filteredCountryCases: LiveData<List<CountryCases>>
+        get() = _filteredCountryCases
 
     private var _countryCases: MutableLiveData<List<CountryCases>> =
+        MutableLiveData()
+
+    private var _filteredCountryCases: MutableLiveData<List<CountryCases>> =
         MutableLiveData()
 
     val countryCasesLastUpdated: LiveData<String>
@@ -51,6 +54,7 @@ class DashboardViewModel
                 _countryCases.value = countries.map {
                     it.toPresentation()
                 }
+                _filteredCountryCases.value = _countryCases.value
             }
         }
 
@@ -74,5 +78,18 @@ class DashboardViewModel
         }
     }
 
+    fun search(searchQuery: String){
+
+        if (searchQuery.isEmpty()){
+            _filteredCountryCases.value = _countryCases.value
+        }else{
+            viewModelScope.launch {
+                _filteredCountryCases.value = _countryCases.value!!.filter { countryCase ->
+                    countryCase.country.toLowerCase().contains(searchQuery)
+                }
+            }
+        }
+
+    }
 
 }

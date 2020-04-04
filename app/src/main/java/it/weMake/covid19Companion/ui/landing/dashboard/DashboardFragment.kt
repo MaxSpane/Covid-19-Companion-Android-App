@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -13,9 +14,12 @@ import it.weMake.covid19Companion.databinding.FragmentDashboardBinding
 import it.weMake.covid19Companion.ui.landing.dashboard.adapters.CasesStatsAdapter
 import it.weMake.covid19Companion.ui.landing.dashboard.adapters.CountryCasesAdapter
 import it.weMake.covid19Companion.utils.getTimeFromToday
+import it.weMake.covid19Companion.utils.hide
+import it.weMake.covid19Companion.utils.makeDisappear
+import it.weMake.covid19Companion.utils.show
 import javax.inject.Inject
 
-class DashboardFragment : DaggerFragment() {
+class DashboardFragment : DaggerFragment(), View.OnClickListener {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -48,13 +52,44 @@ class DashboardFragment : DaggerFragment() {
             casesStatsAdapter.updateCasesStats(it)
         })
 
-        dashboardViewModel.countryCases.observe(viewLifecycleOwner, Observer {
+        dashboardViewModel.filteredCountryCases.observe(viewLifecycleOwner, Observer {
             countryCasesAdapter.refill(it)
         })
 
         dashboardViewModel.updateCasesSummary()
 
+        fragmentBinding.searchET.addTextChangedListener {
+            dashboardViewModel.search(it.toString())
+        }
+
+        fragmentBinding.searchIV.setOnClickListener(this)
+
         return fragmentBinding.root
+    }
+
+    override fun onClick(v: View) {
+
+        when(v.id){
+
+            R.id.searchIV -> {
+
+                if (fragmentBinding.searchET.visibility == View.GONE){
+
+                    fragmentBinding.searchET.show()
+                    fragmentBinding.searchIV.setImageResource(R.drawable.ic_close_ash_24dp)
+
+                }else{
+
+                    fragmentBinding.searchET.makeDisappear()
+                    fragmentBinding.searchIV.setImageResource(R.drawable.ic_search)
+                    fragmentBinding.searchET.setText("")
+
+                }
+
+            }
+
+        }
+
     }
 
 }

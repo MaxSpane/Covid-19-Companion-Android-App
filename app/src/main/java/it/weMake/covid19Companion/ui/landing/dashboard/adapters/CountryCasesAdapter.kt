@@ -11,21 +11,23 @@ import it.weMake.covid19Companion.models.CountryCases
 class CountryCasesAdapter(): RecyclerView.Adapter<CountryCasesAdapter.Holder>() {
 
     private var dataset: List<CountryCases> = ArrayList()
-    
+    private var filteredDataset: List<CountryCases> = ArrayList()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_country_cases_summary, parent, false)
 
         return Holder(ItemCountryCasesSummaryBinding.bind(view))
     }
 
-    override fun getItemCount(): Int = dataset.size
+    override fun getItemCount(): Int = filteredDataset.size
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        holder.bind(dataset[position])
+        holder.bind(filteredDataset[position])
     }
 
     fun refill(dataset: List<CountryCases>){
         this.dataset = dataset
+        filteredDataset = dataset
         notifyDataSetChanged()
     }
 
