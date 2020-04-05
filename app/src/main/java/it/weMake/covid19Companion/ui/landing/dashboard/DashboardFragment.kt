@@ -45,7 +45,11 @@ class DashboardFragment : DaggerFragment(), View.OnClickListener {
         fragmentBinding.casesRV.adapter = countryCasesAdapter
 
         dashboardViewModel.countryCasesLastUpdated.observe(viewLifecycleOwner, Observer {
-            fragmentBinding.lastUpdatedValueTV.text = it.getTimeFromToday()
+            if(it == "Never"){
+                fragmentBinding.lastUpdatedValueTV.text = it
+            }else {
+                fragmentBinding.lastUpdatedValueTV.text = it.getTimeFromToday()
+            }
         })
 
         dashboardViewModel.casesStats.observe(viewLifecycleOwner, Observer {
