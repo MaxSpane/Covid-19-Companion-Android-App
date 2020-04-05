@@ -1,6 +1,7 @@
 package it.weMake.covid19Companion.ui.landing.dashboard
 
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.android.support.DaggerFragment
 import it.weMake.covid19Companion.R
 import it.weMake.covid19Companion.databinding.FragmentDashboardBinding
@@ -30,6 +32,22 @@ class DashboardFragment : DaggerFragment(), View.OnClickListener {
     lateinit var casesStatsAdapter: CasesStatsAdapter
     lateinit var countryCasesAdapter: CountryCasesAdapter
 
+    private lateinit var handler: Handler
+    private val autoScrollDelayedTime: Long = 2500
+    private val autoScrollCountryStatsRunnable: Runnable = Runnable {
+
+        val lastVisibleItemPosition = (fragmentBinding.casesStatsRV.layoutManager!! as LinearLayoutManager).findLastVisibleItemPosition()
+
+        if (lastVisibleItemPosition != 2){
+            fragmentBinding.casesStatsRV.smoothScrollToPosition(lastVisibleItemPosition + 1)
+        }else{
+            fragmentBinding.casesStatsRV.smoothScrollToPosition(0)
+        }
+
+        autoScrollCountryStatsDelayed()
+
+    }
+
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
@@ -38,6 +56,7 @@ class DashboardFragment : DaggerFragment(), View.OnClickListener {
         val root = inflater.inflate(R.layout.fragment_dashboard, container, false)
         fragmentBinding = FragmentDashboardBinding.inflate(inflater, container, false)
 
+        handler = Handler()
         casesStatsAdapter = CasesStatsAdapter()
         countryCasesAdapter = CountryCasesAdapter()
 
@@ -54,6 +73,11 @@ class DashboardFragment : DaggerFragment(), View.OnClickListener {
 
         dashboardViewModel.casesStats.observe(viewLifecycleOwner, Observer {
             casesStatsAdapter.updateCasesStats(it)
+
+            if (it.allConfirmedCases != 0){
+                autoScrollCountryStatsDelayed()
+            }
+
         })
 
         dashboardViewModel.filteredCountryCases.observe(viewLifecycleOwner, Observer {
@@ -94,6 +118,10 @@ class DashboardFragment : DaggerFragment(), View.OnClickListener {
 
         }
 
+    }
+
+    private fun autoScrollCountryStatsDelayed(){
+        handler.postDelayed(autoScrollCountryStatsRunnable, autoScrollDelayedTime)
     }
 
 }
