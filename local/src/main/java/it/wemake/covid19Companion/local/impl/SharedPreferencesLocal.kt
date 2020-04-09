@@ -21,4 +21,10 @@ class SharedPreferencesLocal @Inject constructor(
     override suspend fun getCasesSummaryLastUpdated(): String =
         covid19CompanionSharedPreferences.getCasesSummaryLastUpdated()
 
+    override fun getWHOHandHygieneDownloadId(): Long =
+        covid19CompanionSharedPreferences.getWHOHandHygieneDownloadId()
+
+    override fun setWHOHandHygieneDownloadId(downloadId: Long) =
+        covid19CompanionSharedPreferences.setWHOHandHygieneDownloadId(downloadId)
+
 }

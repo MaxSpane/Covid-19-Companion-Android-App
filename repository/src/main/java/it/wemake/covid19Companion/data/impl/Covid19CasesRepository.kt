@@ -38,4 +38,5 @@ class Covid19CasesRepository @Inject constructor(
         countryCasesLocal.getCasesStats().map {
             it.toDomain()
         }
+
 }

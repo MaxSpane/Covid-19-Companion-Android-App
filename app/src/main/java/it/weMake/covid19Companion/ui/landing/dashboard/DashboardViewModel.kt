@@ -85,7 +85,7 @@ class DashboardViewModel
         }else{
             viewModelScope.launch {
                 _filteredCountryCases.value = _countryCases.value!!.filter { countryCase ->
-                    countryCase.country.toLowerCase().contains(searchQuery)
+                    countryCase.country.toLowerCase().contains(searchQuery.toLowerCase())
                 }
             }
         }

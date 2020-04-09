@@ -23,3 +23,7 @@ annotation class ActivityScope
  */
 @Scope
 annotation class FragmentScope
+
+@Scope
+@Retention(AnnotationRetention.RUNTIME)
+annotation class PerService

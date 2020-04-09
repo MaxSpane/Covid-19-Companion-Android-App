@@ -10,4 +10,8 @@ interface ISharedPreferencesLocal {
 
     suspend fun getCasesSummaryLastUpdated(): String
 
+    fun getWHOHandHygieneDownloadId(): Long
+
+    fun setWHOHandHygieneDownloadId(downloadId: Long)
+
 }

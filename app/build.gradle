@@ -66,6 +66,8 @@ dependencies {
     api 'com.google.dagger:dagger-android-support:2.27'
     kapt 'com.google.dagger:dagger-android-processor:2.27'
 
+    implementation 'androidx.localbroadcastmanager:localbroadcastmanager:1.0.0'
+
     //Local Libs
     implementation project(':remote')
     implementation project(':local')
