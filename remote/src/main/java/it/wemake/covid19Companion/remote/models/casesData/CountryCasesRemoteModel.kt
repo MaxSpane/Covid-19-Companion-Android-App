@@ -1,4 +1,4 @@
-package it.wemake.covid19Companion.remote.models.casesSummary
+package it.wemake.covid19Companion.remote.models.casesData
 
 data class CountryCasesRemoteModel(
     val Country: String,

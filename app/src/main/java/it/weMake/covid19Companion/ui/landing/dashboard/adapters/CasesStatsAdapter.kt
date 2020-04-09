@@ -7,12 +7,13 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import it.weMake.covid19Companion.R
 import it.weMake.covid19Companion.databinding.ItemCasesSummaryBinding
+import it.weMake.covid19Companion.models.AreaCasesData
 import it.weMake.covid19Companion.models.CasesStats
 import it.weMake.covid19Companion.utils.numberWithCommas
 
 class CasesStatsAdapter(): RecyclerView.Adapter<CasesStatsAdapter.Holder>() {
 
-    private var casesStats = CasesStats(0,0,0)
+    private var globalCasesData: AreaCasesData? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_cases_summary, parent, false)
@@ -26,8 +27,8 @@ class CasesStatsAdapter(): RecyclerView.Adapter<CasesStatsAdapter.Holder>() {
         holder.bind(position)
     }
 
-    fun updateCasesStats(casesStats: CasesStats){
-        this.casesStats = casesStats
+    fun updateGlobalCasesData(globalCasesData: AreaCasesData){
+        this.globalCasesData = globalCasesData
         notifyDataSetChanged()
     }
 
@@ -48,7 +49,9 @@ class CasesStatsAdapter(): RecyclerView.Adapter<CasesStatsAdapter.Holder>() {
                 0 -> {
                     itemBinding.casesSummaryIV.setImageResource(R.drawable.ic_cough)
                     itemBinding.casesSummaryTitleTV.setText(R.string.confirmed)
-                    itemBinding.casesSummaryNumberTV.text = casesStats.allConfirmedCases.numberWithCommas()
+                    itemBinding.casesSummaryNumberTV.text = if (globalCasesData == null){"0"} else {
+                        globalCasesData!!.totalConfirmed!!.numberWithCommas()
+                    }
                 }
 
                 1 -> {
@@ -57,7 +60,9 @@ class CasesStatsAdapter(): RecyclerView.Adapter<CasesStatsAdapter.Holder>() {
                     itemBinding.casesSummaryCV.setCardBackgroundColor(ContextCompat.getColor(itemView.context, R.color.colorPrimary))
                     itemBinding.casesSummaryTitleTV.setTextColor(ContextCompat.getColor(itemView.context, R.color.white))
                     itemBinding.casesSummaryNumberTV.setTextColor(ContextCompat.getColor(itemView.context, R.color.white))
-                    itemBinding.casesSummaryNumberTV.text = casesStats.allRecovered.numberWithCommas()
+                    itemBinding.casesSummaryNumberTV.text = if (globalCasesData == null){"0"} else {
+                        globalCasesData!!.totalRecovered!!.numberWithCommas()
+                    }
                 }
 
                 2 -> {
@@ -66,7 +71,9 @@ class CasesStatsAdapter(): RecyclerView.Adapter<CasesStatsAdapter.Holder>() {
                     itemBinding.casesSummaryCV.setCardBackgroundColor(ContextCompat.getColor(itemView.context, R.color.deaths))
                     itemBinding.casesSummaryTitleTV.setTextColor(ContextCompat.getColor(itemView.context, R.color.white))
                     itemBinding.casesSummaryNumberTV.setTextColor(ContextCompat.getColor(itemView.context, R.color.white))
-                    itemBinding.casesSummaryNumberTV.text = casesStats.allDeaths.numberWithCommas()
+                    itemBinding.casesSummaryNumberTV.text = if (globalCasesData == null){"0"} else {
+                        globalCasesData!!.totalDeaths!!.numberWithCommas()
+                    }
                 }
 
             }

@@ -11,7 +11,6 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
-import android.os.Environment.getExternalStoragePublicDirectory
 import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
@@ -19,7 +18,6 @@ import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
-import androidx.core.net.toUri
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -88,7 +86,7 @@ class DashboardFragment : DaggerFragment(), View.OnClickListener {
         fragmentBinding.casesStatsRV.adapter = casesStatsAdapter
         fragmentBinding.casesRV.adapter = countryCasesAdapter
 
-        dashboardViewModel.countryCasesLastUpdated.observe(viewLifecycleOwner, Observer {
+        dashboardViewModel.casesDataLastUpdated.observe(viewLifecycleOwner, Observer {
             if(it == "Never"){
                 fragmentBinding.lastUpdatedValueTV.text = it
             }else {
@@ -96,16 +94,14 @@ class DashboardFragment : DaggerFragment(), View.OnClickListener {
             }
         })
 
-        dashboardViewModel.casesStats.observe(viewLifecycleOwner, Observer {
-            casesStatsAdapter.updateCasesStats(it)
-
-            if (it.allConfirmedCases != 0){
+        dashboardViewModel.globalCasesData.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                casesStatsAdapter.updateGlobalCasesData(it)
                 autoScrollCountryStatsDelayed()
             }
-
         })
 
-        dashboardViewModel.filteredCountryCases.observe(viewLifecycleOwner, Observer {
+        dashboardViewModel.filteredAreaCasesData.observe(viewLifecycleOwner, Observer {
             countryCasesAdapter.refill(it)
         })
 
