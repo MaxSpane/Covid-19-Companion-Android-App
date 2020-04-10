@@ -40,7 +40,7 @@
             android:id="@+id/confirmedValueTV"
             style="@style/Covid19TextView.Body.Bold"
             android:textColor="@color/black"
-            tools:text="200 + 5 "
+            tools:text="200 "
             app:layout_constraintTop_toBottomOf="@id/countryNameTV"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="@dimen/horizontal_margin"
@@ -54,11 +54,27 @@
             app:layout_constraintTop_toTopOf="@id/confirmedValueTV"
             app:layout_constraintStart_toEndOf="@id/confirmedValueTV"/>
 
+        <com.google.android.material.chip.Chip
+            android:id="@+id/confirmedDeltaCP"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5 NEW"
+            android:textAppearance="@style/ChipTextAppearance"
+            app:chipMinHeight="15dp"
+            android:textSize="12sp"
+            app:chipBackgroundColor="@color/black"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toEndOf="@id/confirmedTV"
+            app:layout_constraintTop_toTopOf="@id/confirmedValueTV"
+            app:layout_constraintBottom_toBottomOf="@id/confirmedValueTV"
+            android:layout_marginStart="8dp"
+            android:visibility="gone"/>
+
         <TextView
             android:id="@+id/recoveredValueTV"
             style="@style/Covid19TextView.Body.Bold"
             android:textColor="@color/colorPrimaryDark"
-            tools:text="120 + 3 "
+            tools:text="120"
             app:layout_constraintTop_toBottomOf="@id/confirmedValueTV"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="@dimen/horizontal_margin"
@@ -72,11 +88,27 @@
             app:layout_constraintTop_toTopOf="@id/recoveredValueTV"
             app:layout_constraintStart_toEndOf="@id/recoveredValueTV"/>
 
+        <com.google.android.material.chip.Chip
+            android:id="@+id/recoveredDeltaCP"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5 NEW"
+            android:textAppearance="@style/ChipTextAppearance"
+            app:chipMinHeight="15dp"
+            android:textSize="12sp"
+            app:chipBackgroundColor="@color/colorPrimaryDark"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toEndOf="@id/recoveredTV"
+            app:layout_constraintTop_toTopOf="@id/recoveredValueTV"
+            app:layout_constraintBottom_toBottomOf="@id/recoveredValueTV"
+            android:layout_marginStart="8dp"
+            android:visibility="gone"/>
+
         <TextView
             android:id="@+id/deathsValueTV"
             style="@style/Covid19TextView.Body.Bold"
             android:textColor="@color/deaths"
-            tools:text="2 + 1 "
+            tools:text="2"
             app:layout_constraintTop_toBottomOf="@id/recoveredValueTV"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="@dimen/horizontal_margin"
@@ -89,6 +121,22 @@
             android:layout_marginStart="2dp"
             app:layout_constraintTop_toTopOf="@id/deathsValueTV"
             app:layout_constraintStart_toEndOf="@id/deathsValueTV"/>
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/deathsDeltaCP"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5 NEW"
+            android:textAppearance="@style/ChipTextAppearance"
+            app:chipMinHeight="15dp"
+            android:textSize="12sp"
+            app:chipBackgroundColor="@color/deaths"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toEndOf="@id/deathsTV"
+            app:layout_constraintTop_toTopOf="@id/deathsValueTV"
+            app:layout_constraintBottom_toBottomOf="@id/deathsValueTV"
+            android:layout_marginStart="8dp"
+            android:visibility="gone"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

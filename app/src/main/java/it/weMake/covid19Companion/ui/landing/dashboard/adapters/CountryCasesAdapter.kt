@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import it.weMake.covid19Companion.R
 import it.weMake.covid19Companion.databinding.ItemCountryCasesSummaryBinding
 import it.weMake.covid19Companion.models.AreaCasesData
+import it.weMake.covid19Companion.utils.numberWithCommas
+import it.weMake.covid19Companion.utils.show
 
 class CountryCasesAdapter(): RecyclerView.Adapter<CountryCasesAdapter.Holder>() {
 
@@ -46,22 +48,22 @@ class CountryCasesAdapter(): RecyclerView.Adapter<CountryCasesAdapter.Holder>() 
             
             itemBinding.countryNameTV.text = item.displayName
 
-            if (item.totalConfirmedDelta == null){
-                itemBinding.confirmedValueTV.text = context.getString(R.string.cases_placeholder, item.totalConfirmed)
-            }else{
-                itemBinding.confirmedValueTV.text = context.getString(R.string.cases_plus_new_placeholder, item.totalConfirmed, item.totalConfirmedDelta)
+            itemBinding.confirmedValueTV.text = if(item.totalConfirmed == null){"Unknown"}else{item.totalConfirmed.numberWithCommas()}
+            if (item.totalConfirmedDelta != null){
+                itemBinding.confirmedDeltaCP.show()
+                itemBinding.confirmedDeltaCP.text = context.getString(R.string.new_cases_placeholder, item.totalConfirmedDelta.numberWithCommas())
             }
 
-            if (item.totalRecoveredDelta == null){
-                itemBinding.recoveredValueTV.text = context.getString(R.string.cases_placeholder, item.totalRecovered)
-            }else{
-                itemBinding.recoveredValueTV.text = context.getString(R.string.cases_plus_new_placeholder, item.totalRecovered, item.totalRecoveredDelta)
+            itemBinding.recoveredValueTV.text = if(item.totalRecovered == null){"Unknown"}else{item.totalRecovered.numberWithCommas()}
+            if (item.totalRecoveredDelta != null){
+                itemBinding.recoveredDeltaCP.show()
+                itemBinding.recoveredDeltaCP.text = context.getString(R.string.new_cases_placeholder, item.totalRecoveredDelta.numberWithCommas())
             }
 
-            if (item.totalDeathsDelta == null){
-                itemBinding.deathsValueTV.text = context.getString(R.string.cases_placeholder, item.totalDeaths)
-            }else{
-                itemBinding.deathsValueTV.text = context.getString(R.string.cases_plus_new_placeholder, item.totalDeaths, item.totalDeathsDelta)
+            itemBinding.deathsValueTV.text = if(item.totalDeaths == null){"Unknown"}else{item.totalDeaths.numberWithCommas()}
+            if (item.totalDeathsDelta != null){
+                itemBinding.deathsDeltaCP.show()
+                itemBinding.deathsDeltaCP.text = context.getString(R.string.new_cases_placeholder, item.totalDeathsDelta.numberWithCommas())
             }
 
         }
