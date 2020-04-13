@@ -14,4 +14,18 @@
     <string name="deaths">Deaths</string>
     <string name="cases_placeholder">%d </string>
     <string name="cases_plus_new_placeholder">%d + %d </string>
+    <string name="prevention_title">Wash your hands frequently</string>
+    <string name="prevention_next">Next</string>
+    <string name="prevention_summary1">Regularly and thoroughly clean your hands with an alcohol-based
+            hand rub or wash them with soap and water.
+    </string>
+    <string name="prevention_summary2"> Why? </string>
+    <string name="prevention_summary3">Washing your hands with soap and water or using alcohol-based
+            hand rub kills viruses that may  be on your hands.
+    </string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
 </resources>

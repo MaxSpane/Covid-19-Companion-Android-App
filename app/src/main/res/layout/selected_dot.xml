@@ -1,0 +1,15 @@
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+        <item>
+            <shape
+                android:innerRadius="0dp"                android:shape="ring"
+                android:thickness="8dp"
+                android:useLevel="false">
+                <solid android:color="@color/colorAccent"/>
+            </shape>
+        </item>
+    </layer-list>
+</androidx.constraintlayout.widget.ConstraintLayout>
