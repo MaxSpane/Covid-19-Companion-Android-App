@@ -1,11 +1,9 @@
 package it.weMake.covid19Companion.mappers
 
-import it.weMake.covid19Companion.models.CasesStats
-import it.weMake.covid19Companion.models.Country
 import it.weMake.covid19Companion.models.AreaCasesData
-import it.wemake.covid19Companion.domain.models.CasesStatsDomain
-import it.wemake.covid19Companion.domain.models.CountryCasesDomainModel
+import it.weMake.covid19Companion.models.CountryCasesData
 import it.wemake.covid19Companion.domain.models.AreaCasesDataDomainModel
+import it.wemake.covid19Companion.domain.models.CountryCasesDomainModel
 
 fun AreaCasesDataDomainModel.toPresentation(): AreaCasesData =
     AreaCasesData(
@@ -20,4 +18,18 @@ fun AreaCasesDataDomainModel.toPresentation(): AreaCasesData =
         totalRecoveredDelta,
         parentId,
         hasAreasData
+    )
+
+fun CountryCasesDomainModel.toPresentation(): CountryCasesData =
+    CountryCasesData(
+        id,
+        displayName,
+        totalConfirmed,
+        totalDeaths,
+        totalRecovered,
+        totalConfirmedDelta,
+        totalDeathsDelta,
+        totalRecoveredDelta,
+        hasAreasData,
+        iso2
     )

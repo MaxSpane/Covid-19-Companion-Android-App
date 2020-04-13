@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import it.weMake.covid19Companion.mappers.toPresentation
 import it.weMake.covid19Companion.models.AreaCasesData
+import it.weMake.covid19Companion.models.CountryCasesData
 import it.wemake.covid19Companion.domain.usecases.*
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.collect
@@ -14,19 +15,20 @@ import javax.inject.Inject
 
 class DashboardViewModel
     @Inject constructor(
-        val getAreaCasesDataUseCase: GetAreaCasesDataUseCase,
+        val getCountriesCasesDataUseCase: GetCountriesCasesDataUseCase,
         val updateCasesDataUseCase: UpdateCasesDataUseCase,
         val getCasesDataLastUpdatedUseCase: GetCasesDataLastUpdatedUseCase,
-        val getGlobalCasesDataUseCase: GetGlobalCasesDataUseCase
+        val getGlobalCasesDataUseCase: GetGlobalCasesDataUseCase,
+        val getCountriesUseCase: GetCountriesUseCase
     ) : ViewModel() {
 
-    val filteredAreaCasesData: LiveData<List<AreaCasesData>>
-        get() = _filteredAreaCasesData
+    val filteredCountriesCasesData: LiveData<List<CountryCasesData>>
+        get() = _filteredCountriesCasesData
 
-    private var _areaCasesData: MutableLiveData<List<AreaCasesData>> =
+    private var _countriesCasesData: MutableLiveData<List<CountryCasesData>> =
         MutableLiveData()
 
-    private var _filteredAreaCasesData: MutableLiveData<List<AreaCasesData>> =
+    private var _filteredCountriesCasesData: MutableLiveData<List<CountryCasesData>> =
         MutableLiveData()
 
     val casesDataLastUpdated: LiveData<String>
@@ -49,11 +51,11 @@ class DashboardViewModel
     init {
 
         viewModelScope.launch(handler) {
-            getAreaCasesDataUseCase("world").collect{ countries ->
-                _areaCasesData.value = countries.map {
+            getCountriesCasesDataUseCase().collect{ countries ->
+                _countriesCasesData.value = countries.map {
                     it.toPresentation()
                 }
-                _filteredAreaCasesData.value = _areaCasesData.value
+                _filteredCountriesCasesData.value = _countriesCasesData.value
             }
         }
 
@@ -69,6 +71,12 @@ class DashboardViewModel
             }
         }
 
+        viewModelScope.launch {
+            getCountriesUseCase().collect{
+                it.size
+            }
+        }
+
     }
 
     fun updateCasesSummary(){
@@ -80,11 +88,11 @@ class DashboardViewModel
     fun search(searchQuery: String){
 
         if (searchQuery.isEmpty()){
-            _filteredAreaCasesData.value = _areaCasesData.value
+            _filteredCountriesCasesData.value = _countriesCasesData.value
         }else{
             viewModelScope.launch {
-                _filteredAreaCasesData.value = _areaCasesData.value!!.filter { areaCasesData ->
-                    areaCasesData.displayName.toLowerCase().contains(searchQuery.toLowerCase())
+                _filteredCountriesCasesData.value = _countriesCasesData.value!!.filter { countriesCasesData ->
+                    countriesCasesData.displayName.toLowerCase().contains(searchQuery.toLowerCase())
                 }
             }
         }

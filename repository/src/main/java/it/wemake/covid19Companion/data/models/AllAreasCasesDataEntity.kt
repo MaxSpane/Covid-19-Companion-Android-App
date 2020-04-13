@@ -1,8 +1,5 @@
 package it.wemake.covid19Companion.data.models
 
-import it.wemake.covid19Companion.data.models.CountryCasesEntity
-import org.jetbrains.annotations.Nullable
-
 data class AllAreasCasesDataEntity(
     val id: String,
     val displayName: String,

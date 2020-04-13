@@ -1,8 +1,7 @@
 package it.wemake.covid19Companion.remote.mappers
 
 import it.wemake.covid19Companion.data.models.AllAreasCasesDataEntity
-import it.wemake.covid19Companion.data.models.AreaCasesDataEntity
-import it.wemake.covid19Companion.data.models.CountryCasesEntity
+import it.wemake.covid19Companion.data.models.CountryCasesDataEntity
 import it.wemake.covid19Companion.remote.models.casesData.AllAreasCasesDataRemoteModel
 import it.wemake.covid19Companion.remote.models.casesData.CountryCasesRemoteModel
 
@@ -23,14 +22,3 @@ internal fun AllAreasCasesDataRemoteModel.toEntity(): AllAreasCasesDataEntity =
         parentId
     )
 
-internal fun CountryCasesRemoteModel.toEntity(): CountryCasesEntity =
-    CountryCasesEntity(
-        this.Country,
-        this.Slug,
-        this.NewConfirmed,
-        this.TotalConfirmed,
-        this.NewDeaths,
-        this.TotalDeaths,
-        this.NewRecovered,
-        this.TotalRecovered
-    )

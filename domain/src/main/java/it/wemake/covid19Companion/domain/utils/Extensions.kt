@@ -3,8 +3,8 @@ package it.wemake.covid19Companion.domain.utils
 
 /**
  *
- * Creates an extension property on [String] that gets an id extracted from the string url passed.
- * if the string has no id or is blank returns a default value of -1.
+ * Creates an extension property on [String] that gets an flag_id extracted from the string url passed.
+ * if the string has no flag_id or is blank returns a default value of -1.
  *
  */
 val String.id: Int

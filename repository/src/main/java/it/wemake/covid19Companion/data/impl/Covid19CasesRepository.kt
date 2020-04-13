@@ -7,7 +7,6 @@ import it.wemake.covid19Companion.data.models.AllAreasCasesDataEntity
 import it.wemake.covid19Companion.data.models.AreaCasesDataEntity
 import it.wemake.covid19Companion.data.remote.ICovid19CasesRemote
 import it.wemake.covid19Companion.domain.models.AreaCasesDataDomainModel
-import it.wemake.covid19Companion.domain.models.CasesStatsDomain
 import it.wemake.covid19Companion.domain.models.CountryCasesDomainModel
 import it.wemake.covid19Companion.domain.repository.ICovid19CasesRepository
 import kotlinx.coroutines.flow.Flow
@@ -43,8 +42,8 @@ class Covid19CasesRepository @Inject constructor(
         }
     }
 
-    override suspend fun getAreaCasesData(parentId: String): Flow<List<AreaCasesDataDomainModel>> =
-        areasCasesDataLocal.getAreaCasesData(parentId).map { areaCasesData ->
+    override suspend fun getAreasCasesData(parentId: String): Flow<List<AreaCasesDataDomainModel>> =
+        areasCasesDataLocal.getAreasCasesData(parentId).map { areaCasesData ->
             areaCasesData.map {
                 it.toDomain()
             }
@@ -53,6 +52,13 @@ class Covid19CasesRepository @Inject constructor(
     override suspend fun getGlobalCasesData(): Flow<AreaCasesDataDomainModel?> =
         areasCasesDataLocal.getGlobalCasesData().map {
             it?.toDomain()
+        }
+
+    override suspend fun getCountriesCasesData(): Flow<List<CountryCasesDomainModel>> =
+        areasCasesDataLocal.getCountriesCasesData().map { countriesCasesData->
+            countriesCasesData.map {
+                it.toDomain()
+            }
         }
 
 }

@@ -101,7 +101,7 @@ class DashboardFragment : DaggerFragment(), View.OnClickListener {
             }
         })
 
-        dashboardViewModel.filteredAreaCasesData.observe(viewLifecycleOwner, Observer {
+        dashboardViewModel.filteredCountriesCasesData.observe(viewLifecycleOwner, Observer {
             countryCasesAdapter.refill(it)
         })
 

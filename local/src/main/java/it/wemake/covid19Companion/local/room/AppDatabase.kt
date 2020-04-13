@@ -5,13 +5,16 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import it.wemake.covid19Companion.local.models.AreaCasesDataLocalModel
+import it.wemake.covid19Companion.local.models.CountryLocalModel
 import it.wemake.covid19Companion.local.room.dao.AreasCasesDataDao
+import it.wemake.covid19Companion.local.room.dao.CountriesDao
 import it.wemake.covid19Companion.local.utils.DB_NAME
 
-@Database(entities = [AreaCasesDataLocalModel::class], version = 1, exportSchema = false)
+@Database(entities = [AreaCasesDataLocalModel::class, CountryLocalModel::class], version = 1, exportSchema = true)
 abstract class AppDatabase: RoomDatabase() {
 
-    abstract fun getCountryCasesDao(): AreasCasesDataDao
+    abstract fun getAreasCasesDataDao(): AreasCasesDataDao
+    abstract fun getCountriesDao(): CountriesDao
 
     companion object {
         @Volatile
@@ -25,7 +28,9 @@ abstract class AppDatabase: RoomDatabase() {
         private fun buildDatabase(context: Context) = Room.databaseBuilder(
             context,
             AppDatabase::class.java, DB_NAME
-        ).build()
+        )
+            .createFromAsset("databases/countries.db")
+            .build()
     }
 
 }

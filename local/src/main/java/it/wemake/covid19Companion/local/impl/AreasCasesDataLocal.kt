@@ -2,6 +2,7 @@ package it.wemake.covid19Companion.local.impl
 
 import it.wemake.covid19Companion.data.local.IAreasCasesDataLocal
 import it.wemake.covid19Companion.data.models.AreaCasesDataEntity
+import it.wemake.covid19Companion.data.models.CountryCasesDataEntity
 import it.wemake.covid19Companion.local.mappers.toEntity
 import it.wemake.covid19Companion.local.mappers.toLocal
 import it.wemake.covid19Companion.local.room.dao.AreasCasesDataDao
@@ -19,9 +20,17 @@ class AreasCasesDataLocal @Inject constructor(
         })
     }
 
-    override suspend fun getAreaCasesData(parentId: String): Flow<List<AreaCasesDataEntity>> =
-        areasCasesDataDao.getAreaCasesData(parentId).map { areasCasesData->
+    override suspend fun getAreasCasesData(parentId: String): Flow<List<AreaCasesDataEntity>> {
+        return areasCasesDataDao.getAreasCasesData(parentId).map { areasCasesData->
             areasCasesData.map {
+                it.toEntity()
+            }
+        }
+    }
+
+    override suspend fun getCountriesCasesData(): Flow<List<CountryCasesDataEntity>> =
+        areasCasesDataDao.getCountriesCasesData().map {countriesCasesData ->
+            countriesCasesData.map {
                 it.toEntity()
             }
         }
