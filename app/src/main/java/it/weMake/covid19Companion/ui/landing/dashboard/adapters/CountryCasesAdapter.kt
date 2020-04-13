@@ -61,6 +61,7 @@ class CountryCasesAdapter(): RecyclerView.Adapter<CountryCasesAdapter.Holder>() 
             itemBinding.confirmedValueTV.text = if(item.totalConfirmed == null){"Unknown"}else{item.totalConfirmed.numberWithCommas()}
             if (item.totalConfirmedDelta != null){
                 itemBinding.confirmedDeltaCP.show()
+
                 itemBinding.confirmedDeltaCP.text = context.getString(R.string.new_cases_placeholder, item.totalConfirmedDelta.numberWithCommas())
             }
 

@@ -14,7 +14,7 @@ interface AreasCasesDataDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAreasCasesData(areaCaseData: List<AreaCasesDataLocalModel>)
 
-    @Query("SELECT * FROM area_cases_data WHERE parentId = 'world'")
+    @Query("SELECT * FROM area_cases_data WHERE id = 'world'")
     fun getGlobalCasesData(): Flow<AreaCasesDataLocalModel?>
 
     @Query("SELECT * FROM area_cases_data WHERE parentId = :parentId")
