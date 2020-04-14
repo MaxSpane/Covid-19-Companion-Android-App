@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.preventionTips.PreventionTipFragment"
+    android:paddingStart="20dp"
+    android:paddingEnd="20dp"
+    android:paddingTop="48dp">
+
+
+    <TextView
+        android:id="@+id/preventionTipsTitleTV"
+        style="@style/Covid19TextView"
+        android:text="@string/prevention_title"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="bold"
+        android:textSize="32sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/preventionTipsIV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_washing_hands"
+        android:layout_marginTop="14dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/preventionTipsTitleTV"
+        android:contentDescription="wash your hands" />
+
+    <TextView
+        android:id="@+id/preventionTipsSummary1TV"
+        style="@style/Covid19TextView"
+        android:text="@string/prevention_summary1"
+        android:textColor="@color/ash"
+        android:textSize="16sp"
+        android:layout_marginTop="56dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/preventionTipsIV" />
+
+    <TextView
+        android:id="@+id/preventionTipsSummary2TV"
+        style="@style/Covid19TextView"
+        android:text="@string/prevention_summary2"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:layout_marginTop="20dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/preventionTipsSummary1TV" />
+
+
+
+    <TextView
+        android:id="@+id/preventionTipsSummary3TV"
+        style="@style/Covid19TextView"
+        android:text="@string/prevention_summary3"
+        android:textColor="@color/ash"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/preventionTipsSummary2TV" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
