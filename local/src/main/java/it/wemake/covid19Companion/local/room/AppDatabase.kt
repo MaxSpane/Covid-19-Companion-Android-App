@@ -29,7 +29,7 @@ abstract class AppDatabase: RoomDatabase() {
             context,
             AppDatabase::class.java, DB_NAME
         )
-            .createFromAsset("databases/countries.db")
+            .createFromAsset("databases/covid_19_companion.db")
             .build()
     }
 
