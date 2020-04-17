@@ -6,4 +6,8 @@ interface ISharedPreferencesRepository {
 
     suspend fun getCasesLastUpdated(): Flow<String>
 
+    fun getWHOHandHygieneBrochureDownloadId(): Long
+
+    fun setWHOHandHygieneDownloadId(downloadId: Long)
+
 }

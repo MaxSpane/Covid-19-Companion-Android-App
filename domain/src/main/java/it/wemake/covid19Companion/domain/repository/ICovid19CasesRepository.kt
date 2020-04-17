@@ -1,16 +1,17 @@
 package it.wemake.covid19Companion.domain.repository
 
-import it.wemake.covid19Companion.domain.models.CasesStatsDomain
+import it.wemake.covid19Companion.domain.models.AreaCasesDataDomainModel
 import it.wemake.covid19Companion.domain.models.CountryCasesDomainModel
-import it.wemake.covid19Companion.domain.models.CountryDomainModel
 import kotlinx.coroutines.flow.Flow
 
 interface ICovid19CasesRepository {
 
-    suspend fun updateCasesSummary()
+    suspend fun updateCasesData()
 
-    suspend fun getCountriesCasesSummary(): Flow<List<CountryCasesDomainModel>>
+    suspend fun getAreasCasesData(parentId: String): Flow<List<AreaCasesDataDomainModel>>
 
-    suspend fun getCasesStats(): Flow<CasesStatsDomain>
+    suspend fun getGlobalCasesData(): Flow<AreaCasesDataDomainModel?>
+
+    suspend fun getCountriesCasesData(): Flow<List<CountryCasesDomainModel>>
 
 }

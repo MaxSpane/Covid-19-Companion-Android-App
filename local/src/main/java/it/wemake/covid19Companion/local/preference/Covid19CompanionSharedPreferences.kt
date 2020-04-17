@@ -6,6 +6,7 @@ import androidx.core.content.edit
 import it.wemake.covid19Companion.local.utils.CASES_SUMMARY_LAST_UPDATED
 import it.wemake.covid19Companion.local.utils.COVID_19_COMPANION_SHARED_PREFERENCES
 import it.wemake.covid19Companion.local.utils.NUMBER_OF_CHECKS
+import it.wemake.covid19Companion.local.utils.WHO_HAND_HYGIENE_BROCHURE_DOWNLOAD_ID
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
@@ -20,15 +21,6 @@ class Covid19CompanionSharedPreferences constructor(
     private val covid19CompanionAppSharedPref = context.getSharedPreferences(
         COVID_19_COMPANION_SHARED_PREFERENCES, Context.MODE_PRIVATE)
 
-    suspend fun getNumberOfCheck(): Flow<Int>{
-        var numberOfChecks = covid19CompanionAppSharedPref.getInt(NUMBER_OF_CHECKS, 1)
-        val editor = covid19CompanionAppSharedPref.edit()
-        editor.putInt(NUMBER_OF_CHECKS, ++numberOfChecks)
-        editor.apply()
-
-        return flow { emit(numberOfChecks) }
-    }
-
     @ExperimentalCoroutinesApi
     suspend fun getCasesSummaryLastUpdatedFlow(): Flow<String> =
         callbackFlow {
@@ -42,7 +34,7 @@ class Covid19CompanionSharedPreferences constructor(
             awaitClose { covid19CompanionAppSharedPref.unregisterOnSharedPreferenceChangeListener(listener) }
         }
 
-    suspend fun updateCasesSummaryLastUpdated(lastUpdated: String){
+    fun updateCasesSummaryLastUpdated(lastUpdated: String){
         val editor = covid19CompanionAppSharedPref.edit()
         editor.putString(CASES_SUMMARY_LAST_UPDATED, lastUpdated)
         editor.apply()
@@ -50,5 +42,14 @@ class Covid19CompanionSharedPreferences constructor(
 
     fun getCasesSummaryLastUpdated(): String =
         covid19CompanionAppSharedPref.getString(CASES_SUMMARY_LAST_UPDATED, "Never")!!
+
+    fun getWHOHandHygieneDownloadId(): Long =
+        covid19CompanionAppSharedPref.getLong(WHO_HAND_HYGIENE_BROCHURE_DOWNLOAD_ID, 0)
+
+    fun setWHOHandHygieneDownloadId(downloadId: Long) {
+        val editor = covid19CompanionAppSharedPref.edit()
+        editor.putLong(WHO_HAND_HYGIENE_BROCHURE_DOWNLOAD_ID, downloadId)
+        editor.apply()
+    }
 
 }

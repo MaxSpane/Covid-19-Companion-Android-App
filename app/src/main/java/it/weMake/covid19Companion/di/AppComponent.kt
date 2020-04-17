@@ -15,6 +15,7 @@ import it.weMake.covid19Companion.di.modules.local.LocalModule
 import it.weMake.covid19Companion.di.modules.local.RoomModule
 import it.weMake.covid19Companion.di.modules.remote.RemoteModule
 import it.weMake.covid19Companion.di.modules.repository.RepositoryModule
+import it.weMake.covid19Companion.di.modules.services.ServiceModule
 import javax.inject.Singleton
 
 /**
@@ -30,7 +31,8 @@ import javax.inject.Singleton
         RepositoryModule::class,
         DomainModule::class,
         ActivityBuilderModule::class,
-        ViewModelModule::class
+        ViewModelModule::class,
+        ServiceModule::class
     ]
 )
 interface AppComponent: AndroidInjector<Application> {

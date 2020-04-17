@@ -31,11 +31,11 @@ class PreventionTipsActivity : AppCompatActivity() {
         //set the onclicklistener and put the changing of pages method in it
         binding.preventionTipsVP.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
-                if( position == 4){
-                    binding.preventionNext.text = "Get Started"
+                    if( position == 4){
+                        binding.preventionNext.text = "Get Started"
 
 
-                }
+                    }
                 else
                 {  binding.preventionNext.text = "Next"
 

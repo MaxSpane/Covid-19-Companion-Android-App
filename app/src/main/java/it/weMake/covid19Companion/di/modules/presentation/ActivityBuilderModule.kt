@@ -1,5 +1,6 @@
 package it.weMake.covid19Companion.di.modules.presentation
 
+import dagger.Binds
 import it.weMake.covid19Companion.di.ActivityScope
 import dagger.Module
 import dagger.android.ContributesAndroidInjector

@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import it.weMake.covid19Companion.mappers.toPresentation
-import it.weMake.covid19Companion.models.CasesStats
-import it.weMake.covid19Companion.models.CountryCases
+import it.weMake.covid19Companion.models.AreaCasesData
+import it.weMake.covid19Companion.models.CountryCasesData
 import it.wemake.covid19Companion.domain.usecases.*
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.collect
@@ -15,31 +15,32 @@ import javax.inject.Inject
 
 class DashboardViewModel
     @Inject constructor(
-        val getCountriesCasesUseCase: GetCountriesCasesUseCase,
-        val updateCountriesCasesUseCase: UpdateCountriesCasesUseCase,
-        val getCountriesCasesSummaryLastUpdatedUseCase: GetCountriesCasesSummaryLastUpdatedUseCase,
-        val getCasesStatsUseCase: CasesStatsUseCase
+        val getCountriesCasesDataUseCase: GetCountriesCasesDataUseCase,
+        val updateCasesDataUseCase: UpdateCasesDataUseCase,
+        val getCasesDataLastUpdatedUseCase: GetCasesDataLastUpdatedUseCase,
+        val getGlobalCasesDataUseCase: GetGlobalCasesDataUseCase,
+        val getCountriesUseCase: GetCountriesUseCase
     ) : ViewModel() {
 
-    val filteredCountryCases: LiveData<List<CountryCases>>
-        get() = _filteredCountryCases
+    val filteredCountriesCasesData: LiveData<List<CountryCasesData>>
+        get() = _filteredCountriesCasesData
 
-    private var _countryCases: MutableLiveData<List<CountryCases>> =
+    private var _countriesCasesData: MutableLiveData<List<CountryCasesData>> =
         MutableLiveData()
 
-    private var _filteredCountryCases: MutableLiveData<List<CountryCases>> =
+    private var _filteredCountriesCasesData: MutableLiveData<List<CountryCasesData>> =
         MutableLiveData()
 
-    val countryCasesLastUpdated: LiveData<String>
-        get() = _countryCasesLastUpdated
+    val casesDataLastUpdated: LiveData<String>
+        get() = _casesDataLastUpdated
 
-    private var _countryCasesLastUpdated: MutableLiveData<String> =
+    private var _casesDataLastUpdated: MutableLiveData<String> =
         MutableLiveData()
 
-    val casesStats: LiveData<CasesStats>
-        get() = _casesStats
+    val globalCasesData: LiveData<AreaCasesData>
+        get() = _globalCasesData
 
-    private var _casesStats: MutableLiveData<CasesStats> =
+    private var _globalCasesData: MutableLiveData<AreaCasesData> =
         MutableLiveData()
 
     protected val handler = CoroutineExceptionHandler { _, exception ->
@@ -50,23 +51,29 @@ class DashboardViewModel
     init {
 
         viewModelScope.launch(handler) {
-            getCountriesCasesUseCase().collect{ countries ->
-                _countryCases.value = countries.map {
+            getCountriesCasesDataUseCase().collect{ countries ->
+                _countriesCasesData.value = countries.map {
                     it.toPresentation()
                 }
-                _filteredCountryCases.value = _countryCases.value
+                _filteredCountriesCasesData.value = _countriesCasesData.value
             }
         }
 
         viewModelScope.launch {
-            getCountriesCasesSummaryLastUpdatedUseCase().collect{ it ->
-                _countryCasesLastUpdated.value = it
+            getCasesDataLastUpdatedUseCase().collect{ it ->
+                _casesDataLastUpdated.value = it
             }
         }
 
         viewModelScope.launch {
-            getCasesStatsUseCase().collect{
-                _casesStats.value = it.toPresentation()
+            getGlobalCasesDataUseCase().collect{
+                _globalCasesData.value = it?.toPresentation()
+            }
+        }
+
+        viewModelScope.launch {
+            getCountriesUseCase().collect{
+                it.size
             }
         }
 
@@ -74,18 +81,18 @@ class DashboardViewModel
 
     fun updateCasesSummary(){
         viewModelScope.launch(handler) {
-            updateCountriesCasesUseCase()
+            updateCasesDataUseCase()
         }
     }
 
     fun search(searchQuery: String){
 
         if (searchQuery.isEmpty()){
-            _filteredCountryCases.value = _countryCases.value
+            _filteredCountriesCasesData.value = _countriesCasesData.value
         }else{
             viewModelScope.launch {
-                _filteredCountryCases.value = _countryCases.value!!.filter { countryCase ->
-                    countryCase.country.toLowerCase().contains(searchQuery)
+                _filteredCountriesCasesData.value = _countriesCasesData.value!!.filter { countriesCasesData ->
+                    countriesCasesData.displayName.toLowerCase().contains(searchQuery.toLowerCase())
                 }
             }
         }

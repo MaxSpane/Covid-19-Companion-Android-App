@@ -2,6 +2,7 @@ package it.weMake.covid19Companion.utils
 
 import android.content.Context
 import android.view.View
+import android.widget.Toast
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -30,5 +31,9 @@ fun RecyclerView.initRecyclerViewWithLineDecoration(context: Context) {
     val itemDecoration = DividerItemDecoration(context, linearLayoutManager.orientation)
     layoutManager = linearLayoutManager
     addItemDecoration(itemDecoration)
+}
+
+fun showLongToast(context: Context, message: String){
+    Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
 }
 

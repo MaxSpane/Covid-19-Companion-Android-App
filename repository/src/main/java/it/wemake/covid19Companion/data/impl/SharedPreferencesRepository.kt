@@ -11,4 +11,9 @@ class SharedPreferencesRepository @Inject constructor(
     override suspend fun getCasesLastUpdated() =
         sharedPreferencesLocal.getCasesSummaryLastUpdatedFlow()
 
+    override fun getWHOHandHygieneBrochureDownloadId(): Long =
+        sharedPreferencesLocal.getWHOHandHygieneDownloadId()
+
+    override fun setWHOHandHygieneDownloadId(downloadId: Long) =
+        sharedPreferencesLocal.setWHOHandHygieneDownloadId(downloadId)
 }

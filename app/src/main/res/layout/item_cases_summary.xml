@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="335dp"
+    android:minWidth="335dp"
+    android:layout_width="wrap_content"
     android:layout_height="100dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -12,7 +13,7 @@
     android:id="@+id/casesSummaryCV">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent">
 
         <ImageView
@@ -46,7 +47,9 @@
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/casesSummaryTitleTV"
             app:layout_constraintTop_toBottomOf="@id/casesSummaryTitleTV"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="20dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

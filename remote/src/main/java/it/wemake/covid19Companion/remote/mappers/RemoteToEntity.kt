@@ -1,26 +1,24 @@
 package it.wemake.covid19Companion.remote.mappers
 
-import it.wemake.covid19Companion.data.models.CasesSummaryEntity
-import it.wemake.covid19Companion.data.models.CountryCasesEntity
-import it.wemake.covid19Companion.remote.models.casesSummary.CasesSummaryRemoteModel
-import it.wemake.covid19Companion.remote.models.casesSummary.CountryCasesRemoteModel
+import it.wemake.covid19Companion.data.models.AllAreasCasesDataEntity
+import it.wemake.covid19Companion.data.models.CountryCasesDataEntity
+import it.wemake.covid19Companion.remote.models.casesData.AllAreasCasesDataRemoteModel
+import it.wemake.covid19Companion.remote.models.casesData.CountryCasesRemoteModel
 
-internal fun CasesSummaryRemoteModel.toEntity(): CasesSummaryEntity =
-    CasesSummaryEntity(
-        this.Countries.map {
+internal fun AllAreasCasesDataRemoteModel.toEntity(): AllAreasCasesDataEntity =
+    AllAreasCasesDataEntity(
+        id,
+        displayName,
+        areas.map {
             it.toEntity()
         },
-        this.Date
+        lastUpdated,
+        totalConfirmed,
+        totalDeaths,
+        totalRecovered,
+        totalConfirmedDelta,
+        totalDeathsDelta,
+        totalRecoveredDelta,
+        parentId
     )
 
-internal fun CountryCasesRemoteModel.toEntity(): CountryCasesEntity =
-    CountryCasesEntity(
-        this.Country,
-        this.Slug,
-        this.NewConfirmed,
-        this.TotalConfirmed,
-        this.NewDeaths,
-        this.TotalDeaths,
-        this.NewRecovered,
-        this.TotalRecovered
-    )

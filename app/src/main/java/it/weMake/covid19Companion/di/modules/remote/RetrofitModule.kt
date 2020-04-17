@@ -2,11 +2,11 @@ package it.weMake.covid19Companion.di.modules.remote
 
 import dagger.Module
 import dagger.Provides
-import it.wemake.covid19Companion.remote.api.Covid19ApiService
+import it.wemake.covid19Companion.remote.api.BingCovid19ApiService
 import it.wemake.covid19Companion.remote.api.HttpClient
 import it.wemake.covid19Companion.remote.api.LoggingInterceptor
-import it.wemake.covid19Companion.remote.utils.BASE_URL_COVID_19
-import it.wemake.covid19Companion.remote.utils.RETROFIT_COVID_19
+import it.wemake.covid19Companion.remote.utils.BASE_URL_BING_COVID_19
+import it.wemake.covid19Companion.remote.utils.RETROFIT_BING_COVID_19
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -27,10 +27,10 @@ open class RetrofitModule {
 
     @Singleton
     @Provides
-    @Named(RETROFIT_COVID_19)
-    open fun provideCovid19Retrofit(okHttpClient: OkHttpClient): Retrofit {
+    @Named(RETROFIT_BING_COVID_19)
+    open fun provideBingCovid19Retrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(BASE_URL_COVID_19)
+            .baseUrl(BASE_URL_BING_COVID_19)
             .client(okHttpClient)
             .addConverterFactory(MoshiConverterFactory.create())
             .build()
@@ -38,8 +38,8 @@ open class RetrofitModule {
 
     @Singleton
     @Provides
-    open fun provideCovid19Api(@Named(RETROFIT_COVID_19) retrofit: Retrofit): Covid19ApiService {
-        return retrofit.create(Covid19ApiService::class.java)
+    open fun provideBingCovid19Api(@Named(RETROFIT_BING_COVID_19) retrofit: Retrofit): BingCovid19ApiService {
+        return retrofit.create(BingCovid19ApiService::class.java)
     }
 
 }

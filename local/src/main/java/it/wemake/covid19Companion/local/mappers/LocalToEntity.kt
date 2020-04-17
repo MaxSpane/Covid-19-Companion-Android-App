@@ -1,25 +1,43 @@
 package it.wemake.covid19Companion.local.mappers
 
-import it.wemake.covid19Companion.data.models.CasesStatsEntity
-import it.wemake.covid19Companion.data.models.CountryCasesEntity
-import it.wemake.covid19Companion.local.models.CasesStatsLocal
-import it.wemake.covid19Companion.local.models.CountryCasesLocalModel
+import it.wemake.covid19Companion.data.models.AreaCasesDataEntity
+import it.wemake.covid19Companion.data.models.CountryCasesDataEntity
+import it.wemake.covid19Companion.data.models.CountryEntityModel
+import it.wemake.covid19Companion.local.models.AreaCasesDataLocalModel
+import it.wemake.covid19Companion.local.models.CountriesCasesDataLocalModel
+import it.wemake.covid19Companion.local.models.CountryLocalModel
 
-internal fun CountryCasesLocalModel.toEntity(): CountryCasesEntity =
-    CountryCasesEntity(
-        this.country,
-        this.slug,
-        this.newConfirmed,
-        this.totalConfirmed,
-        this.newDeaths,
-        this.totalDeaths,
-        this.newRecovered,
-        this.totalRecovered
+internal fun AreaCasesDataLocalModel.toEntity(): AreaCasesDataEntity =
+    AreaCasesDataEntity(
+        id,
+        displayName,
+        lastUpdated,
+        totalConfirmed,
+        totalDeaths,
+        totalRecovered,
+        totalConfirmedDelta,
+        totalDeathsDelta,
+        totalRecoveredDelta,
+        parentId,
+        hasAreasData
     )
 
-internal fun CasesStatsLocal.toEntity(): CasesStatsEntity =
-    CasesStatsEntity(
-        this.allConfirmedCases,
-        this.allRecovered,
-        this.allDeaths
+internal fun CountriesCasesDataLocalModel.toEntity(): CountryCasesDataEntity =
+    CountryCasesDataEntity(
+        id,
+        displayName,
+        totalConfirmed,
+        totalDeaths,
+        totalRecovered,
+        totalConfirmedDelta,
+        totalDeathsDelta,
+        totalRecoveredDelta,
+        hasAreasData,
+        iso2
+    )
+
+internal fun CountryLocalModel.toEntity(): CountryEntityModel =
+    CountryEntityModel(
+        name,
+        iso2
     )
