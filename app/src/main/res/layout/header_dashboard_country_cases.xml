@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/casesTitleTV"
+        style="@style/Covid19TextView.Head.Title"
+        android:layout_width="0dp"
+        android:text="@string/cases_title"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="56dp"
+        android:layout_marginStart="@dimen/horizontal_margin"
+        android:layout_marginEnd="@dimen/horizontal_margin"/>
+
+    <TextView
+        android:id="@+id/lastUpdatedTV"
+        style="@style/Covid19TextView.Body.Bold"
+        android:text="@string/title_last_updated"
+        android:textColor="@color/ash"
+        app:layout_constraintTop_toTopOf="@id/filterIV"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/filterIV"
+        android:layout_marginStart="@dimen/horizontal_margin"/>
+
+    <TextView
+        android:id="@+id/lastUpdatedValueTV"
+        style="@style/Covid19TextView.Body.Bold"
+        android:text="12:30PM Today"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toTopOf="@id/lastUpdatedTV"
+        app:layout_constraintStart_toEndOf="@id/lastUpdatedTV"/>
+
+    <ImageView
+        android:id="@+id/filterIV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_filter"
+        app:layout_constraintTop_toBottomOf="@id/casesTitleTV"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="@dimen/horizontal_margin"
+        android:layout_marginTop="26dp"/>
+
+    <ImageView
+        android:id="@+id/searchIV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_search"
+        app:layout_constraintTop_toTopOf="@id/filterIV"
+        app:layout_constraintEnd_toStartOf="@id/filterIV"
+        android:layout_marginEnd="28dp"/>
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/searchET"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:background="@drawable/bg_search_edit_text"
+        android:layout_marginTop="26dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/searchIV"
+        android:visibility="gone"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

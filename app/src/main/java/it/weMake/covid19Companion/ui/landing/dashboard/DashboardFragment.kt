@@ -28,8 +28,8 @@ import dagger.android.support.DaggerFragment
 import it.weMake.covid19Companion.R
 import it.weMake.covid19Companion.databinding.FragmentDashboardBinding
 import it.weMake.covid19Companion.services.DownloadManagerIntentService
-import it.weMake.covid19Companion.ui.landing.dashboard.adapters.CasesStatsAdapter
-import it.weMake.covid19Companion.ui.landing.dashboard.adapters.CountryCasesAdapter
+import it.weMake.covid19Companion.ui.landing.dashboard.adapters.GlobalCasesStatsAdapter
+import it.weMake.covid19Companion.ui.landing.dashboard.adapters.DashboardAdapter
 import it.weMake.covid19Companion.utils.*
 import java.io.File
 import javax.inject.Inject
@@ -42,8 +42,8 @@ class DashboardFragment : DaggerFragment(), View.OnClickListener {
     protected val dashboardViewModel: DashboardViewModel by viewModels { viewModelFactory }
 
     lateinit var fragmentBinding: FragmentDashboardBinding
-    lateinit var casesStatsAdapter: CasesStatsAdapter
-    lateinit var countryCasesAdapter: CountryCasesAdapter
+    lateinit var globalCasesStatsAdapter: GlobalCasesStatsAdapter
+    lateinit var dashboardAdapter: DashboardAdapter
 
     private lateinit var handler: Handler
     private val autoScrollDelayedTime: Long = 2500
@@ -80,11 +80,11 @@ class DashboardFragment : DaggerFragment(), View.OnClickListener {
         fragmentBinding = FragmentDashboardBinding.inflate(inflater, container, false)
 
         handler = Handler()
-        casesStatsAdapter = CasesStatsAdapter()
-        countryCasesAdapter = CountryCasesAdapter()
+        globalCasesStatsAdapter = GlobalCasesStatsAdapter()
+        dashboardAdapter = DashboardAdapter()
 
-        fragmentBinding.casesStatsRV.adapter = casesStatsAdapter
-        fragmentBinding.casesRV.adapter = countryCasesAdapter
+        fragmentBinding.casesStatsRV.adapter = globalCasesStatsAdapter
+        fragmentBinding.casesRV.adapter = dashboardAdapter
 
         dashboardViewModel.casesDataLastUpdated.observe(viewLifecycleOwner, Observer {
             if(it == "Never"){
@@ -96,13 +96,13 @@ class DashboardFragment : DaggerFragment(), View.OnClickListener {
 
         dashboardViewModel.globalCasesData.observe(viewLifecycleOwner, Observer {
             it?.let {
-                casesStatsAdapter.updateGlobalCasesData(it)
+                globalCasesStatsAdapter.updateGlobalCasesData(it)
                 autoScrollCountryStatsDelayed()
             }
         })
 
         dashboardViewModel.filteredCountriesCasesData.observe(viewLifecycleOwner, Observer {
-            countryCasesAdapter.refill(it)
+            dashboardAdapter.refill(it)
         })
 
         dashboardViewModel.updateCasesSummary()

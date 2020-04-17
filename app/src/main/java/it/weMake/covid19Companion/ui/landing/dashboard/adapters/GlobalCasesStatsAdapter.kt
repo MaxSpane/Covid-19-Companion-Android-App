@@ -8,10 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import it.weMake.covid19Companion.R
 import it.weMake.covid19Companion.databinding.ItemCasesSummaryBinding
 import it.weMake.covid19Companion.models.AreaCasesData
-import it.weMake.covid19Companion.models.CasesStats
 import it.weMake.covid19Companion.utils.numberWithCommas
 
-class CasesStatsAdapter(): RecyclerView.Adapter<CasesStatsAdapter.Holder>() {
+class GlobalCasesStatsAdapter(): RecyclerView.Adapter<GlobalCasesStatsAdapter.Holder>() {
 
     private var globalCasesData: AreaCasesData? = null
 
