@@ -1,32 +1,66 @@
 package it.weMake.covid19Companion.ui.preventionTips
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
-import it.weMake.covid19Companion.R
+import androidx.appcompat.app.AppCompatActivity
+import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.tabs.TabLayoutMediator
 import it.weMake.covid19Companion.databinding.ActivityPreventionTipsBinding
-import kotlinx.android.synthetic.main.activity_prevention_tips.view.*
+import it.weMake.covid19Companion.ui.landing.MainActivity
+
 
 class PreventionTipsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityPreventionTipsBinding
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPreventionTipsBinding.inflate(layoutInflater)
-        // get a reference to the preventiontipnext textview
-        // below is a reference using findviewbyid but we want to use binfding :(
-        //  val tv_click_me = findViewById(R.id.tv_click_me) as TextView
+
 
         val view = binding.root
+        val preventionTipsViewPager = binding.preventionTipsVP
+        val tabLayout = binding.preventionTipTL
 
-        //set the onclicklistener and put the changing of pages method in it
-
-        binding.preventionNext.setOnClickListener {
-            binding.preventionTipsVP.setCurrentItem(binding.preventionTipsVP.getCurrentItem() + 1, true);
-            }
-        setContentView(view)
 
         binding.preventionTipsVP.adapter = PreventionTipsViewPagerAdapter(supportFragmentManager, lifecycle)
+
+        TabLayoutMediator(tabLayout, preventionTipsViewPager) { _, _ ->
+        }.attach()
+        //set the onclicklistener and put the changing of pages method in it
+        binding.preventionTipsVP.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                if( position == 4){
+                    binding.preventionNext.text = "Get Started"
+
+
+                }
+                else
+                {  binding.preventionNext.text = "Next"
+
+                }
+                super.onPageSelected(position)
+            }
+        })
+        binding.preventionNext.setOnClickListener {
+
+            if (binding.preventionTipsVP.getCurrentItem() == 4) {
+                binding.preventionNext.text = "Get Started"
+            }
+            if (binding.preventionTipsVP.getCurrentItem() == 4) {
+                val i = Intent(this, MainActivity::class.java)
+                startActivity(i)
+                finish()
+            } else
+            {  binding.preventionNext.text = "Next"
+            }
+            binding.preventionTipsVP.setCurrentItem(binding.preventionTipsVP.getCurrentItem() + 1, true);
+
+        }
+
+        setContentView(view)
+
 
     }
 }
