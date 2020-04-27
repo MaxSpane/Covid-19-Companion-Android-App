@@ -104,7 +104,7 @@ class DashboardViewModel
 
     }
 
-    fun updateCasesSummary(){
+    fun updateCasesData(){
         viewModelScope.launch(handler) {
             updateCasesDataUseCase()
         }

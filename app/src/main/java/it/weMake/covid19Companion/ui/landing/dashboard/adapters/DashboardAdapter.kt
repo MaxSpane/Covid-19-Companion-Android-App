@@ -19,6 +19,7 @@ import it.weMake.covid19Companion.utils.show
 class DashboardAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var countryCases: ArrayList<CountryCasesData> = ArrayList()
+    private var lastUpdated = "Never"
     var pageTop = 0
     var pageBottom = 1
 
@@ -88,6 +89,15 @@ class DashboardAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
     }
 
+    override fun getItemViewType(position: Int): Int {
+
+        if (itemCount == countryCases.size + 3){
+            return position
+        }
+
+        return 4
+    }
+
     fun refill(pagedData: PagedData<List<CountryCasesData>>){
 
         if(pagedData.data.isEmpty())
@@ -147,13 +157,10 @@ class DashboardAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     }
 
-    override fun getItemViewType(position: Int): Int {
-
-        if (itemCount == countryCases.size + 3){
-            return position
-        }
-
-        return 4
+    fun setLastUpdated(lastUpdated: String){
+        this.lastUpdated = lastUpdated
+        if (itemCount != countryCases.size)
+            notifyItemChanged(2)
     }
 
     inner class CountryCaseHolder(private val binding: ItemCountryCasesSummaryBinding): RecyclerView.ViewHolder(binding.root), View.OnClickListener{
@@ -237,7 +244,6 @@ class DashboardAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     inner class CountryCasesHeaderHolder(private val binding: HeaderDashboardCountryCasesBinding): RecyclerView.ViewHolder(binding.root), View.OnClickListener{
 
         init {
-
             itemView.setOnClickListener(this)
         }
 
@@ -246,6 +252,7 @@ class DashboardAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
         fun bind() {
             val context = itemView.context
+            binding.lastUpdatedValueTV.text = lastUpdated
         }
 
     }

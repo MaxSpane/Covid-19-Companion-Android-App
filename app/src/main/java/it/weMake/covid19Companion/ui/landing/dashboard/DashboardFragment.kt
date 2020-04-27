@@ -88,6 +88,7 @@ class DashboardFragment : DaggerFragment(), View.OnClickListener {
         fragmentBinding.casesRV.adapter = dashboardAdapter
 
         attachObservers()
+        dashboardViewModel.updateCasesData()
 
         fragmentBinding.searchIV.setOnClickListener(this)
         fragmentBinding.handHygieneCV.setOnClickListener(this)
@@ -164,9 +165,9 @@ class DashboardFragment : DaggerFragment(), View.OnClickListener {
 
         dashboardViewModel.casesDataLastUpdated.observe(viewLifecycleOwner, Observer {
             if(it == "Never"){
-                fragmentBinding.lastUpdatedValueTV.text = it
+                dashboardAdapter.setLastUpdated(it)
             }else {
-                fragmentBinding.lastUpdatedValueTV.text = it.getTimeFromToday()
+                dashboardAdapter.setLastUpdated(it.getTimeFromToday())
             }
         })
 
@@ -207,8 +208,6 @@ class DashboardFragment : DaggerFragment(), View.OnClickListener {
                     }
                 }
 
-//                if( !recyclerView.canScrollVertically(RecyclerView.FOCUS_DOWN) && dashboardAdapter.itemCount != 3)
-//                    dashboardViewModel.loadPage(dashboardAdapter.pageBottom + 1)
             }
 
         })
@@ -234,7 +233,7 @@ class DashboardFragment : DaggerFragment(), View.OnClickListener {
     private fun isStoragePermissionGranted(): Boolean{
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-            if(ActivityCompat.checkSelfPermission(context!!, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
+            if(ActivityCompat.checkSelfPermission(requireContext(), android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
                 return true
             }else{
                 requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), WRITE_EXTERNAL_STORAGE_PERMISSION_REQUEST)
