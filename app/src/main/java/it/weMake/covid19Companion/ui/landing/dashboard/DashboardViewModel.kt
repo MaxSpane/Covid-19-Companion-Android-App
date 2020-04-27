@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import it.weMake.covid19Companion.mappers.toPresentation
 import it.weMake.covid19Companion.models.AreaCasesData
 import it.weMake.covid19Companion.models.CountryCasesData
+import it.weMake.covid19Companion.models.PagedData
 import it.wemake.covid19Companion.domain.usecases.*
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.collect
@@ -22,13 +23,13 @@ class DashboardViewModel
         val getCountriesUseCase: GetCountriesUseCase
     ) : ViewModel() {
 
-    val filteredCountriesCasesData: LiveData<List<CountryCasesData>>
-        get() = _filteredCountriesCasesData
+    val pagedCountriesCasesData: LiveData<PagedData<List<CountryCasesData>>>
+        get() = _pagedCountriesCasesData
 
     private var _countriesCasesData: MutableLiveData<List<CountryCasesData>> =
         MutableLiveData()
 
-    private var _filteredCountriesCasesData: MutableLiveData<List<CountryCasesData>> =
+    private var _pagedCountriesCasesData: MutableLiveData<PagedData<List<CountryCasesData>>> =
         MutableLiveData()
 
     val casesDataLastUpdated: LiveData<String>
@@ -47,17 +48,11 @@ class DashboardViewModel
         exception.printStackTrace()
 //        _uiState.value = Error(exception)
     }
+    private var page: Int = -1
 
     init {
 
-        viewModelScope.launch(handler) {
-            getCountriesCasesDataUseCase().collect{ countries ->
-                _countriesCasesData.value = countries.map {
-                    it.toPresentation()
-                }
-                _filteredCountriesCasesData.value = _countriesCasesData.value
-            }
-        }
+//        loadNextPage()
 
         viewModelScope.launch {
             getCasesDataLastUpdatedUseCase().collect{ it ->
@@ -79,6 +74,36 @@ class DashboardViewModel
 
     }
 
+//    fun loadNextPage(){
+//        viewModelScope.launch(handler) {
+//            getCountriesCasesDataUseCase(++page).collect{ countries ->
+//
+//                _pagedCountriesCasesData.value = PagedData(
+//                    page,
+//                    countries.map {
+//                        it.toPresentation()
+//                    }
+//                )
+//            }
+//        }
+//
+//    }
+
+    fun loadPage(page: Int, pageSize: Int = 10){
+        viewModelScope.launch(handler) {
+            getCountriesCasesDataUseCase(page, pageSize).collect{ countries ->
+
+                _pagedCountriesCasesData.value = PagedData(
+                    page,
+                    countries.map {
+                        it.toPresentation()
+                    }
+                )
+            }
+        }
+
+    }
+
     fun updateCasesSummary(){
         viewModelScope.launch(handler) {
             updateCasesDataUseCase()
@@ -87,15 +112,15 @@ class DashboardViewModel
 
     fun search(searchQuery: String){
 
-        if (searchQuery.isEmpty()){
-            _filteredCountriesCasesData.value = _countriesCasesData.value
-        }else{
-            viewModelScope.launch {
-                _filteredCountriesCasesData.value = _countriesCasesData.value!!.filter { countriesCasesData ->
-                    countriesCasesData.displayName.toLowerCase().contains(searchQuery.toLowerCase())
-                }
-            }
-        }
+//        if (searchQuery.isEmpty()){
+//            _pagedCountriesCasesData.value = _countriesCasesData.value
+//        }else{
+//            viewModelScope.launch {
+//                _pagedCountriesCasesData.value = _countriesCasesData.value!!.filter { countriesCasesData ->
+//                    countriesCasesData.displayName.toLowerCase().contains(searchQuery.toLowerCase())
+//                }
+//            }
+//        }
 
     }
 

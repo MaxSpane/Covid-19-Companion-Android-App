@@ -10,7 +10,7 @@ interface IAreasCasesDataLocal {
 
     suspend fun getAreasCasesData(parentId: String): Flow<List<AreaCasesDataEntity>>
 
-    suspend fun getCountriesCasesData(): Flow<List<CountryCasesDataEntity>>
+    suspend fun getCountriesCasesData(page: Int, pageSize: Int): Flow<List<CountryCasesDataEntity>>
 
     suspend fun getGlobalCasesData(): Flow<AreaCasesDataEntity?>
 

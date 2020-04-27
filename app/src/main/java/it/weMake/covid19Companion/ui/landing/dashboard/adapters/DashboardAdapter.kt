@@ -11,78 +11,149 @@ import it.weMake.covid19Companion.databinding.HeaderGlobalStatsDashboardBinding
 import it.weMake.covid19Companion.databinding.ItemCountryCasesSummaryBinding
 import it.weMake.covid19Companion.databinding.WhoHandHygieneBrochureBinding
 import it.weMake.covid19Companion.models.CountryCasesData
+import it.weMake.covid19Companion.models.PagedData
 import it.weMake.covid19Companion.utils.numberWithCommas
 import it.weMake.covid19Companion.utils.show
 
 
-class DashboardAdapter(): RecyclerView.Adapter<DashboardAdapter.CountryCaseHolder>() {
+class DashboardAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var countryCases: List<CountryCasesData> = ArrayList()
+    private var countryCases: ArrayList<CountryCasesData> = ArrayList()
+    var pageTop = 0
+    var pageBottom = 1
 
     private val VIEW_TYPE_GLOBAL_STATS_HEADER = 0
     private val VIEW_TYPE_WHO_HAND_HYGIENE_BROCHURE = 1
     private val VIEW_TYPE_COUNTRY_CASES_HEADER = 2
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CountryCaseHolder {
-        when(viewType){
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
-//            VIEW_TYPE_GLOBAL_STATS_HEADER->{
-//                val view = LayoutInflater.from(parent.context).inflate(R.layout.header_global_stats_dashboard, parent, false)
-//                return GlobalStatsHeaderHolder(HeaderGlobalStatsDashboardBinding.bind(view))
-//            }
-//
-//            VIEW_TYPE_WHO_HAND_HYGIENE_BROCHURE->{
-//                val view = LayoutInflater.from(parent.context).inflate(R.layout.who_hand_hygiene_brochure, parent, false)
-//                return WHOHandHygieneBrochureHolder(WhoHandHygieneBrochureBinding.bind(view))
-//            }
-//
-//            VIEW_TYPE_COUNTRY_CASES_HEADER->{
-//                val view = LayoutInflater.from(parent.context).inflate(R.layout.header_dashboard_country_cases, parent, false)
-//                return CountryCasesHeaderHolder(HeaderDashboardCountryCasesBinding.bind(view))
-//            }
+        if (itemCount == countryCases.size + 3){
+            when(viewType){
 
-            else->{
-                val view = LayoutInflater.from(parent.context).inflate(R.layout.item_country_cases_summary, parent, false)
-                return CountryCaseHolder(ItemCountryCasesSummaryBinding.bind(view))
+                VIEW_TYPE_GLOBAL_STATS_HEADER->{
+                    val view = LayoutInflater.from(parent.context).inflate(R.layout.header_global_stats_dashboard, parent, false)
+                    return GlobalStatsHeaderHolder(HeaderGlobalStatsDashboardBinding.bind(view))
+                }
+
+                VIEW_TYPE_WHO_HAND_HYGIENE_BROCHURE->{
+                    val view = LayoutInflater.from(parent.context).inflate(R.layout.who_hand_hygiene_brochure, parent, false)
+                    return WHOHandHygieneBrochureHolder(WhoHandHygieneBrochureBinding.bind(view))
+                }
+
+                VIEW_TYPE_COUNTRY_CASES_HEADER->{
+                    val view = LayoutInflater.from(parent.context).inflate(R.layout.header_dashboard_country_cases, parent, false)
+                    return CountryCasesHeaderHolder(HeaderDashboardCountryCasesBinding.bind(view))
+                }
+
+                else->{
+                    val view = LayoutInflater.from(parent.context).inflate(R.layout.item_country_cases_summary, parent, false)
+                    return CountryCaseHolder(ItemCountryCasesSummaryBinding.bind(view))
+                }
+
             }
+        }
 
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_country_cases_summary, parent, false)
+        return CountryCaseHolder(ItemCountryCasesSummaryBinding.bind(view))
+    }
+
+    override fun getItemCount(): Int = if (pageTop == 0){countryCases.size + 3}else{countryCases.size}
+
+    override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
+
+        if (itemCount == countryCases.size + 3){
+            when(getItemViewType(position)){
+
+                VIEW_TYPE_GLOBAL_STATS_HEADER->{
+                    (viewHolder as GlobalStatsHeaderHolder).bind()
+                    Log.d("onBindViewHolder", "$position")
+                }
+
+                VIEW_TYPE_WHO_HAND_HYGIENE_BROCHURE->{
+                    (viewHolder as WHOHandHygieneBrochureHolder).bind()
+                }
+
+                VIEW_TYPE_COUNTRY_CASES_HEADER->{
+                    (viewHolder as CountryCasesHeaderHolder).bind()
+                }
+
+                else->{
+                    (viewHolder as CountryCaseHolder).bind(countryCases[position - 3])
+                }
+
+            }
+        }else{
+            (viewHolder as CountryCaseHolder).bind(countryCases[position])
         }
     }
 
-    override fun getItemCount(): Int = countryCases.size
+    fun refill(pagedData: PagedData<List<CountryCasesData>>){
 
-    override fun onBindViewHolder(viewHolder: CountryCaseHolder, position: Int) {
+        if(pagedData.data.isEmpty())
+            return
 
-//        when(getItemViewType(position)){
-//
-//            VIEW_TYPE_GLOBAL_STATS_HEADER->{
-//                (viewHolder as GlobalStatsHeaderHolder).bind()
-//            }
-//
-//            VIEW_TYPE_WHO_HAND_HYGIENE_BROCHURE->{
-//                (viewHolder as WHOHandHygieneBrochureHolder).bind()
-//            }
-//
-//            VIEW_TYPE_COUNTRY_CASES_HEADER->{
-//                (viewHolder as CountryCasesHeaderHolder).bind()
-//            }
-//
-//            else->{
-//                (viewHolder as CountryCaseHolder).bind(countryCases[position - 3])
-//            }
-//
-//        }
+        if (pagedData.page == 0){
+            countryCases.clear()
+            countryCases.addAll(pagedData.data)
+            notifyDataSetChanged()
+        }else{
 
-        (viewHolder as CountryCaseHolder).bind(countryCases[position])
+            countryCases.addAll(pagedData.data)
+            notifyItemRangeInserted(pagedData.page * 10, 10)
+        }
+
     }
 
-    fun refill(dataset: List<CountryCasesData>){
-        this.countryCases = dataset
-        notifyDataSetChanged()
+    fun addPage(pagedData: PagedData<List<CountryCasesData>>){
+
+        if(pagedData.data.isEmpty())
+            return
+
+        when{
+
+            pagedData.page == 0 && pagedData.data.size == 20 -> {
+                countryCases.addAll(pagedData.data)
+                notifyDataSetChanged()
+            }
+
+            pagedData.page < pageTop ->{
+                countryCases.subList(10, countryCases.size).clear()
+                notifyItemRangeRemoved(10, 10)
+                countryCases.addAll(0, pagedData.data)
+                if (pagedData.page == 0){
+                    notifyItemRangeInserted(0, 13)
+                }else{
+                    notifyItemRangeInserted(0, 10)
+                }
+                pageBottom = pageTop
+                pageTop = pagedData.page
+            }
+
+            pagedData.page > pageBottom ->{
+                countryCases.subList(0, 10).clear()
+                if (pageTop == 0){
+                    notifyItemRangeRemoved(0, 13)
+                }else{
+                    notifyItemRangeRemoved(0, 10)
+                }
+                countryCases.addAll(10, pagedData.data)
+                notifyItemRangeInserted(10, 10)
+                pageTop = pageBottom
+                pageBottom = pagedData.page
+            }
+
+        }
+
     }
 
     override fun getItemViewType(position: Int): Int {
-        return position
+
+        if (itemCount == countryCases.size + 3){
+            return position
+        }
+
+        return 4
     }
 
     inner class CountryCaseHolder(private val binding: ItemCountryCasesSummaryBinding): RecyclerView.ViewHolder(binding.root), View.OnClickListener{

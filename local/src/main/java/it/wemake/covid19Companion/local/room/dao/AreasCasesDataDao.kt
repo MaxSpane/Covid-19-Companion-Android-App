@@ -21,11 +21,7 @@ interface AreasCasesDataDao {
     fun getAreasCasesData(parentId: String): Flow<List<AreaCasesDataLocalModel>>
 //    LEFT JOIN countries ON area_cases_data.displayName = countries.name , countries.iso2
 
-    @Query("SELECT area_cases_data.id, area_cases_data.displayName, area_cases_data.totalDeaths, area_cases_data.totalRecovered, area_cases_data.totalConfirmed, area_cases_data.totalConfirmedDelta, area_cases_data.totalDeathsDelta, area_cases_data.totalRecoveredDelta, area_cases_data.hasAreasData, countries.iso2 FROM area_cases_data" +
-            " LEFT JOIN" +
-            " countries" +
-            " ON" +
-            " area_cases_data.displayName = countries.name WHERE parentId = 'world'")
-    fun getCountriesCasesData(): Flow<List<CountriesCasesDataLocalModel>>
+    @Query("SELECT area_cases_data.id, area_cases_data.displayName, area_cases_data.totalDeaths, area_cases_data.totalRecovered, area_cases_data.totalConfirmed, area_cases_data.totalConfirmedDelta, area_cases_data.totalDeathsDelta, area_cases_data.totalRecoveredDelta, area_cases_data.hasAreasData, countries.iso2 FROM area_cases_data LEFT JOIN countries ON area_cases_data.displayName = countries.name WHERE parentId = 'world' ORDER BY totalConfirmed DESC LIMIT :pageSize OFFSET (:page * 10)")
+    fun getCountriesCasesData(page: Int, pageSize: Int): Flow<List<CountriesCasesDataLocalModel>>
 
 }

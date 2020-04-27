@@ -12,6 +12,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,6 +25,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import dagger.android.support.DaggerFragment
 import it.weMake.covid19Companion.R
 import it.weMake.covid19Companion.databinding.FragmentDashboardBinding
@@ -76,7 +78,6 @@ class DashboardFragment : DaggerFragment(), View.OnClickListener {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.fragment_dashboard, container, false)
         fragmentBinding = FragmentDashboardBinding.inflate(inflater, container, false)
 
         handler = Handler()
@@ -86,30 +87,7 @@ class DashboardFragment : DaggerFragment(), View.OnClickListener {
         fragmentBinding.casesStatsRV.adapter = globalCasesStatsAdapter
         fragmentBinding.casesRV.adapter = dashboardAdapter
 
-        dashboardViewModel.casesDataLastUpdated.observe(viewLifecycleOwner, Observer {
-            if(it == "Never"){
-                fragmentBinding.lastUpdatedValueTV.text = it
-            }else {
-                fragmentBinding.lastUpdatedValueTV.text = it.getTimeFromToday()
-            }
-        })
-
-        dashboardViewModel.globalCasesData.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                globalCasesStatsAdapter.updateGlobalCasesData(it)
-                autoScrollCountryStatsDelayed()
-            }
-        })
-
-        dashboardViewModel.filteredCountriesCasesData.observe(viewLifecycleOwner, Observer {
-            dashboardAdapter.refill(it)
-        })
-
-        dashboardViewModel.updateCasesSummary()
-
-        fragmentBinding.searchET.addTextChangedListener {
-            dashboardViewModel.search(it.toString())
-        }
+        attachObservers()
 
         fragmentBinding.searchIV.setOnClickListener(this)
         fragmentBinding.handHygieneCV.setOnClickListener(this)
@@ -119,12 +97,12 @@ class DashboardFragment : DaggerFragment(), View.OnClickListener {
 
     override fun onResume() {
         super.onResume()
-        LocalBroadcastManager.getInstance(context!!).registerReceiver(downloadManagerBroadcastReceiver, downloadManagerIntentFilter)
+        LocalBroadcastManager.getInstance(requireContext()).registerReceiver(downloadManagerBroadcastReceiver, downloadManagerIntentFilter)
     }
 
     override fun onPause() {
         super.onPause()
-        LocalBroadcastManager.getInstance(context!!).unregisterReceiver(downloadManagerBroadcastReceiver)
+        LocalBroadcastManager.getInstance(requireContext()).unregisterReceiver(downloadManagerBroadcastReceiver)
     }
 
     override fun onClick(v: View) {
@@ -152,11 +130,11 @@ class DashboardFragment : DaggerFragment(), View.OnClickListener {
                 if (isStoragePermissionGranted()){
                     if (WHOHandHygieneBrochureExists()){
                         val intent = Intent(Intent.ACTION_VIEW)
-                        val file = File(context!!.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)!!.path + File.pathSeparator + WHO_HAND_HYGIENE_PDF)
-                        val data = FileProvider.getUriForFile(context!!.applicationContext, context!!.packageName +".fileprovider", file)
+                        val file = File(requireContext().getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)!!.path + File.pathSeparator + WHO_HAND_HYGIENE_PDF)
+                        val data = FileProvider.getUriForFile(requireContext().applicationContext, requireContext().packageName +".fileprovider", file)
                         val type = "application/pdf"
                         intent.setDataAndType(data, type)
-                        intent.flags = FLAG_GRANT_READ_URI_PERMISSION or FLAG_GRANT_WRITE_URI_PERMISSION;
+                        intent.flags = FLAG_GRANT_READ_URI_PERMISSION or FLAG_GRANT_WRITE_URI_PERMISSION
                         startActivity(intent)
                     }else{
                         downloadHandHygienePDF()
@@ -182,18 +160,74 @@ class DashboardFragment : DaggerFragment(), View.OnClickListener {
 
     }
 
+    private fun attachObservers(){
+
+        dashboardViewModel.casesDataLastUpdated.observe(viewLifecycleOwner, Observer {
+            if(it == "Never"){
+                fragmentBinding.lastUpdatedValueTV.text = it
+            }else {
+                fragmentBinding.lastUpdatedValueTV.text = it.getTimeFromToday()
+            }
+        })
+
+        dashboardViewModel.globalCasesData.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                globalCasesStatsAdapter.updateGlobalCasesData(it)
+                autoScrollCountryStatsDelayed()
+            }
+        })
+
+        dashboardViewModel.pagedCountriesCasesData.observe(viewLifecycleOwner, Observer {
+            dashboardAdapter.addPage(it)
+        })
+
+//        dashboardViewModel.updateCasesSummary()
+
+        fragmentBinding.searchET.addTextChangedListener {
+            dashboardViewModel.search(it.toString())
+        }
+
+        fragmentBinding.casesRV.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                if (dashboardAdapter.itemCount != 3){
+                    if(dy > 0){
+                        Log.i("RecyclerView scrolled: ", "scroll up!")
+                        val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                        if (layoutManager.findLastVisibleItemPosition() == 17)
+                            dashboardViewModel.loadPage(dashboardAdapter.pageBottom + 1)
+                    }
+                    else{
+                        Log.i("RecyclerView scrolled: ", "scroll down!")
+                        val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                        if (layoutManager.findFirstVisibleItemPosition() == 3 && dashboardAdapter.pageTop != 0)
+                            dashboardViewModel.loadPage(dashboardAdapter.pageTop - 1)
+                    }
+                }
+
+//                if( !recyclerView.canScrollVertically(RecyclerView.FOCUS_DOWN) && dashboardAdapter.itemCount != 3)
+//                    dashboardViewModel.loadPage(dashboardAdapter.pageBottom + 1)
+            }
+
+        })
+
+        dashboardViewModel.loadPage(0, 20)
+    }
+
     private fun autoScrollCountryStatsDelayed(){
         handler.postDelayed(autoScrollCountryStatsRunnable, autoScrollDelayedTime)
     }
 
     private fun downloadHandHygienePDF(){
         fragmentBinding.handHygienePB.show()
-        showLongToast(context!!, "Downloading Hand Hygiene Brochure(477kb)")
-        DownloadManagerIntentService.startActionDownloadWHOHandHygieneBrochure(context!!)
+        showLongToast(requireContext(), "Downloading Hand Hygiene Brochure(477kb)")
+        DownloadManagerIntentService.startActionDownloadWHOHandHygieneBrochure(requireContext())
     }
 
     private fun WHOHandHygieneBrochureExists(): Boolean{
-        val file = File(ContextCompat.getExternalFilesDirs(context!!, Environment.DIRECTORY_DOCUMENTS)[0].path + "/" + WHO_HAND_HYGIENE_PDF)
+        val file = File(ContextCompat.getExternalFilesDirs(requireContext(), Environment.DIRECTORY_DOCUMENTS)[0].path + "/" + WHO_HAND_HYGIENE_PDF)
         return file.exists()
     }
 

@@ -54,8 +54,8 @@ class Covid19CasesRepository @Inject constructor(
             it?.toDomain()
         }
 
-    override suspend fun getCountriesCasesData(): Flow<List<CountryCasesDomainModel>> =
-        areasCasesDataLocal.getCountriesCasesData().map { countriesCasesData->
+    override suspend fun getCountriesCasesData(page: Int, pageSize: Int): Flow<List<CountryCasesDomainModel>> =
+        areasCasesDataLocal.getCountriesCasesData(page, pageSize).map { countriesCasesData->
             countriesCasesData.map {
                 it.toDomain()
             }
