@@ -10,7 +10,7 @@
     tools:context=".ui.landing.dashboard.DashboardFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/casesRV"
+        android:id="@+id/dashboardRV"
         android:layout_width="0dp"
         android:layout_height="0dp"
         tools:listitem="@layout/item_country_cases_summary"

@@ -1,15 +1,18 @@
 package it.weMake.covid19Companion.ui.landing.dashboard.adapters
 
+import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import it.weMake.covid19Companion.R
 import it.weMake.covid19Companion.databinding.HeaderDashboardCountryCasesBinding
 import it.weMake.covid19Companion.databinding.HeaderGlobalStatsDashboardBinding
 import it.weMake.covid19Companion.databinding.ItemCountryCasesSummaryBinding
 import it.weMake.covid19Companion.databinding.WhoHandHygieneBrochureBinding
+import it.weMake.covid19Companion.models.AreaCasesData
 import it.weMake.covid19Companion.models.CountryCasesData
 import it.weMake.covid19Companion.models.PagedData
 import it.weMake.covid19Companion.utils.numberWithCommas
@@ -20,6 +23,7 @@ class DashboardAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var countryCases: ArrayList<CountryCasesData> = ArrayList()
     private var lastUpdated = "Never"
+    private var globalCasesData: AreaCasesData? = null
     var pageTop = 0
     var pageBottom = 1
 
@@ -163,6 +167,12 @@ class DashboardAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             notifyItemChanged(2)
     }
 
+    fun setGlobalCasesData(globalCasesData: AreaCasesData){
+        this.globalCasesData = globalCasesData
+        if (itemCount != countryCases.size)
+            notifyItemChanged(0)
+    }
+
     inner class CountryCaseHolder(private val binding: ItemCountryCasesSummaryBinding): RecyclerView.ViewHolder(binding.root), View.OnClickListener{
 
         init {
@@ -211,9 +221,27 @@ class DashboardAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     inner class GlobalStatsHeaderHolder(private val binding: HeaderGlobalStatsDashboardBinding): RecyclerView.ViewHolder(binding.root), View.OnClickListener{
 
-        init {
+        private var globalCasesStatsAdapter = GlobalCasesStatsAdapter()
 
+        private var handler = Handler()
+        private val autoScrollDelayedTime: Long = 2500
+        private val autoScrollCountryStatsRunnable: Runnable = Runnable {
+
+            val lastVisibleItemPosition = (binding.casesStatsRV.layoutManager!! as LinearLayoutManager).findLastVisibleItemPosition()
+
+            if (lastVisibleItemPosition != 2){
+                binding.casesStatsRV.smoothScrollToPosition(lastVisibleItemPosition + 1)
+            }else{
+                binding.casesStatsRV.smoothScrollToPosition(0)
+            }
+
+            autoScrollCountryStatsDelayed()
+
+        }
+
+        init {
             itemView.setOnClickListener(this)
+            binding.casesStatsRV.adapter = globalCasesStatsAdapter
         }
 
         override fun onClick(v: View?) {
@@ -221,6 +249,15 @@ class DashboardAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
         fun bind() {
             val context = itemView.context
+
+            globalCasesData?.let {
+                globalCasesStatsAdapter.updateGlobalCasesData(it)
+                autoScrollCountryStatsDelayed()
+            }
+        }
+
+        private fun autoScrollCountryStatsDelayed(){
+            handler.postDelayed(autoScrollCountryStatsRunnable, autoScrollDelayedTime)
         }
 
     }

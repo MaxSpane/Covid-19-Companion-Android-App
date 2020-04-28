@@ -44,24 +44,7 @@ class DashboardFragment : DaggerFragment(), View.OnClickListener {
     protected val dashboardViewModel: DashboardViewModel by viewModels { viewModelFactory }
 
     lateinit var fragmentBinding: FragmentDashboardBinding
-    lateinit var globalCasesStatsAdapter: GlobalCasesStatsAdapter
     lateinit var dashboardAdapter: DashboardAdapter
-
-    private lateinit var handler: Handler
-    private val autoScrollDelayedTime: Long = 2500
-    private val autoScrollCountryStatsRunnable: Runnable = Runnable {
-
-        val lastVisibleItemPosition = (fragmentBinding.casesStatsRV.layoutManager!! as LinearLayoutManager).findLastVisibleItemPosition()
-
-        if (lastVisibleItemPosition != 2){
-            fragmentBinding.casesStatsRV.smoothScrollToPosition(lastVisibleItemPosition + 1)
-        }else{
-            fragmentBinding.casesStatsRV.smoothScrollToPosition(0)
-        }
-
-        autoScrollCountryStatsDelayed()
-
-    }
 
     private val downloadManagerBroadcastReceiver = object : BroadcastReceiver(){
         override fun onReceive(context: Context?, intent: Intent?) {
@@ -80,17 +63,13 @@ class DashboardFragment : DaggerFragment(), View.OnClickListener {
     ): View? {
         fragmentBinding = FragmentDashboardBinding.inflate(inflater, container, false)
 
-        handler = Handler()
-        globalCasesStatsAdapter = GlobalCasesStatsAdapter()
         dashboardAdapter = DashboardAdapter()
 
-        fragmentBinding.casesStatsRV.adapter = globalCasesStatsAdapter
-        fragmentBinding.casesRV.adapter = dashboardAdapter
+        fragmentBinding.dashboardRV.adapter = dashboardAdapter
 
         attachObservers()
         dashboardViewModel.updateCasesData()
 
-        fragmentBinding.searchIV.setOnClickListener(this)
         fragmentBinding.handHygieneCV.setOnClickListener(this)
 
         return fragmentBinding.root
@@ -173,8 +152,8 @@ class DashboardFragment : DaggerFragment(), View.OnClickListener {
 
         dashboardViewModel.globalCasesData.observe(viewLifecycleOwner, Observer {
             it?.let {
-                globalCasesStatsAdapter.updateGlobalCasesData(it)
-                autoScrollCountryStatsDelayed()
+//                globalCasesStatsAdapter.updateGlobalCasesData(it)
+                dashboardAdapter.setGlobalCasesData(it)
             }
         })
 
@@ -188,7 +167,7 @@ class DashboardFragment : DaggerFragment(), View.OnClickListener {
             dashboardViewModel.search(it.toString())
         }
 
-        fragmentBinding.casesRV.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        fragmentBinding.dashboardRV.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
@@ -213,10 +192,6 @@ class DashboardFragment : DaggerFragment(), View.OnClickListener {
         })
 
         dashboardViewModel.loadPage(0, 20)
-    }
-
-    private fun autoScrollCountryStatsDelayed(){
-        handler.postDelayed(autoScrollCountryStatsRunnable, autoScrollDelayedTime)
     }
 
     private fun downloadHandHygienePDF(){
