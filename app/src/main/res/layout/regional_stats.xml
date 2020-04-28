@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="24dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:gravity="left">
+
+
+        <TextView
+            android:id="@+id/regionStatTV"
+            style="@style/Covid19TextView"
+            android:text="200,000"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginEnd="10dp"
+            />
+
+        <TextView
+            android:id="@+id/regionTV"
+            style="@style/Covid19TextView"
+            android:text="@string/confirmed"
+            android:textColor="#818181"
+            android:textSize="18sp"
+            />
+
+
+
+     </androidx.appcompat.widget.LinearLayoutCompat>
+

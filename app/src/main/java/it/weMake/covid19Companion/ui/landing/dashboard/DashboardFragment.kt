@@ -105,7 +105,7 @@ class DashboardFragment : DaggerFragment(), View.OnClickListener {
             dashboardAdapter.refill(it)
         })
 
-        dashboardViewModel.updateCasesSummary()
+//        dashboardViewModel.updateCasesSummary()
 
         fragmentBinding.searchET.addTextChangedListener {
             dashboardViewModel.search(it.toString())
