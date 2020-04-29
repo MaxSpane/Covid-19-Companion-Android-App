@@ -4,17 +4,14 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import it.wemake.covid19Companion.local.models.AreaCasesDataLocalModel
-import it.wemake.covid19Companion.local.models.CountryLocalModel
-import it.wemake.covid19Companion.local.room.dao.AreasCasesDataDao
-import it.wemake.covid19Companion.local.room.dao.CountriesDao
+import it.wemake.covid19Companion.local.models.CountryCasesDataLocalModel
+import it.wemake.covid19Companion.local.room.dao.CountriesCasesDataDao
 import it.wemake.covid19Companion.local.utils.DB_NAME
 
-@Database(entities = [AreaCasesDataLocalModel::class, CountryLocalModel::class], version = 1, exportSchema = true)
+@Database(entities = [CountryCasesDataLocalModel::class], version = 1, exportSchema = true)
 abstract class AppDatabase: RoomDatabase() {
 
-    abstract fun getAreasCasesDataDao(): AreasCasesDataDao
-    abstract fun getCountriesDao(): CountriesDao
+    abstract fun getCountriesCasesDataDao(): CountriesCasesDataDao
 
     companion object {
         @Volatile
@@ -29,7 +26,7 @@ abstract class AppDatabase: RoomDatabase() {
             context,
             AppDatabase::class.java, DB_NAME
         )
-            .createFromAsset("databases/covid_19_companion.db")
+//            .createFromAsset("databases/covid_19_companion.db")
             .build()
     }
 

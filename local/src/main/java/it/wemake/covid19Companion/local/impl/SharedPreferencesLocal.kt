@@ -10,15 +10,15 @@ class SharedPreferencesLocal @Inject constructor(
     private val covid19CompanionSharedPreferences: Covid19CompanionSharedPreferences
 ): ISharedPreferencesLocal {
 
-    override suspend fun updateCasesSummaryLastUpdated(lastUpdated: String) {
+    override suspend fun updateCasesSummaryLastUpdated(lastUpdated: Long) {
         covid19CompanionSharedPreferences.updateCasesSummaryLastUpdated(lastUpdated)
     }
 
     @ExperimentalCoroutinesApi
-    override suspend fun getCasesSummaryLastUpdatedFlow(): Flow<String> =
+    override suspend fun getCasesSummaryLastUpdatedFlow(): Flow<Long> =
         covid19CompanionSharedPreferences.getCasesSummaryLastUpdatedFlow()
 
-    override suspend fun getCasesSummaryLastUpdated(): String =
+    override suspend fun getCasesSummaryLastUpdated(): Long =
         covid19CompanionSharedPreferences.getCasesSummaryLastUpdated()
 
     override fun getWHOHandHygieneDownloadId(): Long =

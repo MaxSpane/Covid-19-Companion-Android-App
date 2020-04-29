@@ -1,43 +1,37 @@
 package it.wemake.covid19Companion.local.mappers
 
-import it.wemake.covid19Companion.data.models.AreaCasesDataEntity
-import it.wemake.covid19Companion.data.models.CountryCasesDataEntity
-import it.wemake.covid19Companion.data.models.CountryEntityModel
-import it.wemake.covid19Companion.local.models.AreaCasesDataLocalModel
-import it.wemake.covid19Companion.local.models.CountriesCasesDataLocalModel
-import it.wemake.covid19Companion.local.models.CountryLocalModel
+import it.wemake.covid19Companion.data.models.*
+import it.wemake.covid19Companion.local.models.*
 
-internal fun AreaCasesDataLocalModel.toEntity(): AreaCasesDataEntity =
-    AreaCasesDataEntity(
-        id,
-        displayName,
-        lastUpdated,
-        totalConfirmed,
-        totalDeaths,
-        totalRecovered,
-        totalConfirmedDelta,
-        totalDeathsDelta,
-        totalRecoveredDelta,
-        parentId,
-        hasAreasData
-    )
-
-internal fun CountriesCasesDataLocalModel.toEntity(): CountryCasesDataEntity =
+internal fun CountryCasesDataLocalModel.toEntity(): CountryCasesDataEntity =
     CountryCasesDataEntity(
-        id,
         displayName,
+        updated,
+        countryInfo.toEntity(),
         totalConfirmed,
         totalDeaths,
         totalRecovered,
         totalConfirmedDelta,
         totalDeathsDelta,
         totalRecoveredDelta,
-        hasAreasData,
-        iso2
+        continent
     )
 
 internal fun CountryLocalModel.toEntity(): CountryEntityModel =
     CountryEntityModel(
         name,
         iso2
+    )
+
+internal fun CountryInfoLocalModel.toEntity(): CountryInfoEntity =
+    CountryInfoEntity(
+        iso2,
+        iso3
+    )
+
+internal fun GlobalStatsLocalModel.toEntity(): GlobalStatsEntity =
+    GlobalStatsEntity(
+        confirmed,
+        recovered,
+        deaths
     )
