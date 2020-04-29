@@ -10,6 +10,7 @@ import it.weMake.covid19Companion.databinding.ItemCountryCasesSummaryBinding
 import it.weMake.covid19Companion.databinding.WhoHandHygieneBrochureBinding
 import it.weMake.covid19Companion.models.AreaCasesData
 import it.weMake.covid19Companion.models.CountryCasesData
+import it.weMake.covid19Companion.models.GlobalStats
 import it.weMake.covid19Companion.models.PagedData
 import it.weMake.covid19Companion.ui.landing.dashboard.adapters.viewHolders.CountryCaseHolder
 import it.weMake.covid19Companion.ui.landing.dashboard.adapters.viewHolders.CountryCasesHeaderHolder
@@ -23,7 +24,7 @@ class DashboardAdapter(
 
     private var countryCases: ArrayList<CountryCasesData> = ArrayList()
     private var lastUpdated = "Never"
-    private var globalCasesData: AreaCasesData? = null
+    private var globalCasesData: GlobalStats? = null
     private var isDownloadingHandHygieneBrochure = false
 
     var pageTop = 0
@@ -168,7 +169,7 @@ class DashboardAdapter(
             notifyItemChanged(2)
     }
 
-    fun setGlobalCasesData(globalCasesData: AreaCasesData){
+    fun setGlobalCasesData(globalCasesData: GlobalStats){
         this.globalCasesData = globalCasesData
         if (itemCount != countryCases.size)
             notifyItemChanged(0)

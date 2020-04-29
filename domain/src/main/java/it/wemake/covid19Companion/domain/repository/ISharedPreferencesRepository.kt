@@ -4,7 +4,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface ISharedPreferencesRepository {
 
-    suspend fun getCasesLastUpdated(): Flow<String>
+    suspend fun getCasesLastUpdated(): Flow<Long>
 
     fun getWHOHandHygieneBrochureDownloadId(): Long
 

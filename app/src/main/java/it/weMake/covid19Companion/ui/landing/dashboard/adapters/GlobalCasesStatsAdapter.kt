@@ -8,11 +8,12 @@ import androidx.recyclerview.widget.RecyclerView
 import it.weMake.covid19Companion.R
 import it.weMake.covid19Companion.databinding.ItemCasesSummaryBinding
 import it.weMake.covid19Companion.models.AreaCasesData
+import it.weMake.covid19Companion.models.GlobalStats
 import it.weMake.covid19Companion.utils.numberWithCommas
 
 class GlobalCasesStatsAdapter(): RecyclerView.Adapter<GlobalCasesStatsAdapter.Holder>() {
 
-    private var globalCasesData: AreaCasesData? = null
+    private var globalCasesData: GlobalStats? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_cases_summary, parent, false)
@@ -26,7 +27,7 @@ class GlobalCasesStatsAdapter(): RecyclerView.Adapter<GlobalCasesStatsAdapter.Ho
         holder.bind(position)
     }
 
-    fun updateGlobalCasesData(globalCasesData: AreaCasesData){
+    fun updateGlobalCasesData(globalCasesData: GlobalStats){
         this.globalCasesData = globalCasesData
         notifyDataSetChanged()
     }
@@ -49,7 +50,7 @@ class GlobalCasesStatsAdapter(): RecyclerView.Adapter<GlobalCasesStatsAdapter.Ho
                     itemBinding.casesSummaryIV.setImageResource(R.drawable.ic_cough)
                     itemBinding.casesSummaryTitleTV.setText(R.string.confirmed)
                     itemBinding.casesSummaryNumberTV.text = if (globalCasesData == null){"0"} else {
-                        globalCasesData!!.totalConfirmed!!.numberWithCommas()
+                        globalCasesData!!.confirmed.numberWithCommas()
                     }
                 }
 
@@ -60,7 +61,7 @@ class GlobalCasesStatsAdapter(): RecyclerView.Adapter<GlobalCasesStatsAdapter.Ho
                     itemBinding.casesSummaryTitleTV.setTextColor(ContextCompat.getColor(itemView.context, R.color.white))
                     itemBinding.casesSummaryNumberTV.setTextColor(ContextCompat.getColor(itemView.context, R.color.white))
                     itemBinding.casesSummaryNumberTV.text = if (globalCasesData == null){"0"} else {
-                        globalCasesData!!.totalRecovered!!.numberWithCommas()
+                        globalCasesData!!.recovered.numberWithCommas()
                     }
                 }
 
@@ -71,7 +72,7 @@ class GlobalCasesStatsAdapter(): RecyclerView.Adapter<GlobalCasesStatsAdapter.Ho
                     itemBinding.casesSummaryTitleTV.setTextColor(ContextCompat.getColor(itemView.context, R.color.white))
                     itemBinding.casesSummaryNumberTV.setTextColor(ContextCompat.getColor(itemView.context, R.color.white))
                     itemBinding.casesSummaryNumberTV.text = if (globalCasesData == null){"0"} else {
-                        globalCasesData!!.totalDeaths!!.numberWithCommas()
+                        globalCasesData!!.deaths.numberWithCommas()
                     }
                 }
 

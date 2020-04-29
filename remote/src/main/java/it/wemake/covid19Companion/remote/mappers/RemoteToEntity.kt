@@ -1,24 +1,25 @@
 package it.wemake.covid19Companion.remote.mappers
 
-import it.wemake.covid19Companion.data.models.AllAreasCasesDataEntity
-import it.wemake.covid19Companion.data.models.CountryCasesDataEntity
-import it.wemake.covid19Companion.remote.models.casesData.AllAreasCasesDataRemoteModel
-import it.wemake.covid19Companion.remote.models.casesData.CountryCasesRemoteModel
+import it.wemake.covid19Companion.data.models.NovelCountryCasesDataEntity
+import it.wemake.covid19Companion.data.models.CountryInfoEntity
+import it.wemake.covid19Companion.remote.models.casesData.CountryCasesDataRemoteModel
+import it.wemake.covid19Companion.remote.models.casesData.CountryInfoRemoteModel
 
-internal fun AllAreasCasesDataRemoteModel.toEntity(): AllAreasCasesDataEntity =
-    AllAreasCasesDataEntity(
-        id,
-        displayName,
-        areas.map {
-            it.toEntity()
-        },
-        lastUpdated,
-        totalConfirmed,
-        totalDeaths,
-        totalRecovered,
-        totalConfirmedDelta,
-        totalDeathsDelta,
-        totalRecoveredDelta,
-        parentId
+internal fun CountryCasesDataRemoteModel.toEntity(): NovelCountryCasesDataEntity =
+    NovelCountryCasesDataEntity(
+        updated,
+        country,
+        countryInfo.toEntity(),
+        cases,
+        todayCases,
+        deaths,
+        todayDeaths,
+        recovered,
+        continent
     )
 
+internal fun CountryInfoRemoteModel.toEntity(): CountryInfoEntity =
+    CountryInfoEntity(
+        iso2?.let { it } ?: "",
+        iso3.let { it } ?: ""
+    )

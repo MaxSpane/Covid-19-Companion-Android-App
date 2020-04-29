@@ -125,8 +125,8 @@ class DashboardFragment : DaggerFragment(), View.OnClickListener {
     private fun attachObservers(){
 
         dashboardViewModel.casesDataLastUpdated.observe(viewLifecycleOwner, Observer {
-            if(it == "Never"){
-                dashboardAdapter.setLastUpdated(it)
+            if(it == 0L){
+                dashboardAdapter.setLastUpdated("Never")
             }else {
                 dashboardAdapter.setLastUpdated(it.getTimeFromToday())
             }

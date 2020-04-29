@@ -11,11 +11,6 @@ import it.wemake.covid19Companion.domain.usecases.*
 class DomainModule {
 
     @Provides
-    fun provideGetAreaCasesDataCasesUseCase(
-        covid19CasesRepository: Covid19CasesRepository
-    ): GetAreasCasesDataUseCase = GetAreasCasesDataUseCase(covid19CasesRepository)
-
-    @Provides
     fun provideUpdateCasesDataUseCase(
         covid19CasesRepository: Covid19CasesRepository
     ): UpdateCasesDataUseCase = UpdateCasesDataUseCase(covid19CasesRepository)
@@ -40,9 +35,9 @@ class DomainModule {
         covid19CasesRepository: Covid19CasesRepository
     ): GetCountriesCasesDataUseCase = GetCountriesCasesDataUseCase(covid19CasesRepository)
 
-    @Provides
-    fun provideGetCountriesUseCase(
-        countriesRepository: CountriesRepository
-    ): GetCountriesUseCase = GetCountriesUseCase(countriesRepository)
+//    @Provides
+//    fun provideGetCountriesUseCase(
+//        countriesRepository: CountriesRepository
+//    ): GetCountriesUseCase = GetCountriesUseCase(countriesRepository)
 
 }

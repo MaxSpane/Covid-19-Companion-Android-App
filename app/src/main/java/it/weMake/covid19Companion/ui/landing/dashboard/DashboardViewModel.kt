@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import it.weMake.covid19Companion.mappers.toPresentation
 import it.weMake.covid19Companion.models.AreaCasesData
 import it.weMake.covid19Companion.models.CountryCasesData
+import it.weMake.covid19Companion.models.GlobalStats
 import it.weMake.covid19Companion.models.PagedData
 import it.wemake.covid19Companion.domain.usecases.*
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -19,8 +20,8 @@ class DashboardViewModel
         val getCountriesCasesDataUseCase: GetCountriesCasesDataUseCase,
         val updateCasesDataUseCase: UpdateCasesDataUseCase,
         val getCasesDataLastUpdatedUseCase: GetCasesDataLastUpdatedUseCase,
-        val getGlobalCasesDataUseCase: GetGlobalCasesDataUseCase,
-        val getCountriesUseCase: GetCountriesUseCase
+        val getGlobalCasesDataUseCase: GetGlobalCasesDataUseCase
+//        val getCountriesUseCase: GetCountriesUseCase
     ) : ViewModel() {
 
     val pagedCountriesCasesData: LiveData<PagedData<List<CountryCasesData>>>
@@ -32,16 +33,16 @@ class DashboardViewModel
     private var _pagedCountriesCasesData: MutableLiveData<PagedData<List<CountryCasesData>>> =
         MutableLiveData()
 
-    val casesDataLastUpdated: LiveData<String>
+    val casesDataLastUpdated: LiveData<Long>
         get() = _casesDataLastUpdated
 
-    private var _casesDataLastUpdated: MutableLiveData<String> =
+    private var _casesDataLastUpdated: MutableLiveData<Long> =
         MutableLiveData()
 
-    val globalCasesData: LiveData<AreaCasesData>
+    val globalCasesData: LiveData<GlobalStats>
         get() = _globalCasesData
 
-    private var _globalCasesData: MutableLiveData<AreaCasesData> =
+    private var _globalCasesData: MutableLiveData<GlobalStats> =
         MutableLiveData()
 
     protected val handler = CoroutineExceptionHandler { _, exception ->
@@ -62,15 +63,15 @@ class DashboardViewModel
 
         viewModelScope.launch {
             getGlobalCasesDataUseCase().collect{
-                _globalCasesData.value = it?.toPresentation()
+                _globalCasesData.value = it.toPresentation()
             }
         }
 
-        viewModelScope.launch {
-            getCountriesUseCase().collect{
-                it.size
-            }
-        }
+//        viewModelScope.launch {
+//            getCountriesUseCase().collect{
+//                it.size
+//            }
+//        }
 
     }
 

@@ -1,19 +1,26 @@
 package it.wemake.covid19Companion.local.mappers
 
-import it.wemake.covid19Companion.data.models.AreaCasesDataEntity
-import it.wemake.covid19Companion.local.models.AreaCasesDataLocalModel
+import it.wemake.covid19Companion.data.models.NovelCountryCasesDataEntity
+import it.wemake.covid19Companion.data.models.CountryInfoEntity
+import it.wemake.covid19Companion.local.models.CountryCasesDataLocalModel
+import it.wemake.covid19Companion.local.models.CountryInfoLocalModel
 
-internal fun AreaCasesDataEntity.toLocal(): AreaCasesDataLocalModel =
-    AreaCasesDataLocalModel(
-        id,
-        displayName,
-        lastUpdated,
-        totalConfirmed,
-        totalDeaths,
-        totalRecovered,
-        totalConfirmedDelta,
-        totalDeathsDelta,
-        totalRecoveredDelta,
-        parentId,
-        hasAreasData
+internal fun NovelCountryCasesDataEntity.toLocal(): CountryCasesDataLocalModel =
+    CountryCasesDataLocalModel(
+        country,
+        cases,
+        deaths,
+        recovered,
+        todayCases,
+        todayDeaths,
+        0,
+        updated,
+        continent,
+        countryInfo.toLocal()
+    )
+
+internal fun CountryInfoEntity.toLocal(): CountryInfoLocalModel =
+    CountryInfoLocalModel(
+        iso2,
+        iso3
     )

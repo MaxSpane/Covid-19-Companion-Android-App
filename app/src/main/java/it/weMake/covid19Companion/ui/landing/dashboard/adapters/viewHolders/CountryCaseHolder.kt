@@ -24,7 +24,7 @@ class CountryCaseHolder(private val binding: ItemCountryCasesSummaryBinding): Re
         val context = itemView.context
 
         binding.countryNameTV.text = item.displayName
-        item.iso2?.let {
+        item.countryInfo.iso2.let {
             try {
                 val resID: Int =
                     context.resources.getIdentifier("flag_${it.toLowerCase()}", "drawable", context.packageName)

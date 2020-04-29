@@ -35,3 +35,16 @@ fun String.getDateFromISOString(): Date {
     }
     return date!!
 }
+
+
+fun Long.getTimeFromToday(): String {
+
+    val calendar = Calendar.getInstance(
+        TimeZone.getDefault(),
+        Locale.getDefault()
+    )
+    val date: Date = Date(this)
+    calendar.time = date
+
+    return DateUtils.getRelativeTimeSpanString(calendar.timeInMillis, Calendar.getInstance().timeInMillis, DateUtils.MINUTE_IN_MILLIS, DateUtils.FORMAT_ABBREV_RELATIVE).toString()
+}
