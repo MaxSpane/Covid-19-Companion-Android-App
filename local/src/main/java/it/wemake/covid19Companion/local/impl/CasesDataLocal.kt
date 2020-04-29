@@ -34,4 +34,15 @@ class CasesDataLocal @Inject constructor(
             it.toEntity()
         }
 
+    override suspend fun searchCountriesCasesData(
+        searchQuery: String,
+        page: Int,
+        pageSize: Int
+    ): Flow<List<CountryCasesDataEntity>> =
+        countriesCasesDataDao.searchCountriesCasesData(searchQuery, page, pageSize).map { countriesCasesData ->
+            countriesCasesData.map {
+                it.toEntity()
+            }
+        }
+
 }

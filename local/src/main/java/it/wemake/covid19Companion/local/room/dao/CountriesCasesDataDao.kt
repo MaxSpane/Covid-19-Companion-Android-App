@@ -20,4 +20,7 @@ interface CountriesCasesDataDao {
     @Query("SELECT * FROM countries_cases_data ORDER BY totalConfirmed DESC LIMIT :pageSize OFFSET (:page * 10)")
     fun getCountriesCasesData(page: Int, pageSize: Int): Flow<List<CountryCasesDataLocalModel>>
 
+    @Query("SELECT * FROM countries_cases_data WHERE displayName LIKE :searchQuery ORDER BY totalConfirmed DESC LIMIT :pageSize OFFSET (:page * 10)")
+    fun searchCountriesCasesData(searchQuery: String, page: Int, pageSize: Int): Flow<List<CountryCasesDataLocalModel>>
+
 }

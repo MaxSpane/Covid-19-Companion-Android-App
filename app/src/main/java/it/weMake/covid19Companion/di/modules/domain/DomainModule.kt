@@ -35,6 +35,11 @@ class DomainModule {
         covid19CasesRepository: Covid19CasesRepository
     ): GetCountriesCasesDataUseCase = GetCountriesCasesDataUseCase(covid19CasesRepository)
 
+    @Provides
+    fun provideSearchCountriesCasesDataCasesUseCase(
+        covid19CasesRepository: Covid19CasesRepository
+    ): SearchCountriesCasesDataUseCase = SearchCountriesCasesDataUseCase(covid19CasesRepository)
+
 //    @Provides
 //    fun provideGetCountriesUseCase(
 //        countriesRepository: CountriesRepository

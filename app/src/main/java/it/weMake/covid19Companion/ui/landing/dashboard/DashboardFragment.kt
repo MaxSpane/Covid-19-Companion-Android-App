@@ -64,7 +64,7 @@ class DashboardFragment : DaggerFragment(), View.OnClickListener {
     ): View? {
         binding = FragmentDashboardBinding.inflate(inflater, container, false)
 
-        dashboardAdapter = DashboardAdapter(attemptDownloadHandHygienePDF)
+        dashboardAdapter = DashboardAdapter(attemptDownloadHandHygienePDF, search)
 
         binding.dashboardRV.adapter = dashboardAdapter
 
@@ -88,28 +88,6 @@ class DashboardFragment : DaggerFragment(), View.OnClickListener {
     }
 
     override fun onClick(v: View) {
-
-        when(v.id){
-
-            R.id.searchIV -> {
-
-                if (binding.searchET.visibility == View.GONE){
-
-                    binding.searchET.show()
-                    binding.searchIV.setImageResource(R.drawable.ic_close_ash_24dp)
-
-                }else{
-
-                    binding.searchET.makeDisappear()
-                    binding.searchIV.setImageResource(R.drawable.ic_search)
-                    binding.searchET.setText("")
-
-                }
-
-            }
-
-        }
-
     }
 
     private val WRITE_EXTERNAL_STORAGE_PERMISSION_REQUEST = 1
@@ -147,10 +125,6 @@ class DashboardFragment : DaggerFragment(), View.OnClickListener {
         })
 
 //        dashboardViewModel.updateCasesSummary()
-
-        binding.searchET.addTextChangedListener {
-            viewModel.search(it.toString())
-        }
 
         binding.dashboardRV.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
@@ -190,6 +164,12 @@ class DashboardFragment : DaggerFragment(), View.OnClickListener {
         })
 
         binding.dashboardSRL.setOnRefreshListener { viewModel.updateCasesData() }
+
+
+        viewModel.pagedSearchCountriesCasesData.observe(viewLifecycleOwner, Observer {
+            dashboardAdapter.refill(it)
+        })
+
     }
 
     private val attemptDownloadHandHygienePDF = fun (){
@@ -232,6 +212,14 @@ class DashboardFragment : DaggerFragment(), View.OnClickListener {
             return true
         }
 
+    }
+
+    private val search = fun (searchQuery: String){
+        if (searchQuery.isEmpty()){
+            dashboardAdapter.refill(viewModel.pagedCountriesCasesData.value!!)
+        }else{
+            viewModel.pagedSearch("%$searchQuery%", 0, 20)
+        }
     }
 
 }

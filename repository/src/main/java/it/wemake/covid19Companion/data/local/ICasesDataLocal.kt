@@ -13,4 +13,6 @@ interface ICasesDataLocal {
 
     suspend fun getGlobalCasesData(): Flow<GlobalStatsEntity>
 
+    suspend fun searchCountriesCasesData(searchQuery: String, page: Int, pageSize: Int): Flow<List<CountryCasesDataEntity>>
+
 }

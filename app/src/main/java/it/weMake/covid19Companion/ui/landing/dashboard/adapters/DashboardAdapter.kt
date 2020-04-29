@@ -19,7 +19,8 @@ import it.weMake.covid19Companion.ui.landing.dashboard.adapters.viewHolders.WHOH
 
 
 class DashboardAdapter(
-    private val attemptDownloadHandHygienePDF: () -> Unit
+    private val attemptDownloadHandHygienePDF: () -> Unit,
+    private val search: (searchQuery: String) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var countryCases: ArrayList<CountryCasesData> = ArrayList()
@@ -51,7 +52,7 @@ class DashboardAdapter(
 
                 VIEW_TYPE_COUNTRY_CASES_HEADER->{
                     val view = LayoutInflater.from(parent.context).inflate(R.layout.header_dashboard_country_cases, parent, false)
-                    return CountryCasesHeaderHolder(HeaderDashboardCountryCasesBinding.bind(view))
+                    return CountryCasesHeaderHolder(HeaderDashboardCountryCasesBinding.bind(view), search)
                 }
 
                 else->{
@@ -106,18 +107,11 @@ class DashboardAdapter(
 
     fun refill(pagedData: PagedData<List<CountryCasesData>>){
 
-        if(pagedData.data.isEmpty())
-            return
-
-        if (pagedData.page == 0){
-            countryCases.clear()
-            countryCases.addAll(pagedData.data)
-            notifyDataSetChanged()
-        }else{
-
-            countryCases.addAll(pagedData.data)
-            notifyItemRangeInserted(pagedData.page * 10, 10)
-        }
+        val formerSize = countryCases.size
+        countryCases.clear()
+        notifyItemRangeRemoved(3, formerSize)
+        countryCases.addAll(pagedData.data)
+        notifyItemRangeInserted(3, countryCases.size)
 
     }
 

@@ -23,7 +23,8 @@ class DashboardViewModel
         val getCountriesCasesDataUseCase: GetCountriesCasesDataUseCase,
         val updateCasesDataUseCase: UpdateCasesDataUseCase,
         val getCasesDataLastUpdatedUseCase: GetCasesDataLastUpdatedUseCase,
-        val getGlobalCasesDataUseCase: GetGlobalCasesDataUseCase
+        val getGlobalCasesDataUseCase: GetGlobalCasesDataUseCase,
+        val searchCountriesCasesDataUseCase: SearchCountriesCasesDataUseCase
 //        val getCountriesUseCase: GetCountriesUseCase
     ) : UiStateViewModel() {
 
@@ -49,6 +50,12 @@ class DashboardViewModel
         MutableLiveData()
 
     private var page: Int = -1
+
+    private var _pagedSearchCountriesCasesData: MutableLiveData<PagedData<List<CountryCasesData>>> =
+        MutableLiveData()
+
+    val pagedSearchCountriesCasesData: LiveData<PagedData<List<CountryCasesData>>>
+        get() = _pagedSearchCountriesCasesData
 
     init {
 
@@ -112,17 +119,18 @@ class DashboardViewModel
         _uiState.value = Success
     }
 
-    fun search(searchQuery: String){
+    fun pagedSearch(searchQuery: String, page: Int, pageSize: Int = 10){
+        viewModelScope.launch(handler) {
+            searchCountriesCasesDataUseCase(searchQuery, page, pageSize).collect{ countries ->
 
-//        if (searchQuery.isEmpty()){
-//            _pagedCountriesCasesData.value = _countriesCasesData.value
-//        }else{
-//            viewModelScope.launch {
-//                _pagedCountriesCasesData.value = _countriesCasesData.value!!.filter { countriesCasesData ->
-//                    countriesCasesData.displayName.toLowerCase().contains(searchQuery.toLowerCase())
-//                }
-//            }
-//        }
+                _pagedSearchCountriesCasesData.value = PagedData(
+                    page,
+                    countries.map {
+                        it.toPresentation()
+                    }
+                )
+            }
+        }
 
     }
 
