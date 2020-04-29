@@ -72,8 +72,6 @@ class DashboardFragment : DaggerFragment(), View.OnClickListener {
 
         viewModel.updateCasesData()
 
-        binding.handHygieneCV.setOnClickListener(this)
-
         return binding.root
     }
 
@@ -123,8 +121,6 @@ class DashboardFragment : DaggerFragment(), View.OnClickListener {
         viewModel.pagedCountriesCasesData.observe(viewLifecycleOwner, Observer {
             dashboardAdapter.addPage(it)
         })
-
-//        dashboardViewModel.updateCasesSummary()
 
         binding.dashboardRV.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 

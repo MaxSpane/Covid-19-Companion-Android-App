@@ -15,7 +15,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="@dimen/horizontal_margin"
-        android:layout_marginTop="46dp"/>
+        android:layout_marginTop="36dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/casesStatsRV"
