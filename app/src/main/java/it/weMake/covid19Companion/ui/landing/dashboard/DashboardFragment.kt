@@ -25,6 +25,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.k0d4black.theforce.commons.Error
+import com.k0d4black.theforce.commons.Loading
+import com.k0d4black.theforce.commons.Success
 import dagger.android.support.DaggerFragment
 import it.weMake.covid19Companion.R
 import it.weMake.covid19Companion.databinding.FragmentDashboardBinding
@@ -39,9 +42,9 @@ class DashboardFragment : DaggerFragment(), View.OnClickListener {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    protected val dashboardViewModel: DashboardViewModel by viewModels { viewModelFactory }
+    protected val viewModel: DashboardViewModel by viewModels { viewModelFactory }
 
-    lateinit var fragmentBinding: FragmentDashboardBinding
+    lateinit var binding: FragmentDashboardBinding
     lateinit var dashboardAdapter: DashboardAdapter
 
     private val downloadManagerBroadcastReceiver = object : BroadcastReceiver(){
@@ -59,18 +62,19 @@ class DashboardFragment : DaggerFragment(), View.OnClickListener {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        fragmentBinding = FragmentDashboardBinding.inflate(inflater, container, false)
+        binding = FragmentDashboardBinding.inflate(inflater, container, false)
 
         dashboardAdapter = DashboardAdapter(attemptDownloadHandHygienePDF)
 
-        fragmentBinding.dashboardRV.adapter = dashboardAdapter
+        binding.dashboardRV.adapter = dashboardAdapter
 
         attachObservers()
-        dashboardViewModel.updateCasesData()
 
-        fragmentBinding.handHygieneCV.setOnClickListener(this)
+        viewModel.updateCasesData()
 
-        return fragmentBinding.root
+        binding.handHygieneCV.setOnClickListener(this)
+
+        return binding.root
     }
 
     override fun onResume() {
@@ -89,16 +93,16 @@ class DashboardFragment : DaggerFragment(), View.OnClickListener {
 
             R.id.searchIV -> {
 
-                if (fragmentBinding.searchET.visibility == View.GONE){
+                if (binding.searchET.visibility == View.GONE){
 
-                    fragmentBinding.searchET.show()
-                    fragmentBinding.searchIV.setImageResource(R.drawable.ic_close_ash_24dp)
+                    binding.searchET.show()
+                    binding.searchIV.setImageResource(R.drawable.ic_close_ash_24dp)
 
                 }else{
 
-                    fragmentBinding.searchET.makeDisappear()
-                    fragmentBinding.searchIV.setImageResource(R.drawable.ic_search)
-                    fragmentBinding.searchET.setText("")
+                    binding.searchET.makeDisappear()
+                    binding.searchIV.setImageResource(R.drawable.ic_search)
+                    binding.searchET.setText("")
 
                 }
 
@@ -124,7 +128,7 @@ class DashboardFragment : DaggerFragment(), View.OnClickListener {
 
     private fun attachObservers(){
 
-        dashboardViewModel.casesDataLastUpdated.observe(viewLifecycleOwner, Observer {
+        viewModel.casesDataLastUpdated.observe(viewLifecycleOwner, Observer {
             if(it == 0L){
                 dashboardAdapter.setLastUpdated("Never")
             }else {
@@ -132,23 +136,23 @@ class DashboardFragment : DaggerFragment(), View.OnClickListener {
             }
         })
 
-        dashboardViewModel.globalCasesData.observe(viewLifecycleOwner, Observer {
+        viewModel.globalCasesData.observe(viewLifecycleOwner, Observer {
             it?.let {
                 dashboardAdapter.setGlobalCasesData(it)
             }
         })
 
-        dashboardViewModel.pagedCountriesCasesData.observe(viewLifecycleOwner, Observer {
+        viewModel.pagedCountriesCasesData.observe(viewLifecycleOwner, Observer {
             dashboardAdapter.addPage(it)
         })
 
 //        dashboardViewModel.updateCasesSummary()
 
-        fragmentBinding.searchET.addTextChangedListener {
-            dashboardViewModel.search(it.toString())
+        binding.searchET.addTextChangedListener {
+            viewModel.search(it.toString())
         }
 
-        fragmentBinding.dashboardRV.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        binding.dashboardRV.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
@@ -158,13 +162,13 @@ class DashboardFragment : DaggerFragment(), View.OnClickListener {
                         Log.i("RecyclerView scrolled: ", "scroll up!")
                         val layoutManager = recyclerView.layoutManager as LinearLayoutManager
                         if (layoutManager.findLastVisibleItemPosition() == 17)
-                            dashboardViewModel.loadPage(dashboardAdapter.pageBottom + 1)
+                            viewModel.loadPage(dashboardAdapter.pageBottom + 1)
                     }
                     else{
                         Log.i("RecyclerView scrolled: ", "scroll down!")
                         val layoutManager = recyclerView.layoutManager as LinearLayoutManager
                         if (layoutManager.findFirstVisibleItemPosition() == 3 && dashboardAdapter.pageTop != 0)
-                            dashboardViewModel.loadPage(dashboardAdapter.pageTop - 1)
+                            viewModel.loadPage(dashboardAdapter.pageTop - 1)
                     }
                 }
 
@@ -172,7 +176,20 @@ class DashboardFragment : DaggerFragment(), View.OnClickListener {
 
         })
 
-        dashboardViewModel.loadPage(0, 20)
+        viewModel.loadPage(0, 20)
+
+        viewModel.uiState.observe(viewLifecycleOwner, Observer {
+            when (it) {
+                is Success -> binding.dashboardSRL.isRefreshing = false
+                is Error -> {
+                    binding.dashboardSRL.isRefreshing = false
+                    showLongToast(requireContext(), "Could not update Cases Data. Please try again.")
+                }
+                is Loading -> binding.dashboardSRL.isRefreshing = true
+            }
+        })
+
+        binding.dashboardSRL.setOnRefreshListener { viewModel.updateCasesData() }
     }
 
     private val attemptDownloadHandHygienePDF = fun (){

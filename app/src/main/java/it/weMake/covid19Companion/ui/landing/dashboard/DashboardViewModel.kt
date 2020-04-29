@@ -4,6 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.k0d4black.theforce.commons.Loading
+import com.k0d4black.theforce.commons.Success
+import com.k0d4black.theforce.commons.UiStateViewModel
 import it.weMake.covid19Companion.mappers.toPresentation
 import it.weMake.covid19Companion.models.AreaCasesData
 import it.weMake.covid19Companion.models.CountryCasesData
@@ -22,7 +25,7 @@ class DashboardViewModel
         val getCasesDataLastUpdatedUseCase: GetCasesDataLastUpdatedUseCase,
         val getGlobalCasesDataUseCase: GetGlobalCasesDataUseCase
 //        val getCountriesUseCase: GetCountriesUseCase
-    ) : ViewModel() {
+    ) : UiStateViewModel() {
 
     val pagedCountriesCasesData: LiveData<PagedData<List<CountryCasesData>>>
         get() = _pagedCountriesCasesData
@@ -45,10 +48,6 @@ class DashboardViewModel
     private var _globalCasesData: MutableLiveData<GlobalStats> =
         MutableLiveData()
 
-    protected val handler = CoroutineExceptionHandler { _, exception ->
-        exception.printStackTrace()
-//        _uiState.value = Error(exception)
-    }
     private var page: Int = -1
 
     init {
@@ -106,9 +105,11 @@ class DashboardViewModel
     }
 
     fun updateCasesData(){
+        _uiState.value = Loading
         viewModelScope.launch(handler) {
             updateCasesDataUseCase()
         }
+        _uiState.value = Success
     }
 
     fun search(searchQuery: String){

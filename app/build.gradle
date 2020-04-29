@@ -76,5 +76,7 @@ dependencies {
     //Local Libs
     implementation project(':remote')
     implementation project(':local')
+    
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'
 
 }
