@@ -34,20 +34,20 @@ class CountryCaseHolder(private val binding: ItemCountryCasesSummaryBinding): Re
             }
         }
         binding.confirmedValueTV.text = if(item.totalConfirmed == null){"Unknown"}else{item.totalConfirmed.numberWithCommas()}
-        if (item.totalConfirmedDelta != null){
+        if (item.totalConfirmedDelta != null && item.totalConfirmedDelta != 0){
             binding.confirmedDeltaCP.show()
 
             binding.confirmedDeltaCP.text = context.getString(R.string.new_cases_placeholder, item.totalConfirmedDelta.numberWithCommas())
         }
 
         binding.recoveredValueTV.text = if(item.totalRecovered == null){"Unknown"}else{item.totalRecovered.numberWithCommas()}
-        if (item.totalRecoveredDelta != null){
+        if (item.totalRecoveredDelta != null && item.totalRecoveredDelta != 0){
             binding.recoveredDeltaCP.show()
             binding.recoveredDeltaCP.text = context.getString(R.string.new_cases_placeholder, item.totalRecoveredDelta.numberWithCommas())
         }
 
         binding.deathsValueTV.text = if(item.totalDeaths == null){"Unknown"}else{item.totalDeaths.numberWithCommas()}
-        if (item.totalDeathsDelta != null){
+        if (item.totalDeathsDelta != null && item.totalDeathsDelta != 0){
             binding.deathsDeltaCP.show()
             binding.deathsDeltaCP.text = context.getString(R.string.new_cases_placeholder, item.totalDeathsDelta.numberWithCommas())
         }
