@@ -1,11 +1,7 @@
 package it.weMake.covid19Companion.ui.landing.dashboard.adapters
 
-import android.os.Handler
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import it.weMake.covid19Companion.R
 import it.weMake.covid19Companion.databinding.HeaderDashboardCountryCasesBinding
@@ -15,15 +11,21 @@ import it.weMake.covid19Companion.databinding.WhoHandHygieneBrochureBinding
 import it.weMake.covid19Companion.models.AreaCasesData
 import it.weMake.covid19Companion.models.CountryCasesData
 import it.weMake.covid19Companion.models.PagedData
-import it.weMake.covid19Companion.utils.numberWithCommas
-import it.weMake.covid19Companion.utils.show
+import it.weMake.covid19Companion.ui.landing.dashboard.adapters.viewHolders.CountryCaseHolder
+import it.weMake.covid19Companion.ui.landing.dashboard.adapters.viewHolders.CountryCasesHeaderHolder
+import it.weMake.covid19Companion.ui.landing.dashboard.adapters.viewHolders.GlobalStatsHeaderHolder
+import it.weMake.covid19Companion.ui.landing.dashboard.adapters.viewHolders.WHOHandHygieneBrochureHolder
 
 
-class DashboardAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class DashboardAdapter(
+    private val attemptDownloadHandHygienePDF: () -> Unit
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var countryCases: ArrayList<CountryCasesData> = ArrayList()
     private var lastUpdated = "Never"
     private var globalCasesData: AreaCasesData? = null
+    private var isDownloadingHandHygieneBrochure = false
+
     var pageTop = 0
     var pageBottom = 1
 
@@ -43,7 +45,7 @@ class DashboardAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
                 VIEW_TYPE_WHO_HAND_HYGIENE_BROCHURE->{
                     val view = LayoutInflater.from(parent.context).inflate(R.layout.who_hand_hygiene_brochure, parent, false)
-                    return WHOHandHygieneBrochureHolder(WhoHandHygieneBrochureBinding.bind(view))
+                    return WHOHandHygieneBrochureHolder(WhoHandHygieneBrochureBinding.bind(view), attemptDownloadHandHygienePDF)
                 }
 
                 VIEW_TYPE_COUNTRY_CASES_HEADER->{
@@ -71,16 +73,15 @@ class DashboardAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             when(getItemViewType(position)){
 
                 VIEW_TYPE_GLOBAL_STATS_HEADER->{
-                    (viewHolder as GlobalStatsHeaderHolder).bind()
-                    Log.d("onBindViewHolder", "$position")
+                    globalCasesData?.let { (viewHolder as GlobalStatsHeaderHolder).bind(it) }
                 }
 
                 VIEW_TYPE_WHO_HAND_HYGIENE_BROCHURE->{
-                    (viewHolder as WHOHandHygieneBrochureHolder).bind()
+                    (viewHolder as WHOHandHygieneBrochureHolder).bind(isDownloadingHandHygieneBrochure)
                 }
 
                 VIEW_TYPE_COUNTRY_CASES_HEADER->{
-                    (viewHolder as CountryCasesHeaderHolder).bind()
+                    (viewHolder as CountryCasesHeaderHolder).bind(lastUpdated)
                 }
 
                 else->{
@@ -173,125 +174,10 @@ class DashboardAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             notifyItemChanged(0)
     }
 
-    inner class CountryCaseHolder(private val binding: ItemCountryCasesSummaryBinding): RecyclerView.ViewHolder(binding.root), View.OnClickListener{
-
-        init {
-
-            itemView.setOnClickListener(this)
-        }
-
-        override fun onClick(v: View?) {
-        }
-
-        fun bind(item: CountryCasesData) {
-            val context = itemView.context
-            
-            binding.countryNameTV.text = item.displayName
-            item.iso2?.let {
-                try {
-                    val resID: Int =
-                        context.resources.getIdentifier("flag_${it.toLowerCase()}", "drawable", context.packageName)
-                    binding.flagIV.setImageResource(resID)
-                }catch (e: Exception){
-                    Log.d("flag_shower", "$it ${item.displayName}")
-                }
-            }
-            binding.confirmedValueTV.text = if(item.totalConfirmed == null){"Unknown"}else{item.totalConfirmed.numberWithCommas()}
-            if (item.totalConfirmedDelta != null){
-                binding.confirmedDeltaCP.show()
-
-                binding.confirmedDeltaCP.text = context.getString(R.string.new_cases_placeholder, item.totalConfirmedDelta.numberWithCommas())
-            }
-
-            binding.recoveredValueTV.text = if(item.totalRecovered == null){"Unknown"}else{item.totalRecovered.numberWithCommas()}
-            if (item.totalRecoveredDelta != null){
-                binding.recoveredDeltaCP.show()
-                binding.recoveredDeltaCP.text = context.getString(R.string.new_cases_placeholder, item.totalRecoveredDelta.numberWithCommas())
-            }
-
-            binding.deathsValueTV.text = if(item.totalDeaths == null){"Unknown"}else{item.totalDeaths.numberWithCommas()}
-            if (item.totalDeathsDelta != null){
-                binding.deathsDeltaCP.show()
-                binding.deathsDeltaCP.text = context.getString(R.string.new_cases_placeholder, item.totalDeathsDelta.numberWithCommas())
-            }
-
-        }
-
-    }
-
-    inner class GlobalStatsHeaderHolder(private val binding: HeaderGlobalStatsDashboardBinding): RecyclerView.ViewHolder(binding.root), View.OnClickListener{
-
-        private var globalCasesStatsAdapter = GlobalCasesStatsAdapter()
-
-        private var handler = Handler()
-        private val autoScrollDelayedTime: Long = 2500
-        private val autoScrollCountryStatsRunnable: Runnable = Runnable {
-
-            val lastVisibleItemPosition = (binding.casesStatsRV.layoutManager!! as LinearLayoutManager).findLastVisibleItemPosition()
-
-            if (lastVisibleItemPosition != 2){
-                binding.casesStatsRV.smoothScrollToPosition(lastVisibleItemPosition + 1)
-            }else{
-                binding.casesStatsRV.smoothScrollToPosition(0)
-            }
-
-            autoScrollCountryStatsDelayed()
-
-        }
-
-        init {
-            itemView.setOnClickListener(this)
-            binding.casesStatsRV.adapter = globalCasesStatsAdapter
-        }
-
-        override fun onClick(v: View?) {
-        }
-
-        fun bind() {
-            val context = itemView.context
-
-            globalCasesData?.let {
-                globalCasesStatsAdapter.updateGlobalCasesData(it)
-                autoScrollCountryStatsDelayed()
-            }
-        }
-
-        private fun autoScrollCountryStatsDelayed(){
-            handler.postDelayed(autoScrollCountryStatsRunnable, autoScrollDelayedTime)
-        }
-
-    }
-
-    inner class WHOHandHygieneBrochureHolder(private val binding: WhoHandHygieneBrochureBinding): RecyclerView.ViewHolder(binding.root), View.OnClickListener{
-
-        init {
-
-            itemView.setOnClickListener(this)
-        }
-
-        override fun onClick(v: View?) {
-        }
-
-        fun bind() {
-            val context = itemView.context
-        }
-
-    }
-
-    inner class CountryCasesHeaderHolder(private val binding: HeaderDashboardCountryCasesBinding): RecyclerView.ViewHolder(binding.root), View.OnClickListener{
-
-        init {
-            itemView.setOnClickListener(this)
-        }
-
-        override fun onClick(v: View?) {
-        }
-
-        fun bind() {
-            val context = itemView.context
-            binding.lastUpdatedValueTV.text = lastUpdated
-        }
-
+    fun setIsDownloadingHandHygieneBrochure(isDownloadingHandHygieneBrochure: Boolean){
+        this.isDownloadingHandHygieneBrochure = isDownloadingHandHygieneBrochure
+        if (itemCount != countryCases.size)
+            notifyItemChanged(1)
     }
 
 }

@@ -11,7 +11,6 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
-import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -30,7 +29,6 @@ import dagger.android.support.DaggerFragment
 import it.weMake.covid19Companion.R
 import it.weMake.covid19Companion.databinding.FragmentDashboardBinding
 import it.weMake.covid19Companion.services.DownloadManagerIntentService
-import it.weMake.covid19Companion.ui.landing.dashboard.adapters.GlobalCasesStatsAdapter
 import it.weMake.covid19Companion.ui.landing.dashboard.adapters.DashboardAdapter
 import it.weMake.covid19Companion.utils.*
 import java.io.File
@@ -48,7 +46,7 @@ class DashboardFragment : DaggerFragment(), View.OnClickListener {
 
     private val downloadManagerBroadcastReceiver = object : BroadcastReceiver(){
         override fun onReceive(context: Context?, intent: Intent?) {
-            fragmentBinding.handHygienePB.makeDisappear()
+            dashboardAdapter.setIsDownloadingHandHygieneBrochure(false)
         }
 
     }
@@ -63,7 +61,7 @@ class DashboardFragment : DaggerFragment(), View.OnClickListener {
     ): View? {
         fragmentBinding = FragmentDashboardBinding.inflate(inflater, container, false)
 
-        dashboardAdapter = DashboardAdapter()
+        dashboardAdapter = DashboardAdapter(attemptDownloadHandHygienePDF)
 
         fragmentBinding.dashboardRV.adapter = dashboardAdapter
 
@@ -106,22 +104,6 @@ class DashboardFragment : DaggerFragment(), View.OnClickListener {
 
             }
 
-            R.id.handHygieneCV -> {
-                if (isStoragePermissionGranted()){
-                    if (WHOHandHygieneBrochureExists()){
-                        val intent = Intent(Intent.ACTION_VIEW)
-                        val file = File(requireContext().getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)!!.path + File.pathSeparator + WHO_HAND_HYGIENE_PDF)
-                        val data = FileProvider.getUriForFile(requireContext().applicationContext, requireContext().packageName +".fileprovider", file)
-                        val type = "application/pdf"
-                        intent.setDataAndType(data, type)
-                        intent.flags = FLAG_GRANT_READ_URI_PERMISSION or FLAG_GRANT_WRITE_URI_PERMISSION
-                        startActivity(intent)
-                    }else{
-                        downloadHandHygienePDF()
-                    }
-                }
-            }
-
         }
 
     }
@@ -152,7 +134,6 @@ class DashboardFragment : DaggerFragment(), View.OnClickListener {
 
         dashboardViewModel.globalCasesData.observe(viewLifecycleOwner, Observer {
             it?.let {
-//                globalCasesStatsAdapter.updateGlobalCasesData(it)
                 dashboardAdapter.setGlobalCasesData(it)
             }
         })
@@ -194,8 +175,24 @@ class DashboardFragment : DaggerFragment(), View.OnClickListener {
         dashboardViewModel.loadPage(0, 20)
     }
 
+    private val attemptDownloadHandHygienePDF = fun (){
+        if (isStoragePermissionGranted()){
+            if (WHOHandHygieneBrochureExists()){
+                val intent = Intent(Intent.ACTION_VIEW)
+                val file = File(requireContext().getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)!!.path + File.pathSeparator + WHO_HAND_HYGIENE_PDF)
+                val data = FileProvider.getUriForFile(requireContext().applicationContext, requireContext().packageName +".fileprovider", file)
+                val type = "application/pdf"
+                intent.setDataAndType(data, type)
+                intent.flags = FLAG_GRANT_READ_URI_PERMISSION or FLAG_GRANT_WRITE_URI_PERMISSION
+                startActivity(intent)
+            }else{
+                downloadHandHygienePDF()
+            }
+        }
+    }
+
     private fun downloadHandHygienePDF(){
-        fragmentBinding.handHygienePB.show()
+        dashboardAdapter.setIsDownloadingHandHygieneBrochure(true)
         showLongToast(requireContext(), "Downloading Hand Hygiene Brochure(477kb)")
         DownloadManagerIntentService.startActionDownloadWHOHandHygieneBrochure(requireContext())
     }
@@ -208,7 +205,7 @@ class DashboardFragment : DaggerFragment(), View.OnClickListener {
     private fun isStoragePermissionGranted(): Boolean{
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-            if(ActivityCompat.checkSelfPermission(requireContext(), android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
+            if(ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
                 return true
             }else{
                 requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), WRITE_EXTERNAL_STORAGE_PERMISSION_REQUEST)
