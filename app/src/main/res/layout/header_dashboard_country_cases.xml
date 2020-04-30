@@ -50,6 +50,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_search"
+        android:tint="@color/ash"
         app:layout_constraintTop_toTopOf="@id/filterIV"
         app:layout_constraintEnd_toStartOf="@id/filterIV"
         android:layout_marginEnd="28dp"/>

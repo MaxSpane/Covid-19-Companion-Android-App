@@ -21,11 +21,7 @@ class PodcastFragment : Fragment() {
     ): View? {
         pocastViewModel =
                 ViewModelProvider(this).get(PocastViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_home, container, false)
-        val textView: TextView = root.findViewById(R.id.text_home)
-        pocastViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
+        val root = inflater.inflate(R.layout.fragment_podcast, container, false)
         return root
     }
 }

@@ -28,5 +28,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="get_started">Get Started</string>
     <string name="next">Next</string>
+    <string name="public_health_on_call_title">Public Health on Call</string>
+    <string name="public_health_on_call_caption">Evidence and experts to help you understand today’s COVID-19 news - and what it means for tomorrow.</string>
+    <string name="latest_podcasts">Latest Podcasts</string>
 
 </resources>
