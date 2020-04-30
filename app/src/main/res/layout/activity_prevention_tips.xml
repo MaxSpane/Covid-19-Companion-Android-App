@@ -13,12 +13,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/preventionNext"
-        android:layout_marginBottom="56dp">
-
-
-
-    </androidx.viewpager2.widget.ViewPager2>
+        app:layout_constraintBottom_toTopOf="@id/preventionTipNextTV"
+        android:layout_marginBottom="56dp"/>
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/preventionTipTL"
@@ -28,13 +24,13 @@
         android:layout_marginStart="20dp"
         android:layout_marginBottom="48dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/preventionNext"
-        app:layout_constraintBottom_toBottomOf="@+id/preventionNext"
+        app:layout_constraintTop_toTopOf="@+id/preventionTipNextTV"
+        app:layout_constraintBottom_toBottomOf="@+id/preventionTipNextTV"
         app:tabBackground="@drawable/tab_selector"
         app:tabIndicatorHeight="0dp"/>
 
     <TextView
-        android:id="@+id/preventionNext"
+        android:id="@+id/preventionTipNextTV"
         style="@style/Covid19TextView"
         android:layout_marginTop="46dp"
         android:layout_marginEnd="20dp"
@@ -44,8 +40,5 @@
         android:layout_marginBottom="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
