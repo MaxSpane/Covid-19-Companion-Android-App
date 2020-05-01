@@ -1,42 +1,39 @@
 package it.wemake.covid19Companion.data.mappers
 
-import it.wemake.covid19Companion.data.models.AreaCasesDataEntity
-import it.wemake.covid19Companion.data.models.CountryCasesDataEntity
-import it.wemake.covid19Companion.data.models.CountryEntityModel
+import it.wemake.covid19Companion.data.models.*
 import it.wemake.covid19Companion.domain.models.*
 
 
-internal fun AreaCasesDataEntity.toDomain(): AreaCasesDataDomainModel =
-    AreaCasesDataDomainModel(
-        id,
-        displayName,
-        lastUpdated,
-        totalConfirmed,
-        totalDeaths,
-        totalRecovered,
-        totalConfirmedDelta,
-        totalDeathsDelta,
-        totalRecoveredDelta,
-        parentId,
-        hasAreasData
-    )
 
 internal fun CountryCasesDataEntity.toDomain(): CountryCasesDomainModel =
     CountryCasesDomainModel(
-        id,
         displayName,
+        lastUpdated,
+        countryInfo.toDomain(),
         totalConfirmed,
         totalDeaths,
         totalRecovered,
         totalConfirmedDelta,
         totalDeathsDelta,
         totalRecoveredDelta,
-        hasAreasData,
-        iso2
+        continent
     )
 
 internal fun CountryEntityModel.toDomain(): CountryDomainModel =
     CountryDomainModel(
         name,
         iso2
+    )
+
+internal fun CountryInfoEntity.toDomain(): CountryInfoDomainModel =
+    CountryInfoDomainModel(
+        iso2,
+        iso3
+    )
+
+internal fun GlobalStatsEntity.toDomain(): GlobalStatsDomainModel =
+    GlobalStatsDomainModel(
+        confirmed,
+        recovered,
+        deaths
     )

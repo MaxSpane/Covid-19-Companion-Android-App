@@ -4,11 +4,11 @@ import kotlinx.coroutines.flow.Flow
 
 interface ISharedPreferencesLocal {
 
-    suspend fun updateCasesSummaryLastUpdated(lastUpdated: String)
+    suspend fun updateCasesSummaryLastUpdated(lastUpdated: Long)
 
-    suspend fun getCasesSummaryLastUpdatedFlow(): Flow<String>
+    suspend fun getCasesSummaryLastUpdatedFlow(): Flow<Long>
 
-    suspend fun getCasesSummaryLastUpdated(): String
+    suspend fun getCasesSummaryLastUpdated(): Long
 
     fun getWHOHandHygieneDownloadId(): Long
 

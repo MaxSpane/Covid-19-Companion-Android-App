@@ -22,26 +22,26 @@ class Covid19CompanionSharedPreferences constructor(
         COVID_19_COMPANION_SHARED_PREFERENCES, Context.MODE_PRIVATE)
 
     @ExperimentalCoroutinesApi
-    suspend fun getCasesSummaryLastUpdatedFlow(): Flow<String> =
+    suspend fun getCasesSummaryLastUpdatedFlow(): Flow<Long> =
         callbackFlow {
-            offer(covid19CompanionAppSharedPref.getString(CASES_SUMMARY_LAST_UPDATED, "Never")!!)
+            offer(covid19CompanionAppSharedPref.getLong(CASES_SUMMARY_LAST_UPDATED, 0))
             val listener = SharedPreferences.OnSharedPreferenceChangeListener { sharedPreference, key ->
                 if (key == CASES_SUMMARY_LAST_UPDATED){
-                    offer(sharedPreference.getString(CASES_SUMMARY_LAST_UPDATED, "Never")!!)
+                    offer(sharedPreference.getLong(CASES_SUMMARY_LAST_UPDATED, 0))
                 }
             }
             covid19CompanionAppSharedPref.registerOnSharedPreferenceChangeListener(listener)
             awaitClose { covid19CompanionAppSharedPref.unregisterOnSharedPreferenceChangeListener(listener) }
         }
 
-    fun updateCasesSummaryLastUpdated(lastUpdated: String){
+    fun updateCasesSummaryLastUpdated(lastUpdated: Long){
         val editor = covid19CompanionAppSharedPref.edit()
-        editor.putString(CASES_SUMMARY_LAST_UPDATED, lastUpdated)
+        editor.putLong(CASES_SUMMARY_LAST_UPDATED, lastUpdated)
         editor.apply()
     }
 
-    fun getCasesSummaryLastUpdated(): String =
-        covid19CompanionAppSharedPref.getString(CASES_SUMMARY_LAST_UPDATED, "Never")!!
+    fun getCasesSummaryLastUpdated(): Long =
+        covid19CompanionAppSharedPref.getLong(CASES_SUMMARY_LAST_UPDATED, 0)
 
     fun getWHOHandHygieneDownloadId(): Long =
         covid19CompanionAppSharedPref.getLong(WHO_HAND_HYGIENE_BROCHURE_DOWNLOAD_ID, 0)
