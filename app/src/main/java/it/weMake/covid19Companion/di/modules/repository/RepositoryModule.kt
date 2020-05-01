@@ -25,10 +25,10 @@ abstract class RepositoryModule {
         sharedPreferencesRepository: SharedPreferencesRepository
     ): ISharedPreferencesRepository
 
-    @Singleton
-    @Binds
-    abstract fun bindCountriesRepository(
-        countriesRepository: CountriesRepository
-    ): ICountriesRepository
+//    @Singleton
+//    @Binds
+//    abstract fun bindCountriesRepository(
+//        countriesRepository: CountriesRepository
+//    ): ICountriesRepository
 
 }

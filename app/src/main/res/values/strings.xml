@@ -5,7 +5,7 @@
     <string name="title_settings">Settings</string>
     <string name="confirmed">Confirmed</string>
     <string name="hand_hygiene_title"><![CDATA[Hand Hygiene: Why, How & When?]]></string>
-    <string name="cases_title">Updated information about Covid-19 near you.</string>
+    <string name="cases_title">Updated information about Covid-19 Cases.</string>
     <string name="title_last_updated">"Last Updated: "</string>
     <string name="confirmed_lower_case">confirmed</string>
     <string name="recovered_lower_case">recovered</string>

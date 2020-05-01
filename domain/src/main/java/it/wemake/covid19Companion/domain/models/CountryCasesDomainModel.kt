@@ -1,14 +1,14 @@
 package it.wemake.covid19Companion.domain.models
 
 data class CountryCasesDomainModel(
-    val id: String,
     val displayName: String,
+    val lastUpdated: Long,
+    val countryInfo: CountryInfoDomainModel,
     val totalConfirmed: Int?,
     val totalDeaths: Int?,
     val totalRecovered: Int?,
     val totalConfirmedDelta: Int?,
     val totalDeathsDelta: Int?,
     val totalRecoveredDelta: Int?,
-    val hasAreasData: Boolean,
-    val iso2: String?
+    val continent: String
 )
