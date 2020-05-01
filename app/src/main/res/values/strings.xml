@@ -4,7 +4,7 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_settings">Settings</string>
     <string name="confirmed">Confirmed</string>
-    <string name="hand_hygiene_title"><![CDATA[Hand Hygiene: Why, How & When?]]></string>
+    <string name="title_hand_hygiene"><![CDATA[Hand Hygiene: Why, How & When?]]></string>
     <string name="cases_title">Updated information about Covid-19 Cases.</string>
     <string name="title_last_updated">"Last Updated: "</string>
     <string name="confirmed_lower_case">confirmed</string>
@@ -24,12 +24,15 @@
             hand rub kills viruses that may  be on your hands.
     </string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="get_started">Get Started</string>
     <string name="next">Next</string>
     <string name="public_health_on_call_title">Public Health on Call</string>
     <string name="public_health_on_call_caption">Evidence and experts to help you understand today’s COVID-19 news - and what it means for tomorrow.</string>
     <string name="latest_podcasts">Latest Podcasts</string>
+    <string name="title_help">Help</string>
+    <string name="title_help_full">Help and Information</string>
+    <string name="title_screening_tool">COVID-19 Screening Tool</string>
+    <string name="how_to_fight_corona_virus">How to fight Corona Virus</string>
+    <string name="why">Why?</string>
 
 </resources>
