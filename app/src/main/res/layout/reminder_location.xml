@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+
+    <CheckBox
+        android:id="@+id/rem_hand_locCB"
+        android:layout_marginEnd="7dp"
+        android:layout_marginBottom="10dp"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content" />
+
+    <TextView
+        android:id="@+id/rem_hand_locTV"
+        style="@style/Covid19TextView"
+        android:text="@string/confirmed"
+        android:textColor="#818181"
+        android:textSize="12sp"
+        android:layout_marginBottom="8dp"
+        />
+
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>
+

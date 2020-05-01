@@ -1,4 +1,4 @@
-package it.weMake.covid19Companion.ui.landing.notifications
+package it.weMake.covid19Companion.ui.landing.settings
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

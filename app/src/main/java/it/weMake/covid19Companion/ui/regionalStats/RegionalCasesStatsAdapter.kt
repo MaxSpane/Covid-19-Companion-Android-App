@@ -1,14 +1,11 @@
-package it.weMake.covid19Companion.ui.landing.dashboard.adapters
+package it.weMake.covid19Companion.ui.regionalStats
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import it.weMake.covid19Companion.R
 import it.weMake.covid19Companion.databinding.RegionalStatsBinding
-import it.weMake.covid19Companion.models.AreaCasesData
-import it.weMake.covid19Companion.utils.numberWithCommas
 
 class RegionalCasesStatsAdapter(): RecyclerView.Adapter<RegionalCasesStatsAdapter.Holder>() {
 

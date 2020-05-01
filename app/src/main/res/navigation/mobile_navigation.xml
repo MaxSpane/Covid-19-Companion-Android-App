@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/navigation_settings"
-        android:name="it.weMake.covid19Companion.ui.landing.notifications.SettingsFragment"
+        android:name="it.weMake.covid19Companion.ui.landing.settings.SettingsFragment"
         android:label="@string/title_settings"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_settings" />
 </navigation>

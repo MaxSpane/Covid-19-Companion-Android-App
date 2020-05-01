@@ -1,4 +1,4 @@
-package it.weMake.covid19Companion.ui.landing.notifications
+package it.weMake.covid19Companion.ui.landing.settings
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,10 +9,14 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import it.weMake.covid19Companion.R
+import it.weMake.covid19Companion.databinding.FragmentSettingsBinding
 
 class SettingsFragment : Fragment() {
 
     private lateinit var settingsViewModel: SettingsViewModel
+    lateinit var fragmentBinding: FragmentSettingsBinding
+
+    lateinit var reminderLocationAdapter: ReminderLocationAdapter
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -21,11 +25,14 @@ class SettingsFragment : Fragment() {
     ): View? {
         settingsViewModel =
                 ViewModelProvider(this).get(SettingsViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_notifications, container, false)
-        val textView: TextView = root.findViewById(R.id.text_notifications)
+        fragmentBinding = FragmentSettingsBinding.inflate(inflater, container, false)
+
+
+        reminderLocationAdapter = ReminderLocationAdapter()
+        fragmentBinding.remHandLocRV.adapter = reminderLocationAdapter
+
         settingsViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
         })
-        return root
+        return fragmentBinding.root
     }
 }

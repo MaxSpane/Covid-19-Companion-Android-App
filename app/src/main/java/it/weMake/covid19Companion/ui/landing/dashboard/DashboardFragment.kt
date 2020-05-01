@@ -30,6 +30,7 @@ import it.weMake.covid19Companion.databinding.FragmentDashboardBinding
 import it.weMake.covid19Companion.services.DownloadManagerIntentService
 import it.weMake.covid19Companion.ui.landing.dashboard.adapters.GlobalCasesStatsAdapter
 import it.weMake.covid19Companion.ui.landing.dashboard.adapters.DashboardAdapter
+import it.weMake.covid19Companion.ui.landing.settings.ReminderLocationAdapter
 import it.weMake.covid19Companion.utils.*
 import java.io.File
 import javax.inject.Inject
@@ -44,6 +45,7 @@ class DashboardFragment : DaggerFragment(), View.OnClickListener {
     lateinit var fragmentBinding: FragmentDashboardBinding
     lateinit var globalCasesStatsAdapter: GlobalCasesStatsAdapter
     lateinit var dashboardAdapter: DashboardAdapter
+
 
     private lateinit var handler: Handler
     private val autoScrollDelayedTime: Long = 2500

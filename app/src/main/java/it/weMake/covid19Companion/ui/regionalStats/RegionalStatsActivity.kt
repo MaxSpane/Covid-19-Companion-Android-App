@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import it.weMake.covid19Companion.databinding.ActivityRegionalStatsBinding
-import it.weMake.covid19Companion.ui.landing.dashboard.adapters.RegionalCasesStatsAdapter
 
 class RegionalStatsActivity : AppCompatActivity() {
     lateinit var regionalCasesStatsAdapter: RegionalCasesStatsAdapter
@@ -17,7 +16,8 @@ class RegionalStatsActivity : AppCompatActivity() {
         binding = ActivityRegionalStatsBinding.inflate(layoutInflater)
         val view = binding.root
         val regionsRecycler = binding.regionStatsRV
-        regionalCasesStatsAdapter = RegionalCasesStatsAdapter()
+        regionalCasesStatsAdapter =
+            RegionalCasesStatsAdapter()
        regionsRecycler.adapter = regionalCasesStatsAdapter
         setContentView(view)
     }
