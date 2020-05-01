@@ -37,3 +37,11 @@ internal fun GlobalStatsEntity.toDomain(): GlobalStatsDomainModel =
         recovered,
         deaths
     )
+
+internal fun PreventionTipEntity.toDomain(): PreventionTipDomainModel =
+    PreventionTipDomainModel(
+        title,
+        preventionTip,
+        preventionTipWhy,
+        iconId
+    )

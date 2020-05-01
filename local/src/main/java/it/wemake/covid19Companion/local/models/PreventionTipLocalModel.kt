@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "prevention_tips")
-data class PreventionTipsLocalModel(
+data class PreventionTipLocalModel(
     val title: String,
     val preventionTip: String,
     val preventionTipWhy: String,

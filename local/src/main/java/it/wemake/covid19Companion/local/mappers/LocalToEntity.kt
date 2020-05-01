@@ -35,3 +35,11 @@ internal fun GlobalStatsLocalModel.toEntity(): GlobalStatsEntity =
         recovered,
         deaths
     )
+
+internal fun PreventionTipLocalModel.toEntity(): PreventionTipEntity =
+    PreventionTipEntity(
+        title,
+        preventionTip,
+        preventionTipWhy,
+        iconId
+    )

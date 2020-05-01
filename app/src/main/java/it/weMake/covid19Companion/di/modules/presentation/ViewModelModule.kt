@@ -8,15 +8,22 @@ import dagger.Module
 import dagger.multibindings.IntoMap
 import it.weMake.covid19Companion.di.factory.ViewModelFactory
 import it.weMake.covid19Companion.ui.landing.dashboard.DashboardViewModel
+import it.weMake.covid19Companion.ui.landing.help.HelpViewModel
 
 @Module
 abstract class ViewModelModule {
 
+    @Binds
+    abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
+
     @IntoMap
     @Binds
     @ViewModelKey(DashboardViewModel::class)
-    abstract fun bindCharacterSearchViewModel(dashboardViewModel: DashboardViewModel): ViewModel
+    abstract fun bindDashboardViewModel(dashboardViewModel: DashboardViewModel): ViewModel
 
+    @IntoMap
     @Binds
-    abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
+    @ViewModelKey(HelpViewModel::class)
+    abstract fun bindHelpViewModel(helpViewModel: HelpViewModel): ViewModel
+
 }

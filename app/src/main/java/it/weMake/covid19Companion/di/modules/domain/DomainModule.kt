@@ -4,6 +4,7 @@ import dagger.Module
 import dagger.Provides
 import it.wemake.covid19Companion.data.impl.CountriesRepository
 import it.wemake.covid19Companion.data.impl.Covid19CasesRepository
+import it.wemake.covid19Companion.data.impl.PreventionTipsRepository
 import it.wemake.covid19Companion.data.impl.SharedPreferencesRepository
 import it.wemake.covid19Companion.domain.usecases.*
 
@@ -39,6 +40,11 @@ class DomainModule {
     fun provideSearchCountriesCasesDataCasesUseCase(
         covid19CasesRepository: Covid19CasesRepository
     ): SearchCountriesCasesDataUseCase = SearchCountriesCasesDataUseCase(covid19CasesRepository)
+
+    @Provides
+    fun provideGetPreventionTipsUseCase(
+        preventionTipsRepository: PreventionTipsRepository
+    ): GetPreventionTipsUseCase = GetPreventionTipsUseCase(preventionTipsRepository)
 
 //    @Provides
 //    fun provideGetCountriesUseCase(
