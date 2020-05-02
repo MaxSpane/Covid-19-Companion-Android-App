@@ -1,4 +1,4 @@
-package it.weMake.covid19Companion.ui.screening_tool
+package it.weMake.covid19Companion.ui.screeningTool
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

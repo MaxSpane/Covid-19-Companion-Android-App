@@ -101,7 +101,7 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    android:src="@drawable/ic_screening_tool"
+                    android:src="@drawable/ic_screening_tool_mini"
                     app:layout_constraintVertical_chainStyle="packed"
                     android:layout_marginTop="9dp"
                     android:layout_marginStart="@dimen/horizontal_margin"/>

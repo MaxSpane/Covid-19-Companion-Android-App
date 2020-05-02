@@ -26,6 +26,7 @@ import it.weMake.covid19Companion.R
 import it.weMake.covid19Companion.databinding.FragmentHelpBinding
 import it.weMake.covid19Companion.services.DownloadManagerIntentService
 import it.weMake.covid19Companion.ui.landing.help.adapters.PreventionTipsAdapter
+import it.weMake.covid19Companion.ui.screeningTool.ScreeningToolActivity
 import it.weMake.covid19Companion.utils.*
 import java.io.File
 import javax.inject.Inject
@@ -64,6 +65,7 @@ class HelpFragment : DaggerFragment(), View.OnClickListener {
         binding.preventionTipsRV.adapter = preventionTipsAdapter
 
         binding.handHygieneCV.setOnClickListener(this)
+        binding.screeningToolCV.setOnClickListener(this)
         attachObservers()
         return binding.root
     }
@@ -95,6 +97,11 @@ class HelpFragment : DaggerFragment(), View.OnClickListener {
         when(v.id){
 
             R.id.handHygieneCV -> attemptOpenHandHygienePDF()
+
+            R.id.screeningToolCV -> {
+                val intent = Intent(requireContext(), ScreeningToolActivity::class.java)
+                startActivity(intent)
+            }
 
         }
     }

@@ -13,7 +13,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.screening_tool.ScreeningToolActivity"></activity>
+
+        <activity
+            android:name=".ui.screeningTool.ScreeningToolActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
         <activity android:name=".ui.splashscreen.SplashScreenActivity">
 
             <!-- <intent-filter> -->

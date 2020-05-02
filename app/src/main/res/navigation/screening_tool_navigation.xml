@@ -7,7 +7,16 @@
 
     <fragment
         android:id="@+id/introFragment"
-        android:name="it.weMake.covid19Companion.ui.screening_tool.fragments.ScreeningToolIntroFragment"
+        android:name="it.weMake.covid19Companion.ui.screeningTool.fragments.ScreeningToolIntroFragment"
         android:label="fragment_intro"
-        tools:layout="@layout/fragment_screening_tool_intro" />
+        tools:layout="@layout/fragment_screening_tool_intro" >
+        <action
+            android:id="@+id/action_introFragment_to_firstQuestionFragment"
+            app:destination="@id/firstQuestionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/firstQuestionFragment"
+        android:name="it.weMake.covid19Companion.ui.screeningTool.fragments.InitialQuestionsFragment"
+        android:label="fragment_first_question"
+        tools:layout="@layout/fragment_initial_questions" />
 </navigation>

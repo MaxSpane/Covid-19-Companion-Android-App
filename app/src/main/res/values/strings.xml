@@ -37,5 +37,10 @@
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="start_screening">START SCREENING</string>
+    <string name="title_initial_screening_questions">Please enter your gender and age to begin.</string>
+    <string name="question_gender">Your Gender?</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="question_age">Your Age?</string>
 
 </resources>
