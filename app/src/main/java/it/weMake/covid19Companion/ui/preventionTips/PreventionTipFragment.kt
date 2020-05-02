@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 
 import it.weMake.covid19Companion.databinding.FragmentPreventionTipBinding
+import it.weMake.covid19Companion.models.PreventionTip
 
 /**
  * A simple [Fragment] subclass.
@@ -15,9 +16,7 @@ import it.weMake.covid19Companion.databinding.FragmentPreventionTipBinding
  */
 class PreventionTipFragment : Fragment() {
 
-    private var preventionTipTitle: String? = null
-    private var preventionTip: String? = null
-    private var preventionTipWhy: String? = null
+    private lateinit var preventionTip: PreventionTip
 
     private var _binding: FragmentPreventionTipBinding? = null
     // This property is only valid between onCreateView and
@@ -27,9 +26,7 @@ class PreventionTipFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            preventionTipTitle = it.getString(ARG_PREVENTION_TIP_TITLE)
-            preventionTip = it.getString(ARG_PREVENTION_TIP)
-            preventionTipWhy = it.getString(ARG_PREVENTION_TIP_WHY)
+            preventionTip = it.getParcelable(ARG_PREVENTION_TIP)!!
         }
     }
 
@@ -43,12 +40,9 @@ class PreventionTipFragment : Fragment() {
         //and set them to thwe textviews of this fragment layout
         // you use view binding to get the reference to the views ibn the fragment
 
-        binding.preventionTipsTitleTV.text = preventionTipTitle
-        binding.preventionTipsSummary3TV.text = preventionTipWhy
-        binding.preventionTipsSummary1TV.text = preventionTip
-//        binding.preventionTipsSummary2TV.text =
-//        binding.preventionTipsIV. = R.id
-
+        binding.preventionTipsTitleTV.text = preventionTip.title
+        binding.preventionTipsSummary3TV.text = preventionTip.preventionTipWhy
+        binding.preventionTipsSummary1TV.text = preventionTip.preventionTip
 
         return binding.root
 
@@ -61,9 +55,7 @@ class PreventionTipFragment : Fragment() {
 
     companion object {
 
-        private const val ARG_PREVENTION_TIP_TITLE = "preventionTipTitle"
         private const val ARG_PREVENTION_TIP = "preventionTip"
-        private const val ARG_PREVENTION_TIP_WHY = "preventionTipWhy"
 
         /**
          * Use this factory method to create a new instance of
@@ -74,13 +66,10 @@ class PreventionTipFragment : Fragment() {
          * @return A new instance of fragment PreventionTipFragment.
          */
         @JvmStatic
-        fun newInstance(preventionTipTitle: String, preventionTip: String, preventionTipWhy: String) =
+        fun newInstance(preventionTip: PreventionTip) =
             PreventionTipFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PREVENTION_TIP_TITLE, preventionTipTitle)
-                    putString(ARG_PREVENTION_TIP, preventionTip)
-                    putString(ARG_PREVENTION_TIP_WHY, preventionTipWhy)
-
+                    putParcelable(ARG_PREVENTION_TIP, preventionTip)
                 }
             }
     }
