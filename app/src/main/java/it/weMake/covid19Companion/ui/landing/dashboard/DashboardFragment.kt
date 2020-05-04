@@ -47,16 +47,6 @@ class DashboardFragment : DaggerFragment(), View.OnClickListener {
     lateinit var binding: FragmentDashboardBinding
     lateinit var dashboardAdapter: DashboardAdapter
 
-    private val downloadManagerBroadcastReceiver = object : BroadcastReceiver(){
-        override fun onReceive(context: Context?, intent: Intent?) {
-            dashboardAdapter.setIsDownloadingHandHygieneBrochure(false)
-        }
-
-    }
-    private val downloadManagerIntentFilter = IntentFilter(ACTION_DOWNLOAD_STOPPED).apply {
-        addAction(ACTION_DOWNLOAD_COMPLETED)
-    }
-
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
@@ -64,7 +54,7 @@ class DashboardFragment : DaggerFragment(), View.OnClickListener {
     ): View? {
         binding = FragmentDashboardBinding.inflate(inflater, container, false)
 
-        dashboardAdapter = DashboardAdapter(attemptDownloadHandHygienePDF, search)
+        dashboardAdapter = DashboardAdapter(search)
 
         binding.dashboardRV.adapter = dashboardAdapter
 
@@ -75,31 +65,7 @@ class DashboardFragment : DaggerFragment(), View.OnClickListener {
         return binding.root
     }
 
-    override fun onResume() {
-        super.onResume()
-        LocalBroadcastManager.getInstance(requireContext()).registerReceiver(downloadManagerBroadcastReceiver, downloadManagerIntentFilter)
-    }
-
-    override fun onPause() {
-        super.onPause()
-        LocalBroadcastManager.getInstance(requireContext()).unregisterReceiver(downloadManagerBroadcastReceiver)
-    }
-
     override fun onClick(v: View) {
-    }
-
-    private val WRITE_EXTERNAL_STORAGE_PERMISSION_REQUEST = 1
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-
-        if (requestCode == WRITE_EXTERNAL_STORAGE_PERMISSION_REQUEST && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-            downloadHandHygienePDF()
-        }
-
     }
 
     private fun attachObservers(){
@@ -165,48 +131,6 @@ class DashboardFragment : DaggerFragment(), View.OnClickListener {
         viewModel.pagedSearchCountriesCasesData.observe(viewLifecycleOwner, Observer {
             dashboardAdapter.refill(it)
         })
-
-    }
-
-    private val attemptDownloadHandHygienePDF = fun (){
-        if (isStoragePermissionGranted()){
-            if (WHOHandHygieneBrochureExists()){
-                val intent = Intent(Intent.ACTION_VIEW)
-                val file = File(requireContext().getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)!!.path + File.pathSeparator + WHO_HAND_HYGIENE_PDF)
-                val data = FileProvider.getUriForFile(requireContext().applicationContext, requireContext().packageName +".fileprovider", file)
-                val type = "application/pdf"
-                intent.setDataAndType(data, type)
-                intent.flags = FLAG_GRANT_READ_URI_PERMISSION or FLAG_GRANT_WRITE_URI_PERMISSION
-                startActivity(intent)
-            }else{
-                downloadHandHygienePDF()
-            }
-        }
-    }
-
-    private fun downloadHandHygienePDF(){
-        dashboardAdapter.setIsDownloadingHandHygieneBrochure(true)
-        showLongToast(requireContext(), "Downloading Hand Hygiene Brochure(477kb)")
-        DownloadManagerIntentService.startActionDownloadWHOHandHygieneBrochure(requireContext())
-    }
-
-    private fun WHOHandHygieneBrochureExists(): Boolean{
-        val file = File(ContextCompat.getExternalFilesDirs(requireContext(), Environment.DIRECTORY_DOCUMENTS)[0].path + "/" + WHO_HAND_HYGIENE_PDF)
-        return file.exists()
-    }
-
-    private fun isStoragePermissionGranted(): Boolean{
-
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-            if(ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
-                return true
-            }else{
-                requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), WRITE_EXTERNAL_STORAGE_PERMISSION_REQUEST)
-                return false
-            }
-        }else{
-            return true
-        }
 
     }
 

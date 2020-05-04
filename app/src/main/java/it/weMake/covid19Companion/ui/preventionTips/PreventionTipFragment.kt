@@ -8,24 +8,21 @@ import android.view.ViewGroup
 
 import it.weMake.covid19Companion.databinding.FragmentPreventionTipBinding
 
-private const val ARG_PREVENTION_TIP_TITLE = "preventionTipTitl"
-private const val ARG_PREVENTION_TIP = "preventionTip"
-private const val ARG_PREVENTION_TIP_WHY = "preventionTipWhy"
-private var _binding: FragmentPreventionTipBinding? = null
-// This property is only valid between onCreateView and
-// onDestroyView.
-val binding get() = _binding!!
-
-
 /**
  * A simple [Fragment] subclass.
  * Use the [PreventionTipFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
 class PreventionTipFragment : Fragment() {
+
     private var preventionTipTitle: String? = null
     private var preventionTip: String? = null
     private var preventionTipWhy: String? = null
+
+    private var _binding: FragmentPreventionTipBinding? = null
+    // This property is only valid between onCreateView and
+    // onDestroyView.
+    val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +39,7 @@ class PreventionTipFragment : Fragment() {
     ): View? {
         _binding = FragmentPreventionTipBinding.inflate(inflater, container, false)
 
-        // trry getting the three arguments passed in herre
+        // try getting the three arguments passed in herre
         //and set them to thwe textviews of this fragment layout
         // you use view binding to get the reference to the views ibn the fragment
 
@@ -63,6 +60,11 @@ class PreventionTipFragment : Fragment() {
     }
 
     companion object {
+
+        private const val ARG_PREVENTION_TIP_TITLE = "preventionTipTitle"
+        private const val ARG_PREVENTION_TIP = "preventionTip"
+        private const val ARG_PREVENTION_TIP_WHY = "preventionTipWhy"
+
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.

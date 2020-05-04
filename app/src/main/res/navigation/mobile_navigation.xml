@@ -9,7 +9,7 @@
         android:id="@+id/navigation_podcast"
         android:name="it.weMake.covid19Companion.ui.landing.podcast.PodcastFragment"
         android:label="@string/title_podcast"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_podcast" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
@@ -22,4 +22,11 @@
         android:name="it.weMake.covid19Companion.ui.landing.notifications.SettingsFragment"
         android:label="@string/title_settings"
         tools:layout="@layout/fragment_notifications" />
+
+    <fragment
+        android:id="@+id/navigation_help"
+        android:name="it.weMake.covid19Companion.ui.landing.help.HelpFragment"
+        android:label="@string/title_help"
+        tools:layout="@layout/fragment_help" />
+
 </navigation>

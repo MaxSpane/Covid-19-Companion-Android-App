@@ -37,7 +37,7 @@
             <TextView
                 android:id="@+id/handHygieneTV"
                 style="@style/Covid19TextView.Body.Bold"
-                android:text="@string/hand_hygiene_title"
+                android:text="@string/title_hand_hygiene"
                 android:textColor="@color/white"
                 app:layout_constraintTop_toBottomOf="@id/whoLogoIV"
                 app:layout_constraintStart_toStartOf="parent"

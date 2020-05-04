@@ -115,8 +115,8 @@ class DashboardViewModel
         _uiState.value = Loading
         viewModelScope.launch(handler) {
             updateCasesDataUseCase()
+            _uiState.value = Success
         }
-        _uiState.value = Success
     }
 
     fun pagedSearch(searchQuery: String, page: Int, pageSize: Int = 10){
