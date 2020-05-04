@@ -27,5 +27,14 @@
         android:id="@+id/questionFragment"
         android:name="it.weMake.covid19Companion.ui.screeningTool.fragments.QuestionFragment"
         android:label="fragment_question"
-        tools:layout="@layout/fragment_question" />
+        tools:layout="@layout/fragment_question" >
+        <action
+            android:id="@+id/action_questionFragment_to_resultFragment"
+            app:destination="@id/resultFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/resultFragment"
+        android:name="it.weMake.covid19Companion.ui.screeningTool.fragments.ResultFragment"
+        android:label="fragment_result"
+        tools:layout="@layout/fragment_result" />
 </navigation>
