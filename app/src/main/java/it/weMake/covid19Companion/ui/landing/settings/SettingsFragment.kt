@@ -45,7 +45,7 @@ class SettingsFragment : Fragment()  {
                 }
             }
             switch2.setOnClickListener {
-                if (switch1.isChecked) {
+                if (switch2.isChecked) {
                     openDialog2()
                 }
             }
