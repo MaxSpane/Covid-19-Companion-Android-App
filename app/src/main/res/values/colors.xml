@@ -8,4 +8,6 @@
     <color name="black">#000000</color>
     <color name="deaths">#EB5757</color>
     <color name="grey">#F4F4F4</color>
+    <color name="colorWhiteTransparent">#33FFFFFF</color>
+    <color name="colorPrimaryDarkTransparent">#4D219653</color>
 </resources>

@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
+import it.weMake.covid19Companion.R
 import it.weMake.covid19Companion.databinding.ActivityPreventionTipsBinding
 import it.weMake.covid19Companion.ui.landing.MainActivity
 
@@ -26,36 +27,34 @@ class PreventionTipsActivity : AppCompatActivity() {
 
         binding.preventionTipsVP.adapter = PreventionTipsViewPagerAdapter(supportFragmentManager, lifecycle)
 
-        TabLayoutMediator(tabLayout, preventionTipsViewPager) { _, _ ->
-        }.attach()
+        TabLayoutMediator(tabLayout, preventionTipsViewPager) { _, _ -> }.attach()
+
         //set the onclicklistener and put the changing of pages method in it
         binding.preventionTipsVP.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
-                    if( position == 4){
-                        binding.preventionNext.text = "Get Started"
-
-
-                    }
-                else
-                {  binding.preventionNext.text = "Next"
-
+                if( position == 4){
+                    binding.preventionTipNextTV.text = getString(R.string.get_started)
+                }else {
+                    binding.preventionTipNextTV.text = getString(R.string.next)
                 }
                 super.onPageSelected(position)
             }
         })
-        binding.preventionNext.setOnClickListener {
+        binding.preventionTipNextTV.setOnClickListener {
 
-            if (binding.preventionTipsVP.getCurrentItem() == 4) {
-                binding.preventionNext.text = "Get Started"
+            if (binding.preventionTipsVP.currentItem == 4) {
+                binding.preventionTipNextTV.text = getString(R.string.get_started)
             }
+
             if (binding.preventionTipsVP.getCurrentItem() == 4) {
                 val i = Intent(this, MainActivity::class.java)
                 startActivity(i)
                 finish()
-            } else
-            {  binding.preventionNext.text = "Next"
+            } else {
+                binding.preventionTipNextTV.text = getString(R.string.next)
             }
-            binding.preventionTipsVP.setCurrentItem(binding.preventionTipsVP.getCurrentItem() + 1, true);
+
+            binding.preventionTipsVP.setCurrentItem(binding.preventionTipsVP.currentItem + 1, true);
 
         }
 

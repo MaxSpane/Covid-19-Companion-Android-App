@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.landing.help.HelpFragment"
+    android:background="@color/grey">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/titleTV"
+            style="@style/Covid19TextView.Body.Title"
+            android:text="@string/title_help_full"
+            android:textColor="@color/colorPrimaryDark"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="61dp"
+            android:layout_gravity="center"/>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/handHygieneCV"
+            android:layout_width="match_parent"
+            android:layout_height="112dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="41dp"
+            app:cardBackgroundColor="#F47920"
+            app:cardCornerRadius="8dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/whoLogoIV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/handHygieneTV"
+                    android:src="@drawable/ic_who_logo_white"
+                    app:layout_constraintVertical_chainStyle="packed"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginStart="@dimen/horizontal_margin"/>
+
+                <TextView
+                    android:id="@+id/handHygieneTV"
+                    style="@style/Covid19TextView.Body.Bold"
+                    android:text="@string/title_hand_hygiene"
+                    android:textColor="@color/white"
+                    app:layout_constraintTop_toBottomOf="@id/whoLogoIV"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginStart="@dimen/horizontal_margin"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_who_light_logo"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+                <ProgressBar
+                    android:id="@+id/handHygienePB"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:indeterminateTint="@color/white"
+                    android:visibility="gone"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/screeningToolCV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="18dp"
+            app:cardBackgroundColor="@color/colorPrimaryDark"
+            app:cardCornerRadius="8dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/screeningToolIV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:src="@drawable/ic_screening_tool"
+                    app:layout_constraintVertical_chainStyle="packed"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginStart="@dimen/horizontal_margin"/>
+
+                <TextView
+                    android:id="@+id/screeningToolTV"
+                    style="@style/Covid19TextView.Body.Bold"
+                    android:text="@string/title_screening_tool"
+                    android:textColor="@color/white"
+                    app:layout_constraintTop_toBottomOf="@id/screeningToolIV"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginStart="@dimen/horizontal_margin"/>
+
+                <ImageView
+                    android:layout_width="27dp"
+                    android:layout_height="27dp"
+                    android:src="@drawable/ic_arrow_right"
+                    android:background="@drawable/bg_circle_white_transparent"
+                    android:padding="6dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="20dp"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            style="@style/Covid19TextView.Head.Title"
+            android:layout_width="match_parent"
+            android:text="@string/how_to_fight_corona_virus"
+            android:textColor="@color/colorPrimary"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="69dp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/preventionTipsRV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/item_prevention_tip"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="vertical"
+            android:layout_marginTop="8dp"/>
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

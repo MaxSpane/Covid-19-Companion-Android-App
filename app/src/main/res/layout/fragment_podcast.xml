@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.landing.podcast.PodcastFragment"
+    android:background="@color/grey">
+
+    <TextView
+        android:id="@+id/titleTV"
+        android:layout_width="0dp"
+        style="@style/Covid19TextView.Body.Title"
+        android:text="@string/title_podcast"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:paddingTop="27dp"
+        android:paddingBottom="27dp"
+        android:background="@color/colorPrimaryDark"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/titleTV"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <FrameLayout
+                android:id="@+id/headerFL"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimaryDark"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/mainHeaderCL"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="27dp"
+                    android:paddingBottom="12dp">
+
+                    <TextView
+                        android:id="@+id/phoTitleTV"
+                        style="@style/Covid19TextView.Head.Title"
+                        android:text="@string/public_health_on_call_title"
+                        android:textColor="@color/white"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/phoCaptionTV"
+                        style="@style/Covid19TextView.Body.Paragraph"
+                        android:layout_width="0dp"
+                        android:text="@string/public_health_on_call_caption"
+                        android:textColor="@color/white"
+                        android:gravity="center"
+                        app:layout_constraintTop_toBottomOf="@id/phoTitleTV"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginTop="8dp"/>
+
+                    <ImageView
+                        android:id="@+id/facebookIV"
+                        style="@style/Covid19TransparentImageButton"
+                        android:src="@drawable/ic_facebook"
+                        app:layout_constraintTop_toBottomOf="@id/phoCaptionTV"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/twitterIV"
+                        android:layout_marginTop="@dimen/margin_top_podcast_external_links"/>
+
+                    <ImageView
+                        android:id="@+id/twitterIV"
+                        style="@style/Covid19TransparentImageButton"
+                        android:src="@drawable/ic_twitter"
+                        app:layout_constraintTop_toBottomOf="@id/phoCaptionTV"
+                        app:layout_constraintStart_toEndOf="@id/facebookIV"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/spotifyIV"
+                        android:layout_marginTop="@dimen/margin_top_podcast_external_links"/>
+
+                    <ImageView
+                        android:id="@+id/spotifyIV"
+                        style="@style/Covid19TransparentImageButton"
+                        android:src="@drawable/ic_spotify"
+                        app:layout_constraintTop_toBottomOf="@id/phoCaptionTV"
+                        app:layout_constraintStart_toEndOf="@id/twitterIV"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/applePodcastsIV"
+                        android:layout_marginTop="@dimen/margin_top_podcast_external_links"/>
+
+                    <ImageView
+                        android:id="@+id/applePodcastsIV"
+                        style="@style/Covid19TransparentImageButton"
+                        android:src="@drawable/ic_apple_podcasts"
+                        android:padding="8dp"
+                        app:layout_constraintTop_toBottomOf="@id/phoCaptionTV"
+                        app:layout_constraintStart_toEndOf="@id/spotifyIV"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/googlePodcasts"
+                        android:layout_marginTop="@dimen/margin_top_podcast_external_links"/>
+
+                    <ImageView
+                        android:id="@+id/googlePodcasts"
+                        style="@style/Covid19TransparentImageButton"
+                        android:src="@drawable/ic_google_podcast"
+                        app:layout_constraintTop_toBottomOf="@id/phoCaptionTV"
+                        app:layout_constraintStart_toEndOf="@id/applePodcastsIV"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/youtubeIV"
+                        android:layout_marginTop="@dimen/margin_top_podcast_external_links"/>
+
+                    <ImageView
+                        android:id="@+id/youtubeIV"
+                        style="@style/Covid19TransparentImageButton"
+                        android:src="@drawable/ic_youtube"
+                        app:layout_constraintTop_toBottomOf="@id/phoCaptionTV"
+                        app:layout_constraintStart_toEndOf="@id/googlePodcasts"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginTop="@dimen/margin_top_podcast_external_links"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/playerHeaderCL"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:paddingTop="23dp"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/podcastTitleTV"
+                        android:layout_width="0dp"
+                        style="@style/Covid19TextView.Body.Bold"
+                        tools:text="COVID-19 in Prisons, Jails, and Detention Centers"
+                        android:textColor="@color/white"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/podcastDateTV"
+                        style="@style/Covid19TextView.Body.Small"
+                        tools:text="Apr 2, 2020"
+                        android:textColor="@color/white"
+                        app:layout_constraintTop_toBottomOf="@id/podcastTitleTV"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginTop="9dp"/>
+
+                    <androidx.appcompat.widget.AppCompatSeekBar
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:thumb="@drawable/ic_podcast_thumb"
+                        android:progressTint="@color/white"
+                        android:progressBackgroundTint="@color/white"
+                        app:layout_constraintTop_toBottomOf="@id/podcastDateTV"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginTop="16dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_marginBottom="18dp"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </FrameLayout>
+
+            <ImageView
+                android:id="@+id/headerArtIV"
+                android:layout_width="0dp"
+                android:layout_height="65dp"
+                android:src="@drawable/ic_podcast_header_art"
+                android:scaleType="fitXY"
+                app:layout_constraintTop_toBottomOf="@id/headerFL"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="-2dp"/>
+            
+            <ImageView
+                android:id="@+id/playPauseIV"
+                android:layout_width="82dp"
+                android:layout_height="82dp"
+                android:background="@drawable/bg_play_pause"
+                android:src="@drawable/ic_pause_white_24dp"
+                android:padding="20dp"
+                app:layout_constraintTop_toTopOf="@id/headerArtIV"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="18dp"
+                android:layout_marginStart="23dp"
+                android:visibility="invisible"/>
+
+            <TextView
+                android:id="@+id/listTitleTV"
+                style="@style/Covid19TextView.Body.Bold"
+                android:text="@string/latest_podcasts"
+                android:textColor="@color/ash"
+                app:layout_constraintTop_toBottomOf="@id/playPauseIV"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="24dp"
+                android:layout_marginStart="20dp"/>
+            
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                tools:listitem="@layout/item_podcast_episode"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@id/listTitleTV"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="16dp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
