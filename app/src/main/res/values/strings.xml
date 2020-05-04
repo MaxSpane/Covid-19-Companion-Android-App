@@ -42,5 +42,9 @@
     <string name="male">Male</string>
     <string name="female">Female</string>
     <string name="question_age">Your Age?</string>
+    <string name="instruction_group_single">Select one that applies:</string>
+    <string name="instruction_group_multiple">Select all that apply:</string>
+    <string name="back">Back</string>
+    <string name="loading">Loading</string>
 
 </resources>

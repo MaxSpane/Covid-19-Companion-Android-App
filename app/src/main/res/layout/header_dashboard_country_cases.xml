@@ -21,7 +21,7 @@
         android:id="@+id/lastUpdatedTV"
         style="@style/Covid19TextView.Body.Bold"
         android:text="@string/title_last_updated"
-        android:textColor="@color/ash"
+        android:textColor="@color/grey"
         app:layout_constraintTop_toTopOf="@id/filterIV"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/filterIV"
@@ -50,7 +50,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_search"
-        android:tint="@color/ash"
+        android:tint="@color/grey"
         app:layout_constraintTop_toTopOf="@id/filterIV"
         app:layout_constraintEnd_toStartOf="@id/filterIV"
         android:layout_marginEnd="28dp"/>

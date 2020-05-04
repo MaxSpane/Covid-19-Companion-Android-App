@@ -12,11 +12,20 @@
         tools:layout="@layout/fragment_screening_tool_intro" >
         <action
             android:id="@+id/action_introFragment_to_firstQuestionFragment"
-            app:destination="@id/firstQuestionFragment" />
+            app:destination="@id/initialQuestionsFragment" />
     </fragment>
     <fragment
-        android:id="@+id/firstQuestionFragment"
+        android:id="@+id/initialQuestionsFragment"
         android:name="it.weMake.covid19Companion.ui.screeningTool.fragments.InitialQuestionsFragment"
         android:label="fragment_first_question"
-        tools:layout="@layout/fragment_initial_questions" />
+        tools:layout="@layout/fragment_initial_questions" >
+        <action
+            android:id="@+id/action_initialQuestionsFragment_to_questionFragment"
+            app:destination="@id/questionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/questionFragment"
+        android:name="it.weMake.covid19Companion.ui.screeningTool.fragments.QuestionFragment"
+        android:label="fragment_question"
+        tools:layout="@layout/fragment_question" />
 </navigation>
