@@ -5,8 +5,10 @@ import it.weMake.covid19Companion.di.ActivityScope
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 import it.weMake.covid19Companion.di.modules.presentation.fragmentBuilders.MainActivityFragmentBuilder
+import it.weMake.covid19Companion.di.modules.presentation.fragmentBuilders.ScreeningToolActivityFragmentBuilder
 import it.weMake.covid19Companion.ui.landing.MainActivity
 import it.weMake.covid19Companion.ui.preventionTips.PreventionTipsActivity
+import it.weMake.covid19Companion.ui.screeningTool.ScreeningToolActivity
 
 
 @Module
@@ -19,5 +21,9 @@ abstract class ActivityBuilderModule {
     @ActivityScope
     @ContributesAndroidInjector
     internal abstract fun providePreventionTipsActivity(): PreventionTipsActivity
+
+    @ActivityScope
+    @ContributesAndroidInjector(modules = [ScreeningToolActivityFragmentBuilder::class])
+    internal abstract fun provideScreeningToolActivity(): ScreeningToolActivity
 
 }

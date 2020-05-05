@@ -1,4 +1,4 @@
-package com.k0d4black.theforce.commons
+package it.weMake.covid19Companion.commons
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -17,6 +17,10 @@ open class UiStateViewModel : ViewModel() {
 
     protected val handler = CoroutineExceptionHandler { _, exception ->
         _uiState.value = Error(exception)
+    }
+
+    fun setUiStateResting() {
+        _uiState.value = Resting
     }
 
 }

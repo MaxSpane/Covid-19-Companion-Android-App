@@ -1,4 +1,6 @@
-package it.wemake.covid19Companion.data.models
+package it.wemake.covid19Companion.data.models.casesData
+
+import it.wemake.covid19Companion.data.models.CountryInfoEntity
 
 data class NovelCountryCasesDataEntity (
     val updated: Long,

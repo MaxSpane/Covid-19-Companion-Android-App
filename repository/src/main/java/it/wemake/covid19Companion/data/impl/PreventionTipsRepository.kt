@@ -2,7 +2,7 @@ package it.wemake.covid19Companion.data.impl
 
 import it.wemake.covid19Companion.data.local.IPreventionTipsLocal
 import it.wemake.covid19Companion.data.mappers.toDomain
-import it.wemake.covid19Companion.domain.models.PreventionTipDomainModel
+import it.wemake.covid19Companion.domain.models.preventionTips.PreventionTipDomainModel
 import it.wemake.covid19Companion.domain.repository.IPreventionTipsRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map

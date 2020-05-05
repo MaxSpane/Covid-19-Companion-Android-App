@@ -1,20 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.screeningTool.fragments.QuestionFragment">
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/bg_screening_tool"
-        android:layout_gravity="bottom|end"/>
+    tools:context=".ui.screeningTool.fragments.QuestionFragment"
+    android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/titleTV"
@@ -46,14 +42,13 @@
             android:id="@+id/optionsRV"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constrainedHeight="true"
             tools:listitem="@layout/item_option"
+            tools:itemCount="3"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:orientation="vertical"
             app:layout_constraintTop_toBottomOf="@id/explanationTV"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/backMB"/>
+            app:layout_constraintEnd_toEndOf="parent"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/backMB"
@@ -64,10 +59,13 @@
             android:backgroundTint="@color/grey"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/optionsRV"
             app:layout_constraintBottom_toTopOf="@id/nextMB"
+            app:layout_constraintVertical_chainStyle="packed"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:layout_marginBottom="16dp"/>
+            android:layout_marginBottom="6dp"
+            android:layout_marginTop="24dp"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/nextMB"
@@ -79,35 +77,12 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/backMB"
+            android:layout_marginTop="6dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:layout_marginBottom="90dp"/>
+            android:layout_marginBottom="50dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <LinearLayout
-        android:id="@+id/errorLL"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:visibility="gone">
-
-        <ProgressBar
-            android:id="@+id/loadingPB"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:indeterminate="true"
-            android:progressTint="@color/colorPrimaryDark"
-            android:layout_marginBottom="8dp"/>
-
-        <TextView
-            style="@style/Covid19TextView.Body.Paragraph"
-            android:text="@string/loading"
-            android:layout_marginTop="8dp"
-            android:textColor="@color/black"/>
-
-    </LinearLayout>
-
-</FrameLayout>
+</androidx.core.widget.NestedScrollView>

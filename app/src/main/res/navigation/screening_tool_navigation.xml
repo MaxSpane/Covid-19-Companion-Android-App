@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/screening_tool_navigation"
@@ -31,10 +32,13 @@
         <action
             android:id="@+id/action_questionFragment_to_resultFragment"
             app:destination="@id/resultFragment" />
+        <action
+            android:id="@+id/action_questionFragment_to_initialQuestionsFragment"
+            app:destination="@id/initialQuestionsFragment" />
     </fragment>
     <fragment
         android:id="@+id/resultFragment"
-        android:name="it.weMake.covid19Companion.ui.screeningTool.fragments.ResultFragment"
+        android:name="it.weMake.covid19Companion.ui.screeningTool.fragments.DiagnosisFragment"
         android:label="fragment_result"
-        tools:layout="@layout/fragment_result" />
+        tools:layout="@layout/fragment_diagnosis" />
 </navigation>

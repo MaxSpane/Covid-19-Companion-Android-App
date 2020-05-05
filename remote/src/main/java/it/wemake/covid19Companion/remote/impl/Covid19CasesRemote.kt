@@ -1,6 +1,6 @@
 package it.wemake.covid19Companion.remote.impl
 
-import it.wemake.covid19Companion.data.models.NovelCountryCasesDataEntity
+import it.wemake.covid19Companion.data.models.casesData.NovelCountryCasesDataEntity
 import it.wemake.covid19Companion.data.remote.ICovid19CasesRemote
 import it.wemake.covid19Companion.remote.api.NovelCovidApiService
 import it.wemake.covid19Companion.remote.mappers.toEntity

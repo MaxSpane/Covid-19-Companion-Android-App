@@ -5,7 +5,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import it.weMake.covid19Companion.R
 import it.weMake.covid19Companion.databinding.ItemCountryCasesSummaryBinding
-import it.weMake.covid19Companion.models.CountryCasesData
+import it.weMake.covid19Companion.models.casesData.CountryCasesData
 import it.weMake.covid19Companion.utils.makeDisappear
 import it.weMake.covid19Companion.utils.numberWithCommas
 import it.weMake.covid19Companion.utils.show

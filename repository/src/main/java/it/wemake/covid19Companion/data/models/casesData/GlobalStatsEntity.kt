@@ -1,4 +1,4 @@
-package it.wemake.covid19Companion.data.models
+package it.wemake.covid19Companion.data.models.casesData
 
 data class GlobalStatsEntity(
     val confirmed: Int,

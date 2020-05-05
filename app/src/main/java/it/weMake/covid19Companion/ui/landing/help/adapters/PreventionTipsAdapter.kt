@@ -1,17 +1,11 @@
 package it.weMake.covid19Companion.ui.landing.help.adapters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import it.weMake.covid19Companion.R
-import it.weMake.covid19Companion.databinding.ItemCasesSummaryBinding
 import it.weMake.covid19Companion.databinding.ItemPreventionTipBinding
-import it.weMake.covid19Companion.models.AreaCasesData
-import it.weMake.covid19Companion.models.GlobalStats
-import it.weMake.covid19Companion.models.PreventionTip
-import it.weMake.covid19Companion.utils.numberWithCommas
+import it.weMake.covid19Companion.models.preventionTips.PreventionTip
 
 class PreventionTipsAdapter: RecyclerView.Adapter<PreventionTipsAdapter.Holder>() {
 

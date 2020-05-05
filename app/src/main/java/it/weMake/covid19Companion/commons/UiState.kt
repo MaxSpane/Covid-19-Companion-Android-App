@@ -1,4 +1,4 @@
-package com.k0d4black.theforce.commons
+package it.weMake.covid19Companion.commons
 
 
 sealed class UiState
@@ -6,3 +6,4 @@ sealed class UiState
 object Loading : UiState()
 object Success : UiState()
 class Error(val error: Throwable) : UiState()
+object Resting : UiState()

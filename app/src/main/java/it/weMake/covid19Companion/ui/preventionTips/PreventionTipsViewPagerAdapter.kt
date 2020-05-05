@@ -4,7 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import it.weMake.covid19Companion.models.PreventionTip
+import it.weMake.covid19Companion.models.preventionTips.PreventionTip
 
 class PreventionTipsViewPagerAdapter(fragmentManager: FragmentManager, lifecycle : Lifecycle): FragmentStateAdapter(fragmentManager, lifecycle) {
 

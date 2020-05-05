@@ -43,11 +43,23 @@
     <string name="female">Female</string>
     <string name="question_age">Your Age?</string>
     <string name="instruction_group_single">Select one that applies:</string>
-    <string name="instruction_group_multiple">Select all that apply:</string>
+    <string name="instruction_group_multiple">Select all that apply or none if they don\'t apply:</string>
     <string name="back">Back</string>
     <string name="loading">Loading</string>
     <string name="observations">Observations</string>
     <string name="explanation_serious">Observations with this icon are alarming and require consultation with a medical professional.</string>
     <string name="explanation_is_emergency">Observations with this icon are particularly urgent and may require immediate attention.</string>
+    <string name="select_gender">Select a Gender</string>
+    <string name="enter_age">Enter your age</string>
+    <string name="loading_question">Loading next Question</string>
+    <string name="exit_screening_tool_dialog_message">Do you want to exit the Screening Tool?</string>
+    <string name="error_loading_question">An Error occurred while loading the next Question</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="ok">OK</string>
+    <string name="no_option_selected">Choose an Option that applies</string>
+    <string name="error_get_diagnosis">An error occurred while getting your Diagnosis. Please try again.</string>
+    <string name="try_again">Try again</string>
+    <string name="no_observations">No Observations</string>
 
 </resources>

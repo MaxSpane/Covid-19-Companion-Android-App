@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 
 import it.weMake.covid19Companion.databinding.FragmentPreventionTipBinding
-import it.weMake.covid19Companion.models.PreventionTip
+import it.weMake.covid19Companion.models.preventionTips.PreventionTip
 
 /**
  * A simple [Fragment] subclass.

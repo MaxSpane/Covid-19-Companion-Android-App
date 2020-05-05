@@ -4,8 +4,11 @@ import dagger.Module
 import dagger.Provides
 import it.wemake.covid19Companion.remote.api.NovelCovidApiService
 import it.wemake.covid19Companion.remote.api.HttpClient
+import it.wemake.covid19Companion.remote.api.InfermedicaApiService
 import it.wemake.covid19Companion.remote.api.LoggingInterceptor
+import it.wemake.covid19Companion.remote.utils.BASE_URL_INFERMEDCIA_COVID_19
 import it.wemake.covid19Companion.remote.utils.BASE_URL_NOVEL_COVID_19
+import it.wemake.covid19Companion.remote.utils.RETROFIT_INFERMEDCIA_COVID_19
 import it.wemake.covid19Companion.remote.utils.RETROFIT_NOVEL_COVID_19
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -40,6 +43,23 @@ open class RetrofitModule {
     @Provides
     open fun provideNovelCovid19Api(@Named(RETROFIT_NOVEL_COVID_19) retrofit: Retrofit): NovelCovidApiService {
         return retrofit.create(NovelCovidApiService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    @Named(RETROFIT_INFERMEDCIA_COVID_19)
+    open fun provideInfermedicaRetrofit(okHttpClient: OkHttpClient): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(BASE_URL_INFERMEDCIA_COVID_19)
+            .client(okHttpClient)
+            .addConverterFactory(MoshiConverterFactory.create())
+            .build()
+    }
+
+    @Singleton
+    @Provides
+    open fun provideInfermedicaCovid19Api(@Named(RETROFIT_INFERMEDCIA_COVID_19) retrofit: Retrofit): InfermedicaApiService {
+        return retrofit.create(InfermedicaApiService::class.java)
     }
 
 }

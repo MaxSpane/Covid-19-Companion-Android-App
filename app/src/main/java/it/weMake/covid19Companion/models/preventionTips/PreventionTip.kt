@@ -1,4 +1,4 @@
-package it.weMake.covid19Companion.models
+package it.weMake.covid19Companion.models.preventionTips
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize

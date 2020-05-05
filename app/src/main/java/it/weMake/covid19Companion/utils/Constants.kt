@@ -16,3 +16,14 @@ const val PUBLIC_HEALTH_ON_CALL_SPOTIFY_URL = "https://open.spotify.com/show/0ip
 const val PUBLIC_HEALTH_ON_CALL_APPLE_PODCASTS_URL = "https://podcasts.apple.com/us/podcast/public-health-on-call/id1501336958?ls=1"
 const val PUBLIC_HEALTH_ON_CALL_GOOGLE_PODCASTS_URL = "https://podcasts.google.com/?feed=aHR0cDovL2pvaG5zaG9wa2luc3NwaC5saWJzeW4uY29tL3Jzcw%3D%3D"
 const val PUBLIC_HEALTH_ON_CALL_YOUTUBE_CHANNEL_URL = "http://www.youtube.com/JohnsHopkinsSPH"
+
+const val QUESTION_TYPE_SINGLE = "single"
+const val QUESTION_TYPE_GROUP_SINGLE = "group_single"
+const val QUESTION_TYPE_GROUP_MULTIPLE = "group_multiple"
+
+const val DIAGNOSIS_LEVEL_NO_RISK = "no_risk"
+const val DIAGNOSIS_LEVEL_SELF_MONITORING = "self_monitoring"
+const val DIAGNOSIS_LEVEL_SELF_QUARANTINE = "quarantine"
+const val DIAGNOSIS_LEVEL_ISOLATION_CALL = "isolation_call"
+const val DIAGNOSIS_LEVEL_CALL_DOCTOR = "call_doctor"
+const val DIAGNOSIS_LEVEL_ISOLATION_AMBULANCE = "isolation_ambulance"

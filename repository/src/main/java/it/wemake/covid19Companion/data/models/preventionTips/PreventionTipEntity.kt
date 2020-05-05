@@ -1,6 +1,6 @@
-package it.wemake.covid19Companion.domain.models
+package it.wemake.covid19Companion.data.models.preventionTips
 
-data class PreventionTipDomainModel(
+data class PreventionTipEntity(
     val title: String,
     val preventionTip: String,
     val preventionTipWhy: String,

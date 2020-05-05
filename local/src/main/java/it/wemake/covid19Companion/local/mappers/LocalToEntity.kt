@@ -1,6 +1,8 @@
 package it.wemake.covid19Companion.local.mappers
 
 import it.wemake.covid19Companion.data.models.*
+import it.wemake.covid19Companion.data.models.casesData.GlobalStatsEntity
+import it.wemake.covid19Companion.data.models.preventionTips.PreventionTipEntity
 import it.wemake.covid19Companion.local.models.*
 
 internal fun CountryCasesDataLocalModel.toEntity(): CountryCasesDataEntity =

@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import it.weMake.covid19Companion.mappers.toPresentation
-import it.weMake.covid19Companion.models.PreventionTip
+import it.weMake.covid19Companion.models.preventionTips.PreventionTip
 import it.wemake.covid19Companion.domain.usecases.GetPreventionTipsUseCase
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch

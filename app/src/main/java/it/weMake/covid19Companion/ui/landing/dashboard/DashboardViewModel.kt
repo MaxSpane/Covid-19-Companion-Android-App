@@ -2,18 +2,15 @@ package it.weMake.covid19Companion.ui.landing.dashboard
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.k0d4black.theforce.commons.Loading
-import com.k0d4black.theforce.commons.Success
-import com.k0d4black.theforce.commons.UiStateViewModel
+import it.weMake.covid19Companion.commons.Loading
+import it.weMake.covid19Companion.commons.Success
+import it.weMake.covid19Companion.commons.UiStateViewModel
 import it.weMake.covid19Companion.mappers.toPresentation
-import it.weMake.covid19Companion.models.AreaCasesData
-import it.weMake.covid19Companion.models.CountryCasesData
-import it.weMake.covid19Companion.models.GlobalStats
+import it.weMake.covid19Companion.models.casesData.CountryCasesData
+import it.weMake.covid19Companion.models.casesData.GlobalStats
 import it.weMake.covid19Companion.models.PagedData
 import it.wemake.covid19Companion.domain.usecases.*
-import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
