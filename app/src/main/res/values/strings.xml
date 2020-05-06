@@ -44,5 +44,9 @@
     <string name="title_screening_tool">COVID-19 Screening Tool</string>
     <string name="how_to_fight_corona_virus">How to fight Corona Virus</string>
     <string name="why">Why?</string>
+    <string name="default_text_wash_hands_reminder">Remind me to wash my hands</string>
+    <string name="placeholder_wash_hands_reminder">"Remind me to wash my hands every %s</string>
+    <string name="default_text_drink_water_reminder">Remind me to drink water</string>
+    <string name="placeholder_drink_water_reminder">"Remind me to drink water every %s</string>
 
 </resources>

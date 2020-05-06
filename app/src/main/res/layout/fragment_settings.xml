@@ -81,14 +81,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="36dp"
             android:textSize="16sp"
-            android:text="@string/rem_hand_time"
+            android:text="@string/default_text_wash_hands_reminder"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/rem_tog2IV"
+            app:layout_constraintEnd_toStartOf="@+id/rem_wash_hands_S"
             app:layout_constraintTop_toBottomOf="@+id/v_Line"
             />
 
         <Switch
-            android:id="@+id/rem_tog2IV"
+            android:id="@+id/rem_wash_hands_S"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:checked="false"
@@ -114,14 +114,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="33dp"
             android:textSize="16sp"
-            android:text="@string/rem_water"
+            android:text="@string/default_text_drink_water_reminder"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/rem_tog3IV"
+            app:layout_constraintEnd_toStartOf="@+id/rem_drink_water_S"
             app:layout_constraintTop_toBottomOf="@+id/v_Line2"
             />
 
         <Switch
-            android:id="@+id/rem_tog3IV"
+            android:id="@+id/rem_drink_water_S"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:checked="false"

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import it.weMake.covid19Companion.R
 import it.weMake.covid19Companion.databinding.FragmentSettingsBinding
 
 
@@ -35,117 +36,82 @@ class SettingsFragment : Fragment()  {
         fragmentBinding = FragmentSettingsBinding.inflate(inflater, container, false)
         reminderLocationAdapter = ReminderLocationAdapter()
         fragmentBinding.remHandLocRV.adapter = reminderLocationAdapter
-        val switch1 = fragmentBinding.remTog2IV
-        val switch2 = fragmentBinding.remTog3IV
 
 
-            switch1.setOnClickListener {
-                if (switch1.isChecked) {
-                    openDialog()
-                }
+        fragmentBinding.remWashHandsS.setOnClickListener {
+            if (fragmentBinding.remWashHandsS.isChecked) {
+                openWashHandsDialog()
+            }else{
+                setIntervalWashHand(0)
             }
-            switch2.setOnClickListener {
-                if (switch2.isChecked) {
-                    openDialog2()
-                }
+        }
+        fragmentBinding.remDrinkWaterS.setOnClickListener {
+            if (fragmentBinding.remDrinkWaterS.isChecked) {
+                openDrinkWaterDialog()
+            }else{
+                setIntervalDrinkWater(0)
             }
+        }
+
         settingsViewModel.text.observe(viewLifecycleOwner, Observer {
         })
         return fragmentBinding.root
     }
 
-    fun setIntervalWashHand(hour: Int, minutes : Int){
-        val switch1 = fragmentBinding.remTog2IV
-
-         if (hour == 0 && minutes == 0   )   {
-            fragmentBinding.remHandTime.text = "Remind me to wash my hands "
-             !switch1.isChecked
-        }
-       else  if (hour < 1 && minutes > 1   )   {
-            fragmentBinding.remHandTime.text = "Remind me to wash my hands every $minutes minutes"
-
-        }
-        else if (hour < 1 && minutes == 1   )   {
-            fragmentBinding.remHandTime.text = "Remind me to wash my hands every $minutes minute"
-
-        }
-        else if (hour == 1  && minutes == 0 )   {
-            fragmentBinding.remHandTime.text = "Remind me to wash my hands every $hour hour"
-
-        }
-        else if (hour > 1  && minutes == 0 )   {
-            fragmentBinding.remHandTime.text = "Remind me to wash my hands every $hour hours"
-
-        }
-        else if (hour == 1  && minutes == 1 )   {
-            fragmentBinding.remHandTime.text = "Remind me to wash my hands every $hour hour and $minutes minute"
-
-        }
-        else if (hour > 1  && minutes == 1 )   {
-            fragmentBinding.remHandTime.text = "Remind me to wash my hands every $hour hours and $minutes minute"
-
-        }
-        else if (hour  == 1  && minutes > 1 )   {
-            fragmentBinding.remHandTime.text = "Remind me to wash my hands every $hour hour and $minutes minutes"
-
-        }
-        else {
-             fragmentBinding.remHandTime.text =
-                 "Remind me to wash my hands every $hour hours and $minutes minutes"
-         }
-    }
-
-    fun setIntervalDrinkWater(hour: Int, minutes : Int){
-        val switch1 = fragmentBinding.remTog3IV
-
-        if (hour == 0 && minutes == 0   )   {
-            fragmentBinding.remWater.text = "Remind me to drink water "
-            !switch1.isChecked
-        }
-        else  if (hour < 1 && minutes > 1   )   {
-            fragmentBinding.remWater.text = "Remind me to drink water every $minutes minutes"
-
-        }
-        else if (hour < 1 && minutes == 1   )   {
-            fragmentBinding.remWater.text = "Remind me to drink water every $minutes minute"
-
-        }
-        else if (hour == 1  && minutes == 0 )   {
-            fragmentBinding.remWater.text = "Remind me to drink water every $hour hour"
-
-        }
-        else if (hour > 1  && minutes == 0 )   {
-            fragmentBinding.remWater.text = "Remind me to drink water every $hour hours"
-
-        }
-        else if (hour == 1  && minutes == 1 )   {
-            fragmentBinding.remWater.text = "Remind me to drink water every $hour hour and $minutes minute"
-
-        }
-        else if (hour > 1  && minutes == 1 )   {
-            fragmentBinding.remWater.text = "Remind me to drink water every $hour hours and $minutes minute"
-
-        }
-        else if (hour  == 1  && minutes > 1 )   {
-            fragmentBinding.remWater.text = "Remind me to drink water every $hour hour and $minutes minutes"
-
-        }
-        else {
-            fragmentBinding.remWater.text =
-                "Remind me to drink water every $hour hours and $minutes minutes"
+    private fun setIntervalWashHand(intervalInMinutes: Int){
+         if (intervalInMinutes == 0)   {
+            fragmentBinding.remHandTime.text = getString(R.string.default_text_wash_hands_reminder)
+             fragmentBinding.remWashHandsS.isChecked = false
+        }else{
+            fragmentBinding.remHandTime.text = getString(R.string.placeholder_wash_hands_reminder, convertIntervalToText(intervalInMinutes))
         }
     }
 
+    private fun setIntervalDrinkWater(intervalInMinutes: Int){
+        if (intervalInMinutes == 0)   {
+            fragmentBinding.remWater.text = getString(R.string.default_text_drink_water_reminder)
+            fragmentBinding.remWashHandsS.isChecked = false
+        }else{
+            fragmentBinding.remWater.text = getString(R.string.placeholder_drink_water_reminder, convertIntervalToText(intervalInMinutes))
+        }
+    }
 
-    fun openDialog() {
-        val reminderDialog = ReminderDialog{value, value2->
-            setIntervalWashHand(value, value2)
+    fun convertIntervalToText(intervalInMinutes: Int): String{
+        val hour = intervalInMinutes / 60
+        val minute = intervalInMinutes % 60
+
+        var intervalText = ""
+
+        if(hour > 0){
+            intervalText += "$hour hour"
+            if (hour > 1)
+                intervalText += "s"
+
+            intervalText += " "
+        }
+
+        if(minute > 0){
+
+            if (hour > 0)
+                intervalText += "and "
+
+            intervalText += "$minute minute"
+            if (minute > 1)
+                intervalText += "s"
+        }
+
+        return intervalText
+    }
+
+    fun openWashHandsDialog() {
+        val reminderDialog = ReminderDialog{intervalInMinutes->
+            setIntervalWashHand(intervalInMinutes)
         }
         reminderDialog.show(childFragmentManager, "example dialog")
     }
-    fun openDialog2() {
-        val reminderDialog = ReminderDialog{value, value2->
-            setIntervalDrinkWater(value, value2)
+    fun openDrinkWaterDialog() {
+        val reminderDialog = ReminderDialog{intervalInMinutes->
+            setIntervalDrinkWater(intervalInMinutes)
         }
         reminderDialog.show(childFragmentManager, "example dialog")
     }

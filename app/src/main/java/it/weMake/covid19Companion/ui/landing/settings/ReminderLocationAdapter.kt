@@ -36,7 +36,7 @@ class ReminderLocationAdapter(): RecyclerView.Adapter<ReminderLocationAdapter.Ho
 
         fun bind(position: Int) {
 
-                itemBinding.remHandLocTV.text = "14, God in Action Avenue, Olodi-Apapa."
+                itemBinding.remHandLocCB.text = "14, God in Action Avenue, Olodi-Apapa."
 
 
         }
