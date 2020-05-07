@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.core.widget.NestedScrollView
+ xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingStart="20dp"
+    android:paddingEnd="22dp"
+    tools:context=".ui.landing.settings.SettingsFragment"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <TextView
+            android:id="@+id/text_settings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:text="@string/title_settings"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/rem_hand_loc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="64dp"
+            android:textSize="16sp"
+            android:text="@string/rem_hand_loc"
+            app:layout_constraintEnd_toStartOf="@+id/rem_togIV"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_settings"
+            />
+
+        <Switch
+            android:id="@+id/rem_togIV"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:checked="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/rem_hand_loc"
+            app:layout_constraintBottom_toBottomOf="@+id/rem_hand_loc"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rem_hand_locRV"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@id/rem_hand_loc"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="17dp"
+            tools:listitem="@layout/reminder_location"
+            tools:itemCount="3"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            />
+        <View
+            android:id="@+id/v_Line"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/grey"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rem_hand_locRV"
+            />
+
+        <TextView
+            android:id="@+id/rem_hand_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
+            android:textSize="16sp"
+            android:text="@string/default_text_wash_hands_reminder"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/rem_wash_hands_S"
+            app:layout_constraintTop_toBottomOf="@+id/v_Line"
+            />
+
+        <Switch
+            android:id="@+id/rem_wash_hands_S"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:checked="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/rem_hand_time"
+            app:layout_constraintBottom_toBottomOf="@+id/rem_hand_time"
+            />
+
+        <View
+            android:id="@+id/v_Line2"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/grey"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rem_hand_time"
+            />
+
+        <TextView
+            android:id="@+id/rem_water"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="33dp"
+            android:textSize="16sp"
+            android:text="@string/default_text_drink_water_reminder"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/rem_drink_water_S"
+            app:layout_constraintTop_toBottomOf="@+id/v_Line2"
+            />
+
+        <Switch
+            android:id="@+id/rem_drink_water_S"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:checked="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/rem_water"
+            app:layout_constraintBottom_toBottomOf="@+id/rem_water"
+            />
+
+        <View
+            android:id="@+id/v_Line3"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/grey"
+            android:layout_marginTop="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rem_water"
+            />
+        <TextView
+            android:id="@+id/podcast"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
+            android:textSize="16sp"
+            android:text="@string/podcast"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/rem_tog4IV"
+            app:layout_constraintTop_toBottomOf="@+id/v_Line3"
+            />
+
+        <Switch
+            android:id="@+id/rem_tog4IV"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:checked="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/podcast"
+            app:layout_constraintBottom_toBottomOf="@+id/podcast"
+            />
+        <View
+            android:id="@+id/v_Line4"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/grey"
+            android:layout_marginTop="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/podcast"
+            />
+        <TextView
+            android:id="@+id/notification"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
+            android:textSize="16sp"
+            android:text="@string/notification"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/rem_tog5IV"
+            app:layout_constraintTop_toBottomOf="@+id/v_Line4"
+            />
+
+        <Switch
+            android:id="@+id/rem_tog5IV"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:checked="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/notification"
+            app:layout_constraintBottom_toBottomOf="@+id/notification"
+            />
+        <View
+            android:id="@+id/v_Line5"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/grey"
+            android:layout_marginTop="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/notification"
+            />
+        <TextView
+            android:id="@+id/about"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="33dp"
+            android:layout_marginBottom="150dp"
+            android:textSize="16sp"
+            android:text="@string/about"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/v_Line5"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.core.widget.NestedScrollView>
