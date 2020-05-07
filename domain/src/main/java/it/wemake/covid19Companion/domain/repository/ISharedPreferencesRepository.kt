@@ -10,4 +10,6 @@ interface ISharedPreferencesRepository {
 
     fun setWHOHandHygieneDownloadId(downloadId: Long)
 
+    fun getIsFirstLaunch(): Boolean
+
 }

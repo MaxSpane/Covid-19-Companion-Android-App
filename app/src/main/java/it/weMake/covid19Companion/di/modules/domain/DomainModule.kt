@@ -53,6 +53,11 @@ class DomainModule {
         screeningToolRepository: ScreeningToolRepository
     ): GetDiagnosisUseCase = GetDiagnosisUseCase(screeningToolRepository)
 
+    @Provides
+    fun provideGetIsFirstLaunchUseCase(
+        sharedPreferencesRepository: SharedPreferencesRepository
+    ): GetIsFirstLaunchUseCase = GetIsFirstLaunchUseCase(sharedPreferencesRepository)
+
 //    @Provides
 //    fun provideGetCountriesUseCase(
 //        countriesRepository: CountriesRepository

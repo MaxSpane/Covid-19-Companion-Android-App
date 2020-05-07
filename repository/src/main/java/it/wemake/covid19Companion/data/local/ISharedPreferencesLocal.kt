@@ -14,4 +14,6 @@ interface ISharedPreferencesLocal {
 
     fun setWHOHandHygieneDownloadId(downloadId: Long)
 
+    fun getIsFirstLaunch(): Boolean
+
 }

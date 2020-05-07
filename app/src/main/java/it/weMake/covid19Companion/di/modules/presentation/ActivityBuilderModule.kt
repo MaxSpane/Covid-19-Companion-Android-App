@@ -9,6 +9,7 @@ import it.weMake.covid19Companion.di.modules.presentation.fragmentBuilders.Scree
 import it.weMake.covid19Companion.ui.landing.MainActivity
 import it.weMake.covid19Companion.ui.preventionTips.PreventionTipsActivity
 import it.weMake.covid19Companion.ui.screeningTool.ScreeningToolActivity
+import it.weMake.covid19Companion.ui.splashscreen.SplashScreenActivity
 
 
 @Module
@@ -25,5 +26,9 @@ abstract class ActivityBuilderModule {
     @ActivityScope
     @ContributesAndroidInjector(modules = [ScreeningToolActivityFragmentBuilder::class])
     internal abstract fun provideScreeningToolActivity(): ScreeningToolActivity
+
+    @ActivityScope
+    @ContributesAndroidInjector
+    internal abstract fun provideSplashScreenActivity(): SplashScreenActivity
 
 }

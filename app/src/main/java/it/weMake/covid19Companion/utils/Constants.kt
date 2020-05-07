@@ -27,3 +27,5 @@ const val DIAGNOSIS_LEVEL_SELF_QUARANTINE = "quarantine"
 const val DIAGNOSIS_LEVEL_ISOLATION_CALL = "isolation_call"
 const val DIAGNOSIS_LEVEL_CALL_DOCTOR = "call_doctor"
 const val DIAGNOSIS_LEVEL_ISOLATION_AMBULANCE = "isolation_ambulance"
+
+const val ONE_SECOND_IN_MILLI = 1000L

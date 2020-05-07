@@ -3,10 +3,7 @@ package it.wemake.covid19Companion.local.preference
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
-import it.wemake.covid19Companion.local.utils.CASES_SUMMARY_LAST_UPDATED
-import it.wemake.covid19Companion.local.utils.COVID_19_COMPANION_SHARED_PREFERENCES
-import it.wemake.covid19Companion.local.utils.NUMBER_OF_CHECKS
-import it.wemake.covid19Companion.local.utils.WHO_HAND_HYGIENE_BROCHURE_DOWNLOAD_ID
+import it.wemake.covid19Companion.local.utils.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
@@ -50,6 +47,18 @@ class Covid19CompanionSharedPreferences constructor(
         val editor = covid19CompanionAppSharedPref.edit()
         editor.putLong(WHO_HAND_HYGIENE_BROCHURE_DOWNLOAD_ID, downloadId)
         editor.apply()
+    }
+
+    fun getIsFirstLaunch(): Boolean {
+        val isFirstLaunch = covid19CompanionAppSharedPref.getBoolean(IS_FIRST_LAUNCH, true)
+
+        if (isFirstLaunch){
+            val editor = covid19CompanionAppSharedPref.edit()
+            editor.putBoolean(IS_FIRST_LAUNCH, false)
+            editor.apply()
+        }
+
+        return isFirstLaunch
     }
 
 }

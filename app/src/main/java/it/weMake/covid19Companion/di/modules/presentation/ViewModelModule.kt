@@ -11,6 +11,7 @@ import it.weMake.covid19Companion.ui.landing.dashboard.DashboardViewModel
 import it.weMake.covid19Companion.ui.landing.help.HelpViewModel
 import it.weMake.covid19Companion.ui.preventionTips.PreventionTipsViewModel
 import it.weMake.covid19Companion.ui.screeningTool.ScreeningToolViewModel
+import it.weMake.covid19Companion.ui.splashscreen.SplashScreenViewModel
 
 @Module
 abstract class ViewModelModule {
@@ -37,5 +38,10 @@ abstract class ViewModelModule {
     @Binds
     @ViewModelKey(ScreeningToolViewModel::class)
     abstract fun bindScreeningToolViewModel(screeningToolViewModel: ScreeningToolViewModel): ViewModel
+
+    @IntoMap
+    @Binds
+    @ViewModelKey(SplashScreenViewModel::class)
+    abstract fun bindSplashScreenViewModel(splashScreenViewModel: SplashScreenViewModel): ViewModel
 
 }

@@ -27,4 +27,7 @@ class SharedPreferencesLocal @Inject constructor(
     override fun setWHOHandHygieneDownloadId(downloadId: Long) =
         covid19CompanionSharedPreferences.setWHOHandHygieneDownloadId(downloadId)
 
+    override fun getIsFirstLaunch(): Boolean =
+        covid19CompanionSharedPreferences.getIsFirstLaunch()
+
 }
