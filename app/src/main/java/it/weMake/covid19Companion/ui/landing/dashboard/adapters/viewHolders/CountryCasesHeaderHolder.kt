@@ -17,7 +17,7 @@ class CountryCasesHeaderHolder(
     init {
 
         binding.searchET.addTextChangedListener {
-            search(it.toString())
+            search(it.toString().trim())
         }
 
         binding.searchIV.setOnClickListener(this)
