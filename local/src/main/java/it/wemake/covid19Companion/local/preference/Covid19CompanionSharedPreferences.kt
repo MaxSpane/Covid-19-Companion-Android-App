@@ -58,4 +58,13 @@ class Covid19CompanionSharedPreferences constructor(
         editor.apply()
     }
 
+    fun getWashHandsInterval(): Int =
+        covid19CompanionAppSharedPref.getInt(WASH_HANDS_INTERVAL, 0)
+
+    fun setWashHandsInterval(interval: Int) {
+        val editor = covid19CompanionAppSharedPref.edit()
+        editor.putInt(WASH_HANDS_INTERVAL, interval)
+        editor.apply()
+    }
+
 }

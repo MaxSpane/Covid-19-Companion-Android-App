@@ -73,4 +73,18 @@ class DomainModule {
         covid19CasesRepository: Covid19CasesRepository
     ): GetUserCountryCasesDataUseCase = GetUserCountryCasesDataUseCase(covid19CasesRepository)
 
+    @Provides
+    fun provideGetWashHandsIntervalUseCase(
+        sharedPreferencesRepository: SharedPreferencesRepository
+    ): GetWashHandsIntervalUseCase {
+            return GetWashHandsIntervalUseCase(sharedPreferencesRepository)
+    }
+
+    @Provides
+    fun provideSetWashHandsIntervalUseCase(
+        sharedPreferencesRepository: SharedPreferencesRepository
+    ): SetWashHandsIntervalUseCase {
+            return SetWashHandsIntervalUseCase(sharedPreferencesRepository)
+    }
+
 }

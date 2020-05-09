@@ -18,4 +18,8 @@ interface ISharedPreferencesLocal {
 
     fun setUserCountryIso2(userCountryIso2: String)
 
+    fun getWashHandsInterval(): Int
+
+    fun setWashHandsInterval(interval: Int)
+
 }

@@ -22,4 +22,11 @@ class SharedPreferencesRepository @Inject constructor(
 
     override fun setUserCountryIso2(userCountryIso2: String) =
         sharedPreferencesLocal.setUserCountryIso2(userCountryIso2)
+
+    override fun getWashHandsInterval(): Int =
+        sharedPreferencesLocal.getWashHandsInterval()
+
+    override fun setWashHandsInterval(interval: Int) =
+        sharedPreferencesLocal.setWashHandsInterval(interval)
+
 }

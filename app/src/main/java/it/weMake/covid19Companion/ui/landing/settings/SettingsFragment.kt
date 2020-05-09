@@ -4,35 +4,31 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import dagger.android.support.DaggerFragment
 import it.weMake.covid19Companion.R
 import it.weMake.covid19Companion.databinding.FragmentSettingsBinding
+import javax.inject.Inject
 
+//Make sure you're extending DaggerFragment instead of Fragment so Dagger knows how to inject parameters for us
+class SettingsFragment : DaggerFragment()  {
 
-class SettingsFragment : Fragment()  {
-
-    private lateinit var settingsViewModel: SettingsViewModel
     lateinit var fragmentBinding: FragmentSettingsBinding
     lateinit var reminderLocationAdapter: ReminderLocationAdapter
 
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        // We set the listener on the child fragmentManager
-//        childFragmentManager.setResultListener("requestKey") { key, bundle ->
-//            val result = bundle.getString("bundleKey")
-//            // Do something with the result..
-//        }
-//    }
+    //Dagger injects viewModelFactory for us
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+    //viewModelFactory provides the SettingsViewModel for us
+    protected val viewModel: SettingsViewModel by viewModels { viewModelFactory }
+
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
 
-        settingsViewModel =
-                ViewModelProvider(this).get(SettingsViewModel::class.java)
         fragmentBinding = FragmentSettingsBinding.inflate(inflater, container, false)
         reminderLocationAdapter = ReminderLocationAdapter()
         fragmentBinding.remHandLocRV.adapter = reminderLocationAdapter
@@ -53,26 +49,37 @@ class SettingsFragment : Fragment()  {
             }
         }
 
-        settingsViewModel.text.observe(viewLifecycleOwner, Observer {
-        })
+        val washHandsInterval = viewModel.getWashHandsInterval()
+        updateUIIntervalWashHand(washHandsInterval)
         return fragmentBinding.root
     }
 
     private fun setIntervalWashHand(intervalInMinutes: Int){
+        viewModel.setWashHandsInterval(intervalInMinutes)
+        updateUIIntervalWashHand(intervalInMinutes)
+    }
+
+    private fun updateUIIntervalWashHand(intervalInMinutes: Int){
          if (intervalInMinutes == 0)   {
             fragmentBinding.remHandTime.text = getString(R.string.default_text_wash_hands_reminder)
              fragmentBinding.remWashHandsS.isChecked = false
         }else{
             fragmentBinding.remHandTime.text = getString(R.string.placeholder_wash_hands_reminder, convertIntervalToText(intervalInMinutes))
+             fragmentBinding.remWashHandsS.isChecked = true
         }
     }
 
     private fun setIntervalDrinkWater(intervalInMinutes: Int){
+        updateUIIntervalDrinkWater(intervalInMinutes)
+    }
+
+    private fun updateUIIntervalDrinkWater(intervalInMinutes: Int){
         if (intervalInMinutes == 0)   {
             fragmentBinding.remWater.text = getString(R.string.default_text_drink_water_reminder)
             fragmentBinding.remWashHandsS.isChecked = false
         }else{
             fragmentBinding.remWater.text = getString(R.string.placeholder_drink_water_reminder, convertIntervalToText(intervalInMinutes))
+            fragmentBinding.remWashHandsS.isChecked = true
         }
     }
 

@@ -9,6 +9,7 @@ import dagger.multibindings.IntoMap
 import it.weMake.covid19Companion.di.factory.ViewModelFactory
 import it.weMake.covid19Companion.ui.landing.dashboard.DashboardViewModel
 import it.weMake.covid19Companion.ui.landing.help.HelpViewModel
+import it.weMake.covid19Companion.ui.landing.settings.SettingsViewModel
 import it.weMake.covid19Companion.ui.preventionTips.PreventionTipsViewModel
 import it.weMake.covid19Companion.ui.screeningTool.ScreeningToolViewModel
 import it.weMake.covid19Companion.ui.splashscreen.SplashScreenViewModel
@@ -43,5 +44,10 @@ abstract class ViewModelModule {
     @Binds
     @ViewModelKey(SplashScreenViewModel::class)
     abstract fun bindSplashScreenViewModel(splashScreenViewModel: SplashScreenViewModel): ViewModel
+
+    @IntoMap
+    @Binds
+    @ViewModelKey(SettingsViewModel::class)
+    abstract fun bindSettingsViewModel(settingsViewModel: SettingsViewModel): ViewModel
 
 }
