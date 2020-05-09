@@ -54,13 +54,18 @@ class DomainModule {
     ): GetDiagnosisUseCase = GetDiagnosisUseCase(screeningToolRepository)
 
     @Provides
-    fun provideGetIsFirstLaunchUseCase(
-        sharedPreferencesRepository: SharedPreferencesRepository
-    ): GetIsFirstLaunchUseCase = GetIsFirstLaunchUseCase(sharedPreferencesRepository)
+    fun provideGetCountriesUseCase(
+        countriesRepository: CountriesRepository
+    ): GetCountriesUseCase = GetCountriesUseCase(countriesRepository)
 
-//    @Provides
-//    fun provideGetCountriesUseCase(
-//        countriesRepository: CountriesRepository
-//    ): GetCountriesUseCase = GetCountriesUseCase(countriesRepository)
+    @Provides
+    fun provideGetUserCountryIso2UseCase(
+        sharedPreferencesRepository: SharedPreferencesRepository
+    ): GetUserCountryIso2UseCase = GetUserCountryIso2UseCase(sharedPreferencesRepository)
+
+    @Provides
+    fun provideSetUserCountryIso2UseCase(
+        sharedPreferencesRepository: SharedPreferencesRepository
+    ): SetUserCountryIso2UseCase = SetUserCountryIso2UseCase(sharedPreferencesRepository)
 
 }

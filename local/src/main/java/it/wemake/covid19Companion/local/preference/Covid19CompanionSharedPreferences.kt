@@ -49,16 +49,13 @@ class Covid19CompanionSharedPreferences constructor(
         editor.apply()
     }
 
-    fun getIsFirstLaunch(): Boolean {
-        val isFirstLaunch = covid19CompanionAppSharedPref.getBoolean(IS_FIRST_LAUNCH, true)
+    fun getUserCountryIso2(): String =
+        covid19CompanionAppSharedPref.getString(USER_COUNTRY_ISO2, "")!!
 
-        if (isFirstLaunch){
-            val editor = covid19CompanionAppSharedPref.edit()
-            editor.putBoolean(IS_FIRST_LAUNCH, false)
-            editor.apply()
-        }
-
-        return isFirstLaunch
+    fun setUserCountryIso2(userCountryIso2: String) {
+        val editor = covid19CompanionAppSharedPref.edit()
+        editor.putString(USER_COUNTRY_ISO2, userCountryIso2)
+        editor.apply()
     }
 
 }

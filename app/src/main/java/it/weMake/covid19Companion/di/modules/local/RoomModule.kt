@@ -23,4 +23,8 @@ class RoomModule {
     fun providePreventionTipsDao(database: AppDatabase): PreventionTipsDao =
         database.getPreventionTipsDao()
 
+    @Provides
+    fun provideCountriesDao(database: AppDatabase): CountriesDao =
+        database.getCountriesDao()
+
 }

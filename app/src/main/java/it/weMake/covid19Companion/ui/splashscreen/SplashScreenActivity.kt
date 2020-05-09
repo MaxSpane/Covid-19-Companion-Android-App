@@ -4,7 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import androidx.activity.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.android.support.DaggerAppCompatActivity
 import it.weMake.covid19Companion.databinding.ActivitySplashScreenBinding
 import it.weMake.covid19Companion.ui.landing.MainActivity
@@ -28,17 +30,60 @@ class SplashScreenActivity : DaggerAppCompatActivity() {
         val handler = Handler()
         val runnable = Runnable {
 
-            val intent = if(viewModel.isFirstLaunch.value == true){
-                Intent(this, PreventionTipsActivity::class.java)
-            }else{
-                Intent(this, MainActivity::class.java)
-            }
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(intent)
+//            if(viewModel.userCountryIso2.isEmpty()){
+//                Intent(this, PreventionTipsActivity::class.java)
+//                val countries = viewModel.countries
+//                MaterialAlertDialogBuilder(this)
+//                    .setTitle("Select your Country")
+//                    .setMessage("Welcome Survivor, choose where your Loyalties lie.")
+//                    .setItems(countries.map { it.name }.toTypedArray()) {_, which ->
+//                        viewModel.setUserCountryIso(countries[which].iso2!!)
+//                        openActivity(PreventionTipsActivity::class.java)
+//                    }
+//                    .setCancelable(false)
+//                    .create()
+//                    .show()
+//            }else{
+//                openActivity(MainActivity::class.java)
+//            }
 
+            observeUserCountryIso2()
         }
 
         handler.postDelayed(runnable, 2 * ONE_SECOND_IN_MILLI)
+    }
+
+    private fun openActivity(activityClass: Class<*>) {
+        val intent = Intent(this, activityClass)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+    }
+
+    private fun observeUserCountryIso2(){
+        viewModel.userCountryIso2LiveData.observe(this, Observer {
+
+            if(it.isEmpty()){
+                observeCountries()
+            }else{
+                openActivity(MainActivity::class.java)
+            }
+
+        })
+    }
+
+    private fun observeCountries(){
+        viewModel.countriesLiveData.observe(this, Observer {countries->
+
+            MaterialAlertDialogBuilder(this)
+                .setTitle("Welcome Survivor, choose where your Loyalties lie.")
+                .setItems(countries.map { it.name }.toTypedArray()) {_, which ->
+                    viewModel.setUserCountryIso(countries[which].iso2!!)
+                    openActivity(PreventionTipsActivity::class.java)
+                }
+                .setCancelable(false)
+                .create()
+                .show()
+        })
     }
 
 }

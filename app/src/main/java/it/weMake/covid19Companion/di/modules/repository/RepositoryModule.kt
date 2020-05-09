@@ -33,10 +33,10 @@ abstract class RepositoryModule {
         screeningToolRepository: ScreeningToolRepository
     ): IScreeningToolRepository
 
-//    @Singleton
-//    @Binds
-//    abstract fun bindCountriesRepository(
-//        countriesRepository: CountriesRepository
-//    ): ICountriesRepository
+    @Singleton
+    @Binds
+    abstract fun bindCountriesRepository(
+        countriesRepository: CountriesRepository
+    ): ICountriesRepository
 
 }
