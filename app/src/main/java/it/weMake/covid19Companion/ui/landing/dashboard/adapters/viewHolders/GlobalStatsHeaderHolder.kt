@@ -5,8 +5,7 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import it.weMake.covid19Companion.databinding.HeaderGlobalStatsDashboardBinding
-import it.weMake.covid19Companion.models.AreaCasesData
-import it.weMake.covid19Companion.models.GlobalStats
+import it.weMake.covid19Companion.models.casesData.GlobalStats
 import it.weMake.covid19Companion.ui.landing.dashboard.adapters.GlobalCasesStatsAdapter
 
 

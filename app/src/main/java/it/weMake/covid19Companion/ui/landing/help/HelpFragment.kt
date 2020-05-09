@@ -16,20 +16,31 @@ import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import dagger.android.support.DaggerFragment
 
 import it.weMake.covid19Companion.R
 import it.weMake.covid19Companion.databinding.FragmentHelpBinding
 import it.weMake.covid19Companion.services.DownloadManagerIntentService
+import it.weMake.covid19Companion.ui.landing.help.adapters.PreventionTipsAdapter
+import it.weMake.covid19Companion.ui.screeningTool.ScreeningToolActivity
 import it.weMake.covid19Companion.utils.*
 import java.io.File
+import javax.inject.Inject
 
 /**
  * A simple [Fragment] subclass.
  */
-class HelpFragment : Fragment(), View.OnClickListener {
+class HelpFragment : DaggerFragment(), View.OnClickListener {
 
     private lateinit var binding: FragmentHelpBinding
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+    protected val viewModel: HelpViewModel by viewModels { viewModelFactory }
 
     private val WRITE_EXTERNAL_STORAGE_PERMISSION_REQUEST = 1
     private val downloadManagerBroadcastReceiver = object : BroadcastReceiver(){
@@ -41,6 +52,8 @@ class HelpFragment : Fragment(), View.OnClickListener {
         addAction(ACTION_DOWNLOAD_COMPLETED)
     }
 
+    private lateinit var preventionTipsAdapter: PreventionTipsAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -48,7 +61,12 @@ class HelpFragment : Fragment(), View.OnClickListener {
         // Inflate the layout for this fragment
         binding = FragmentHelpBinding.inflate(inflater, container, false)
 
+        preventionTipsAdapter = PreventionTipsAdapter()
+        binding.preventionTipsRV.adapter = preventionTipsAdapter
+
         binding.handHygieneCV.setOnClickListener(this)
+        binding.screeningToolCV.setOnClickListener(this)
+        attachObservers()
         return binding.root
     }
 
@@ -79,6 +97,11 @@ class HelpFragment : Fragment(), View.OnClickListener {
         when(v.id){
 
             R.id.handHygieneCV -> attemptOpenHandHygienePDF()
+
+            R.id.screeningToolCV -> {
+                val intent = Intent(requireContext(), ScreeningToolActivity::class.java)
+                startActivity(intent)
+            }
 
         }
     }
@@ -122,6 +145,14 @@ class HelpFragment : Fragment(), View.OnClickListener {
         }else{
             return true
         }
+
+    }
+
+    private fun attachObservers() {
+
+        viewModel.preventionTipsLiveData.observe(viewLifecycleOwner, Observer {
+            preventionTipsAdapter.refill(it)
+        })
 
     }
 

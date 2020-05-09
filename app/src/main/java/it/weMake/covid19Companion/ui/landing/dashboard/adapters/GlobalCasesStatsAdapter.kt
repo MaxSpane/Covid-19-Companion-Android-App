@@ -7,8 +7,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import it.weMake.covid19Companion.R
 import it.weMake.covid19Companion.databinding.ItemCasesSummaryBinding
-import it.weMake.covid19Companion.models.AreaCasesData
-import it.weMake.covid19Companion.models.GlobalStats
+import it.weMake.covid19Companion.models.casesData.GlobalStats
 import it.weMake.covid19Companion.utils.numberWithCommas
 
 class GlobalCasesStatsAdapter(): RecyclerView.Adapter<GlobalCasesStatsAdapter.Holder>() {

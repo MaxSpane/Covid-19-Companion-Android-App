@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.landing.podcast.PodcastFragment"
-    android:background="@color/grey">
+    android:background="@color/ash">
 
     <TextView
         android:id="@+id/titleTV"
@@ -208,7 +208,7 @@
                 android:id="@+id/listTitleTV"
                 style="@style/Covid19TextView.Body.Bold"
                 android:text="@string/latest_podcasts"
-                android:textColor="@color/ash"
+                android:textColor="@color/grey"
                 app:layout_constraintTop_toBottomOf="@id/playPauseIV"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginTop="24dp"

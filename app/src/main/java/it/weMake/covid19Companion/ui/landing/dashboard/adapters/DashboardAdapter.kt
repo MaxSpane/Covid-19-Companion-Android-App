@@ -7,8 +7,8 @@ import it.weMake.covid19Companion.R
 import it.weMake.covid19Companion.databinding.HeaderDashboardCountryCasesBinding
 import it.weMake.covid19Companion.databinding.HeaderGlobalStatsDashboardBinding
 import it.weMake.covid19Companion.databinding.ItemCountryCasesSummaryBinding
-import it.weMake.covid19Companion.models.CountryCasesData
-import it.weMake.covid19Companion.models.GlobalStats
+import it.weMake.covid19Companion.models.casesData.CountryCasesData
+import it.weMake.covid19Companion.models.casesData.GlobalStats
 import it.weMake.covid19Companion.models.PagedData
 import it.weMake.covid19Companion.ui.landing.dashboard.adapters.viewHolders.CountryCaseHolder
 import it.weMake.covid19Companion.ui.landing.dashboard.adapters.viewHolders.CountryCasesHeaderHolder

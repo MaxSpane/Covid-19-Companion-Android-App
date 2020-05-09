@@ -1,4 +1,4 @@
-package it.wemake.covid19Companion.domain.models
+package it.wemake.covid19Companion.domain.models.casesData
 
 data class GlobalStatsDomainModel(
     val confirmed: Int,

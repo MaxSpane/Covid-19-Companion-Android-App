@@ -4,10 +4,11 @@
     <color name="colorPrimaryDark">#219653</color>
     <color name="colorAccent">#03DAC5</color>
     <color name="white">#FFFFFF</color>
-    <color name="ash">#818181</color>
+    <color name="grey">#818181</color>
     <color name="black">#000000</color>
     <color name="deaths">#EB5757</color>
-    <color name="grey">#F4F4F4</color>
+    <color name="ash">#F4F4F4</color>
     <color name="colorWhiteTransparent">#33FFFFFF</color>
     <color name="colorPrimaryDarkTransparent">#4D219653</color>
+    <color name="radioButtonText">#CBCFD4</color>
 </resources>

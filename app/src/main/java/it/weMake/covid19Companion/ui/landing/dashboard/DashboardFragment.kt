@@ -1,40 +1,22 @@
 package it.weMake.covid19Companion.ui.landing.dashboard
 
-import android.Manifest
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION
-import android.content.Intent.FLAG_GRANT_WRITE_URI_PERMISSION
-import android.content.IntentFilter
-import android.content.pm.PackageManager
-import android.os.Build
 import android.os.Bundle
-import android.os.Environment
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import androidx.core.content.FileProvider
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.k0d4black.theforce.commons.Error
-import com.k0d4black.theforce.commons.Loading
-import com.k0d4black.theforce.commons.Success
+import it.weMake.covid19Companion.commons.Error
+import it.weMake.covid19Companion.commons.Loading
+import it.weMake.covid19Companion.commons.Success
 import dagger.android.support.DaggerFragment
-import it.weMake.covid19Companion.R
 import it.weMake.covid19Companion.databinding.FragmentDashboardBinding
-import it.weMake.covid19Companion.services.DownloadManagerIntentService
 import it.weMake.covid19Companion.ui.landing.dashboard.adapters.DashboardAdapter
 import it.weMake.covid19Companion.utils.*
-import java.io.File
 import javax.inject.Inject
 
 class DashboardFragment : DaggerFragment(), View.OnClickListener {

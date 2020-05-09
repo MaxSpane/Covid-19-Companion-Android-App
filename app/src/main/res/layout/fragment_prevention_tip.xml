@@ -37,7 +37,7 @@
             android:id="@+id/preventionTipsSummary1TV"
             style="@style/Covid19TextView"
             android:text="@string/prevention_summary1"
-            android:textColor="@color/ash"
+            android:textColor="@color/grey"
             android:textSize="16sp"
             android:layout_marginTop="24dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -60,7 +60,7 @@
             android:id="@+id/preventionTipsSummary3TV"
             style="@style/Covid19TextView"
             android:text="@string/prevention_summary3"
-            android:textColor="@color/ash"
+            android:textColor="@color/grey"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/preventionTipsSummary2TV" />

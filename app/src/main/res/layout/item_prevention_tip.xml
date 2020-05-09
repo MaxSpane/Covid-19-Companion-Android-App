@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_marginTop="16dp"
     android:layout_marginBottom="16dp"
     android:paddingStart="20dp"
@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         style="@style/Covid19TextView.Body"
         tools:text="Regularly and thoroughly clean your hands with an alcohol-based hand rub or wash them with soap and water."
-        android:textColor="@color/ash"
+        android:textColor="@color/grey"
         android:layout_marginTop="11dp"/>
 
     <TextView
@@ -36,6 +36,6 @@
         android:layout_width="match_parent"
         style="@style/Covid19TextView.Body"
         tools:text="Washing your hands with soap and water or using alcohol-based hand rub kills viruses that may be on your hands."
-        android:textColor="@color/ash"/>
+        android:textColor="@color/grey"/>
 
 </LinearLayout>

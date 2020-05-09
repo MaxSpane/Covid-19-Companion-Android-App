@@ -3,13 +3,10 @@ package it.wemake.covid19Companion.data.impl
 import it.wemake.covid19Companion.data.local.ICasesDataLocal
 import it.wemake.covid19Companion.data.local.ISharedPreferencesLocal
 import it.wemake.covid19Companion.data.mappers.toDomain
-import it.wemake.covid19Companion.data.models.AllAreasCasesDataEntity
-import it.wemake.covid19Companion.data.models.CountryCasesDataEntity
-import it.wemake.covid19Companion.data.models.NovelCountryCasesDataEntity
+import it.wemake.covid19Companion.data.models.casesData.NovelCountryCasesDataEntity
 import it.wemake.covid19Companion.data.remote.ICovid19CasesRemote
-import it.wemake.covid19Companion.domain.models.AreaCasesDataDomainModel
-import it.wemake.covid19Companion.domain.models.CountryCasesDomainModel
-import it.wemake.covid19Companion.domain.models.GlobalStatsDomainModel
+import it.wemake.covid19Companion.domain.models.casesData.CountryCasesDomainModel
+import it.wemake.covid19Companion.domain.models.casesData.GlobalStatsDomainModel
 import it.wemake.covid19Companion.domain.repository.ICovid19CasesRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect

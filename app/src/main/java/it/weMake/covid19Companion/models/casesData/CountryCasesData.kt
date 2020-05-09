@@ -1,9 +1,11 @@
-package it.wemake.covid19Companion.domain.models
+package it.weMake.covid19Companion.models.casesData
 
-data class CountryCasesDomainModel(
+import it.weMake.covid19Companion.models.CountryInfo
+
+data class CountryCasesData(
     val displayName: String,
     val lastUpdated: Long,
-    val countryInfo: CountryInfoDomainModel,
+    val countryInfo: CountryInfo,
     val totalConfirmed: Int?,
     val totalDeaths: Int?,
     val totalRecovered: Int?,
