@@ -68,4 +68,9 @@ class DomainModule {
         sharedPreferencesRepository: SharedPreferencesRepository
     ): SetUserCountryIso2UseCase = SetUserCountryIso2UseCase(sharedPreferencesRepository)
 
+    @Provides
+    fun provideGetUserCountryCasesDataUseCase(
+        covid19CasesRepository: Covid19CasesRepository
+    ): GetUserCountryCasesDataUseCase = GetUserCountryCasesDataUseCase(covid19CasesRepository)
+
 }

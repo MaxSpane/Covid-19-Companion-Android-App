@@ -12,6 +12,7 @@ import it.weMake.covid19Companion.models.casesData.GlobalStats
 import it.weMake.covid19Companion.models.PagedData
 import it.wemake.covid19Companion.domain.usecases.*
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -21,8 +22,8 @@ class DashboardViewModel
         val updateCasesDataUseCase: UpdateCasesDataUseCase,
         val getCasesDataLastUpdatedUseCase: GetCasesDataLastUpdatedUseCase,
         val getGlobalCasesDataUseCase: GetGlobalCasesDataUseCase,
-        val searchCountriesCasesDataUseCase: SearchCountriesCasesDataUseCase
-//        val getCountriesUseCase: GetCountriesUseCase
+        val searchCountriesCasesDataUseCase: SearchCountriesCasesDataUseCase,
+        val getUserCountryCasesDataUseCase: GetUserCountryCasesDataUseCase
     ) : UiStateViewModel() {
 
     val pagedCountriesCasesData: LiveData<PagedData<List<CountryCasesData>>>
@@ -54,6 +55,10 @@ class DashboardViewModel
     val pagedSearchCountriesCasesData: LiveData<PagedData<List<CountryCasesData>>>
         get() = _pagedSearchCountriesCasesData
 
+    private var _userCountryCasesData = MutableLiveData<CountryCasesData>()
+    val userCountryCasesData: LiveData<CountryCasesData>
+        get() = _userCountryCasesData
+
     init {
 
 //        loadNextPage()
@@ -70,11 +75,11 @@ class DashboardViewModel
             }
         }
 
-//        viewModelScope.launch {
-//            getCountriesUseCase().collect{
-//                it.size
-//            }
-//        }
+        viewModelScope.launch {
+            getUserCountryCasesDataUseCase().map { it.toPresentation() }.collect {
+                _userCountryCasesData.value = it
+            }
+        }
 
     }
 

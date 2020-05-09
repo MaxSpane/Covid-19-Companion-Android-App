@@ -111,7 +111,13 @@ class DashboardFragment : DaggerFragment(), View.OnClickListener {
 
 
         viewModel.pagedSearchCountriesCasesData.observe(viewLifecycleOwner, Observer {
-            dashboardAdapter.refill(it)
+            dashboardAdapter.refill(it, true)
+        })
+
+        viewModel.userCountryCasesData.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                dashboardAdapter.setUserCountryCasesData(it)
+            }
         })
 
     }
