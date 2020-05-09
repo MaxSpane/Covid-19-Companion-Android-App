@@ -49,6 +49,9 @@
         <activity
             android:name=".ui.preventionTips.PreventionTipsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <receiver android:name=".ui.landing.settings.BroadcastNotify"/>
+
     </application>
 
 </manifest>
