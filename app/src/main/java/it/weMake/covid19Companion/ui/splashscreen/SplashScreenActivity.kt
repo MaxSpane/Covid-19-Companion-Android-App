@@ -29,24 +29,6 @@ class SplashScreenActivity : DaggerAppCompatActivity() {
 
         val handler = Handler()
         val runnable = Runnable {
-
-//            if(viewModel.userCountryIso2.isEmpty()){
-//                Intent(this, PreventionTipsActivity::class.java)
-//                val countries = viewModel.countries
-//                MaterialAlertDialogBuilder(this)
-//                    .setTitle("Select your Country")
-//                    .setMessage("Welcome Survivor, choose where your Loyalties lie.")
-//                    .setItems(countries.map { it.name }.toTypedArray()) {_, which ->
-//                        viewModel.setUserCountryIso(countries[which].iso2!!)
-//                        openActivity(PreventionTipsActivity::class.java)
-//                    }
-//                    .setCancelable(false)
-//                    .create()
-//                    .show()
-//            }else{
-//                openActivity(MainActivity::class.java)
-//            }
-
             observeUserCountryIso2()
         }
 
