@@ -75,5 +75,8 @@
     <string name="error_get_diagnosis">An error occurred while getting your Diagnosis. Please try again.</string>
     <string name="try_again">Try again</string>
     <string name="no_observations">No Observations</string>
+    <string name="resources">Resources</string>
+    <string name="development_team">Development Team</string>
+    <string name="releases">Releases</string>
 
 </resources>
