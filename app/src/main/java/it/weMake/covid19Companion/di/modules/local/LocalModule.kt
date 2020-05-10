@@ -23,4 +23,7 @@ abstract class LocalModule {
     @Binds
     internal abstract fun bindPreventionTipsLocal( preventionTipsLocal: PreventionTipsLocal): IPreventionTipsLocal
 
+    @Binds
+    internal abstract fun bindCountriesLocal( countriesLocal: CountriesLocal): ICountriesLocal
+
 }

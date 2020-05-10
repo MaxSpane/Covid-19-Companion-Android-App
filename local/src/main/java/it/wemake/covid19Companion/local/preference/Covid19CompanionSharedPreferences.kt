@@ -3,10 +3,7 @@ package it.wemake.covid19Companion.local.preference
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
-import it.wemake.covid19Companion.local.utils.CASES_SUMMARY_LAST_UPDATED
-import it.wemake.covid19Companion.local.utils.COVID_19_COMPANION_SHARED_PREFERENCES
-import it.wemake.covid19Companion.local.utils.NUMBER_OF_CHECKS
-import it.wemake.covid19Companion.local.utils.WHO_HAND_HYGIENE_BROCHURE_DOWNLOAD_ID
+import it.wemake.covid19Companion.local.utils.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
@@ -49,6 +46,24 @@ class Covid19CompanionSharedPreferences constructor(
     fun setWHOHandHygieneDownloadId(downloadId: Long) {
         val editor = covid19CompanionAppSharedPref.edit()
         editor.putLong(WHO_HAND_HYGIENE_BROCHURE_DOWNLOAD_ID, downloadId)
+        editor.apply()
+    }
+
+    fun getUserCountryIso2(): String =
+        covid19CompanionAppSharedPref.getString(USER_COUNTRY_ISO2, "")!!
+
+    fun setUserCountryIso2(userCountryIso2: String) {
+        val editor = covid19CompanionAppSharedPref.edit()
+        editor.putString(USER_COUNTRY_ISO2, userCountryIso2)
+        editor.apply()
+    }
+
+    fun getWashHandsInterval(): Int =
+        covid19CompanionAppSharedPref.getInt(WASH_HANDS_INTERVAL, 0)
+
+    fun setWashHandsInterval(interval: Int) {
+        val editor = covid19CompanionAppSharedPref.edit()
+        editor.putInt(WASH_HANDS_INTERVAL, interval)
         editor.apply()
     }
 

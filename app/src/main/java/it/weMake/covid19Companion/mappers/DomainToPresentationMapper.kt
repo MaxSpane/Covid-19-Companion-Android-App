@@ -102,3 +102,9 @@ fun ObservationDomainModel.toPresentation(): Observation =
         text,
         isEmergency
     )
+
+fun CountryDomainModel.toPresentation(): Country =
+    Country(
+        name,
+        iso2
+    )

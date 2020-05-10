@@ -14,4 +14,12 @@ interface ISharedPreferencesLocal {
 
     fun setWHOHandHygieneDownloadId(downloadId: Long)
 
+    fun getUserCountryIso2(): String
+
+    fun setUserCountryIso2(userCountryIso2: String)
+
+    fun getWashHandsInterval(): Int
+
+    fun setWashHandsInterval(interval: Int)
+
 }

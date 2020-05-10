@@ -18,34 +18,32 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import dagger.android.support.DaggerFragment
 import it.weMake.covid19Companion.R
 import it.weMake.covid19Companion.databinding.FragmentSettingsBinding
+import javax.inject.Inject
 
+//Make sure you're extending DaggerFragment instead of Fragment so Dagger knows how to inject parameters for us
+class SettingsFragment : DaggerFragment()  {
 
-class SettingsFragment : Fragment()  {
-
-    private lateinit var settingsViewModel: SettingsViewModel
     lateinit var fragmentBinding: FragmentSettingsBinding
     lateinit var reminderLocationAdapter: ReminderLocationAdapter
 
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        // We set the listener on the child fragmentManager
-//        childFragmentManager.setResultListener("requestKey") { key, bundle ->
-//            val result = bundle.getString("bundleKey")
-//            // Do something with the result..
-//        }
-//    }
+    //Dagger injects viewModelFactory for us
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+    //viewModelFactory provides the SettingsViewModel for us
+    protected val viewModel: SettingsViewModel by viewModels { viewModelFactory }
+
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
 
-        settingsViewModel =
-                ViewModelProvider(this).get(SettingsViewModel::class.java)
-        fragmentBinding = FragmentSettingsBinding.inflate(inflater, container, false)
+               fragmentBinding = FragmentSettingsBinding.inflate(inflater, container, false)
         reminderLocationAdapter = ReminderLocationAdapter()
         fragmentBinding.remHandLocRV.adapter = reminderLocationAdapter
          createNotificationChannel();
@@ -86,26 +84,37 @@ class SettingsFragment : Fragment()  {
             }
         }
 
-        settingsViewModel.text.observe(viewLifecycleOwner, Observer {
-        })
+        val washHandsInterval = viewModel.getWashHandsInterval()
+        updateUIIntervalWashHand(washHandsInterval)
         return fragmentBinding.root
     }
 
     private fun setIntervalWashHand(intervalInMinutes: Int){
+        viewModel.setWashHandsInterval(intervalInMinutes)
+        updateUIIntervalWashHand(intervalInMinutes)
+    }
+
+    private fun updateUIIntervalWashHand(intervalInMinutes: Int){
          if (intervalInMinutes == 0)   {
             fragmentBinding.remHandTime.text = getString(R.string.default_text_wash_hands_reminder)
              fragmentBinding.remWashHandsS.isChecked = false
         }else{
             fragmentBinding.remHandTime.text = getString(R.string.placeholder_wash_hands_reminder, convertIntervalToText(intervalInMinutes))
+             fragmentBinding.remWashHandsS.isChecked = true
         }
     }
 
     private fun setIntervalDrinkWater(intervalInMinutes: Int){
+        updateUIIntervalDrinkWater(intervalInMinutes)
+    }
+
+    private fun updateUIIntervalDrinkWater(intervalInMinutes: Int){
         if (intervalInMinutes == 0)   {
             fragmentBinding.remWater.text = getString(R.string.default_text_drink_water_reminder)
             fragmentBinding.remWashHandsS.isChecked = false
         }else{
             fragmentBinding.remWater.text = getString(R.string.placeholder_drink_water_reminder, convertIntervalToText(intervalInMinutes))
+            fragmentBinding.remWashHandsS.isChecked = true
         }
     }
 
@@ -172,46 +181,4 @@ class SettingsFragment : Fragment()  {
 
         }
     }
-
-
-}
-
-//
-//class MainActivity : AppCompatActivity() {
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        setContentView(R.layout.activity_main)
-//        createNotificationChannel()
-//        findViewById<View>(R.id.button).setOnClickListener {
-//            Toast.makeText(this@MainActivity, "Alarm Set!...", Toast.LENGTH_SHORT).show()
-//            val intent = Intent(this@MainActivity, BroadcastNotify::class.java)
-//            val pendingIntent =
-//                PendingIntent.getBroadcast(this@MainActivity, 0, intent, 0)
-//            val alarmManager =
-//                getSystemService(Context.ALARM_SERVICE) as AlarmManager
-//            val currentTime = System.currentTimeMillis()
-//            //1000 milli= 1 sec
-//            val tenSeconds = 10 * 1000.toLong()
-//            alarmManager[AlarmManager.RTC_WAKEUP, currentTime + tenSeconds] = pendingIntent
-//        }
-//    }
-//
-//    private fun createNotificationChannel() { // Create the NotificationChannel, but only on API 26+ because
-//// the NotificationChannel class is new and not in the support library
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//            val name: CharSequence = "lemubit Channel"
-//            val description = "You gotta listen"
-//            val importance = NotificationManager.IMPORTANCE_DEFAULT
-//            val channel =
-//                NotificationChannel("lemubitNotify", name, importance)
-//            channel.description = description
-//            // Register the channel with the system; you can't change the importance
-//// or other notification behaviors after this
-//            val notificationManager = getSystemService(
-//                NotificationManager::class.java
-//            )
-//            notificationManager.createNotificationChannel(channel)
-//        }
-//    }
-//}
 

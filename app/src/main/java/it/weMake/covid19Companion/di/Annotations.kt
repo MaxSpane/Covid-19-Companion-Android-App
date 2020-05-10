@@ -25,5 +25,8 @@ annotation class ActivityScope
 annotation class FragmentScope
 
 @Scope
+annotation class ChildFragmentScope
+
+@Scope
 @Retention(AnnotationRetention.RUNTIME)
 annotation class PerService

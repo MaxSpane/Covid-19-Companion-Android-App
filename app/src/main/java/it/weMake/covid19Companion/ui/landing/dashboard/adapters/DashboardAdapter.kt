@@ -23,13 +23,16 @@ class DashboardAdapter(
     private var lastUpdated = "Never"
     private var globalCasesData: GlobalStats? = null
     private var isDownloadingHandHygieneBrochure = false
+    private var userCountryCasesData: CountryCasesData? = null
+    private var isUserSearching = false
 
     var pageTop = 0
     var pageBottom = 1
 
     private val VIEW_TYPE_GLOBAL_STATS_HEADER = 0
     private val VIEW_TYPE_COUNTRY_CASES_HEADER = 1
-    private val VIEW_TYPE_COUNTRY_CASES = 2
+    private val VIEW_TYPE_USER_COUNTRY_CASES = 2
+    private val VIEW_TYPE_COUNTRY_CASES = 3
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
@@ -74,7 +77,8 @@ class DashboardAdapter(
                 }
 
                 else->{
-                    (viewHolder as CountryCaseHolder).bind(countryCases[position - VIEW_TYPE_COUNTRY_CASES])
+                    if(countryCases.isNotEmpty())
+                        (viewHolder as CountryCaseHolder).bind(countryCases[position - VIEW_TYPE_USER_COUNTRY_CASES])
                 }
 
             }
@@ -92,11 +96,15 @@ class DashboardAdapter(
         return VIEW_TYPE_COUNTRY_CASES
     }
 
-    fun refill(pagedData: PagedData<List<CountryCasesData>>){
+    fun refill(pagedData: PagedData<List<CountryCasesData>>, isUserSearching: Boolean = false){
 
+        this.isUserSearching = isUserSearching
         val formerSize = countryCases.size
         countryCases.clear()
-        notifyItemRangeRemoved(VIEW_TYPE_COUNTRY_CASES, formerSize)
+        if (!isUserSearching && userCountryCasesData != null){
+            countryCases.add(0, userCountryCasesData!!)
+        }
+        notifyItemRangeRemoved(VIEW_TYPE_USER_COUNTRY_CASES, formerSize)
         countryCases.addAll(pagedData.data)
         notifyItemRangeInserted(VIEW_TYPE_COUNTRY_CASES, countryCases.size)
 
@@ -119,6 +127,7 @@ class DashboardAdapter(
                 notifyItemRangeRemoved(10, 10)
                 countryCases.addAll(0, pagedData.data)
                 if (pagedData.page == 0){
+                    countryCases.add(0, userCountryCasesData!!)
                     notifyItemRangeInserted(0, 10 + VIEW_TYPE_COUNTRY_CASES)
                 }else{
                     notifyItemRangeInserted(0, 10)
@@ -154,6 +163,14 @@ class DashboardAdapter(
         this.globalCasesData = globalCasesData
         if (itemCount != countryCases.size)
             notifyItemChanged(VIEW_TYPE_GLOBAL_STATS_HEADER)
+    }
+
+    fun setUserCountryCasesData(userCountryCasesData: CountryCasesData){
+        this.userCountryCasesData = userCountryCasesData
+        if (itemCount != countryCases.size){
+            countryCases.add(0, userCountryCasesData)
+            notifyItemChanged(VIEW_TYPE_USER_COUNTRY_CASES)
+        }
     }
 
 }

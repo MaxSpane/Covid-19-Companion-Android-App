@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import it.wemake.covid19Companion.domain.usecases.SetUserCountryIso2UseCase
 import it.wemake.covid19Companion.local.models.CountryCasesDataLocalModel
 import it.wemake.covid19Companion.local.models.GlobalStatsLocalModel
 import kotlinx.coroutines.flow.Flow
@@ -22,5 +23,8 @@ interface CountriesCasesDataDao {
 
     @Query("SELECT * FROM countries_cases_data WHERE displayName LIKE :searchQuery ORDER BY totalConfirmed DESC LIMIT :pageSize OFFSET (:page * 10)")
     fun searchCountriesCasesData(searchQuery: String, page: Int, pageSize: Int): Flow<List<CountryCasesDataLocalModel>>
+
+    @Query("SELECT * FROM countries_cases_data WHERE iso2 = :userCountryIso2")
+    fun getUserCountryCasesData(userCountryIso2: String): Flow<CountryCasesDataLocalModel?>
 
 }

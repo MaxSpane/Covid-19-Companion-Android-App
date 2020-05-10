@@ -9,15 +9,15 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class CountriesRepository
-//@Inject constructor(
-//    private val countriesLocal: ICountriesLocal
-//): ICountriesRepository {
-//
-//    override suspend fun getCountries(): Flow<List<CountryDomainModel>> =
-//        countriesLocal.getCountries().map { countries->
-//            countries.map {
-//                it.toDomain()
-//            }
-//        }
-//
-//}
+@Inject constructor(
+    private val countriesLocal: ICountriesLocal
+): ICountriesRepository {
+
+    override suspend fun getCountries(): Flow<List<CountryDomainModel>> =
+        countriesLocal.getCountries().map { countries->
+            countries.map {
+                it.toDomain()
+            }
+        }
+
+}
