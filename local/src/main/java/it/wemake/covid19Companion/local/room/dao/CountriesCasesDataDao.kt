@@ -25,6 +25,6 @@ interface CountriesCasesDataDao {
     fun searchCountriesCasesData(searchQuery: String, page: Int, pageSize: Int): Flow<List<CountryCasesDataLocalModel>>
 
     @Query("SELECT * FROM countries_cases_data WHERE iso2 = :userCountryIso2")
-    fun getUserCountryCasesData(userCountryIso2: String): Flow<CountryCasesDataLocalModel>
+    fun getUserCountryCasesData(userCountryIso2: String): Flow<CountryCasesDataLocalModel?>
 
 }

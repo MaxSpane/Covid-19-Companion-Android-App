@@ -14,6 +14,6 @@ interface ICovid19CasesRepository {
 
     suspend fun searchCountriesCasesData(searchQuery: String, page: Int, pageSize: Int): Flow<List<CountryCasesDomainModel>>
 
-    suspend fun getUserCountryCasesData(): Flow<CountryCasesDomainModel>
+    suspend fun getUserCountryCasesData(): Flow<CountryCasesDomainModel?>
 
 }

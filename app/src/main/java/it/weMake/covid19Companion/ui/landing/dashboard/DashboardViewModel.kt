@@ -76,7 +76,7 @@ class DashboardViewModel
         }
 
         viewModelScope.launch {
-            getUserCountryCasesDataUseCase().map { it.toPresentation() }.collect {
+            getUserCountryCasesDataUseCase().map { it?.toPresentation() }.collect {
                 _userCountryCasesData.value = it
             }
         }

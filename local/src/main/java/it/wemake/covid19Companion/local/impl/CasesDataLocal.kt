@@ -45,7 +45,7 @@ class CasesDataLocal @Inject constructor(
             }
         }
 
-    override suspend fun getUserCountryCasesData(userCountryIso2: String): Flow<CountryCasesDataEntity> =
-        countriesCasesDataDao.getUserCountryCasesData(userCountryIso2).map { it.toEntity() }
+    override suspend fun getUserCountryCasesData(userCountryIso2: String): Flow<CountryCasesDataEntity?> =
+        countriesCasesDataDao.getUserCountryCasesData(userCountryIso2).map { it?.toEntity() }
 
 }

@@ -17,6 +17,6 @@ interface ICasesDataLocal {
 
     suspend fun searchCountriesCasesData(searchQuery: String, page: Int, pageSize: Int): Flow<List<CountryCasesDataEntity>>
 
-    suspend fun getUserCountryCasesData(userCountryIso2: String): Flow<CountryCasesDataEntity>
+    suspend fun getUserCountryCasesData(userCountryIso2: String): Flow<CountryCasesDataEntity?>
 
 }

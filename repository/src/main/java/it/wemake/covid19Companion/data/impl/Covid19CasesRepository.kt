@@ -63,10 +63,10 @@ class Covid19CasesRepository @Inject constructor(
             }
         }
 
-    override suspend fun getUserCountryCasesData(): Flow<CountryCasesDomainModel> =
+    override suspend fun getUserCountryCasesData(): Flow<CountryCasesDomainModel?> =
         casesDataLocal.getUserCountryCasesData(sharedPreferencesLocal.getUserCountryIso2())
             .map {
-                it.toDomain()
+                it?.toDomain()
             }
 
 }
