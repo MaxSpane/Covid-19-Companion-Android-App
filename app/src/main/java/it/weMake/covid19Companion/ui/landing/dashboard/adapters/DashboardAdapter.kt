@@ -102,11 +102,11 @@ class DashboardAdapter(
         val formerSize = countryCases.size
         countryCases.clear()
         if (!isUserSearching && userCountryCasesData != null){
-            countryCases.add(0, userCountryCasesData!!)
+            countryCases[0] = userCountryCasesData!!
         }
         notifyItemRangeRemoved(VIEW_TYPE_USER_COUNTRY_CASES, formerSize)
         countryCases.addAll(pagedData.data)
-        notifyItemRangeInserted(VIEW_TYPE_COUNTRY_CASES, countryCases.size)
+        notifyItemRangeInserted(VIEW_TYPE_USER_COUNTRY_CASES, countryCases.size)
 
     }
 
@@ -167,9 +167,14 @@ class DashboardAdapter(
 
     fun setUserCountryCasesData(userCountryCasesData: CountryCasesData){
         this.userCountryCasesData = userCountryCasesData
-        if (itemCount != countryCases.size){
-            countryCases.add(0, userCountryCasesData)
-            notifyItemChanged(VIEW_TYPE_USER_COUNTRY_CASES)
+        if (itemCount != countryCases.size && !isUserSearching){
+            if (countryCases.size == 0){
+                countryCases.add(userCountryCasesData)
+                notifyItemInserted(VIEW_TYPE_USER_COUNTRY_CASES)
+            }else{
+                countryCases[0] = userCountryCasesData
+                notifyItemChanged(VIEW_TYPE_USER_COUNTRY_CASES)
+            }
         }
     }
 

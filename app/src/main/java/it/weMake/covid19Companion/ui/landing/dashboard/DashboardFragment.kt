@@ -117,6 +117,7 @@ class DashboardFragment : DaggerFragment(), View.OnClickListener {
         viewModel.userCountryCasesData.observe(viewLifecycleOwner, Observer {
             it?.let {
                 dashboardAdapter.setUserCountryCasesData(it)
+                dashboardAdapter.setUserCountryCasesData(it)
             }
         })
 
