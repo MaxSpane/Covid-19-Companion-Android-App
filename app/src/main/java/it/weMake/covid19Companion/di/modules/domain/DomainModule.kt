@@ -87,4 +87,18 @@ class DomainModule {
             return SetWashHandsIntervalUseCase(sharedPreferencesRepository)
     }
 
+    @Provides
+    fun provideGetDrinkWaterIntervalUseCase(
+        sharedPreferencesRepository: SharedPreferencesRepository
+    ): GetDrinkWaterIntervalUseCase {
+            return  GetDrinkWaterIntervalUseCase(sharedPreferencesRepository)
+    }
+
+    @Provides
+    fun provideSetDrinkWaterIntervalUseCase(
+        sharedPreferencesRepository: SharedPreferencesRepository
+    ): SetDrinkWaterIntervalUseCase {
+            return SetDrinkWaterIntervalUseCase(sharedPreferencesRepository)
+    }
+
 }

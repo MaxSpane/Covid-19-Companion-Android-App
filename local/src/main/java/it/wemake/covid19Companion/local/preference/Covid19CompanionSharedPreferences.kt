@@ -67,4 +67,13 @@ class Covid19CompanionSharedPreferences constructor(
         editor.apply()
     }
 
+    fun getDrinkWaterInterval(): Int =
+        covid19CompanionAppSharedPref.getInt(DRINK_WATER_INTERVAL, 0)
+
+    fun setDrinkWaterInterval(interval: Int) {
+        val editor = covid19CompanionAppSharedPref.edit()
+        editor.putInt(DRINK_WATER_INTERVAL, interval)
+        editor.apply()
+    }
+
 }

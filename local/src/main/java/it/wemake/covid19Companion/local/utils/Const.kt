@@ -10,3 +10,4 @@ const val WHO_HAND_HYGIENE_BROCHURE_DOWNLOAD_ID = "WHO Hand Hygiene Brochure Dow
 const val IS_FIRST_LAUNCH = "Is First Launch"
 const val USER_COUNTRY_ISO2 = "User Country Iso2"
 const val WASH_HANDS_INTERVAL = "Wash Hands Interval"
+const val DRINK_WATER_INTERVAL = "Drink Water Interval"

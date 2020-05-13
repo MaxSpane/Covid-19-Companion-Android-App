@@ -22,4 +22,8 @@ interface ISharedPreferencesLocal {
 
     fun setWashHandsInterval(interval: Int)
 
+    fun getDrinkWaterInterval(): Int
+
+    fun setDrinkWaterInterval(interval: Int)
+
 }
