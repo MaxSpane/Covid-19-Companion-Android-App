@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.regionalStats.StateStatsActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp">
+
+        <!--      beginning of  text view 1   -->
+
+        <TextView
+            android:id="@+id/stateNameTV"
+            style="@style/Covid19TextView"
+            android:text="Lagos"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp"
+            android:layout_marginStart="46dp"
+            android:layout_marginTop="15dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+        <!--       ADDING THE  14 TEXT VIEWS BELOW THE STATE NAME -->
+
+        <!--       beginning of  text view 1    -->
+
+        <TextView
+            android:id="@+id/totalCasesTV"
+            style="@style/Covid19TextView"
+            android:text="@string/total_cases"
+            android:layout_marginTop="47dp"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/stateNameTV"
+
+            />
+        <!--       beginning of  text view 2    -->
+
+        <TextView
+            android:id="@+id/totalCasesValueTV"
+            style="@style/Covid19TextView"
+            android:text="@string/total_cases_value"
+            android:layout_marginTop="47dp"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="normal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/stateNameTV"
+            />
+
+
+        <!--       beginning of  text view 3    -->
+
+        <TextView
+            android:id="@+id/totalRecoveredTV"
+            style="@style/Covid19TextView"
+            android:text="@string/total_recovered"
+            android:layout_marginTop="26dp"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/totalCasesTV"
+
+            />
+        <!--       beginning of  text view 4    -->
+
+        <TextView
+            android:id="@+id/totalRecoveredValueTV"
+            style="@style/Covid19TextView"
+            android:text="@string/total_cases_value"
+            android:layout_marginTop="26dp"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="normal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/totalCasesValueTV"
+            />
+
+
+        <!--       beginning of  text view 5    -->
+
+        <TextView
+            android:id="@+id/totalDeathsTV"
+            style="@style/Covid19TextView"
+            android:text="@string/total_deaths"
+            android:layout_marginTop="26dp"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/totalRecoveredTV"
+
+            />
+        <!--       beginning of  text view 6    -->
+
+        <TextView
+            android:id="@+id/totalDeathsValueTV"
+            style="@style/Covid19TextView"
+            android:text="@string/total_cases_value"
+            android:layout_marginTop="26dp"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="normal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/totalRecoveredValueTV"
+            />
+
+
+        <!--       beginning of  text view 7    -->
+
+        <TextView
+            android:id="@+id/todayNewCasesTV"
+            style="@style/Covid19TextView"
+            android:text="@string/new_cases_today"
+            android:layout_marginTop="26dp"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/totalDeathsTV"
+
+            />
+        <!--       beginning of  text view 8    -->
+
+        <TextView
+            android:id="@+id/todayNewCasesValueTV"
+            style="@style/Covid19TextView"
+            android:text="@string/total_cases_value"
+            android:layout_marginTop="26dp"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="normal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/totalDeathsValueTV"
+            />
+
+        <!--       beginning of  text view 9    -->
+
+        <TextView
+            android:id="@+id/deathsTodayTV"
+            style="@style/Covid19TextView"
+            android:text="@string/new_deaths_today"
+            android:layout_marginTop="26dp"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/todayNewCasesTV"
+            />
+        <!--       beginning of  text view 10    -->
+
+        <TextView
+            android:id="@+id/deathsTodayValueTV"
+            style="@style/Covid19TextView"
+            android:text="@string/new_deaths_today_value"
+            android:layout_marginTop="26dp"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="normal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/todayNewCasesValueTV"
+            />
+        <!--       beginning of  text view 11-->
+        <TextView
+            android:id="@+id/casesPerMillionTV"
+            style="@style/Covid19TextView"
+            android:text="@string/cases_per_million"
+            android:layout_marginTop="26dp"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/deathsTodayTV"
+            />
+        <!--       beginning of  text view 12   -->
+
+        <TextView
+            android:id="@+id/casesPerMillionValueTV"
+            style="@style/Covid19TextView"
+            android:text="@string/cases_per_million_value"
+            android:layout_marginTop="26dp"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="normal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/deathsTodayValueTV"
+            />
+        <!--       beginning of  text view 13-->
+        <TextView
+            android:id="@+id/deathsPerMillionTV"
+            style="@style/Covid19TextView"
+            android:text="@string/deaths_per_million"
+            android:layout_marginTop="26dp"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/casesPerMillionTV"
+            />
+        <!--       beginning of  text view 14   -->
+
+        <TextView
+            android:id="@+id/deathsPerMillionValueTV"
+            style="@style/Covid19TextView"
+            android:text="@string/deaths_per_million_value"
+            android:layout_marginTop="26dp"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="normal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/casesPerMillionValueTV"
+            />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

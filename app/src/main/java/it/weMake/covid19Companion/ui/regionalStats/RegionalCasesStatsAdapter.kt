@@ -36,8 +36,8 @@ class RegionalCasesStatsAdapter(): RecyclerView.Adapter<RegionalCasesStatsAdapte
 
         fun bind(position: Int) {
 
-                itemBinding.regionStatTV.text = "50000"
-                itemBinding.regionTV.text = "Lagos"
+                itemBinding.regionStatTV.text = "3,000"
+                itemBinding.regionStatValueTV.text = "Lagos"
 
 
         }
