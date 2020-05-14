@@ -3,6 +3,7 @@ package it.weMake.covid19Companion.ui.landing.dashboard.adapters.viewHolders
 import android.os.Handler
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import it.weMake.covid19Companion.databinding.HeaderGlobalStatsDashboardBinding
 import it.weMake.covid19Companion.models.casesData.GlobalStats
@@ -33,6 +34,8 @@ class GlobalStatsHeaderHolder(private val binding: HeaderGlobalStatsDashboardBin
     init {
         itemView.setOnClickListener(this)
         binding.casesStatsRV.adapter = globalCasesStatsAdapter
+        val snapHelper = PagerSnapHelper()
+        snapHelper.attachToRecyclerView(binding.casesStatsRV)
     }
 
     override fun onClick(v: View?) {
