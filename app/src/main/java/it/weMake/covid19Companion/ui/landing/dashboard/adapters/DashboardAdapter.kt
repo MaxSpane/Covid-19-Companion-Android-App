@@ -16,7 +16,8 @@ import it.weMake.covid19Companion.ui.landing.dashboard.adapters.viewHolders.Glob
 
 
 class DashboardAdapter(
-    private val search: (searchQuery: String) -> Unit
+    private val search: (searchQuery: String) -> Unit,
+    private val sortBy: (sortBy: String) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var countryCases: ArrayList<CountryCasesData> = ArrayList()
@@ -36,7 +37,7 @@ class DashboardAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
-        if (itemCount == countryCases.size + VIEW_TYPE_COUNTRY_CASES){
+        if (itemCount == countryCases.size + VIEW_TYPE_USER_COUNTRY_CASES){
             when(viewType){
 
                 VIEW_TYPE_GLOBAL_STATS_HEADER->{
@@ -46,7 +47,7 @@ class DashboardAdapter(
 
                 VIEW_TYPE_COUNTRY_CASES_HEADER->{
                     val view = LayoutInflater.from(parent.context).inflate(R.layout.header_dashboard_country_cases, parent, false)
-                    return CountryCasesHeaderHolder(HeaderDashboardCountryCasesBinding.bind(view), search)
+                    return CountryCasesHeaderHolder(HeaderDashboardCountryCasesBinding.bind(view), search, sortBy)
                 }
 
                 else->{
@@ -61,11 +62,11 @@ class DashboardAdapter(
         return CountryCaseHolder(ItemCountryCasesSummaryBinding.bind(view))
     }
 
-    override fun getItemCount(): Int = if (pageTop == 0){countryCases.size + VIEW_TYPE_COUNTRY_CASES}else{countryCases.size}
+    override fun getItemCount(): Int = if (pageTop == 0){countryCases.size + VIEW_TYPE_USER_COUNTRY_CASES}else{countryCases.size}
 
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
 
-        if (itemCount == countryCases.size + VIEW_TYPE_COUNTRY_CASES){
+        if (itemCount == countryCases.size + VIEW_TYPE_USER_COUNTRY_CASES){
             when(getItemViewType(position)){
 
                 VIEW_TYPE_GLOBAL_STATS_HEADER->{
@@ -89,7 +90,7 @@ class DashboardAdapter(
 
     override fun getItemViewType(position: Int): Int {
 
-        if (itemCount == countryCases.size + VIEW_TYPE_COUNTRY_CASES){
+        if (itemCount == countryCases.size + VIEW_TYPE_USER_COUNTRY_CASES){
             return position
         }
 
@@ -118,6 +119,9 @@ class DashboardAdapter(
         when{
 
             pagedData.page == 0 && pagedData.data.size == 20 -> {
+                if (countryCases.size > 1){
+                    countryCases.subList(1, countryCases.size).clear()
+                }
                 countryCases.addAll(pagedData.data)
                 notifyDataSetChanged()
             }
@@ -139,6 +143,7 @@ class DashboardAdapter(
             pagedData.page > pageBottom ->{
                 countryCases.subList(0, 10).clear()
                 if (pageTop == 0){
+                    countryCases.removeAt(0)
                     notifyItemRangeRemoved(0, 10 + VIEW_TYPE_COUNTRY_CASES)
                 }else{
                     notifyItemRangeRemoved(0, 10)

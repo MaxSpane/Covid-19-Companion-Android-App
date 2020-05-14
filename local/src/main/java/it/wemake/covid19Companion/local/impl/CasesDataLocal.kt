@@ -22,8 +22,8 @@ class CasesDataLocal @Inject constructor(
     }
 
 
-    override suspend fun getCountriesCasesData(page: Int, pageSize: Int): Flow<List<CountryCasesDataEntity>> =
-        countriesCasesDataDao.getCountriesCasesData(page, pageSize).map { countriesCasesData ->
+    override suspend fun getCountriesCasesData(page: Int, pageSize: Int, sortBy: String): Flow<List<CountryCasesDataEntity>> =
+        countriesCasesDataDao.getCountriesCasesDataOrderBy(page, pageSize, sortBy).map { countriesCasesData ->
             countriesCasesData.map {
                 it.toEntity()
             }

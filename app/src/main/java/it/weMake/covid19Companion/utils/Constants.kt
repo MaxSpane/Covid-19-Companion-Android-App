@@ -29,3 +29,7 @@ const val DIAGNOSIS_LEVEL_CALL_DOCTOR = "call_doctor"
 const val DIAGNOSIS_LEVEL_ISOLATION_AMBULANCE = "isolation_ambulance"
 
 const val ONE_SECOND_IN_MILLI = 1000L
+
+const val SORT_BY_CONFIRMED = "totalConfirmed"
+const val SORT_BY_RECOVERED = "totalRecovered"
+const val SORT_BY_DEATHS = "totalDeaths"

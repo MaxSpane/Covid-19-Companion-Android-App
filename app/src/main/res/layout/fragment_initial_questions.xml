@@ -74,7 +74,7 @@
         android:layout_height="40dp"
         android:inputType="number"
         android:maxLines="1"
-        android:background="@drawable/bg_search_edit_text"
+        android:background="@drawable/bg_search_filter_edit_text"
         app:layout_constraintTop_toBottomOf="@id/ageQuestionTV"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

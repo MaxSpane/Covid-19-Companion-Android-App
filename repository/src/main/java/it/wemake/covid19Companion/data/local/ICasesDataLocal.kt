@@ -11,7 +11,7 @@ interface ICasesDataLocal {
 
     suspend fun insertCountriesCasesData(countryCasesData: List<NovelCountryCasesDataEntity>)
 
-    suspend fun getCountriesCasesData(page: Int, pageSize: Int): Flow<List<CountryCasesDataEntity>>
+    suspend fun getCountriesCasesData(page: Int, pageSize: Int, sortBy: String): Flow<List<CountryCasesDataEntity>>
 
     suspend fun getGlobalCasesData(): Flow<GlobalStatsEntity>
 

@@ -10,6 +10,7 @@ import it.weMake.covid19Companion.mappers.toPresentation
 import it.weMake.covid19Companion.models.casesData.CountryCasesData
 import it.weMake.covid19Companion.models.casesData.GlobalStats
 import it.weMake.covid19Companion.models.PagedData
+import it.weMake.covid19Companion.utils.SORT_BY_CONFIRMED
 import it.wemake.covid19Companion.domain.usecases.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
@@ -47,7 +48,7 @@ class DashboardViewModel
     private var _globalCasesData: MutableLiveData<GlobalStats> =
         MutableLiveData()
 
-    private var page: Int = -1
+//    private var page: Int = -1
 
     private var _pagedSearchCountriesCasesData: MutableLiveData<PagedData<List<CountryCasesData>>> =
         MutableLiveData()
@@ -58,6 +59,8 @@ class DashboardViewModel
     private var _userCountryCasesData = MutableLiveData<CountryCasesData>()
     val userCountryCasesData: LiveData<CountryCasesData>
         get() = _userCountryCasesData
+
+    private var sortBy = SORT_BY_CONFIRMED
 
     init {
 
@@ -100,18 +103,17 @@ class DashboardViewModel
 
     fun loadPage(page: Int, pageSize: Int = 10){
         viewModelScope.launch(handler) {
-            getCountriesCasesDataUseCase(page, pageSize).collect{ countries ->
 
+            getCountriesCasesDataUseCase(page, pageSize, sortBy).map { data -> data.map { it.toPresentation() } }.collect{ it ->
                 _pagedCountriesCasesData.value = PagedData(
                     page,
-                    countries.map {
-                        it.toPresentation()
-                    }
+                    it
                 )
             }
         }
 
     }
+
 
     fun updateCasesData(){
         _uiState.value = Loading
@@ -134,6 +136,11 @@ class DashboardViewModel
             }
         }
 
+    }
+
+    fun setSortBy(sortBy: String){
+        this.sortBy = sortBy
+        loadPage(0, 20)
     }
 
 }

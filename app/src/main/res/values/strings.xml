@@ -78,5 +78,8 @@
     <string name="resources">Resources</string>
     <string name="development_team">Development Team</string>
     <string name="releases">Releases</string>
+    <string name="sort_by_confirmed">Sort by Confirmed</string>
+    <string name="sort_by_recovered">Sort by Recovered</string>
+    <string name="sort_by_death">Sort by Death</string>
 
 </resources>
