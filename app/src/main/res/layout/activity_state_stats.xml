@@ -21,11 +21,21 @@
             android:text="Lagos"
             android:textColor="@color/colorPrimary"
             android:textSize="16sp"
-            android:layout_marginStart="46dp"
             android:layout_marginTop="15dp"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="22dp"
+            app:layout_constraintStart_toEndOf="@id/backButtonIV"
             app:layout_constraintTop_toTopOf="parent"
             />
+
+        <ImageView
+            android:id="@+id/backButtonIV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_back_button"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
         <!--       ADDING THE  14 TEXT VIEWS BELOW THE STATE NAME -->
 
         <!--       beginning of  text view 1    -->

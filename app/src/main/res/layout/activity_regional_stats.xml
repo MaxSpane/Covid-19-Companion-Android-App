@@ -7,11 +7,22 @@
     tools:context=".ui.regionalStats.RegionalStatsActivity">
 
     <ImageView
+        android:id="@+id/backButtonIV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/ic_back_button"
+        />
+    <ImageView
         android:alpha="0.1"
         android:scaleType="fitXY"
         android:id="@+id/countryIV"
         android:layout_width="270dp"
         android:layout_height="163dp"
+        android:layout_marginTop="50dp"
         android:src="@drawable/flag_ng"
         android:layout_gravity="end"
         />
@@ -31,7 +42,7 @@
                 android:textColor="#219653"
                 android:layout_marginStart="20dp"
                 android:textSize="32sp"
-                android:layout_marginTop="124dp"
+                android:layout_marginTop="174dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_chainStyle="packed"

@@ -9,8 +9,6 @@ class StateStatsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val actionBar: ActionBar? = supportActionBar
-        actionBar?.setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_state_stats)
     }
 }
