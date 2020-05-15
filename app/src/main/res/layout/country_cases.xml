@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+    >
+
+        <TextView
+            android:id="@+id/countryCasesValueTV"
+            style="@style/Covid19TextView"
+            android:text="3,000"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/countryCasesTV"
+            style="@style/Covid19TextView"
+            android:text="Lagos"
+            android:textColor="#818181"
+            android:textSize="16sp"
+            android:textStyle="normal"
+            android:layout_marginStart="5dp"
+            app:layout_constraintStart_toEndOf="@id/countryCasesValueTV"
+            app:layout_constraintTop_toTopOf="@id/countryCasesValueTV"
+            app:layout_constraintBottom_toBottomOf="@id/countryCasesValueTV"
+            />
+
+     </androidx.constraintlayout.widget.ConstraintLayout>
+

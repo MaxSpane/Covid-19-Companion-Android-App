@@ -89,5 +89,7 @@
     <string name="total_cases_value">10,000</string>
     <string name="total_recovered">Total Recovered</string>
     <string name="total_deaths">Total Deaths</string>
+    <string name="total_confirmed">Total Confirmed</string>
+    <string name="confirmed_cases_country">Cofirmed Cases by Country</string>
 
 </resources>
