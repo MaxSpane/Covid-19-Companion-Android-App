@@ -7,6 +7,9 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.media.AudioAttributes
+import android.media.AudioManager
+import android.net.Uri
 import android.os.Build
 import android.os.SystemClock
 import androidx.core.app.NotificationCompat
@@ -16,6 +19,7 @@ import it.weMake.covid19Companion.R
 import it.weMake.covid19Companion.broadcastReceivers.DrinkWaterReminderBroadcast
 import it.weMake.covid19Companion.broadcastReceivers.WashHandsReminderBroadcast
 
+
 fun minutesToMilliSecs(value: Int): Long = value * 60 * 1000.toLong()
 
 fun createRemindersNotificationChannel(context: Context) {
@@ -24,34 +28,15 @@ fun createRemindersNotificationChannel(context: Context) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
         val name: CharSequence = "Reminders Channel"
         val description = "A channel for reminders to wash your hands and drink water"
-        val importance = NotificationManager.IMPORTANCE_DEFAULT
+        val importance = NotificationManager.IMPORTANCE_HIGH
         val channel =
             NotificationChannel(REMINDERS_NOTIFICATION_CHANNEL_ID, name, importance)
         channel.description = description
-        // Register the channel with the system; you can't change the importance
-        // or other notification behaviors after this
-        val notificationManager: NotificationManager? = context.let {
-            ContextCompat.getSystemService(
-                it,
-                NotificationManager::class.java
-            )
-        }
-
-        notificationManager!!.createNotificationChannel(channel)
-
-    }
-}
-
-fun createDrinkWaterNotificationChannel(context: Context) {
-    // Create the NotificationChannel, but only on API 26+ because
-    // the NotificationChannel class is new and not in the support library
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-        val name: CharSequence = "Drink Water Reminder Channel"
-        val description = "A channel for notification reminder to drink water"
-        val importance = NotificationManager.IMPORTANCE_DEFAULT
-        val channel =
-            NotificationChannel(DRINK_WATER_NOTIFICATION_CHANNEL_ID, name, importance)
-        channel.description = description
+        val attributes = AudioAttributes.Builder()
+            .setUsage(AudioAttributes.USAGE_NOTIFICATION)
+            .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+            .build()
+        channel.setSound(Uri.parse("android.resource://" + context.packageName + "/" + R.raw.cardi_b_corona_virus_alarm_tone), attributes)
         // Register the channel with the system; you can't change the importance
         // or other notification behaviors after this
         val notificationManager: NotificationManager? = context.let {
@@ -78,33 +63,16 @@ fun showReminderNotification(context: Context, notificationChannelId: String, no
             .setContentText(text)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setCategory(NotificationCompat.CATEGORY_REMINDER)
+            .setSound(Uri.parse("android.resource://" + context.packageName + "/" + R.raw.cardi_b_corona_virus_alarm_tone), AudioManager.STREAM_NOTIFICATION)
 
     }
     val notificationManager = NotificationManagerCompat.from(context)
     notificationManager.notify(notificationId, builder!!.build())
 }
 
-fun showWashHandsReminderNotification(context: Context){
-    showReminderNotification(
-        context, 
-        REMINDERS_NOTIFICATION_CHANNEL_ID,
-        WASH_HANDS_NOTIFICATION_ID,
-        context.getString(R.string.text_wash_hands_reminder))
-}
-
-fun showDrinkWaterReminderNotification(context: Context){
-    showReminderNotification(
-        context,
-        DRINK_WATER_NOTIFICATION_CHANNEL_ID,
-        DRINK_WATER_NOTIFICATION_ID,
-        context.getString(R.string.text_drink_water_reminder))
-}
-
 fun createCancelWashHandsAlarm(context: Context, time : Long){
 
-    val intent = Intent(context.applicationContext, WashHandsReminderBroadcast::class.java).apply {
-        putExtra(EXTRA_ALARM_INTERVAL, time)
-    }
+    val intent = Intent(context.applicationContext, WashHandsReminderBroadcast::class.java)
 
     val pendingIntent =
         PendingIntent.getBroadcast(
@@ -122,9 +90,7 @@ fun createCancelWashHandsAlarm(context: Context, time : Long){
 
 fun createCancelDrinkWaterAlarm(context: Context, time : Long){
 
-    val intent = Intent(context.applicationContext, DrinkWaterReminderBroadcast::class.java).apply {
-        putExtra(EXTRA_ALARM_INTERVAL, time)
-    }
+    val intent = Intent(context.applicationContext, DrinkWaterReminderBroadcast::class.java)
 
     val pendingIntent =
         PendingIntent.getBroadcast(
