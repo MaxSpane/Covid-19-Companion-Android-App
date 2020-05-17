@@ -1,31 +1,15 @@
 package it.weMake.covid19Companion.ui.landing.settings
 
-import android.app.AlarmManager
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
-import android.content.Context
-import android.content.Context.ALARM_SERVICE
-import android.content.Intent
-import android.os.Build
 import android.os.Bundle
-import android.os.SystemClock
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.getSystemService
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import dagger.android.support.DaggerFragment
 import it.weMake.covid19Companion.R
 import it.weMake.covid19Companion.databinding.FragmentSettingsBinding
-import it.weMake.covid19Companion.utils.cancelAlarm
-import it.weMake.covid19Companion.utils.createAlarm
-import it.weMake.covid19Companion.utils.createNotificationChannel
+import it.weMake.covid19Companion.utils.*
 import javax.inject.Inject
 
 //Make sure you're extending DaggerFragment instead of Fragment so Dagger knows how to inject parameters for us
@@ -52,39 +36,47 @@ class SettingsFragment : DaggerFragment() {
         fragmentBinding.remHandLocRV.adapter = reminderLocationAdapter
 
 
-        fragmentBinding.remWashHandsS.setOnClickListener {
+//        fragmentBinding.remWashHandsS.setOnClickListener {
+//
+//            if (fragmentBinding.remWashHandsS.isChecked) {
+//                openWashHandsDialog()
+//            } else {
+//                cancelAlarm(requireContext())
+//                setIntervalWashHand(0)
+//            }
+//        }
 
+        val washHandsInterval = viewModel.getWashHandsInterval()
+        updateUIIntervalWashHand(washHandsInterval)
+        val drinkWaterInterval = viewModel.getDrinkWaterInterval()
+        updateUIIntervalDrinkWater(drinkWaterInterval)
 
+        fragmentBinding.remWashHandsS.setOnCheckedChangeListener { _, isChecked ->
 
-
-            if (fragmentBinding.remWashHandsS.isChecked) {
+            if (isChecked) {
                 openWashHandsDialog()
             } else {
-                cancelAlarm(requireContext())
                 setIntervalWashHand(0)
             }
         }
-        fragmentBinding.remDrinkWaterS.setOnClickListener {
-            if (fragmentBinding.remDrinkWaterS.isChecked) {
+
+        fragmentBinding.remDrinkWaterS.setOnCheckedChangeListener { _, isChecked ->
+
+            if (isChecked) {
                 openDrinkWaterDialog()
             } else {
                 setIntervalDrinkWater(0)
             }
         }
 
-        val washHandsInterval = viewModel.getWashHandsInterval()
-        updateUIIntervalWashHand(washHandsInterval)
-        val drinkWaterInterval = viewModel.getDrinkWaterInterval()
-        updateUIIntervalDrinkWater(drinkWaterInterval)
         return fragmentBinding.root
-
-
     }
 
     private fun setIntervalWashHand(intervalInMinutes: Int) {
         viewModel.setWashHandsInterval(intervalInMinutes)
         updateUIIntervalWashHand(intervalInMinutes)
-        createAlarm(requireContext(),intervalInMinutes * 60 * 1000.toLong())
+
+        createCancelWashHandsAlarm(requireContext(), minutesToMilliSecs(intervalInMinutes))
 
     }
 
@@ -104,6 +96,8 @@ class SettingsFragment : DaggerFragment() {
     private fun setIntervalDrinkWater(intervalInMinutes: Int) {
         viewModel.setDrinkWaterInterval(intervalInMinutes)
         updateUIIntervalDrinkWater(intervalInMinutes)
+
+        createCancelDrinkWaterAlarm(requireContext(), minutesToMilliSecs(intervalInMinutes))
     }
 
     private fun updateUIIntervalDrinkWater(intervalInMinutes: Int) {

@@ -75,5 +75,8 @@
     <string name="error_get_diagnosis">An error occurred while getting your Diagnosis. Please try again.</string>
     <string name="try_again">Try again</string>
     <string name="no_observations">No Observations</string>
+    <string name="title_notification">Hey there Survivor,</string>
+    <string name="text_wash_hands_reminder">You should go wash your hands now!!!</string>
+    <string name="text_drink_water_reminder">You should go drink water now!!!</string>
 
 </resources>
