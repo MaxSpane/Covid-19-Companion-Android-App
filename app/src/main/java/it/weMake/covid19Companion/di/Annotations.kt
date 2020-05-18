@@ -30,3 +30,7 @@ annotation class ChildFragmentScope
 @Scope
 @Retention(AnnotationRetention.RUNTIME)
 annotation class PerService
+
+@Scope
+@Retention(AnnotationRetention.RUNTIME)
+annotation class PerBroadcastReceiver

@@ -1,6 +1,7 @@
 package it.weMake.covid19Companion.ui.landing.settings
 
 import android.app.Dialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
 import android.widget.NumberPicker
@@ -10,7 +11,8 @@ import it.weMake.covid19Companion.R
 
 
 class ReminderDialog(
-    val intervalSet: (intervalInMinutes: Int) -> Unit
+    val intervalSet: (intervalInMinutes: Int) -> Unit,
+    val onDismissCancel: () -> Unit
 ) : AppCompatDialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -45,5 +47,15 @@ class ReminderDialog(
 
     private fun convertToMinutes(hour: Int, minute: Int): Int =
         (hour * 60) + minute
+
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+        onDismissCancel()
+    }
+
+    override fun onCancel(dialog: DialogInterface) {
+        super.onCancel(dialog)
+        onDismissCancel()
+    }
 
 }

@@ -140,37 +140,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/rem_water"
             />
-        <TextView
-            android:id="@+id/podcast"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="36dp"
-            android:textSize="16sp"
-            android:text="@string/podcast"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/rem_tog4IV"
-            app:layout_constraintTop_toBottomOf="@+id/v_Line3"
-            />
 
-        <Switch
-            android:id="@+id/rem_tog4IV"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:checked="false"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/podcast"
-            app:layout_constraintBottom_toBottomOf="@+id/podcast"
-            />
-        <View
-            android:id="@+id/v_Line4"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="@color/grey"
-            android:layout_marginTop="12dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/podcast"
-            />
         <TextView
             android:id="@+id/notification"
             android:layout_width="0dp"
@@ -179,15 +149,14 @@
             android:textSize="16sp"
             android:text="@string/notification"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/rem_tog5IV"
-            app:layout_constraintTop_toBottomOf="@+id/v_Line4"
+            app:layout_constraintEnd_toStartOf="@+id/use_custom_notification_tone_S"
+            app:layout_constraintTop_toBottomOf="@+id/v_Line3"
             />
 
         <Switch
-            android:id="@+id/rem_tog5IV"
+            android:id="@+id/use_custom_notification_tone_S"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:checked="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/notification"
             app:layout_constraintBottom_toBottomOf="@+id/notification"
