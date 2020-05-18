@@ -36,7 +36,7 @@ class DashboardFragment : DaggerFragment(), View.OnClickListener {
     ): View? {
         binding = FragmentDashboardBinding.inflate(inflater, container, false)
 
-        dashboardAdapter = DashboardAdapter(search)
+        dashboardAdapter = DashboardAdapter(search, sortBy)
 
         binding.dashboardRV.adapter = dashboardAdapter
 
@@ -117,6 +117,7 @@ class DashboardFragment : DaggerFragment(), View.OnClickListener {
         viewModel.userCountryCasesData.observe(viewLifecycleOwner, Observer {
             it?.let {
                 dashboardAdapter.setUserCountryCasesData(it)
+                dashboardAdapter.setUserCountryCasesData(it)
             }
         })
 
@@ -128,6 +129,11 @@ class DashboardFragment : DaggerFragment(), View.OnClickListener {
         }else{
             viewModel.pagedSearch("%$searchQuery%", 0, 20)
         }
+    }
+
+    private val sortBy = fun (sortBy: String) {
+        viewModel.setSortBy(sortBy)
+        binding.dashboardRV.smoothScrollToPosition(3)
     }
 
 }

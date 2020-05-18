@@ -10,6 +10,7 @@ import dagger.android.AndroidInjectionModule
 import dagger.android.AndroidInjector
 import it.weMake.covid19Companion.Application
 import it.weMake.covid19Companion.di.modules.AppModule
+import it.weMake.covid19Companion.di.modules.broadcastReceivers.BroadcastReceiverModule
 import it.weMake.covid19Companion.di.modules.domain.DomainModule
 import it.weMake.covid19Companion.di.modules.local.LocalModule
 import it.weMake.covid19Companion.di.modules.local.RoomModule
@@ -32,7 +33,8 @@ import javax.inject.Singleton
         DomainModule::class,
         ActivityBuilderModule::class,
         ViewModelModule::class,
-        ServiceModule::class
+        ServiceModule::class,
+        BroadcastReceiverModule::class
     ]
 )
 interface AppComponent: AndroidInjector<Application> {

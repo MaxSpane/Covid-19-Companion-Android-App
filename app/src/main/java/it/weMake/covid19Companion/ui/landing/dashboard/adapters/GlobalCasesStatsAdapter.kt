@@ -48,6 +48,9 @@ class GlobalCasesStatsAdapter(): RecyclerView.Adapter<GlobalCasesStatsAdapter.Ho
                 0 -> {
                     itemBinding.casesSummaryIV.setImageResource(R.drawable.ic_cough)
                     itemBinding.casesSummaryTitleTV.setText(R.string.confirmed)
+                    itemBinding.casesSummaryCV.setCardBackgroundColor(ContextCompat.getColor(itemView.context, R.color.white))
+                    itemBinding.casesSummaryTitleTV.setTextColor(ContextCompat.getColor(itemView.context, R.color.grey))
+                    itemBinding.casesSummaryNumberTV.setTextColor(ContextCompat.getColor(itemView.context, R.color.black))
                     itemBinding.casesSummaryNumberTV.text = if (globalCasesData == null){"0"} else {
                         globalCasesData!!.confirmed.numberWithCommas()
                     }
