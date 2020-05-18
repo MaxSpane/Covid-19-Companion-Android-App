@@ -11,7 +11,7 @@
 
 
     <ImageView
-        android:id="@+id/vomitIV"
+        android:id="@+id/image"
         android:layout_width="150dp"
         android:layout_height="100dp"
         android:layout_marginEnd="24dp"
@@ -44,7 +44,6 @@
             <TextView
                 android:id="@+id/detailsTitleTV"
                 style="@style/Covid19TextView"
-                android:text="@string/total_confirmed"
                 android:textColor=" #000000"
                 android:textSize="32sp"
                 android:layout_marginTop="86dp"
@@ -55,7 +54,6 @@
                 android:id="@+id/detailsValueTV"
                 style="@style/Covid19TextView"
                 android:text="@string/total_cases_value"
-                android:textColor=" #000000"
                 android:textSize="32sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"

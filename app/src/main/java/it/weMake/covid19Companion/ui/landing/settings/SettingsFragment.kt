@@ -9,6 +9,9 @@ import androidx.lifecycle.ViewModelProvider
 import dagger.android.support.DaggerFragment
 import it.weMake.covid19Companion.R
 import it.weMake.covid19Companion.databinding.FragmentSettingsBinding
+import it.weMake.covid19Companion.ui.landing.sortedDetailsData.SortedDetailsDataActivity.Companion.open
+import it.weMake.covid19Companion.utils.SORT_BY_DEATHS
+import it.weMake.covid19Companion.utils.SORT_BY_RECOVERED
 import javax.inject.Inject
 
 //Make sure you're extending DaggerFragment instead of Fragment so Dagger knows how to inject parameters for us
@@ -35,19 +38,28 @@ class SettingsFragment : DaggerFragment()  {
 
 
         fragmentBinding.remWashHandsS.setOnClickListener {
+            //using the n switch button to check if the sortedDetailsData UX works
             if (fragmentBinding.remWashHandsS.isChecked) {
-                openWashHandsDialog()
-            }else{
-                setIntervalWashHand(0)
+                open(requireContext(), SORT_BY_DEATHS)
             }
+//            if (fragmentBinding.remWashHandsS.isChecked) {
+//                openWashHandsDialog()
+//            }else{
+//                setIntervalWashHand(0)
+//            }
         }
         fragmentBinding.remDrinkWaterS.setOnClickListener {
+            //using the notification switch button to check if the sortedDetailsData UX works
             if (fragmentBinding.remDrinkWaterS.isChecked) {
-                openDrinkWaterDialog()
-            }else{
-                setIntervalDrinkWater(0)
+                open(requireContext(), SORT_BY_RECOVERED)
             }
-        }
+//            if (fragmentBinding.remDrinkWaterS.isChecked) {
+//                openDrinkWaterDialog()
+//            }else{
+//                setIntervalDrinkWater(0)
+//            }
+       }
+
 
         val washHandsInterval = viewModel.getWashHandsInterval()
         updateUIIntervalWashHand(washHandsInterval)
