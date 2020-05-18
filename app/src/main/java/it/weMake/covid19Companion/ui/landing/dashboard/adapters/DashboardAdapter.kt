@@ -103,7 +103,7 @@ class DashboardAdapter(
         val formerSize = countryCases.size
         countryCases.clear()
         if (!isUserSearching && userCountryCasesData != null){
-            countryCases[0] = userCountryCasesData!!
+            countryCases.add(userCountryCasesData!!)
         }
         notifyItemRangeRemoved(VIEW_TYPE_USER_COUNTRY_CASES, formerSize)
         countryCases.addAll(pagedData.data)

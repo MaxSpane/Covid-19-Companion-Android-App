@@ -63,6 +63,7 @@ class CountryCasesHeaderHolder(
                     binding.filterIV.setImageResource(R.drawable.ic_close_ash_24dp)
                 }else{
                     closeFilter()
+                    binding.searchET.setText("")
                 }
 
             }
