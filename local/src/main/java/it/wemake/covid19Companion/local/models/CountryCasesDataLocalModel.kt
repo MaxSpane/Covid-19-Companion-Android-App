@@ -10,12 +10,12 @@ import org.jetbrains.annotations.Nullable
 data class CountryCasesDataLocalModel (
     @PrimaryKey
     val displayName: String,
-    val totalConfirmed: Int,
-    val totalDeaths: Int,
-    val totalRecovered: Int,
-    val totalConfirmedDelta: Int,
-    val totalDeathsDelta: Int,
-    val totalRecoveredDelta: Int,
+    val totalConfirmed: Int?,
+    val totalDeaths: Int?,
+    val totalRecovered: Int?,
+    val totalConfirmedDelta: Int?,
+    val totalDeathsDelta: Int?,
+    val totalRecoveredDelta: Int?,
     val updated: Long,
     val continent: String,
     @Embedded

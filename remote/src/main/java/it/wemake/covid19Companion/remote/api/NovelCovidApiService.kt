@@ -5,7 +5,7 @@ import retrofit2.http.GET
 
 interface NovelCovidApiService {
 
-    @GET("v2/countries")
+    @GET("v2/countries?allowNull=true")
     suspend fun getCountriesCasesData(): List<CountryCasesDataRemoteModel>
 
 }

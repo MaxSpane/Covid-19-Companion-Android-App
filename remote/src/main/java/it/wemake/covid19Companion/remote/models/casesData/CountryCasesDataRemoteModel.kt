@@ -4,10 +4,10 @@ data class CountryCasesDataRemoteModel(
     val updated: Long,
     val country: String,
     val countryInfo: CountryInfoRemoteModel,
-    val cases: Int,
-    val todayCases: Int,
-    val deaths: Int,
-    val todayDeaths: Int,
-    val recovered: Int,
+    val cases: Int?,
+    val todayCases: Int?,
+    val deaths: Int?,
+    val todayDeaths: Int?,
+    val recovered: Int?,
     val continent: String
 )
