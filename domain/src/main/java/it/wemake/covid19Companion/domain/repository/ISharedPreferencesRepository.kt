@@ -18,9 +18,12 @@ interface ISharedPreferencesRepository {
 
     fun setWashHandsInterval(interval: Int)
 
-
     fun getDrinkWaterInterval(): Int
 
     fun setDrinkWaterInterval(interval: Int)
+
+    fun getUseCustomNotificationTone(): Boolean
+
+    fun setUseCustomNotificationTone(useCustomNotificationTone: Boolean)
 
 }

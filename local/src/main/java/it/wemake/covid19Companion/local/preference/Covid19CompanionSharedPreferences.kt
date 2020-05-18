@@ -2,14 +2,11 @@ package it.wemake.covid19Companion.local.preference
 
 import android.content.Context
 import android.content.SharedPreferences
-import androidx.core.content.edit
 import it.wemake.covid19Companion.local.utils.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
-import kotlinx.coroutines.flow.flow
-import javax.inject.Inject
 
 class Covid19CompanionSharedPreferences constructor(
     context: Context
@@ -73,6 +70,15 @@ class Covid19CompanionSharedPreferences constructor(
     fun setDrinkWaterInterval(interval: Int) {
         val editor = covid19CompanionAppSharedPref.edit()
         editor.putInt(DRINK_WATER_INTERVAL, interval)
+        editor.apply()
+    }
+
+    fun getUseCustomNotificationTone(): Boolean =
+        covid19CompanionAppSharedPref.getBoolean(USE_CUSTOM_NOTIFICATION_TONE, true)
+
+    fun setUseCustomNotificationTone(useCustomNotificationTone: Boolean) {
+        val editor = covid19CompanionAppSharedPref.edit()
+        editor.putBoolean(USE_CUSTOM_NOTIFICATION_TONE, useCustomNotificationTone)
         editor.apply()
     }
 

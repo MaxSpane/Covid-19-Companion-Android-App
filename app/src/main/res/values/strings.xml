@@ -78,5 +78,9 @@
     <string name="title_notification">Hey there Survivor,</string>
     <string name="text_wash_hands_reminder">You should go wash your hands now!!!</string>
     <string name="text_drink_water_reminder">You should go drink water now!!!</string>
+    <string name="channel_desc_reminders_default_tone">A channel for reminders to wash your hands and drink water using your default Notification Tone</string>
+    <string name="channel_desc_reminders_custom_tone">A channel for reminders to wash your hands and drink water using custom Notification Tone</string>
+    <string name="channel_name_reminders_default_tone">Reminders Channel with Default Notification Tone</string>
+    <string name="channel_name_reminders_custom_tone">Reminders Channel with Custom Notification Tone</string>
 
 </resources>

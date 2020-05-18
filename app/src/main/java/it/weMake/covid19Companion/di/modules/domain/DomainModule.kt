@@ -101,4 +101,18 @@ class DomainModule {
             return SetDrinkWaterIntervalUseCase(sharedPreferencesRepository)
     }
 
+    @Provides
+    fun provideGetUseCustomNotificationToneUseCase(
+        sharedPreferencesRepository: SharedPreferencesRepository
+    ): GetUseCustomNotificationToneUseCase {
+            return GetUseCustomNotificationToneUseCase(sharedPreferencesRepository)
+    }
+
+    @Provides
+    fun provideSetUseCustomNotificationToneUseCase(
+        sharedPreferencesRepository: SharedPreferencesRepository
+    ): SetUseCustomNotificationToneUseCase {
+            return SetUseCustomNotificationToneUseCase(sharedPreferencesRepository)
+    }
+
 }

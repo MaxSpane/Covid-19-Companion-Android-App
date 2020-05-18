@@ -50,6 +50,8 @@ class SettingsFragment : DaggerFragment() {
         updateUIIntervalWashHand(washHandsInterval)
         val drinkWaterInterval = viewModel.getDrinkWaterInterval()
         updateUIIntervalDrinkWater(drinkWaterInterval)
+        val useCustomNotificationTone = viewModel.getUseCustomNotificationTone()
+        fragmentBinding.useCustomNotificationToneS.isChecked = useCustomNotificationTone
 
         fragmentBinding.remWashHandsS.setOnCheckedChangeListener { _, isChecked ->
 
@@ -67,6 +69,10 @@ class SettingsFragment : DaggerFragment() {
             } else {
                 setIntervalDrinkWater(0)
             }
+        }
+
+        fragmentBinding.useCustomNotificationToneS.setOnCheckedChangeListener { _, isChecked ->
+            viewModel.setUseCustomNotificationTone(isChecked)
         }
 
         return fragmentBinding.root

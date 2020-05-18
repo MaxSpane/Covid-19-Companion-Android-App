@@ -26,4 +26,8 @@ interface ISharedPreferencesLocal {
 
     fun setDrinkWaterInterval(interval: Int)
 
+    fun getUseCustomNotificationTone(): Boolean
+
+    fun setUseCustomNotificationTone(useCustomNotificationTone: Boolean)
+
 }
