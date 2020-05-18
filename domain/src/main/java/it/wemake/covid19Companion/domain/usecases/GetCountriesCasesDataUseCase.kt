@@ -7,6 +7,6 @@ class GetCountriesCasesDataUseCase @Inject constructor(
     private val covid19CasesRepository: ICovid19CasesRepository
 ) {
 
-    suspend operator fun invoke(page: Int, pageSize: Int) = covid19CasesRepository.getCountriesCasesData(page, pageSize)
+    suspend operator fun invoke(page: Int, pageSize: Int, sortBy: String) = covid19CasesRepository.getCountriesCasesData(page, pageSize, sortBy)
 
 }

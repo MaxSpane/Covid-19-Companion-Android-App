@@ -3,6 +3,7 @@ package it.weMake.covid19Companion.ui.landing.dashboard.adapters.viewHolders
 import android.os.Handler
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import it.weMake.covid19Companion.databinding.HeaderGlobalStatsDashboardBinding
 import it.weMake.covid19Companion.models.casesData.GlobalStats
@@ -17,10 +18,10 @@ class GlobalStatsHeaderHolder(private val binding: HeaderGlobalStatsDashboardBin
     private val autoScrollDelayedTime: Long = 2500
     private val autoScrollCountryStatsRunnable: Runnable = Runnable {
 
-        val lastVisibleItemPosition = (binding.casesStatsRV.layoutManager!! as LinearLayoutManager).findLastVisibleItemPosition()
+        val firstVisibleItemPosition = (binding.casesStatsRV.layoutManager!! as LinearLayoutManager).findFirstVisibleItemPosition()
 
-        if (lastVisibleItemPosition != 2){
-            binding.casesStatsRV.smoothScrollToPosition(lastVisibleItemPosition + 1)
+        if (firstVisibleItemPosition != 2){
+            binding.casesStatsRV.smoothScrollToPosition(firstVisibleItemPosition + 1)
         }else{
             binding.casesStatsRV.smoothScrollToPosition(0)
         }
@@ -33,6 +34,8 @@ class GlobalStatsHeaderHolder(private val binding: HeaderGlobalStatsDashboardBin
     init {
         itemView.setOnClickListener(this)
         binding.casesStatsRV.adapter = globalCasesStatsAdapter
+        val snapHelper = PagerSnapHelper()
+        snapHelper.attachToRecyclerView(binding.casesStatsRV)
     }
 
     override fun onClick(v: View?) {

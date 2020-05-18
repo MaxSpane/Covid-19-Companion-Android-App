@@ -43,7 +43,8 @@
         app:layout_constraintTop_toBottomOf="@id/casesTitleTV"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginEnd="@dimen/horizontal_margin"
-        android:layout_marginTop="26dp"/>
+        android:layout_marginTop="16dp"
+        android:padding="10dp"/>
 
     <ImageView
         android:id="@+id/searchIV"
@@ -53,7 +54,8 @@
         android:tint="@color/grey"
         app:layout_constraintTop_toTopOf="@id/filterIV"
         app:layout_constraintEnd_toStartOf="@id/filterIV"
-        android:layout_marginEnd="28dp"/>
+        android:layout_marginEnd="18dp"
+        android:padding="10dp"/>
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/searchET"
@@ -63,13 +65,62 @@
         android:paddingEnd="20dp"
         android:paddingTop="12dp"
         android:paddingBottom="12dp"
-        android:background="@drawable/bg_search_edit_text"
-        android:layout_marginTop="26dp"
+        android:background="@drawable/bg_search_filter_edit_text"
+        android:layout_marginTop="16dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/searchIV"
         android:visibility="gone"/>
+
+    <LinearLayout
+        android:id="@+id/filterLL"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/bg_search_filter_edit_text"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/searchIV"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/sortByConfirmedTV"
+            android:layout_width="match_parent"
+            style="@style/Covid19TextView.Body.Bold"
+            android:text="@string/sort_by_confirmed"
+            android:textColor="@color/colorPrimaryDark"
+            android:paddingTop="20dp"
+            android:paddingBottom="12dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"/>
+
+        <TextView
+            android:id="@+id/sortByRecoveredTV"
+            android:layout_width="match_parent"
+            style="@style/Covid19TextView.Body.Paragraph"
+            android:text="@string/sort_by_recovered"
+            android:textColor="@color/grey"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"/>
+
+        <TextView
+            android:id="@+id/sortByDeathTV"
+            android:layout_width="match_parent"
+            style="@style/Covid19TextView.Body.Paragraph"
+            android:text="@string/sort_by_death"
+            android:textColor="@color/grey"
+            android:paddingTop="12dp"
+            android:paddingBottom="20dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"/>
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

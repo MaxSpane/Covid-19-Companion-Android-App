@@ -29,4 +29,16 @@ class SharedPreferencesRepository @Inject constructor(
     override fun setWashHandsInterval(interval: Int) =
         sharedPreferencesLocal.setWashHandsInterval(interval)
 
+    override fun getDrinkWaterInterval(): Int =
+        sharedPreferencesLocal.getDrinkWaterInterval()
+
+    override fun setDrinkWaterInterval(interval: Int) =
+        sharedPreferencesLocal.setDrinkWaterInterval(interval)
+
+    override fun getUseCustomNotificationTone(): Boolean =
+        sharedPreferencesLocal.getUseCustomNotificationTone()
+
+    override fun setUseCustomNotificationTone(useCustomNotificationTone: Boolean) =
+        sharedPreferencesLocal.setUseCustomNotificationTone(useCustomNotificationTone)
+
 }

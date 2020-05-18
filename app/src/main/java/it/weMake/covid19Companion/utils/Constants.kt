@@ -29,3 +29,16 @@ const val DIAGNOSIS_LEVEL_CALL_DOCTOR = "call_doctor"
 const val DIAGNOSIS_LEVEL_ISOLATION_AMBULANCE = "isolation_ambulance"
 
 const val ONE_SECOND_IN_MILLI = 1000L
+
+const val SORT_BY_CONFIRMED = "totalConfirmed"
+const val SORT_BY_RECOVERED = "totalRecovered"
+const val SORT_BY_DEATHS = "totalDeaths"
+
+const val EXTRA_ALARM_INTERVAL = "it.weMake.covid19Companion.extra.EXTRA_ALARM_INTERVAL"
+
+const val WASH_HANDS_PENDING_INTENT_REQUEST_CODE = 0
+const val DRINK_WATER_PENDING_INTENT_REQUEST_CODE = 1
+const val REMINDERS_NOTIFICATION_DEFAULT_TONE_CHANNEL_ID = "RemindersDefaultToneChannel"
+const val REMINDERS_NOTIFICATION_CUSTOM_TONE_CHANNEL_ID = "RemindersCustomToneChannel"
+const val WASH_HANDS_NOTIFICATION_ID = 101
+const val DRINK_WATER_NOTIFICATION_ID = 102

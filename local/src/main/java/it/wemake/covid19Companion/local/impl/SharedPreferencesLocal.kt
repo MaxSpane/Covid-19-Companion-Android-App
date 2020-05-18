@@ -39,4 +39,16 @@ class SharedPreferencesLocal @Inject constructor(
     override fun setWashHandsInterval(interval: Int) =
         covid19CompanionSharedPreferences.setWashHandsInterval(interval)
 
+    override fun getDrinkWaterInterval(): Int =
+        covid19CompanionSharedPreferences.getDrinkWaterInterval()
+
+    override fun setDrinkWaterInterval(interval: Int) =
+        covid19CompanionSharedPreferences.setDrinkWaterInterval(interval)
+
+    override fun getUseCustomNotificationTone(): Boolean =
+        covid19CompanionSharedPreferences.getUseCustomNotificationTone()
+
+    override fun setUseCustomNotificationTone(useCustomNotificationTone: Boolean) =
+        covid19CompanionSharedPreferences.setUseCustomNotificationTone(useCustomNotificationTone)
+
 }
