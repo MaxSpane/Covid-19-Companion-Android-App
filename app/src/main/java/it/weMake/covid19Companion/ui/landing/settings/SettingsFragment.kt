@@ -1,5 +1,6 @@
 package it.weMake.covid19Companion.ui.landing.settings
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -147,17 +148,24 @@ class SettingsFragment : DaggerFragment() {
     }
 
     fun openWashHandsDialog() {
-        val reminderDialog = ReminderDialog { intervalInMinutes ->
-            setIntervalWashHand(intervalInMinutes)
-        }
-        reminderDialog.show(childFragmentManager, "example dialog")
+        val reminderDialog = ReminderDialog (
+            {intervalInMinutes ->
+                setIntervalWashHand(intervalInMinutes)
+            }, {
+                updateUIIntervalWashHand(0)
+            })
+        reminderDialog.show(childFragmentManager, "Select wash hands interval dialog")
     }
 
     fun openDrinkWaterDialog() {
-        val reminderDialog = ReminderDialog { intervalInMinutes ->
-            setIntervalDrinkWater(intervalInMinutes)
-        }
-        reminderDialog.show(childFragmentManager, "example dialog")
+        val reminderDialog = ReminderDialog (
+            {intervalInMinutes ->
+                setIntervalDrinkWater(intervalInMinutes)
+            }, {
+                updateUIIntervalDrinkWater(0)
+            })
+
+        reminderDialog.show(childFragmentManager, "Select drink water interval dialog")
     }
 
 
