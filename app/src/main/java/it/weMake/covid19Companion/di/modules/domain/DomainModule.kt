@@ -29,7 +29,7 @@ class DomainModule {
     ): SetWHOHandHygieneBrochureDownloadIdLastUpdatedUseCase = SetWHOHandHygieneBrochureDownloadIdLastUpdatedUseCase(sharedPreferencesRepository)
 
     @Provides
-    fun provideGetCountriesCasesDataCasesUseCase(
+    fun provideGetPagedCountriesCasesDataCasesUseCase(
         covid19CasesRepository: Covid19CasesRepository
     ): GetPagedCountriesCasesDataUseCase = GetPagedCountriesCasesDataUseCase(covid19CasesRepository)
 
@@ -114,5 +114,10 @@ class DomainModule {
     ): SetUseCustomNotificationToneUseCase {
             return SetUseCustomNotificationToneUseCase(sharedPreferencesRepository)
     }
+
+    @Provides
+    fun provideGetAllCountriesCasesDataCasesUseCase(
+        covid19CasesRepository: Covid19CasesRepository
+    ): GetAllCountriesCasesDataUseCase = GetAllCountriesCasesDataUseCase(covid19CasesRepository)
 
 }

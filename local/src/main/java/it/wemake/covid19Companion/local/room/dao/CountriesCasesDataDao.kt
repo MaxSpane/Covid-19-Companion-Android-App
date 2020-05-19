@@ -34,4 +34,11 @@ abstract class CountriesCasesDataDao {
         val query: SupportSQLiteQuery = SimpleSQLiteQuery(statement, arrayOf())
         return getCountriesCasesDataViaRawQuery(query)
     }
+
+    fun getAllCountriesCasesDataOrderBy(column: String): Flow<List<CountryCasesDataLocalModel>> {
+        val statement = "SELECT * FROM countries_cases_data ORDER BY $column"
+        val query: SupportSQLiteQuery = SimpleSQLiteQuery(statement, arrayOf())
+        return getCountriesCasesDataViaRawQuery(query)
+    }
+
 }

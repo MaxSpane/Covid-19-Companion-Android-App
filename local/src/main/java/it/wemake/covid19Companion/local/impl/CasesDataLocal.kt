@@ -48,4 +48,11 @@ class CasesDataLocal @Inject constructor(
     override suspend fun getUserCountryCasesData(userCountryIso2: String): Flow<CountryCasesDataEntity?> =
         countriesCasesDataDao.getUserCountryCasesData(userCountryIso2).map { it?.toEntity() }
 
+    override suspend fun getAllCountriesCasesData(sortBy: String): Flow<List<CountryCasesDataEntity>> =
+        countriesCasesDataDao.getAllCountriesCasesDataOrderBy(sortBy).map { countriesCasesData ->
+            countriesCasesData.map {
+                it.toEntity()
+            }
+        }
+
 }
