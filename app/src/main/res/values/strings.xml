@@ -104,5 +104,7 @@
     <string name="total_deaths">Total Deaths</string>
     <string name="total_confirmed">Total Confirmed</string>
     <string name="confirmed_cases_country">Cofirmed Cases by Country</string>
-
+    <string name="hint_word">Word...</string>
+    <string name="button_save">Save</string>
+    <string name="empty_not_saved">Word not saved because it is empty.</string>
 </resources>
