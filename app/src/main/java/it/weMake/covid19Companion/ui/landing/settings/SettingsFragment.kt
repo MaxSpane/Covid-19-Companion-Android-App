@@ -1,22 +1,38 @@
 package it.weMake.covid19Companion.ui.landing.settings
 
-import android.content.DialogInterface
+import android.Manifest
+import android.app.Activity.RESULT_OK
+import android.app.PendingIntent
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.gms.location.Geofence
+import com.google.android.gms.location.GeofencingClient
+import com.google.android.gms.location.GeofencingRequest
+import com.google.android.gms.location.LocationServices
 import dagger.android.support.DaggerFragment
 import it.weMake.covid19Companion.R
+import it.weMake.covid19Companion.broadcastReceivers.GeofenceBroadcastReceiver
 import it.weMake.covid19Companion.databinding.FragmentSettingsBinding
+import it.weMake.covid19Companion.models.washHandsReminderLocations.WashHandsReminderLocation
+import it.weMake.covid19Companion.ui.landing.settings.washHandsReminderLocation.WashHandsReminderLocationBottomDialogFragment
 import it.weMake.covid19Companion.utils.*
 import javax.inject.Inject
 
-//Make sure you're extending DaggerFragment instead of Fragment so Dagger knows how to inject parameters for us
-class SettingsFragment : DaggerFragment() {
 
-    lateinit var fragmentBinding: FragmentSettingsBinding
+//Make sure you're extending DaggerFragment instead of Fragment so Dagger knows how to inject parameters for us
+class SettingsFragment : DaggerFragment(),View.OnClickListener {
+
+    lateinit var binding: FragmentSettingsBinding
     lateinit var reminderLocationAdapter: ReminderLocationAdapter
 
     //Dagger injects viewModelFactory for us
@@ -26,35 +42,59 @@ class SettingsFragment : DaggerFragment() {
     //viewModelFactory provides the SettingsViewModel for us
     protected val viewModel: SettingsViewModel by viewModels { viewModelFactory }
 
+    private val MY_PERMISSIONS_REQUEST_FINE_LOCATION = 2
+    private val MY_PERMISSIONS_REQUEST_BACKGROUND_LOCATION = 3
+    lateinit var geofencingUtils: GeofencingUtils
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-        fragmentBinding = FragmentSettingsBinding.inflate(inflater, container, false)
-        reminderLocationAdapter = ReminderLocationAdapter()
-        fragmentBinding.remHandLocRV.adapter = reminderLocationAdapter
+        binding = FragmentSettingsBinding.inflate(inflater, container, false)
+        geofencingUtils = GeofencingUtils(requireContext())
 
-
-//        fragmentBinding.remWashHandsS.setOnClickListener {
-//
-//            if (fragmentBinding.remWashHandsS.isChecked) {
-//                openWashHandsDialog()
-//            } else {
-//                cancelAlarm(requireContext())
-//                setIntervalWashHand(0)
-//            }
-//        }
+        reminderLocationAdapter = ReminderLocationAdapter(
+            {
+                openWashHandsReminderLocationDialog(false, it)
+            },
+            {
+                viewModel.updateWashHandsReminderLocation(it)
+                if (it.enabled){
+                    geofencingUtils.addGeoFences(listOf(it))
+                }else{
+                    geofencingUtils.removeGeofences(listOf(it.id.toString()))
+                }
+            })
+        binding.remHandLocRV.adapter = reminderLocationAdapter
 
         val washHandsInterval = viewModel.getWashHandsInterval()
         updateUIIntervalWashHand(washHandsInterval)
         val drinkWaterInterval = viewModel.getDrinkWaterInterval()
         updateUIIntervalDrinkWater(drinkWaterInterval)
         val useCustomNotificationTone = viewModel.getUseCustomNotificationTone()
-        fragmentBinding.useCustomNotificationToneS.isChecked = useCustomNotificationTone
+        binding.useCustomNotificationToneS.isChecked = useCustomNotificationTone
+        val remindUserToWashHandsWhenArrivedAtLocation = viewModel.getRemindUserToWashHandsWhenArrivedAtLocation()
+        binding.remHandLocS.isChecked = remindUserToWashHandsWhenArrivedAtLocation
+        showHideWashHandsReminderLocations(remindUserToWashHandsWhenArrivedAtLocation)
 
-        fragmentBinding.remWashHandsS.setOnCheckedChangeListener { _, isChecked ->
+        binding.addRemLocationTV.setOnClickListener(this)
+        attachObservers()
+        return binding.root
+    }
+
+    override fun onClick(v: View) {
+        when(v.id){
+
+            R.id.add_rem_location_TV -> openWashHandsReminderLocationDialog(true)
+
+        }
+    }
+
+    private fun attachObservers() {
+
+        binding.remWashHandsS.setOnCheckedChangeListener { _, isChecked ->
 
             if (isChecked) {
                 openWashHandsDialog()
@@ -63,7 +103,7 @@ class SettingsFragment : DaggerFragment() {
             }
         }
 
-        fragmentBinding.remDrinkWaterS.setOnCheckedChangeListener { _, isChecked ->
+        binding.remDrinkWaterS.setOnCheckedChangeListener { _, isChecked ->
 
             if (isChecked) {
                 openDrinkWaterDialog()
@@ -72,11 +112,87 @@ class SettingsFragment : DaggerFragment() {
             }
         }
 
-        fragmentBinding.useCustomNotificationToneS.setOnCheckedChangeListener { _, isChecked ->
+        binding.useCustomNotificationToneS.setOnCheckedChangeListener { _, isChecked ->
             viewModel.setUseCustomNotificationTone(isChecked)
         }
 
-        return fragmentBinding.root
+        binding.remHandLocS.setOnCheckedChangeListener{ _, isChecked ->
+
+            if(isChecked){
+
+                if (checkHasFineLocationPermission()){
+                    if (checkHasBackgroundLocationPermission()){
+                        if (viewModel.washHandsReminderLocationsLiveData.value.isNullOrEmpty()){
+                            openWashHandsReminderLocationDialog(true)
+                        }else{
+                            geofencingUtils.addGeoFences(viewModel.washHandsReminderLocationsLiveData.value!!)
+                        }
+                    }else{
+                        requestBackgroundLocationPermission()
+                    }
+                }else{
+                    requestFineLocationPermission()
+                }
+
+            }else{
+                if (!viewModel.washHandsReminderLocationsLiveData.value.isNullOrEmpty()){
+                    geofencingUtils.removeGeofences(viewModel.washHandsReminderLocationsLiveData.value!!.filter { it.enabled }.map {
+                        it.id.toString()
+                    })
+                }
+
+            }
+
+            viewModel.setRemindUserToWashHandsWhenArrivedAtLocation(isChecked)
+            showHideWashHandsReminderLocations(isChecked)
+
+        }
+
+        viewModel.washHandsReminderLocationsLiveData.observe(viewLifecycleOwner, Observer {
+            reminderLocationAdapter.refill(it)
+        })
+
+        viewModel.insertedWashHandsReminderLocationsLiveData.observe(viewLifecycleOwner, Observer {
+            if (it != null){
+                geofencingUtils.addGeoFences(listOf(it))
+                viewModel.resetInsertedWashHandsReminderLocationsLiveData()
+            }
+        })
+
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String?>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        when (requestCode) {
+
+            MY_PERMISSIONS_REQUEST_FINE_LOCATION ->
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.size > 0
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED
+                ) {
+                    requestBackgroundLocationPermission()
+                }else{
+                    binding.remHandLocS.isChecked = false
+                    showLongToast(requireContext(), getString(R.string.accept_permissions))
+                }
+
+            MY_PERMISSIONS_REQUEST_BACKGROUND_LOCATION ->
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.size > 0
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED
+                ) {
+                    openWashHandsReminderLocationDialog(true)
+                }else{
+                    binding.remHandLocS.isChecked = false
+                    showLongToast(requireContext(), getString(R.string.accept_permissions))
+                }
+
+        }
     }
 
     private fun setIntervalWashHand(intervalInMinutes: Int) {
@@ -89,14 +205,14 @@ class SettingsFragment : DaggerFragment() {
 
     private fun updateUIIntervalWashHand(intervalInMinutes: Int) {
         if (intervalInMinutes == 0) {
-            fragmentBinding.remHandTime.text = getString(R.string.default_text_wash_hands_reminder)
-            fragmentBinding.remWashHandsS.isChecked = false
+            binding.remHandTime.text = getString(R.string.default_text_wash_hands_reminder)
+            binding.remWashHandsS.isChecked = false
         } else {
-            fragmentBinding.remHandTime.text = getString(
+            binding.remHandTime.text = getString(
                 R.string.placeholder_wash_hands_reminder,
                 convertIntervalToText(intervalInMinutes)
             )
-            fragmentBinding.remWashHandsS.isChecked = true
+            binding.remWashHandsS.isChecked = true
         }
     }
 
@@ -109,14 +225,14 @@ class SettingsFragment : DaggerFragment() {
 
     private fun updateUIIntervalDrinkWater(intervalInMinutes: Int) {
         if (intervalInMinutes == 0) {
-            fragmentBinding.remWater.text = getString(R.string.default_text_drink_water_reminder)
-            fragmentBinding.remDrinkWaterS.isChecked = false
+            binding.remWater.text = getString(R.string.default_text_drink_water_reminder)
+            binding.remDrinkWaterS.isChecked = false
         } else {
-            fragmentBinding.remWater.text = getString(
+            binding.remWater.text = getString(
                 R.string.placeholder_drink_water_reminder,
                 convertIntervalToText(intervalInMinutes)
             )
-            fragmentBinding.remDrinkWaterS.isChecked = true
+            binding.remDrinkWaterS.isChecked = true
         }
     }
 
@@ -168,5 +284,97 @@ class SettingsFragment : DaggerFragment() {
         reminderDialog.show(childFragmentManager, "Select drink water interval dialog")
     }
 
+    private fun requestFineLocationPermission() {
+        if (shouldShowRequestPermissionRationale(
+                Manifest.permission.ACCESS_FINE_LOCATION
+            )
+        ) {
+            // Show an explanation to the user *asynchronously* -- don't block
+            // this thread waiting for the user's response! After the user
+            // sees the explanation, try again to request the permission.
+            Toast.makeText(
+                context,
+                "Please allow Covid-19 Companion to access your Location so that it knows when you've arrived at preset locations and remind you to wash your hands",
+                Toast.LENGTH_LONG
+            ).show()
+        }
+        // No explanation needed; request the permission
+        requestPermissions(
+            arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+            MY_PERMISSIONS_REQUEST_FINE_LOCATION
+        )
+
+        // MY_PERMISSIONS_REQUEST_FINE_LOCATION is an
+        // app-defined int constant. The callback method gets the
+        // result of the request.
+    }
+
+    private fun checkHasFineLocationPermission(): Boolean =
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+        } else {
+            true
+        }
+
+    private fun requestBackgroundLocationPermission() {
+        if (shouldShowRequestPermissionRationale(
+                Manifest.permission.ACCESS_BACKGROUND_LOCATION
+            )
+        ) {
+            // Show an explanation to the user *asynchronously* -- don't block
+            // this thread waiting for the user's response! After the user
+            // sees the explanation, try again to request the permission.
+            Toast.makeText(
+                context,
+                "Please allow Covid-19 Companion to access your Location in the background so that it knows when you've arrived at preset locations and remind you to wash your hands",
+                Toast.LENGTH_LONG
+            ).show()
+        }
+        // No explanation needed; request the permission
+        requestPermissions(
+            arrayOf(Manifest.permission.ACCESS_BACKGROUND_LOCATION),
+            MY_PERMISSIONS_REQUEST_BACKGROUND_LOCATION
+        )
+
+        // MY_PERMISSIONS_REQUEST_FINE_LOCATION is an
+        // app-defined int constant. The callback method gets the
+        // result of the request.
+    }
+
+    private fun checkHasBackgroundLocationPermission(): Boolean =
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            checkSelfPermission(requireContext(), Manifest.permission.ACCESS_BACKGROUND_LOCATION) == PackageManager.PERMISSION_GRANTED
+        } else {
+            true
+        }
+
+    private fun showHideWashHandsReminderLocations(show: Boolean){
+
+        if (show){
+            binding.remHandLocRV.show()
+            binding.addRemLocationTV.show()
+        }else{
+            binding.remHandLocRV.makeDisappear()
+            binding.addRemLocationTV.makeDisappear()
+        }
+
+    }
+
+    private fun openWashHandsReminderLocationDialog(isNewLocation: Boolean, reminderLocation: WashHandsReminderLocation = WashHandsReminderLocation()){
+        WashHandsReminderLocationBottomDialogFragment(
+            isNewLocation,
+            reminderLocation,
+            {
+                viewModel.insertWashHandsReminderLocation(it)
+            },
+            {reminderLocation, addressChanged ->
+                viewModel.updateWashHandsReminderLocation(reminderLocation)
+                if (addressChanged){
+                    geofencingUtils.removeGeofences(listOf(reminderLocation.id.toString()))
+                    geofencingUtils.addGeoFences(listOf(reminderLocation))
+                }
+            }
+        ).show(childFragmentManager, "WashHandsReminderLocation")
+    }
 
 }

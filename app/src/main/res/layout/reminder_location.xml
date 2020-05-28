@@ -1,11 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.checkbox.MaterialCheckBox
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:text="Confirmed"
-    android:id="@+id/rem_hand_locCB"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginTop="5dp"
-    android:layout_marginBottom="5dp"/>
+    android:layout_marginBottom="5dp">
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="Confirmed"
+        android:id="@+id/rem_hand_locCB"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <ImageView
+        android:id="@+id/edit_IV"
+        android:layout_width="32dp"
+        android:layout_height="0dp"
+        android:src="@drawable/ic_circle_edit_outline"
+        android:padding="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
 

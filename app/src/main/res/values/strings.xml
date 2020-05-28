@@ -88,5 +88,15 @@
     <string name="channel_desc_reminders_custom_tone">A channel for reminders to wash your hands and drink water using custom Notification Tone</string>
     <string name="channel_name_reminders_default_tone">Reminders Channel with Default Notification Tone</string>
     <string name="channel_name_reminders_custom_tone">Reminders Channel with Custom Notification Tone</string>
+    <string name="accept_permissions">Please accept the permissions to use this feature</string>
+    <string name="add_location">Add Location</string>
+    <string name="save">Save</string>
+    <string name="address">Address</string>
+    <string name="location_title">Location Name</string>
+    <string name="location_address">Location Address</string>
+    <string name="enter_address">Enter Address</string>
+    <string name="enter_location">Enter Location</string>
+    <string name="location_details">Location Details</string>
+    <string name="placeholder_location_wash_hands_reminder">Have you washed your Hands since you arrived at %s</string>
 
 </resources>

@@ -11,4 +11,5 @@
     <color name="colorWhiteTransparent">#33FFFFFF</color>
     <color name="colorPrimaryDarkTransparent">#4D219653</color>
     <color name="radioButtonText">#CBCFD4</color>
+    <color name="colorSecondary50">#707070</color>
 </resources>

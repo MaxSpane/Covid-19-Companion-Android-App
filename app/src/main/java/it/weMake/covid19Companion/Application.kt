@@ -1,13 +1,16 @@
 package it.weMake.covid19Companion
 
-import android.app.Application
-import it.weMake.covid19Companion.di.AppComponent
+import android.R.attr.apiKey
+import com.google.android.libraries.places.api.Places
+import com.google.android.libraries.places.api.net.PlacesClient
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
+import it.weMake.covid19Companion.di.AppComponent
 import it.weMake.covid19Companion.di.DaggerAppComponent
 import javax.inject.Inject
+
 
 open class Application : DaggerApplication(), HasAndroidInjector {
 
@@ -30,6 +33,11 @@ open class Application : DaggerApplication(), HasAndroidInjector {
         appComponent = DaggerAppComponent.builder().application(this).build()
         appComponent.inject(this)
 
+        // Initialize the SDK
+        Places.initialize(applicationContext, getString(R.string.google_places_api_key))
+
+        // Create a new Places client instance
+        val placesClient: PlacesClient = Places.createClient(this)
         return appComponent
     }
 

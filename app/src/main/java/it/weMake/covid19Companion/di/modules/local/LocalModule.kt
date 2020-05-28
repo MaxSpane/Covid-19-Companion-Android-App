@@ -2,14 +2,8 @@ package it.weMake.covid19Companion.di.modules.local
 
 import dagger.Binds
 import dagger.Module
-import it.wemake.covid19Companion.data.local.ICasesDataLocal
-import it.wemake.covid19Companion.data.local.ICountriesLocal
-import it.wemake.covid19Companion.data.local.IPreventionTipsLocal
-import it.wemake.covid19Companion.data.local.ISharedPreferencesLocal
-import it.wemake.covid19Companion.local.impl.CasesDataLocal
-import it.wemake.covid19Companion.local.impl.CountriesLocal
-import it.wemake.covid19Companion.local.impl.PreventionTipsLocal
-import it.wemake.covid19Companion.local.impl.SharedPreferencesLocal
+import it.wemake.covid19Companion.data.local.*
+import it.wemake.covid19Companion.local.impl.*
 
 @Module(includes = [SharedPreferencesModule::class, RoomModule::class])
 abstract class LocalModule {
@@ -25,5 +19,9 @@ abstract class LocalModule {
 
     @Binds
     internal abstract fun bindCountriesLocal( countriesLocal: CountriesLocal): ICountriesLocal
+
+    @Binds
+    internal abstract fun bindWashHandsReminderLocationsLocal( washHandsReminderLocationsLocal: WashHandsReminderLocationsLocal)
+            : IWashHandsReminderLocationsLocal
 
 }

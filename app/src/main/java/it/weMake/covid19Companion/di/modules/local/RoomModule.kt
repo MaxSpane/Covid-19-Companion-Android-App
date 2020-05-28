@@ -7,6 +7,7 @@ import it.wemake.covid19Companion.local.room.AppDatabase
 import it.wemake.covid19Companion.local.room.dao.CountriesCasesDataDao
 import it.wemake.covid19Companion.local.room.dao.CountriesDao
 import it.wemake.covid19Companion.local.room.dao.PreventionTipsDao
+import it.wemake.covid19Companion.local.room.dao.WashHandsReminderLocationsDao
 import javax.inject.Named
 
 @Module
@@ -26,5 +27,9 @@ class RoomModule {
     @Provides
     fun provideCountriesDao(database: AppDatabase): CountriesDao =
         database.getCountriesDao()
+
+    @Provides
+    fun provideWashHandsReminderLocationsDao(database: AppDatabase): WashHandsReminderLocationsDao =
+        database.getWashHandsReminderLocationsDao()
 
 }

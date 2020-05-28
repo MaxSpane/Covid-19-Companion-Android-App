@@ -5,11 +5,13 @@ import it.weMake.covid19Companion.models.casesData.CountryCasesData
 import it.weMake.covid19Companion.models.casesData.GlobalStats
 import it.weMake.covid19Companion.models.preventionTips.PreventionTip
 import it.weMake.covid19Companion.models.screeningTool.*
+import it.weMake.covid19Companion.models.washHandsReminderLocations.WashHandsReminderLocation
 import it.wemake.covid19Companion.domain.models.*
 import it.wemake.covid19Companion.domain.models.casesData.CountryCasesDomainModel
 import it.wemake.covid19Companion.domain.models.casesData.GlobalStatsDomainModel
 import it.wemake.covid19Companion.domain.models.preventionTips.PreventionTipDomainModel
 import it.wemake.covid19Companion.domain.models.screeningTool.*
+import it.wemake.covid19Companion.domain.models.washHandsReminderLocations.WashHandsReminderLocationDomainModel
 
 fun AreaCasesDataDomainModel.toPresentation(): AreaCasesData =
     AreaCasesData(
@@ -107,4 +109,14 @@ fun CountryDomainModel.toPresentation(): Country =
     Country(
         name,
         iso2
+    )
+
+fun WashHandsReminderLocationDomainModel.toPresentation(): WashHandsReminderLocation =
+    WashHandsReminderLocation(
+        id,
+        name,
+        address,
+        lat,
+        lng,
+        enabled
     )

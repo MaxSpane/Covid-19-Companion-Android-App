@@ -9,6 +9,8 @@ import it.wemake.covid19Companion.domain.models.casesData.CountryCasesDomainMode
 import it.wemake.covid19Companion.domain.models.casesData.GlobalStatsDomainModel
 import it.wemake.covid19Companion.domain.models.preventionTips.PreventionTipDomainModel
 import it.wemake.covid19Companion.domain.models.screeningTool.*
+import it.wemake.covid19Companion.domain.models.washHandsReminderLocations.WashHandsReminderLocationDomainModel
+import it.wemake.covid19Companion.data.models.washHandsReminderLocations.WashHandsReminderLocationEntity
 
 
 internal fun CountryCasesDataEntity.toDomain(): CountryCasesDomainModel =
@@ -92,4 +94,14 @@ internal fun ObservationEntity.toDomain(): ObservationDomainModel =
     ObservationDomainModel(
         text,
         isEmergency
+    )
+
+internal fun WashHandsReminderLocationEntity.toDomain(): WashHandsReminderLocationDomainModel =
+    WashHandsReminderLocationDomainModel(
+        id,
+        name,
+        address,
+        lat,
+        lng,
+        enabled
     )

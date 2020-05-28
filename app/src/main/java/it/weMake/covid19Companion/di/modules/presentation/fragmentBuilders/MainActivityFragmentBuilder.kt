@@ -2,10 +2,12 @@ package it.weMake.covid19Companion.di.modules.presentation.fragmentBuilders
 
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
+import it.weMake.covid19Companion.di.ChildFragmentScope
 import it.weMake.covid19Companion.di.FragmentScope
 import it.weMake.covid19Companion.ui.landing.dashboard.DashboardFragment
 import it.weMake.covid19Companion.ui.landing.help.HelpFragment
 import it.weMake.covid19Companion.ui.landing.settings.SettingsFragment
+import it.weMake.covid19Companion.ui.landing.settings.washHandsReminderLocation.WashHandsReminderLocationBottomDialogFragment
 
 @Module
 abstract class MainActivityFragmentBuilder {

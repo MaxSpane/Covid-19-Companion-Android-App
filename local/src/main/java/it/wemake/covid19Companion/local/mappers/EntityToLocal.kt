@@ -2,8 +2,10 @@ package it.wemake.covid19Companion.local.mappers
 
 import it.wemake.covid19Companion.data.models.casesData.NovelCountryCasesDataEntity
 import it.wemake.covid19Companion.data.models.CountryInfoEntity
+import it.wemake.covid19Companion.data.models.washHandsReminderLocations.WashHandsReminderLocationEntity
 import it.wemake.covid19Companion.local.models.CountryCasesDataLocalModel
 import it.wemake.covid19Companion.local.models.CountryInfoLocalModel
+import it.wemake.covid19Companion.local.models.WashHandsReminderLocationLocalModel
 
 internal fun NovelCountryCasesDataEntity.toLocal(): CountryCasesDataLocalModel =
     CountryCasesDataLocalModel(
@@ -23,4 +25,14 @@ internal fun CountryInfoEntity.toLocal(): CountryInfoLocalModel =
     CountryInfoLocalModel(
         iso2,
         iso3
+    )
+
+internal fun WashHandsReminderLocationEntity.toLocal(): WashHandsReminderLocationLocalModel =
+    WashHandsReminderLocationLocalModel(
+        id,
+        name,
+        address,
+        lat,
+        lng,
+        enabled
     )

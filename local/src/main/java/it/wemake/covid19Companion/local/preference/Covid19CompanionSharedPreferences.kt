@@ -82,4 +82,13 @@ class Covid19CompanionSharedPreferences constructor(
         editor.apply()
     }
 
+    fun getRemindUserToWashHandsWhenArrivedAtLocation(): Boolean =
+        covid19CompanionAppSharedPref.getBoolean(REMIND_USER_TO_WASH_HANDS_WHEN_ARRIVED_AT_LOCATION, false)
+
+    fun setRemindUserToWashHandsWhenArrivedAtLocation(useCustomNotificationTone: Boolean) {
+        val editor = covid19CompanionAppSharedPref.edit()
+        editor.putBoolean(REMIND_USER_TO_WASH_HANDS_WHEN_ARRIVED_AT_LOCATION, useCustomNotificationTone)
+        editor.apply()
+    }
+
 }

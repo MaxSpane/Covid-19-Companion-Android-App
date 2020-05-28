@@ -39,4 +39,10 @@ abstract class RepositoryModule {
         countriesRepository: CountriesRepository
     ): ICountriesRepository
 
+    @Singleton
+    @Binds
+    abstract fun bindWashHandsReminderLocationsRepository(
+        washHandsReminderLocationsRepository: WashHandsReminderLocationsRepository
+    ): IWashHandsReminderLocationsRepository
+
 }

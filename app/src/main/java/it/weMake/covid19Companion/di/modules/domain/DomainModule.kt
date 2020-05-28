@@ -3,6 +3,7 @@ package it.weMake.covid19Companion.di.modules.domain
 import dagger.Module
 import dagger.Provides
 import it.wemake.covid19Companion.data.impl.*
+import it.wemake.covid19Companion.domain.repository.IWashHandsReminderLocationsRepository
 import it.wemake.covid19Companion.domain.usecases.*
 
 @Module
@@ -113,6 +114,55 @@ class DomainModule {
         sharedPreferencesRepository: SharedPreferencesRepository
     ): SetUseCustomNotificationToneUseCase {
             return SetUseCustomNotificationToneUseCase(sharedPreferencesRepository)
+    }
+
+    @Provides
+    fun provideGetAllWashHandsReminderLocationsUseCase(
+        washHandsReminderLocationsRepository: IWashHandsReminderLocationsRepository
+    ): GetAllWashHandsReminderLocationsUseCase {
+            return GetAllWashHandsReminderLocationsUseCase(washHandsReminderLocationsRepository)
+    }
+
+    @Provides
+    fun provideInsertWashHandsReminderLocationUseCase(
+        washHandsReminderLocationsRepository: IWashHandsReminderLocationsRepository
+    ): InsertWashHandsReminderLocationUseCase {
+            return InsertWashHandsReminderLocationUseCase(washHandsReminderLocationsRepository)
+    }
+
+    @Provides
+    fun provideDeleteWashHandsReminderLocationUseCase(
+        washHandsReminderLocationsRepository: IWashHandsReminderLocationsRepository
+    ): DeleteWashHandsReminderLocationUseCase {
+            return DeleteWashHandsReminderLocationUseCase(washHandsReminderLocationsRepository)
+    }
+
+    @Provides
+    fun provideUpdateWashHandsReminderLocationUseCase(
+        washHandsReminderLocationsRepository: IWashHandsReminderLocationsRepository
+    ): UpdateWashHandsReminderLocationUseCase {
+            return UpdateWashHandsReminderLocationUseCase(washHandsReminderLocationsRepository)
+    }
+
+    @Provides
+    fun provideGetRemindUserToWashHandsWhenArrivedAtLocationUseCase(
+        sharedPreferencesRepository: SharedPreferencesRepository
+    ): GetRemindUserToWashHandsWhenArrivedAtLocationUseCase {
+        return GetRemindUserToWashHandsWhenArrivedAtLocationUseCase(sharedPreferencesRepository)
+    }
+
+    @Provides
+    fun provideSetRemindUserToWashHandsWhenArrivedAtLocationUseCase(
+        sharedPreferencesRepository: SharedPreferencesRepository
+    ): SetRemindUserToWashHandsWhenArrivedAtLocationUseCase {
+        return SetRemindUserToWashHandsWhenArrivedAtLocationUseCase(sharedPreferencesRepository)
+    }
+
+    @Provides
+    fun provideGetWashHandsReminderLocationUseCase(
+        washHandsReminderLocationsRepository: IWashHandsReminderLocationsRepository
+    ): GetWashHandsReminderLocationUseCase {
+        return GetWashHandsReminderLocationUseCase(washHandsReminderLocationsRepository)
     }
 
 }

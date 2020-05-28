@@ -30,4 +30,8 @@ interface ISharedPreferencesLocal {
 
     fun setUseCustomNotificationTone(useCustomNotificationTone: Boolean)
 
+    fun getRemindUserToWashHandsWhenArrivedAtLocation(): Boolean
+
+    fun setRemindUserToWashHandsWhenArrivedAtLocation(remindUserToWashHandsWhenArrivedAtLocation: Boolean)
+
 }

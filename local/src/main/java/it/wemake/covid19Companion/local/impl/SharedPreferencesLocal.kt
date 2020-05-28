@@ -51,4 +51,12 @@ class SharedPreferencesLocal @Inject constructor(
     override fun setUseCustomNotificationTone(useCustomNotificationTone: Boolean) =
         covid19CompanionSharedPreferences.setUseCustomNotificationTone(useCustomNotificationTone)
 
+    override fun getRemindUserToWashHandsWhenArrivedAtLocation(): Boolean =
+        covid19CompanionSharedPreferences.getRemindUserToWashHandsWhenArrivedAtLocation()
+
+    override fun setRemindUserToWashHandsWhenArrivedAtLocation(
+        remindUserToWashHandsWhenArrivedAtLocation: Boolean
+    ) =
+        covid19CompanionSharedPreferences.setRemindUserToWashHandsWhenArrivedAtLocation(remindUserToWashHandsWhenArrivedAtLocation)
+
 }
