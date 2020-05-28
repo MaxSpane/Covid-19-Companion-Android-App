@@ -16,7 +16,10 @@ internal fun CountryCasesDataLocalModel.toEntity(): CountryCasesDataEntity =
         totalConfirmedDelta,
         totalDeathsDelta,
         totalRecoveredDelta,
-        continent
+        continent,
+        casesPerOneMillion,
+        deathsPerOneMillion,
+        recoveredPerOneMillion
     )
 
 internal fun CountryLocalModel.toEntity(): CountryEntityModel =

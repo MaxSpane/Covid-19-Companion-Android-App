@@ -22,7 +22,10 @@ internal fun CountryCasesDataEntity.toDomain(): CountryCasesDomainModel =
         totalConfirmedDelta,
         totalDeathsDelta,
         totalRecoveredDelta,
-        continent
+        continent,
+        casesPerOneMillion,
+        deathsPerOneMillion,
+        recoveredPerOneMillion
     )
 
 internal fun CountryEntityModel.toDomain(): CountryDomainModel =

@@ -12,5 +12,8 @@ data class CountryCasesDomainModel(
     val totalConfirmedDelta: Int?,
     val totalDeathsDelta: Int?,
     val totalRecoveredDelta: Int?,
-    val continent: String
+    val continent: String,
+    val casesPerOneMillion: Double?,
+    val deathsPerOneMillion: Double?,
+    val recoveredPerOneMillion: Double?
 )

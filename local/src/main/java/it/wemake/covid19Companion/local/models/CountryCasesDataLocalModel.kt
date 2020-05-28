@@ -19,7 +19,10 @@ data class CountryCasesDataLocalModel (
     val updated: Long,
     val continent: String,
     @Embedded
-    val countryInfo: CountryInfoLocalModel
+    val countryInfo: CountryInfoLocalModel,
+    val casesPerOneMillion: Double?,
+    val deathsPerOneMillion: Double?,
+    val recoveredPerOneMillion: Double?
 )
 
 

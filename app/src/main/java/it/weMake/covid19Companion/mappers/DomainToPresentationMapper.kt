@@ -37,7 +37,10 @@ fun CountryCasesDomainModel.toPresentation(): CountryCasesData =
         totalConfirmedDelta,
         totalDeathsDelta,
         totalRecoveredDelta,
-        continent
+        continent,
+        casesPerOneMillion,
+        deathsPerOneMillion,
+        recoveredPerOneMillion
     )
 
 fun CountryInfoDomainModel.toPresentation(): CountryInfo =

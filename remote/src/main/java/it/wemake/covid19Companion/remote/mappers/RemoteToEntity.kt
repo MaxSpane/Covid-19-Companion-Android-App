@@ -17,7 +17,10 @@ internal fun CountryCasesDataRemoteModel.toEntity(): NovelCountryCasesDataEntity
         deaths,
         todayDeaths,
         recovered,
-        continent
+        continent,
+        casesPerOneMillion,
+        deathsPerOneMillion,
+        recoveredPerOneMillion
     )
 
 internal fun CountryInfoRemoteModel.toEntity(): CountryInfoEntity =

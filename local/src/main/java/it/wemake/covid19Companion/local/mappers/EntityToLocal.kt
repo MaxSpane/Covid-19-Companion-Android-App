@@ -16,7 +16,10 @@ internal fun NovelCountryCasesDataEntity.toLocal(): CountryCasesDataLocalModel =
         0,
         updated,
         continent,
-        countryInfo.toLocal()
+        countryInfo.toLocal(),
+        casesPerOneMillion,
+        deathsPerOneMillion,
+        recoveredPerOneMillion
     )
 
 internal fun CountryInfoEntity.toLocal(): CountryInfoLocalModel =
