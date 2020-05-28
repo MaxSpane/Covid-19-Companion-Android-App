@@ -10,9 +10,6 @@ import dagger.android.support.DaggerFragment
 import it.weMake.covid19Companion.R
 import it.weMake.covid19Companion.databinding.FragmentSettingsBinding
 import it.weMake.covid19Companion.utils.*
-import it.weMake.covid19Companion.ui.landing.sortedDetailsData.SortedDetailsDataActivity.Companion.open
-import it.weMake.covid19Companion.utils.SORT_BY_DEATHS
-import it.weMake.covid19Companion.utils.SORT_BY_RECOVERED
 import javax.inject.Inject
 
 //Make sure you're extending DaggerFragment instead of Fragment so Dagger knows how to inject parameters for us
@@ -60,6 +57,8 @@ class SettingsFragment : DaggerFragment() {
 
             if (isChecked) {
                 openWashHandsDialog()
+//                open(requireContext(),SORT_BY_RECOVERED)
+
             } else {
                 setIntervalWashHand(0)
             }
@@ -68,6 +67,7 @@ class SettingsFragment : DaggerFragment() {
         fragmentBinding.remDrinkWaterS.setOnCheckedChangeListener { _, isChecked ->
 
             if (isChecked) {
+//                open(requireContext(), SORT_BY_DEATHS)
                 openDrinkWaterDialog()
             } else {
                 setIntervalDrinkWater(0)
@@ -76,8 +76,10 @@ class SettingsFragment : DaggerFragment() {
 
         fragmentBinding.useCustomNotificationToneS.setOnCheckedChangeListener { _, isChecked ->
             viewModel.setUseCustomNotificationTone(isChecked)
+//            if (isChecked) {
+//                open(requireContext(), SORT_BY_CONFIRMED)
+//            }
         }
-
         return fragmentBinding.root
     }
 

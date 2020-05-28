@@ -22,7 +22,7 @@
         <TextView
             android:id="@+id/countryCasesTV"
             style="@style/Covid19TextView"
-            android:text="Lagos"
+            android:text="Nigeria"
             android:textColor="#818181"
             android:textSize="16sp"
             android:textStyle="normal"

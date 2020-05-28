@@ -7,6 +7,7 @@ import dagger.android.ContributesAndroidInjector
 import it.weMake.covid19Companion.di.modules.presentation.fragmentBuilders.MainActivityFragmentBuilder
 import it.weMake.covid19Companion.di.modules.presentation.fragmentBuilders.ScreeningToolActivityFragmentBuilder
 import it.weMake.covid19Companion.ui.landing.MainActivity
+import it.weMake.covid19Companion.ui.landing.sortedDetailsData.SortedDetailsDataActivity
 import it.weMake.covid19Companion.ui.preventionTips.PreventionTipsActivity
 import it.weMake.covid19Companion.ui.screeningTool.ScreeningToolActivity
 import it.weMake.covid19Companion.ui.splashscreen.SplashScreenActivity
@@ -27,8 +28,12 @@ abstract class ActivityBuilderModule {
     @ContributesAndroidInjector(modules = [ScreeningToolActivityFragmentBuilder::class])
     internal abstract fun provideScreeningToolActivity(): ScreeningToolActivity
 
-    @ActivityScope
+      @ActivityScope
     @ContributesAndroidInjector
     internal abstract fun provideSplashScreenActivity(): SplashScreenActivity
+
+      @ActivityScope
+    @ContributesAndroidInjector
+    internal abstract fun provideSortedDetailsDataActivity(): SortedDetailsDataActivity
 
 }

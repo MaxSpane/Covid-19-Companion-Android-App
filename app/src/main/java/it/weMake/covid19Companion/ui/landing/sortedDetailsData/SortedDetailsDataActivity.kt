@@ -3,44 +3,76 @@ package it.weMake.covid19Companion.ui.landing.sortedDetailsData
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import dagger.android.support.DaggerAppCompatActivity
 import it.weMake.covid19Companion.R
 import it.weMake.covid19Companion.databinding.ActivitySortedDetailsDataBinding
 import it.weMake.covid19Companion.utils.SORT_BY_CONFIRMED
 import it.weMake.covid19Companion.utils.SORT_BY_DEATHS
 import it.weMake.covid19Companion.utils.SORT_BY_RECOVERED
-import kotlinx.android.synthetic.main.country_cases.*
+import it.weMake.covid19Companion.utils.numberWithCommas
+import javax.inject.Inject
 
 
-class SortedDetailsDataActivity : AppCompatActivity() {
+class SortedDetailsDataActivity : DaggerAppCompatActivity() {
     lateinit var countryCasesStatsAdapter: CountryCasesAdapter
     private lateinit var binding: ActivitySortedDetailsDataBinding
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+    protected val viewModel: SortedDetailsDataViewModel by viewModels { viewModelFactory }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySortedDetailsDataBinding.inflate(layoutInflater)
         val view = binding.root
 
+        // Create an Intent and get the string extra and pass it to the viewmodel
         val intent = intent
         val sortValue = intent.getStringExtra(SORT_VALUE_EXTRA)
-        // USE THE STRING PASSED IN TO COMPARE WITH THE CONSTATNTS AND DISPLAY TEH LAYOUT ACCORDINGLY
-        when(sortValue) {
-            //check the when statement to see if it works by changing just the color or text of the sorted layout
-            // we might still need to put the changes of colors and the rest in different functions
-            SORT_BY_CONFIRMED -> (callConfirmedCasesView())
-            SORT_BY_DEATHS-> (callDeathCasesView())
-            SORT_BY_RECOVERED -> (callRecoveredCasesView())
-            else -> println("check code bro ")
-        }
+        viewModel.getCountryLiveData(sortValue)
 
 
         val countryCasesRecycler = binding.countryCasesRV
         countryCasesStatsAdapter =
             CountryCasesAdapter(sortValue)
         countryCasesRecycler.adapter = countryCasesStatsAdapter
+
         setContentView(view)
+
+        viewModel.countriesLiveData.observe(this, Observer {countries->
+            // Update the cached copy of the countries in the adapter.
+            countries?.let { countryCasesStatsAdapter.setCountries(it) }
+
+
+
+        })
+        // getting access to the global stats data and displaying when the different pages in the ux design are called
+
+        viewModel.globalCasesData.observe(this, Observer {
+            it?.let {
+                var globalDeathStats = it.deaths
+                var globalRecoveredStats = it.recovered
+                var globalConfirmedStats = it.confirmed
+
+                when(sortValue) {
+                    //display different layouts and data based on string value passed
+                    SORT_BY_CONFIRMED -> (callConfirmedCasesView(globalConfirmedStats))
+                    SORT_BY_DEATHS-> (callDeathCasesView(globalDeathStats))
+                    SORT_BY_RECOVERED -> (callRecoveredCasesView(globalRecoveredStats))
+                    else -> println("check code bro ")
+                }
+
+            }
+        })
+
+
     }
+
     companion object {
 
         private const val SORT_VALUE_EXTRA = "sortValueExtra"
@@ -60,19 +92,21 @@ class SortedDetailsDataActivity : AppCompatActivity() {
     }
 
 
-    fun callConfirmedCasesView (){
+    fun callConfirmedCasesView ( globalconfirmedStats : Int){
 
         binding.detailsTitleTV.text = "Total Confirmed"
         binding.detailsValueTV.setTextColor(ContextCompat.getColor(this, R.color.black))
+        binding.detailsValueTV.text = globalconfirmedStats.numberWithCommas()
         binding.confirmedCasesTV.text = "Confirmed Cases by Country"
         binding.image.setImageResource(R.drawable.ic_cough)
 
             }
 
 
-    fun callDeathCasesView (){
+    fun callDeathCasesView (gloablDeathStats : Int){
         binding.detailsTitleTV.text = "Total Deaths"
         binding.detailsValueTV.setTextColor(ContextCompat.getColor(this, R.color.deaths))
+        binding.detailsValueTV.text = gloablDeathStats.numberWithCommas()
         binding.confirmedCasesTV.text = "Death by Country"
         binding.image.setImageResource(R.drawable.ic_vomit)
 
@@ -81,9 +115,10 @@ class SortedDetailsDataActivity : AppCompatActivity() {
     }
 
 
-    fun callRecoveredCasesView (){
+    fun callRecoveredCasesView (globalRecoveredStats: Int){
         binding.detailsTitleTV.text = "Total Recovered"
         binding.detailsValueTV.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary))
+        binding.detailsValueTV.text = globalRecoveredStats.numberWithCommas()
         binding.confirmedCasesTV.text = "Recovered by Country"
         binding.image.setImageResource(R.drawable.ic_mask)
 
