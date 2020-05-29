@@ -3,10 +3,13 @@ package it.wemake.covid19Companion.data.impl
 import it.wemake.covid19Companion.data.local.ICasesDataLocal
 import it.wemake.covid19Companion.data.local.ISharedPreferencesLocal
 import it.wemake.covid19Companion.data.mappers.toDomain
-import it.wemake.covid19Companion.data.models.casesData.NovelCountryCasesDataEntity
+import it.wemake.covid19Companion.data.mappers.toRegionDataEntity
+import it.wemake.covid19Companion.data.models.casesData.CountryCasesDataEntity
+import it.wemake.covid19Companion.data.models.casesData.RegionCasesDataEntity
 import it.wemake.covid19Companion.data.remote.ICovid19CasesRemote
 import it.wemake.covid19Companion.domain.models.casesData.CountryCasesDomainModel
 import it.wemake.covid19Companion.domain.models.casesData.GlobalStatsDomainModel
+import it.wemake.covid19Companion.domain.models.casesData.RegionCasesDataDomainModel
 import it.wemake.covid19Companion.domain.repository.ICovid19CasesRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
@@ -19,17 +22,20 @@ class Covid19CasesRepository @Inject constructor(
     private val sharedPreferencesLocal: ISharedPreferencesLocal
 ): ICovid19CasesRepository {
 
+    private val countriesWithRegionalCasesData = listOf("Nigeria")
+
     override suspend fun updateCasesData() {
         covid19CasesRemote.getCasesSummary().collect {allData ->
-            var localLastUpdated = sharedPreferencesLocal.getCasesSummaryLastUpdated()
+            val localLastUpdated = sharedPreferencesLocal.getCasesSummaryLastUpdated()
             var remoteLastUpdated = localLastUpdated
-            val updatedCasesData = ArrayList<NovelCountryCasesDataEntity>()
+            val updatedCasesData = ArrayList<CountryCasesDataEntity>()
 
             for (countryData in allData){
-                if (localLastUpdated < countryData.updated){
+                if (localLastUpdated < countryData.lastUpdated){
+                    countryData.hasRegionalCasesData = countriesWithRegionalCasesData.contains(countryData.displayName)
                     updatedCasesData.add(countryData)
-                    if (remoteLastUpdated < countryData.updated)
-                        remoteLastUpdated = countryData.updated
+                    if (remoteLastUpdated < countryData.lastUpdated)
+                        remoteLastUpdated = countryData.lastUpdated
                 }
             }
 
@@ -67,6 +73,47 @@ class Covid19CasesRepository @Inject constructor(
         casesDataLocal.getUserCountryCasesData(sharedPreferencesLocal.getUserCountryIso2())
             .map {
                 it?.toDomain()
+            }
+
+    override suspend fun updateCountryRegionsCasesData(countryName: String) {
+        when(countryName){
+
+            "Nigeria" -> updateNigeriaRegionsCasesData()
+
+        }
+    }
+
+    private suspend fun updateNigeriaRegionsCasesData(){
+        covid19CasesRemote.getNigeriaRegionsCasesDataSummary().collect { nigeriaRegionCasesData ->
+            val localLatestUpdatedDate = casesDataLocal.getCountryLatestUpdatedDate("Nigeria") ?: 0
+            var remoteLatestUpdatedDate = localLatestUpdatedDate
+            val updatedRegionCasesData = ArrayList<RegionCasesDataEntity>()
+
+            for (regionData in nigeriaRegionCasesData){
+
+                if (regionData.updated > localLatestUpdatedDate){
+                    updatedRegionCasesData.add(regionData.toRegionDataEntity("Nigeria"))
+                    if (regionData.updated > remoteLatestUpdatedDate)
+                        remoteLatestUpdatedDate = regionData.updated
+                }
+
+            }
+
+            if (remoteLatestUpdatedDate != localLatestUpdatedDate)
+                casesDataLocal.insertRegionsCasesData(updatedRegionCasesData)
+
+        }
+    }
+
+    override suspend fun getAllCountryRegionsCasesData(
+        countryName: String,
+        sortBy: String
+    ): Flow<List<RegionCasesDataDomainModel>> =
+        casesDataLocal.getAllCountryRegionsCasesData(countryName, sortBy)
+            .map { regionsCasesData ->
+                regionsCasesData.map {
+                    it.toDomain()
+                }
             }
 
 }

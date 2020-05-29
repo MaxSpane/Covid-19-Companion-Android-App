@@ -3,28 +3,15 @@ package it.weMake.covid19Companion.mappers
 import it.weMake.covid19Companion.models.*
 import it.weMake.covid19Companion.models.casesData.CountryCasesData
 import it.weMake.covid19Companion.models.casesData.GlobalStats
+import it.weMake.covid19Companion.models.casesData.RegionCasesData
 import it.weMake.covid19Companion.models.preventionTips.PreventionTip
 import it.weMake.covid19Companion.models.screeningTool.*
 import it.wemake.covid19Companion.domain.models.*
 import it.wemake.covid19Companion.domain.models.casesData.CountryCasesDomainModel
 import it.wemake.covid19Companion.domain.models.casesData.GlobalStatsDomainModel
+import it.wemake.covid19Companion.domain.models.casesData.RegionCasesDataDomainModel
 import it.wemake.covid19Companion.domain.models.preventionTips.PreventionTipDomainModel
 import it.wemake.covid19Companion.domain.models.screeningTool.*
-
-fun AreaCasesDataDomainModel.toPresentation(): AreaCasesData =
-    AreaCasesData(
-        id,
-        displayName,
-        lastUpdated,
-        totalConfirmed,
-        totalDeaths,
-        totalRecovered,
-        totalConfirmedDelta,
-        totalDeathsDelta,
-        totalRecoveredDelta,
-        parentId,
-        hasAreasData
-    )
 
 fun CountryCasesDomainModel.toPresentation(): CountryCasesData =
     CountryCasesData(
@@ -40,7 +27,8 @@ fun CountryCasesDomainModel.toPresentation(): CountryCasesData =
         continent,
         casesPerOneMillion,
         deathsPerOneMillion,
-        recoveredPerOneMillion
+        recoveredPerOneMillion,
+        hasRegionalCasesData
     )
 
 fun CountryInfoDomainModel.toPresentation(): CountryInfo =
@@ -110,4 +98,14 @@ fun CountryDomainModel.toPresentation(): Country =
     Country(
         name,
         iso2
+    )
+
+fun RegionCasesDataDomainModel.toPresentation(): RegionCasesData =
+    RegionCasesData(
+        displayName,
+        updated,
+        totalConfirmed,
+        totalDeaths,
+        totalRecovered,
+        parentCountryName
     )

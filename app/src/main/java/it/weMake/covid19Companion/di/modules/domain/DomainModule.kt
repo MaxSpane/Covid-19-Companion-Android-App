@@ -115,4 +115,18 @@ class DomainModule {
             return SetUseCustomNotificationToneUseCase(sharedPreferencesRepository)
     }
 
+    @Provides
+    fun provideGetAllCountryRegionsCasesDataUseCase(
+        covid19CasesRepository: Covid19CasesRepository
+    ): GetAllCountryRegionsCasesDataUseCase {
+            return GetAllCountryRegionsCasesDataUseCase(covid19CasesRepository)
+    }
+
+    @Provides
+    fun provideUpdateCountryRegionsCasesDataUseCase(
+        covid19CasesRepository: Covid19CasesRepository
+    ): UpdateCountryRegionsCasesDataUseCase {
+            return UpdateCountryRegionsCasesDataUseCase(covid19CasesRepository)
+    }
+
 }

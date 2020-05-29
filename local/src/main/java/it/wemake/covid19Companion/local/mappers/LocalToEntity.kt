@@ -1,7 +1,9 @@
 package it.wemake.covid19Companion.local.mappers
 
 import it.wemake.covid19Companion.data.models.*
+import it.wemake.covid19Companion.data.models.casesData.CountryCasesDataEntity
 import it.wemake.covid19Companion.data.models.casesData.GlobalStatsEntity
+import it.wemake.covid19Companion.data.models.casesData.RegionCasesDataEntity
 import it.wemake.covid19Companion.data.models.preventionTips.PreventionTipEntity
 import it.wemake.covid19Companion.local.models.*
 
@@ -19,7 +21,8 @@ internal fun CountryCasesDataLocalModel.toEntity(): CountryCasesDataEntity =
         continent,
         casesPerOneMillion,
         deathsPerOneMillion,
-        recoveredPerOneMillion
+        recoveredPerOneMillion,
+        hasRegionalCasesData
     )
 
 internal fun CountryLocalModel.toEntity(): CountryEntityModel =
@@ -47,4 +50,14 @@ internal fun PreventionTipLocalModel.toEntity(): PreventionTipEntity =
         preventionTip,
         preventionTipWhy,
         iconId
+    )
+
+internal fun RegionCasesDataLocalModel.toEntity(): RegionCasesDataEntity =
+    RegionCasesDataEntity(
+        displayName,
+        updated,
+        totalConfirmed,
+        totalDeaths,
+        totalRecovered,
+        parentCountryName
     )

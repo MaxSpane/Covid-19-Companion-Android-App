@@ -15,5 +15,6 @@ data class CountryCasesDomainModel(
     val continent: String,
     val casesPerOneMillion: Double?,
     val deathsPerOneMillion: Double?,
-    val recoveredPerOneMillion: Double?
+    val recoveredPerOneMillion: Double?,
+    var hasRegionalCasesData: Boolean
 )

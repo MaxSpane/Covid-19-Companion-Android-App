@@ -1,4 +1,6 @@
-package it.wemake.covid19Companion.data.models
+package it.wemake.covid19Companion.data.models.casesData
+
+import it.wemake.covid19Companion.data.models.CountryInfoEntity
 
 data class CountryCasesDataEntity(
     val displayName: String,
@@ -13,5 +15,6 @@ data class CountryCasesDataEntity(
     val continent: String,
     val casesPerOneMillion: Double?,
     val deathsPerOneMillion: Double?,
-    val recoveredPerOneMillion: Double?
+    val recoveredPerOneMillion: Double?,
+    var hasRegionalCasesData: Boolean
 )

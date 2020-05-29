@@ -22,7 +22,8 @@ data class CountryCasesDataLocalModel (
     val countryInfo: CountryInfoLocalModel,
     val casesPerOneMillion: Double?,
     val deathsPerOneMillion: Double?,
-    val recoveredPerOneMillion: Double?
+    val recoveredPerOneMillion: Double?,
+    val hasRegionalCasesData: Boolean
 )
 
 

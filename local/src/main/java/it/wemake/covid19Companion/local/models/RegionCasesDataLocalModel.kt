@@ -4,18 +4,13 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import org.jetbrains.annotations.Nullable
 
-@Entity(tableName = "area_cases_data")
-data class AreaCasesDataLocalModel (
+@Entity(tableName = "region_cases_data")
+data class RegionCasesDataLocalModel (
     @PrimaryKey
-    val id: String,
     val displayName: String,
-    val lastUpdated: String?,
+    val updated: Long,
     val totalConfirmed: Int?,
     val totalDeaths: Int?,
     val totalRecovered: Int?,
-    val totalConfirmedDelta: Int?,
-    val totalDeathsDelta: Int?,
-    val totalRecoveredDelta: Int?,
-    val parentId: String?,
-    val hasAreasData: Boolean
+    val parentCountryName: String
 )

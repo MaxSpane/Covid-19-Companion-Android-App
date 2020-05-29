@@ -11,6 +11,7 @@ import it.weMake.covid19Companion.ui.landing.dashboard.DashboardViewModel
 import it.weMake.covid19Companion.ui.landing.help.HelpViewModel
 import it.weMake.covid19Companion.ui.landing.settings.SettingsViewModel
 import it.weMake.covid19Companion.ui.preventionTips.PreventionTipsViewModel
+import it.weMake.covid19Companion.ui.regionalStats.RegionalStatsViewModel
 import it.weMake.covid19Companion.ui.screeningTool.ScreeningToolViewModel
 import it.weMake.covid19Companion.ui.splashscreen.SplashScreenViewModel
 
@@ -49,5 +50,10 @@ abstract class ViewModelModule {
     @Binds
     @ViewModelKey(SettingsViewModel::class)
     abstract fun bindSettingsViewModel(settingsViewModel: SettingsViewModel): ViewModel
+
+    @IntoMap
+    @Binds
+    @ViewModelKey(RegionalStatsViewModel::class)
+    abstract fun bindRegionalStatsViewModel(regionalStatsViewModel: RegionalStatsViewModel): ViewModel
 
 }
