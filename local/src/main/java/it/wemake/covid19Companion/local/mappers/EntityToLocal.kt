@@ -1,24 +1,30 @@
 package it.wemake.covid19Companion.local.mappers
 
-import it.wemake.covid19Companion.data.models.casesData.NovelCountryCasesDataEntity
+import it.wemake.covid19Companion.data.models.casesData.CountryCasesDataEntity
 import it.wemake.covid19Companion.data.models.CountryInfoEntity
 import it.wemake.covid19Companion.data.models.washHandsReminderLocations.WashHandsReminderLocationEntity
+import it.wemake.covid19Companion.data.models.casesData.RegionCasesDataEntity
 import it.wemake.covid19Companion.local.models.CountryCasesDataLocalModel
 import it.wemake.covid19Companion.local.models.CountryInfoLocalModel
+import it.wemake.covid19Companion.local.models.RegionCasesDataLocalModel
 import it.wemake.covid19Companion.local.models.WashHandsReminderLocationLocalModel
 
-internal fun NovelCountryCasesDataEntity.toLocal(): CountryCasesDataLocalModel =
+internal fun CountryCasesDataEntity.toLocal(): CountryCasesDataLocalModel =
     CountryCasesDataLocalModel(
-        country,
-        cases,
-        deaths,
-        recovered,
-        todayCases,
-        todayDeaths,
-        0,
-        updated,
+        displayName,
+        totalConfirmed,
+        totalDeaths,
+        totalRecovered,
+        totalConfirmedDelta,
+        totalDeathsDelta,
+        totalRecoveredDelta,
+        lastUpdated,
         continent,
-        countryInfo.toLocal()
+        countryInfo.toLocal(),
+        casesPerOneMillion,
+        deathsPerOneMillion,
+        recoveredPerOneMillion,
+        hasRegionalCasesData
     )
 
 internal fun CountryInfoEntity.toLocal(): CountryInfoLocalModel =
@@ -35,4 +41,14 @@ internal fun WashHandsReminderLocationEntity.toLocal(): WashHandsReminderLocatio
         lat,
         lng,
         enabled
+    )
+
+internal fun RegionCasesDataEntity.toLocal(): RegionCasesDataLocalModel =
+    RegionCasesDataLocalModel(
+        displayName,
+        updated,
+        totalConfirmed,
+        totalDeaths,
+        totalRecovered,
+        parentCountryName
     )

@@ -1,6 +1,7 @@
 package it.wemake.covid19Companion.remote.impl
 
-import it.wemake.covid19Companion.data.models.casesData.NovelCountryCasesDataEntity
+import it.wemake.covid19Companion.data.models.casesData.CountryCasesDataEntity
+import it.wemake.covid19Companion.data.models.casesData.NigeriaRegionCasesDataEntity
 import it.wemake.covid19Companion.data.remote.ICovid19CasesRemote
 import it.wemake.covid19Companion.remote.api.NovelCovidApiService
 import it.wemake.covid19Companion.remote.mappers.toEntity
@@ -12,7 +13,10 @@ class Covid19CasesRemote @Inject constructor(
     private val novelCovidApiService: NovelCovidApiService
 ): ICovid19CasesRemote {
 
-    override suspend fun getCasesSummary(): Flow<List<NovelCountryCasesDataEntity>> =
+    override suspend fun getCasesSummary(): Flow<List<CountryCasesDataEntity>> =
         flow { emit(novelCovidApiService.getCountriesCasesData().map { it.toEntity() }) }
+
+    override suspend fun getNigeriaRegionsCasesDataSummary(): Flow<List<NigeriaRegionCasesDataEntity>> =
+        flow { emit(novelCovidApiService.getNigeriaRegionsCasesData().map { it.toEntity() }) }
 
 }

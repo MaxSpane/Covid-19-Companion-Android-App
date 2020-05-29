@@ -14,6 +14,7 @@ import it.weMake.covid19Companion.commons.Error
 import it.weMake.covid19Companion.commons.Loading
 import it.weMake.covid19Companion.commons.Success
 import dagger.android.support.DaggerFragment
+import it.weMake.covid19Companion.R
 import it.weMake.covid19Companion.databinding.FragmentDashboardBinding
 import it.weMake.covid19Companion.ui.landing.dashboard.adapters.DashboardAdapter
 import it.weMake.covid19Companion.utils.*
@@ -101,7 +102,7 @@ class DashboardFragment : DaggerFragment(), View.OnClickListener {
                 is Success -> binding.dashboardSRL.isRefreshing = false
                 is Error -> {
                     binding.dashboardSRL.isRefreshing = false
-                    showLongToast(requireContext(), "Could not update Cases Data. Please try again.")
+                    showLongToast(requireContext(), getString(R.string.error_update_cases_data))
                 }
                 is Loading -> binding.dashboardSRL.isRefreshing = true
             }

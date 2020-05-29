@@ -8,10 +8,12 @@ import it.wemake.covid19Companion.local.models.CountryCasesDataLocalModel
 import it.wemake.covid19Companion.local.models.CountryLocalModel
 import it.wemake.covid19Companion.local.models.PreventionTipLocalModel
 import it.wemake.covid19Companion.local.models.WashHandsReminderLocationLocalModel
+import it.wemake.covid19Companion.local.models.RegionCasesDataLocalModel
 import it.wemake.covid19Companion.local.room.dao.CountriesCasesDataDao
 import it.wemake.covid19Companion.local.room.dao.CountriesDao
 import it.wemake.covid19Companion.local.room.dao.PreventionTipsDao
 import it.wemake.covid19Companion.local.room.dao.WashHandsReminderLocationsDao
+import it.wemake.covid19Companion.local.room.dao.RegionsCasesDataDao
 import it.wemake.covid19Companion.local.utils.DB_NAME
 
 @Database(
@@ -20,6 +22,8 @@ import it.wemake.covid19Companion.local.utils.DB_NAME
         CountryLocalModel::class,
         PreventionTipLocalModel::class,
         WashHandsReminderLocationLocalModel::class],
+        RegionCasesDataLocalModel::class
+    ],
     version = 1,
     exportSchema = true)
 abstract class AppDatabase: RoomDatabase() {
@@ -28,6 +32,7 @@ abstract class AppDatabase: RoomDatabase() {
     abstract fun getPreventionTipsDao(): PreventionTipsDao
     abstract fun getCountriesDao(): CountriesDao
     abstract fun getWashHandsReminderLocationsDao(): WashHandsReminderLocationsDao
+    abstract fun getRegionsCasesDataDao(): RegionsCasesDataDao
 
     companion object {
         @Volatile

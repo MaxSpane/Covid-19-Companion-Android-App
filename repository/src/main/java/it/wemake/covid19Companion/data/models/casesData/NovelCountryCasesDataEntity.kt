@@ -11,5 +11,8 @@ data class NovelCountryCasesDataEntity (
     val deaths: Int?,
     val todayDeaths: Int?,
     val recovered: Int?,
-    val continent: String
+    val continent: String,
+    val casesPerOneMillion: Double?,
+    val deathsPerOneMillion: Double?,
+    val recoveredPerOneMillion: Double?
 )

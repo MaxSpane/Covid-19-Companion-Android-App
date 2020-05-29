@@ -19,7 +19,8 @@
         <activity android:name=".ui.about.AboutActivity" />
         <activity
             android:name=".ui.screeningTool.ScreeningToolActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"/>
+
         <activity
             android:name=".ui.splashscreen.SplashScreenActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -56,6 +57,20 @@
         <receiver android:name=".broadcastReceivers.DrinkWaterReminderBroadcast" />
         <receiver android:name=".broadcastReceivers.GeofenceBroadcastReceiver"/>
 
+        <activity
+            android:name=".ui.regionalStats.RegionalStatsActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity android:name=".ui.regionalStats.StateStatsActivity"
+            android:theme="@style/AppTheme.NoActionBar" >
+
+
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+        </activity>
     </application>
 
 </manifest>

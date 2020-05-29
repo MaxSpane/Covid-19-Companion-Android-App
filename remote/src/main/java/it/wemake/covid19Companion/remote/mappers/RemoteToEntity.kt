@@ -1,23 +1,30 @@
 package it.wemake.covid19Companion.remote.mappers
 
-import it.wemake.covid19Companion.data.models.casesData.NovelCountryCasesDataEntity
+import it.wemake.covid19Companion.data.models.casesData.CountryCasesDataEntity
 import it.wemake.covid19Companion.data.models.CountryInfoEntity
+import it.wemake.covid19Companion.data.models.casesData.NigeriaRegionCasesDataEntity
 import it.wemake.covid19Companion.data.models.screeningTool.*
 import it.wemake.covid19Companion.remote.models.casesData.CountryCasesDataRemoteModel
 import it.wemake.covid19Companion.remote.models.casesData.CountryInfoRemoteModel
+import it.wemake.covid19Companion.remote.models.casesData.NigeriaRegionCasesDataRemoteModel
 import it.wemake.covid19Companion.remote.models.screeningTool.*
 
-internal fun CountryCasesDataRemoteModel.toEntity(): NovelCountryCasesDataEntity =
-    NovelCountryCasesDataEntity(
-        updated,
+internal fun CountryCasesDataRemoteModel.toEntity(): CountryCasesDataEntity =
+    CountryCasesDataEntity(
         country,
+        updated,
         countryInfo.toEntity(),
         cases,
-        todayCases,
         deaths,
-        todayDeaths,
         recovered,
-        continent
+        todayCases,
+        todayDeaths,
+        todayRecovered,
+        continent,
+        casesPerOneMillion,
+        deathsPerOneMillion,
+        recoveredPerOneMillion,
+        false
     )
 
 internal fun CountryInfoRemoteModel.toEntity(): CountryInfoEntity =
@@ -66,4 +73,13 @@ internal fun ObservationRemoteModel.toEntity(): ObservationEntity =
     ObservationEntity(
         common_name,
         is_emergency
+    )
+
+internal fun NigeriaRegionCasesDataRemoteModel.toEntity(): NigeriaRegionCasesDataEntity =
+    NigeriaRegionCasesDataEntity(
+        updated,
+        state,
+        cases,
+        recovered,
+        deaths
     )

@@ -25,6 +25,7 @@
     </string>
     <string name="nigeria">Nigeria</string>
     <string name="cases">Cases</string>
+    <string name="cases_upper_case">CASES</string>
     <string name="settings">Settings</string>
     <string name="rem_hand_loc">Remind me to wash my hands at certain locations</string>
     <string name="rem_hand_time">Remind me to wash my hands every 30 minutes</string>
@@ -98,5 +99,21 @@
     <string name="enter_location">Enter Location</string>
     <string name="location_details">Location Details</string>
     <string name="placeholder_location_wash_hands_reminder">Have you washed your Hands since you arrived at %s</string>
+    <string name="new_cases_today">New cases Today</string>
+    <string name="new_cases_today_value">10,000</string>
+    <string name="new_deaths_today">New deaths Today</string>
+    <string name="new_deaths_today_value">10,000</string>
+    <string name="cases_per_million">Cases per million</string>
+    <string name="cases_per_million_value">10,000</string>
+    <string name="deaths_per_million">Deaths per Million</string>
+    <string name="deaths_per_million_value">10,000</string>
+    <string name="state">STATE</string>
+    <string name="total_cases">Total Cases</string>
+    <string name="total_cases_value">10,000</string>
+    <string name="total_recovered">Total Recovered</string>
+    <string name="total_deaths">Total Deaths</string>
+    <string name="unknown">Unknown</string>
+    <string name="error_update_regional_cases_data">Could not update Regional Cases Data. Please try again.</string>
+    <string name="error_update_cases_data">Could not update Cases Data. Please try again.</string>
 
 </resources>

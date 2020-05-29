@@ -3,30 +3,17 @@ package it.weMake.covid19Companion.mappers
 import it.weMake.covid19Companion.models.*
 import it.weMake.covid19Companion.models.casesData.CountryCasesData
 import it.weMake.covid19Companion.models.casesData.GlobalStats
+import it.weMake.covid19Companion.models.casesData.RegionCasesData
 import it.weMake.covid19Companion.models.preventionTips.PreventionTip
 import it.weMake.covid19Companion.models.screeningTool.*
 import it.weMake.covid19Companion.models.washHandsReminderLocations.WashHandsReminderLocation
 import it.wemake.covid19Companion.domain.models.*
 import it.wemake.covid19Companion.domain.models.casesData.CountryCasesDomainModel
 import it.wemake.covid19Companion.domain.models.casesData.GlobalStatsDomainModel
+import it.wemake.covid19Companion.domain.models.casesData.RegionCasesDataDomainModel
 import it.wemake.covid19Companion.domain.models.preventionTips.PreventionTipDomainModel
 import it.wemake.covid19Companion.domain.models.screeningTool.*
 import it.wemake.covid19Companion.domain.models.washHandsReminderLocations.WashHandsReminderLocationDomainModel
-
-fun AreaCasesDataDomainModel.toPresentation(): AreaCasesData =
-    AreaCasesData(
-        id,
-        displayName,
-        lastUpdated,
-        totalConfirmed,
-        totalDeaths,
-        totalRecovered,
-        totalConfirmedDelta,
-        totalDeathsDelta,
-        totalRecoveredDelta,
-        parentId,
-        hasAreasData
-    )
 
 fun CountryCasesDomainModel.toPresentation(): CountryCasesData =
     CountryCasesData(
@@ -39,7 +26,11 @@ fun CountryCasesDomainModel.toPresentation(): CountryCasesData =
         totalConfirmedDelta,
         totalDeathsDelta,
         totalRecoveredDelta,
-        continent
+        continent,
+        casesPerOneMillion,
+        deathsPerOneMillion,
+        recoveredPerOneMillion,
+        hasRegionalCasesData
     )
 
 fun CountryInfoDomainModel.toPresentation(): CountryInfo =
@@ -119,4 +110,14 @@ fun WashHandsReminderLocationDomainModel.toPresentation(): WashHandsReminderLoca
         lat,
         lng,
         enabled
+    )
+
+fun RegionCasesDataDomainModel.toPresentation(): RegionCasesData =
+    RegionCasesData(
+        displayName,
+        updated,
+        totalConfirmed,
+        totalDeaths,
+        totalRecovered,
+        parentCountryName
     )

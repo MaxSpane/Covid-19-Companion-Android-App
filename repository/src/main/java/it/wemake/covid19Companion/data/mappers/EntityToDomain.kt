@@ -1,12 +1,15 @@
 package it.wemake.covid19Companion.data.mappers
 
 import it.wemake.covid19Companion.data.models.*
+import it.wemake.covid19Companion.data.models.casesData.CountryCasesDataEntity
 import it.wemake.covid19Companion.data.models.casesData.GlobalStatsEntity
+import it.wemake.covid19Companion.data.models.casesData.RegionCasesDataEntity
 import it.wemake.covid19Companion.data.models.preventionTips.PreventionTipEntity
 import it.wemake.covid19Companion.data.models.screeningTool.*
 import it.wemake.covid19Companion.domain.models.*
 import it.wemake.covid19Companion.domain.models.casesData.CountryCasesDomainModel
 import it.wemake.covid19Companion.domain.models.casesData.GlobalStatsDomainModel
+import it.wemake.covid19Companion.domain.models.casesData.RegionCasesDataDomainModel
 import it.wemake.covid19Companion.domain.models.preventionTips.PreventionTipDomainModel
 import it.wemake.covid19Companion.domain.models.screeningTool.*
 import it.wemake.covid19Companion.domain.models.washHandsReminderLocations.WashHandsReminderLocationDomainModel
@@ -24,7 +27,11 @@ internal fun CountryCasesDataEntity.toDomain(): CountryCasesDomainModel =
         totalConfirmedDelta,
         totalDeathsDelta,
         totalRecoveredDelta,
-        continent
+        continent,
+        casesPerOneMillion,
+        deathsPerOneMillion,
+        recoveredPerOneMillion,
+        hasRegionalCasesData
     )
 
 internal fun CountryEntityModel.toDomain(): CountryDomainModel =
@@ -104,4 +111,14 @@ internal fun WashHandsReminderLocationEntity.toDomain(): WashHandsReminderLocati
         lat,
         lng,
         enabled
+    )
+
+internal fun RegionCasesDataEntity.toDomain(): RegionCasesDataDomainModel =
+    RegionCasesDataDomainModel(
+        displayName,
+        updated,
+        totalConfirmed,
+        totalDeaths,
+        totalRecovered,
+        parentCountryName
     )

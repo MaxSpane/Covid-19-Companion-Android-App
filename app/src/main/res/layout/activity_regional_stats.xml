@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,22 +8,40 @@
     tools:context=".ui.regionalStats.RegionalStatsActivity">
 
     <ImageView
+        android:id="@+id/backButtonIV"
+        android:layout_width="34dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="16dp"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/ic_back_button"/>
+
+    <ImageView
         android:alpha="0.1"
         android:scaleType="fitXY"
-        android:id="@+id/countryIV"
+        android:id="@+id/countryFlagIV"
         android:layout_width="270dp"
         android:layout_height="163dp"
-        android:src="@drawable/flag_ng"
-        android:layout_gravity="end"
-        />
+        android:layout_marginTop="50dp"
+        tools:src="@drawable/flag_ng"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
     <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/backButtonIV"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="10dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
+            android:layout_height="match_parent">
 
             <TextView
                 android:id="@+id/countryNameTV"
@@ -42,8 +61,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/countryNameTV"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_width="wrap_content"
-                android:layout_height="100dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginTop="30dp"
@@ -52,8 +71,11 @@
                 android:id="@+id/countryCasesCV">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent">
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="100dp"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp">
 
                     <ImageView
                         android:id="@+id/countryCasesIV"
@@ -80,6 +102,7 @@
                     <TextView
                         android:id="@+id/countryCasesNumberTV"
                         style="@style/Covid19TextView"
+                        android:layout_width="0dp"
                         android:text="200,000"
                         android:textColor="#000000"
                         android:textSize="36sp"
@@ -100,8 +123,8 @@
                 app:layout_constraintTop_toBottomOf="@+id/countryCasesCV"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:cardBackgroundColor="@color/colorPrimary"
-                android:layout_width="wrap_content"
-                android:layout_height="100dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginTop="30dp"
@@ -110,8 +133,11 @@
                 android:id="@+id/countryRecoveredCV">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent">
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="100dp"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp">
 
                     <ImageView
                         android:id="@+id/countryRecoveryIV"
@@ -133,11 +159,12 @@
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toTopOf="@id/countryRecoveryNumberTV"
                         app:layout_constraintVertical_chainStyle="packed"
-                        android:layout_marginStart="80dp"/>
+                        android:layout_marginStart="80dp" />
 
                     <TextView
                         android:id="@+id/countryRecoveryNumberTV"
                         style="@style/Covid19TextView"
+                        android:layout_width="0dp"
                         android:text="200,000"
                         android:textColor="@color/white"
                         android:textSize="36sp"
@@ -160,8 +187,8 @@
                 app:layout_constraintTop_toBottomOf="@+id/countryRecoveredCV"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:cardBackgroundColor="@color/deaths"
-                android:layout_width="wrap_content"
-                android:layout_height="100dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginTop="30dp"
@@ -171,8 +198,11 @@
 
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent">
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="100dp"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp">
 
                     <ImageView
                         android:id="@+id/countryDeathIV"
@@ -199,6 +229,7 @@
                     <TextView
                         android:id="@+id/countryDeathNumberTV"
                         style="@style/Covid19TextView"
+                        android:layout_width="0dp"
                         android:text="200,000"
                         android:textColor="@color/white"
                         android:textSize="36sp"
@@ -212,20 +243,167 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.cardview.widget.CardView>
+
+            <!--       ADDING THE LATEST 8 TEXT VIEWS ABOVE THE RECYCLER VIEW-->
+
+            <!--       beginning of  text view 1-->
+
+            <TextView
+                android:id="@+id/casesTodayTV"
+                style="@style/Covid19TextView"
+                android:text="@string/new_cases_today"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="38dp"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/countryDeathCV"
+                />
+            <!--       beginning of  text view 2    -->
+
+            <TextView
+                android:id="@+id/casesTodayValueTV"
+                style="@style/Covid19TextView"
+                android:text="@string/new_cases_today_value"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="38dp"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="normal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/countryDeathCV"
+                />
+            <!--       beginning of  text view 3-->
+            <TextView
+                android:id="@+id/deathsTodayTV"
+                style="@style/Covid19TextView"
+                android:text="@string/new_deaths_today"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="26dp"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/casesTodayTV"
+                />
+            <!--       beginning of  text view 4    -->
+
+            <TextView
+                android:id="@+id/deathsTodayValueTV"
+                style="@style/Covid19TextView"
+                android:text="@string/new_deaths_today_value"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="26dp"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="normal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/casesTodayValueTV"
+                />
+            <!--       beginning of  text view 5-->
+            <TextView
+                android:id="@+id/casesPerMillionTV"
+                style="@style/Covid19TextView"
+                android:text="@string/cases_per_million"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="26dp"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/deathsTodayTV"
+                />
+            <!--       beginning of  text view 6   -->
+
+            <TextView
+                android:id="@+id/casesPerMillionValueTV"
+                style="@style/Covid19TextView"
+                android:text="@string/cases_per_million_value"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="26dp"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="normal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/deathsTodayValueTV"
+                />
+            <!--       beginning of  text view 7-->
+            <TextView
+                android:id="@+id/deathsPerMillionTV"
+                style="@style/Covid19TextView"
+                android:text="@string/deaths_per_million"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="26dp"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/casesPerMillionTV"
+                />
+            <!--       beginning of  text view 8   -->
+
+            <TextView
+                android:id="@+id/deathsPerMillionValueTV"
+                style="@style/Covid19TextView"
+                android:text="@string/deaths_per_million_value"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="26dp"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="normal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/casesPerMillionValueTV"
+                />
+
+            <!--       ADDING THE LATEST 2 TEXT VIEWS ABOVE THE RECYCLER VIEW-->
+
+
+            <!--       beginning of  text view 1-->
+            <TextView
+                android:id="@+id/statesTV"
+                style="@style/Covid19TextView"
+                android:text="@string/state"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="45dp"
+                android:textColor="#818181"
+                android:textSize="16sp"
+                android:textStyle="normal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/deathsPerMillionTV"
+                />
+            <!--       beginning of  text view 2   -->
+
+            <TextView
+                android:id="@+id/casesTV"
+                style="@style/Covid19TextView"
+                android:text="@string/cases_upper_case"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="45dp"
+                android:textColor="#818181"
+                android:textSize="16sp"
+                android:textStyle="normal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/deathsPerMillionValueTV"
+                />
+
+            <!--       beginning of  Recycler View  -->
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/regionStatsRV"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                app:layout_constraintTop_toBottomOf="@id/countryDeathCV"
+                app:layout_constraintTop_toBottomOf="@id/casesTV"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="42dp"
+                android:layout_marginTop="16dp"
                 tools:listitem="@layout/regional_stats"
                 tools:itemCount="3"
                 android:orientation="vertical"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
 
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
