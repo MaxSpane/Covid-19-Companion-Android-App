@@ -36,7 +36,7 @@ abstract class CountriesCasesDataDao {
     }
 
     fun getAllCountriesCasesDataOrderBy(column: String): Flow<List<CountryCasesDataLocalModel>> {
-        val statement = "SELECT * FROM countries_cases_data ORDER BY $column"
+        val statement = "SELECT * FROM countries_cases_data ORDER BY $column DESC"
         val query: SupportSQLiteQuery = SimpleSQLiteQuery(statement, arrayOf())
         return getCountriesCasesDataViaRawQuery(query)
     }
