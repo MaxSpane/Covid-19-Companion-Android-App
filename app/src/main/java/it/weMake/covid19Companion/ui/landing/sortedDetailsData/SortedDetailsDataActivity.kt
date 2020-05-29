@@ -18,13 +18,13 @@ import javax.inject.Inject
 
 
 class SortedDetailsDataActivity : DaggerAppCompatActivity() {
+
     lateinit var countryCasesStatsAdapter: CountryCasesAdapter
     private lateinit var binding: ActivitySortedDetailsDataBinding
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
     protected val viewModel: SortedDetailsDataViewModel by viewModels { viewModelFactory }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,32 +44,21 @@ class SortedDetailsDataActivity : DaggerAppCompatActivity() {
 
         setContentView(view)
 
-        viewModel.countriesLiveData.observe(this, Observer {countries->
+        viewModel.countriesLiveData.observe(this, Observer {
             // Update the cached copy of the countries in the adapter.
-            countries?.let { countryCasesStatsAdapter.setCountries(it) }
-
-
-
+            countryCasesStatsAdapter.setCountries(it)
         })
         // getting access to the global stats data and displaying when the different pages in the ux design are called
 
         viewModel.globalCasesData.observe(this, Observer {
-            it?.let {
-                var globalDeathStats = it.deaths
-                var globalRecoveredStats = it.recovered
-                var globalConfirmedStats = it.confirmed
-
-                when(sortValue) {
-                    //display different layouts and data based on string value passed
-                    SORT_BY_CONFIRMED -> (callConfirmedCasesView(globalConfirmedStats))
-                    SORT_BY_DEATHS-> (callDeathCasesView(globalDeathStats))
-                    SORT_BY_RECOVERED -> (callRecoveredCasesView(globalRecoveredStats))
-                    else -> println("check code bro ")
-                }
-
+            when(sortValue) {
+                //display different layouts and data based on string value passed
+                SORT_BY_CONFIRMED -> (callConfirmedCasesView(it.confirmed))
+                SORT_BY_DEATHS-> (callDeathCasesView(it.deaths))
+                SORT_BY_RECOVERED -> (callRecoveredCasesView(it.recovered))
+                else -> println("check code bro ")
             }
         })
-
 
     }
 
@@ -77,51 +66,37 @@ class SortedDetailsDataActivity : DaggerAppCompatActivity() {
 
         private const val SORT_VALUE_EXTRA = "sortValueExtra"
 
-
-
         fun open (context: Context, sortValue : String) {
             val intent = Intent(context, SortedDetailsDataActivity::class.java)
-
-
             intent.putExtra(SORT_VALUE_EXTRA, sortValue)
-
-
-           context.startActivity(intent)
-
+            context.startActivity(intent)
         }
     }
 
-
     fun callConfirmedCasesView ( globalconfirmedStats : Int){
 
-        binding.detailsTitleTV.text = "Total Confirmed"
+        binding.detailsTitleTV.text = getString(R.string.total_confirmed)
         binding.detailsValueTV.setTextColor(ContextCompat.getColor(this, R.color.black))
         binding.detailsValueTV.text = globalconfirmedStats.numberWithCommas()
-        binding.confirmedCasesTV.text = "Confirmed Cases by Country"
+        binding.confirmedCasesTV.text = getString(R.string.confirmed_cases_by_country)
         binding.image.setImageResource(R.drawable.ic_cough)
 
-            }
-
+    }
 
     fun callDeathCasesView (gloablDeathStats : Int){
-        binding.detailsTitleTV.text = "Total Deaths"
+        binding.detailsTitleTV.text = getString(R.string.total_deaths)
         binding.detailsValueTV.setTextColor(ContextCompat.getColor(this, R.color.deaths))
         binding.detailsValueTV.text = gloablDeathStats.numberWithCommas()
-        binding.confirmedCasesTV.text = "Death by Country"
+        binding.confirmedCasesTV.text = getString(R.string.deaths_by_country)
         binding.image.setImageResource(R.drawable.ic_vomit)
-
-
-
     }
-
 
     fun callRecoveredCasesView (globalRecoveredStats: Int){
-        binding.detailsTitleTV.text = "Total Recovered"
+        binding.detailsTitleTV.text = getString(R.string.total_recovered)
         binding.detailsValueTV.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary))
         binding.detailsValueTV.text = globalRecoveredStats.numberWithCommas()
-        binding.confirmedCasesTV.text = "Recovered by Country"
+        binding.confirmedCasesTV.text = getString(R.string.recovered_by_country)
         binding.image.setImageResource(R.drawable.ic_mask)
-
-
     }
+
 }

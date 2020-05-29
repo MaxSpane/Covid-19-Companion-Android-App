@@ -104,5 +104,8 @@
     <string name="total_deaths">Total Deaths</string>
     <string name="total_confirmed">Total Confirmed</string>
     <string name="confirmed_cases_country">Cofirmed Cases by Country</string>
+    <string name="confirmed_cases_by_country">Confirmed Cases by Country</string>
+    <string name="deaths_by_country">Deaths by Country</string>
+    <string name="recovered_by_country">Recovered by Country</string>
 
 </resources>
