@@ -8,6 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import it.weMake.covid19Companion.R
 import it.weMake.covid19Companion.databinding.ItemCasesSummaryBinding
 import it.weMake.covid19Companion.models.casesData.GlobalStats
+import it.weMake.covid19Companion.ui.landing.sortedDetailsData.SortedDetailsDataActivity
+import it.weMake.covid19Companion.utils.SORT_BY_CONFIRMED
+import it.weMake.covid19Companion.utils.SORT_BY_DEATHS
+import it.weMake.covid19Companion.utils.SORT_BY_RECOVERED
 import it.weMake.covid19Companion.utils.numberWithCommas
 
 class GlobalCasesStatsAdapter(): RecyclerView.Adapter<GlobalCasesStatsAdapter.Holder>() {
@@ -34,11 +38,20 @@ class GlobalCasesStatsAdapter(): RecyclerView.Adapter<GlobalCasesStatsAdapter.Ho
     inner class Holder(private val itemBinding: ItemCasesSummaryBinding): RecyclerView.ViewHolder(itemBinding.root), View.OnClickListener{
 
         init {
-
             itemView.setOnClickListener(this)
         }
 
-        override fun onClick(v: View?) {
+        override fun onClick(v: View) {
+            val context = itemView.context
+            when(adapterPosition){
+
+                0 -> SortedDetailsDataActivity.open(context, SORT_BY_CONFIRMED)
+
+                1 -> SortedDetailsDataActivity.open(context, SORT_BY_RECOVERED)
+
+                2 -> SortedDetailsDataActivity.open(context, SORT_BY_DEATHS)
+
+            }
         }
 
         fun bind(position: Int) {
