@@ -21,7 +21,7 @@ import it.wemake.covid19Companion.local.utils.DB_NAME
         CountryCasesDataLocalModel::class,
         CountryLocalModel::class,
         PreventionTipLocalModel::class,
-        WashHandsReminderLocationLocalModel::class],
+        WashHandsReminderLocationLocalModel::class,
         RegionCasesDataLocalModel::class
     ],
     version = 1,
