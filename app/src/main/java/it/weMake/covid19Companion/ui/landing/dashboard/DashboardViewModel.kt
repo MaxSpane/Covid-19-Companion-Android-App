@@ -19,7 +19,7 @@ import javax.inject.Inject
 
 class DashboardViewModel
     @Inject constructor(
-        val getCountriesCasesDataUseCase: GetCountriesCasesDataUseCase,
+        val getPagedCountriesCasesDataUseCase: GetPagedCountriesCasesDataUseCase,
         val updateCasesDataUseCase: UpdateCasesDataUseCase,
         val getCasesDataLastUpdatedUseCase: GetCasesDataLastUpdatedUseCase,
         val getGlobalCasesDataUseCase: GetGlobalCasesDataUseCase,
@@ -104,7 +104,7 @@ class DashboardViewModel
     fun loadPage(page: Int, pageSize: Int = 10){
         viewModelScope.launch(handler) {
 
-            getCountriesCasesDataUseCase(page, pageSize, sortBy).map { data -> data.map { it.toPresentation() } }.collect{ it ->
+            getPagedCountriesCasesDataUseCase(page, pageSize, sortBy).map { data -> data.map { it.toPresentation() } }.collect{ it ->
                 _pagedCountriesCasesData.value = PagedData(
                     page,
                     it

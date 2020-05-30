@@ -9,7 +9,7 @@ interface ICasesDataLocal {
 
     suspend fun insertCountriesCasesData(countryCasesData: List<CountryCasesDataEntity>)
 
-    suspend fun getCountriesCasesData(page: Int, pageSize: Int, sortBy: String): Flow<List<CountryCasesDataEntity>>
+    suspend fun getPagedCountriesCasesData(page: Int, pageSize: Int, sortBy: String): Flow<List<CountryCasesDataEntity>>
 
     suspend fun getGlobalCasesData(): Flow<GlobalStatsEntity>
 
@@ -22,5 +22,7 @@ interface ICasesDataLocal {
     suspend fun insertRegionsCasesData(regionsCasesData: List<RegionCasesDataEntity>)
 
     suspend fun getCountryLatestUpdatedDate(countryName: String): Long?
+
+    suspend fun getAllCountriesCasesData(sortBy: String): Flow<List<CountryCasesDataEntity>>
 
 }

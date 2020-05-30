@@ -24,8 +24,8 @@ class CasesDataLocal @Inject constructor(
     }
 
 
-    override suspend fun getCountriesCasesData(page: Int, pageSize: Int, sortBy: String): Flow<List<CountryCasesDataEntity>> =
-        countriesCasesDataDao.getCountriesCasesDataOrderBy(page, pageSize, sortBy).map { countriesCasesData ->
+    override suspend fun getPagedCountriesCasesData(page: Int, pageSize: Int, sortBy: String): Flow<List<CountryCasesDataEntity>> =
+        countriesCasesDataDao.getPagedCountriesCasesDataOrderBy(page, pageSize, sortBy).map { countriesCasesData ->
             countriesCasesData.map {
                 it.toEntity()
             }
@@ -67,5 +67,12 @@ class CasesDataLocal @Inject constructor(
 
     override suspend fun getCountryLatestUpdatedDate(countryName: String): Long? =
         regionsCasesDataDao.getCountryLatestUpdatedDate(countryName)
+
+    override suspend fun getAllCountriesCasesData(sortBy: String): Flow<List<CountryCasesDataEntity>> =
+        countriesCasesDataDao.getAllCountriesCasesDataOrderBy(sortBy).map { countriesCasesData ->
+            countriesCasesData.map {
+                it.toEntity()
+            }
+        }
 
 }

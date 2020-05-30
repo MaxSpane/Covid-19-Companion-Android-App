@@ -98,6 +98,8 @@ class SettingsFragment : DaggerFragment(),View.OnClickListener {
 
             if (isChecked) {
                 openWashHandsDialog()
+//                open(requireContext(),SORT_BY_RECOVERED)
+
             } else {
                 setIntervalWashHand(0)
             }
@@ -106,6 +108,7 @@ class SettingsFragment : DaggerFragment(),View.OnClickListener {
         binding.remDrinkWaterS.setOnCheckedChangeListener { _, isChecked ->
 
             if (isChecked) {
+//                open(requireContext(), SORT_BY_DEATHS)
                 openDrinkWaterDialog()
             } else {
                 setIntervalDrinkWater(0)
@@ -114,6 +117,9 @@ class SettingsFragment : DaggerFragment(),View.OnClickListener {
 
         binding.useCustomNotificationToneS.setOnCheckedChangeListener { _, isChecked ->
             viewModel.setUseCustomNotificationTone(isChecked)
+//            if (isChecked) {
+//                open(requireContext(), SORT_BY_CONFIRMED)
+//            }
         }
 
         binding.remHandLocS.setOnCheckedChangeListener{ _, isChecked ->
@@ -193,6 +199,7 @@ class SettingsFragment : DaggerFragment(),View.OnClickListener {
                 }
 
         }
+        return fragmentBinding.root
     }
 
     private fun setIntervalWashHand(intervalInMinutes: Int) {
@@ -378,3 +385,4 @@ class SettingsFragment : DaggerFragment(),View.OnClickListener {
     }
 
 }
+

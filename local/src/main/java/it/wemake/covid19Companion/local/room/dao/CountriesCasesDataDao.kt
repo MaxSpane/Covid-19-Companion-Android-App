@@ -29,9 +29,16 @@ abstract class CountriesCasesDataDao {
     @RawQuery(observedEntities = [CountryCasesDataLocalModel::class])
     abstract fun getCountriesCasesDataViaRawQuery(query: SupportSQLiteQuery?): Flow<List<CountryCasesDataLocalModel>>
 
-    fun getCountriesCasesDataOrderBy(page: Int, pageSize: Int, column: String): Flow<List<CountryCasesDataLocalModel>> {
+    fun getPagedCountriesCasesDataOrderBy(page: Int, pageSize: Int, column: String): Flow<List<CountryCasesDataLocalModel>> {
         val statement = "SELECT * FROM countries_cases_data ORDER BY $column DESC LIMIT $pageSize OFFSET ($page * 10)"
         val query: SupportSQLiteQuery = SimpleSQLiteQuery(statement, arrayOf())
         return getCountriesCasesDataViaRawQuery(query)
     }
+
+    fun getAllCountriesCasesDataOrderBy(column: String): Flow<List<CountryCasesDataLocalModel>> {
+        val statement = "SELECT * FROM countries_cases_data ORDER BY $column DESC"
+        val query: SupportSQLiteQuery = SimpleSQLiteQuery(statement, arrayOf())
+        return getCountriesCasesDataViaRawQuery(query)
+    }
+
 }

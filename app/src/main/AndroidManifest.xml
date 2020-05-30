@@ -17,6 +17,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ui.about.AboutActivity" />
+        <activity android:name=".ui.landing.sortedDetailsData.SortedDetailsDataActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+        </activity>
+        <activity android:name=".ui.about.AboutActivity"></activity>
         <activity
             android:name=".ui.screeningTool.ScreeningToolActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
@@ -61,16 +70,10 @@
             android:name=".ui.regionalStats.RegionalStatsActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
 
-        <activity android:name=".ui.regionalStats.StateStatsActivity"
-            android:theme="@style/AppTheme.NoActionBar" >
+        <activity
+            android:name=".ui.preventionTips.PreventionTipsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
 
-
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
-        </activity>
     </application>
 
 </manifest>
