@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import it.weMake.covid19Companion.mappers.toPresentation
 import it.weMake.covid19Companion.models.Country
 import it.wemake.covid19Companion.domain.usecases.GetCountriesUseCase
+import it.wemake.covid19Companion.domain.usecases.GetDailyMotivationUseCase
 import it.wemake.covid19Companion.domain.usecases.GetUserCountryIso2UseCase
 import it.wemake.covid19Companion.domain.usecases.SetUserCountryIso2UseCase
 import kotlinx.coroutines.flow.collect
@@ -17,7 +18,8 @@ import javax.inject.Inject
 class SplashScreenViewModel @Inject constructor(
     private val getUserCountryIso2UseCase: GetUserCountryIso2UseCase,
     private val getCountriesUseCase: GetCountriesUseCase,
-    private val setUserCountryIso2UseCase: SetUserCountryIso2UseCase
+    private val setUserCountryIso2UseCase: SetUserCountryIso2UseCase,
+    private val getDailyMotivationUseCase: GetDailyMotivationUseCase
 ) : ViewModel(){
 
     lateinit var userCountryIso2: String
@@ -44,5 +46,8 @@ class SplashScreenViewModel @Inject constructor(
             setUserCountryIso2UseCase(userCountryIso2)
         }
     }
+
+    fun getDailyMotivation(): String =
+        getDailyMotivationUseCase()
 
 }

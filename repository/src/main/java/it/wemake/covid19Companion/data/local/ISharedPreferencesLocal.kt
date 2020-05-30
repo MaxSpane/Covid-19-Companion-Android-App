@@ -34,4 +34,8 @@ interface ISharedPreferencesLocal {
 
     fun setRemindUserToWashHandsWhenArrivedAtLocation(remindUserToWashHandsWhenArrivedAtLocation: Boolean)
 
+    fun getDailyMotivation(): String
+
+    fun setDailyMotivation(dailyMotivation: String)
+
 }

@@ -25,6 +25,10 @@
         <item name="android:textSize">16sp</item>
     </style>
 
+    <style name="Covid19TextView.Body.Semibold" parent="Covid19TextView">
+        <item name="android:textSize">16sp</item>
+    </style>
+
     <style name="Covid19TextView.Body.Bold" parent="Covid19TextView.Body">
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">16sp</item>

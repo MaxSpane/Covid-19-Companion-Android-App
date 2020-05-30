@@ -7,12 +7,30 @@
     tools:context=".ui.splashscreen.SplashScreenActivity">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/app_logo_IV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_logo_full"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:src="@drawable/ic_app_logo_full"
+        app:layout_constraintBottom_toTopOf="@id/daily_motivation_TV"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/daily_motivation_TV"
+        style="@style/Covid19TextView.Body.Semibold"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        tools:text="Even a stopped clock is right twice a day.Love yourself enough to never lower your standards for anyone. Every piece of you is a burst of beautiful."
+        android:textColor="@color/colorPrimaryDark"
+        android:gravity="center"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/app_logo_IV" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

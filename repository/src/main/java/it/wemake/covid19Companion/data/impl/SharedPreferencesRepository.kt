@@ -49,4 +49,10 @@ class SharedPreferencesRepository @Inject constructor(
     ) =
         sharedPreferencesLocal.setRemindUserToWashHandsWhenArrivedAtLocation(remindUserToWashHandsWhenArrivedAtLocation)
 
+    override fun getDailyMotivation(): String =
+        sharedPreferencesLocal.getDailyMotivation()
+
+    override fun setDailyMotivation(dailyMotivation: String) =
+        sharedPreferencesLocal.setDailyMotivation(dailyMotivation)
+
 }

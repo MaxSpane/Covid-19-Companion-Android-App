@@ -27,6 +27,7 @@ class SplashScreenActivity : DaggerAppCompatActivity() {
         binding = ActivitySplashScreenBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.dailyMotivationTV.text = viewModel.getDailyMotivation()
         val handler = Handler()
         val runnable = Runnable {
             observeUserCountryIso2()

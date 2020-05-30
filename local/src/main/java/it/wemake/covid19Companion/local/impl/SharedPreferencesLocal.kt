@@ -59,4 +59,11 @@ class SharedPreferencesLocal @Inject constructor(
     ) =
         covid19CompanionSharedPreferences.setRemindUserToWashHandsWhenArrivedAtLocation(remindUserToWashHandsWhenArrivedAtLocation)
 
+    override fun getDailyMotivation(): String =
+        covid19CompanionSharedPreferences.getDailyMotivation()
+
+    override fun setDailyMotivation(dailyMotivation: String) {
+        covid19CompanionSharedPreferences.setDailyMotivation(dailyMotivation)
+    }
+
 }

@@ -91,4 +91,13 @@ class Covid19CompanionSharedPreferences constructor(
         editor.apply()
     }
 
+    fun getDailyMotivation(): String =
+        covid19CompanionAppSharedPref.getString(DAILY_MOTIVATION, DEFAULT_DAILY_MOTIVATION)!!
+
+    fun setDailyMotivation(dailyMotivation: String) {
+        val editor = covid19CompanionAppSharedPref.edit()
+        editor.putString(DAILY_MOTIVATION, dailyMotivation)
+        editor.apply()
+    }
+
 }

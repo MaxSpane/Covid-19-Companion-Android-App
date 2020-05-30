@@ -184,4 +184,18 @@ class DomainModule {
             return UpdateCountryRegionsCasesDataUseCase(covid19CasesRepository)
     }
 
+    @Provides
+    fun provideGetDailyMotivationUseCase(
+        sharedPreferencesRepository: SharedPreferencesRepository
+    ): GetDailyMotivationUseCase {
+            return GetDailyMotivationUseCase(sharedPreferencesRepository)
+    }
+
+    @Provides
+    fun provideSetDailyMotivationUseCase(
+        sharedPreferencesRepository: SharedPreferencesRepository
+    ): SetDailyMotivationUseCase {
+            return SetDailyMotivationUseCase(sharedPreferencesRepository)
+    }
+
 }
