@@ -181,7 +181,11 @@ class SettingsFragment : DaggerFragment(),View.OnClickListener {
                 if (grantResults.size > 0
                     && grantResults[0] == PackageManager.PERMISSION_GRANTED
                 ) {
-                    requestBackgroundLocationPermission()
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
+                        requestBackgroundLocationPermission()
+                    }else{
+                        openWashHandsReminderLocationDialog(true)
+                    }
                 }else{
                     binding.remHandLocS.isChecked = false
                     showLongToast(requireContext(), getString(R.string.accept_permissions))
@@ -199,7 +203,6 @@ class SettingsFragment : DaggerFragment(),View.OnClickListener {
                 }
 
         }
-        return fragmentBinding.root
     }
 
     private fun setIntervalWashHand(intervalInMinutes: Int) {

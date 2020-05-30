@@ -25,7 +25,6 @@
 <!--                <category android:name="android.intent.category.LAUNCHER" />-->
 <!--            </intent-filter>-->
         </activity>
-        <activity android:name=".ui.about.AboutActivity"></activity>
         <activity
             android:name=".ui.screeningTool.ScreeningToolActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
@@ -70,9 +69,7 @@
             android:name=".ui.regionalStats.RegionalStatsActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
 
-        <activity
-            android:name=".ui.preventionTips.PreventionTipsActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+
 
     </application>
 
