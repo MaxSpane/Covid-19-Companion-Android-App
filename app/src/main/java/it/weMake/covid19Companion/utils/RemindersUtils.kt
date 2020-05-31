@@ -15,6 +15,7 @@ import androidx.core.content.ContextCompat
 import it.weMake.covid19Companion.R
 import it.weMake.covid19Companion.broadcastReceivers.DrinkWaterReminderBroadcast
 import it.weMake.covid19Companion.broadcastReceivers.WashHandsReminderBroadcast
+import it.weMake.covid19Companion.ui.splashscreen.SplashScreenActivity
 
 
 fun minutesToMilliSecs(value: Int): Long = value * 60 * 1000.toLong()
@@ -82,12 +83,19 @@ fun showReminderNotification(
             REMINDERS_NOTIFICATION_DEFAULT_TONE_CHANNEL_ID
         }
 
+    val intent = Intent(context, SplashScreenActivity::class.java).apply {
+        flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+    }
+    val pendingIntent: PendingIntent = PendingIntent.getActivity(context, 0, intent, 0)
+
     val builder: NotificationCompat.Builder = NotificationCompat.Builder(context, channelId)
         .setSmallIcon(R.drawable.ic_virus)
         .setContentTitle(context.getString(R.string.title_notification))
         .setContentText(text)
         .setPriority(NotificationCompat.PRIORITY_HIGH)
         .setCategory(NotificationCompat.CATEGORY_REMINDER)
+        .setContentIntent(pendingIntent)
+        .setAutoCancel(true)
     val soundUri =
         if (useCustomNotificationTone){
             Uri.parse("android.resource://" + context.packageName + "/" + R.raw.cardi_b_corona_virus_alarm_tone)
