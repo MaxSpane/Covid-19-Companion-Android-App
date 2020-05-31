@@ -5,6 +5,7 @@ import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import dagger.android.AndroidInjection
 import dagger.android.DaggerService
+import it.weMake.covid19Companion.R
 import it.weMake.covid19Companion.utils.*
 import it.wemake.covid19Companion.domain.usecases.SetDailyMotivationUseCase
 import javax.inject.Inject
@@ -36,8 +37,12 @@ class MyFirebaseMessagingService : FirebaseMessagingService(){
                 FCM_NOTIFICATION_TYPE_DAILY_MOTIVATION -> {
                     val dailyMotivation = notificationData[FCM_NOTIFICATION_TYPE_DAILY_MOTIVATION]!!
                     setDailyMotivationUseCase(dailyMotivation)
-                    createRemindersNotificationChannel(this, false)
-                    showReminderNotification(this, DAILY_MOTIVATION_NOTIFICATION_ID, dailyMotivation, false)
+                    createDefaultNotificationChannel(this)
+                    showDefaultNotification(
+                        this,
+                        DAILY_MOTIVATION_NOTIFICATION_ID,
+                        getString(R.string.title_motivation_notification),
+                        dailyMotivation)
                 }
 
                 FCM_NOTIFICATION_TYPE_APP_UPDATE_AVAILABLE -> {}
