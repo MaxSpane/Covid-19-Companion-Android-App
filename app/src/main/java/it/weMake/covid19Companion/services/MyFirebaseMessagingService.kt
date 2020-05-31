@@ -34,7 +34,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService(){
             when(notificationData[FCM_KEY_NOTIFICATION_TYPE]){
 
                 FCM_NOTIFICATION_TYPE_DAILY_MOTIVATION -> {
-                    val dailyMotivation = notificationData[FCM_NOTIFICATION_TYPE_DAILY_MOTIVATION + "1"]!! + notificationData[FCM_NOTIFICATION_TYPE_DAILY_MOTIVATION + "2"]!! + notificationData[FCM_NOTIFICATION_TYPE_DAILY_MOTIVATION + "3"]!!
+                    val dailyMotivation = notificationData[FCM_NOTIFICATION_TYPE_DAILY_MOTIVATION]!!
                     setDailyMotivationUseCase(dailyMotivation)
                     createRemindersNotificationChannel(this, false)
                     showReminderNotification(this, DAILY_MOTIVATION_NOTIFICATION_ID, dailyMotivation, false)
