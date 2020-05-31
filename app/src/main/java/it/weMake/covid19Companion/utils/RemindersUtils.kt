@@ -96,6 +96,7 @@ fun showReminderNotification(
         .setCategory(NotificationCompat.CATEGORY_REMINDER)
         .setContentIntent(pendingIntent)
         .setAutoCancel(true)
+        .setStyle(NotificationCompat.BigTextStyle().bigText(text))
     val soundUri =
         if (useCustomNotificationTone){
             Uri.parse("android.resource://" + context.packageName + "/" + R.raw.cardi_b_corona_virus_alarm_tone)
