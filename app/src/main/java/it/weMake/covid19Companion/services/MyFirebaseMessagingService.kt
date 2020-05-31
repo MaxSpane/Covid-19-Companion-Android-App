@@ -35,7 +35,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService(){
             when(notificationData[FCM_KEY_NOTIFICATION_TYPE]){
 
                 FCM_NOTIFICATION_TYPE_DAILY_MOTIVATION -> {
-                    val dailyMotivation = notificationData[FCM_NOTIFICATION_TYPE_DAILY_MOTIVATION]!!
+                    val dailyMotivation = notificationData[FCM_KEY_DAILY_MOTIVATION_MESSAGE]!!
                     setDailyMotivationUseCase(dailyMotivation)
                     createDefaultNotificationChannel(this)
                     showDefaultNotification(
