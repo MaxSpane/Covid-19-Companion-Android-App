@@ -184,4 +184,18 @@ class DomainModule {
             return UpdateCountryRegionsCasesDataUseCase(covid19CasesRepository)
     }
 
+    @Provides
+    fun provideSetUsernameUseCase(
+        sharedPreferencesRepository: SharedPreferencesRepository
+    ): SetUsernameUseCase {
+        return SetUsernameUseCase(sharedPreferencesRepository)
+    }
+
+    @Provides
+    fun provideGetUsernameStringUseCase(
+        sharedPreferencesRepository: SharedPreferencesRepository
+    ): GetUsernameUseCase {
+        return  GetUsernameUseCase(sharedPreferencesRepository)
+    }
+
 }

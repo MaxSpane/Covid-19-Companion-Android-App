@@ -120,6 +120,10 @@
     <string name="unknown">Unknown</string>
     <string name="error_update_regional_cases_data">Could not update Regional Cases Data. Please try again.</string>
     <string name="error_update_cases_data">Could not update Cases Data. Please try again.</string>
-    <string name="set_username">Set Username</string>
+    <string name="change_username">Change Username</string>
+    <string name="username">Username</string>
+    <string name="enter_username">Enter Username</string>
+    <string name="survivor">Survivor</string>
+    <string name="change_country">Change Country</string>
 
 </resources>

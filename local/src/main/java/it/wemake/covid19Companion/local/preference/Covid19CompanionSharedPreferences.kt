@@ -91,4 +91,13 @@ class Covid19CompanionSharedPreferences constructor(
         editor.apply()
     }
 
+    fun getUsername(): String =
+        covid19CompanionAppSharedPref.getString(USERNAME, "Survivor")!!
+
+    fun setUsername(username: String) {
+        val editor = covid19CompanionAppSharedPref.edit()
+        editor.putString(USERNAME, username)
+        editor.apply()
+    }
+
 }

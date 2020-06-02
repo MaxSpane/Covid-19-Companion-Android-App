@@ -30,4 +30,9 @@ interface ISharedPreferencesRepository {
 
     fun setRemindUserToWashHandsWhenArrivedAtLocation(remindUserToWashHandsWhenArrivedAtLocation: Boolean)
 
+    fun getUsername(): String
+
+    fun setUsername(username: String)
+
+
 }

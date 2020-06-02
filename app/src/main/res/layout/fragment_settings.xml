@@ -37,10 +37,21 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="64dp"
             android:textSize="16sp"
-            android:text="@string/set_username"
+            android:text="@string/change_username"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_settings"
+            />
+
+        <TextView
+            android:id="@+id/displayUsernameTV"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:text="@string/survivor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/usernameTV"
+            app:layout_constraintBottom_toBottomOf="@+id/usernameTV"
             />
         <!--       creating a lineview below  the username -->
 
@@ -54,6 +65,41 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/usernameTV"
             />
+<!--       creating a textview for the country -->
+
+        <TextView
+            android:id="@+id/countryTV"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="33dp"
+            android:textSize="16sp"
+            android:text="@string/change_country"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/usernameTV"
+            />
+
+        <ImageView
+            android:id="@+id/countryIV"
+            android:layout_width="45dp"
+            android:layout_height="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/countryTV"
+            app:layout_constraintBottom_toBottomOf="@+id/countryTV"
+
+            />
+        <!--       creating a lineview below  the username -->
+
+        <View
+            android:id="@+id/v_LineCountry"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/grey"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/countryTV"
+            />
 
         <!--       beginning of old code -->
 
@@ -66,7 +112,7 @@
             android:text="@string/rem_hand_loc"
             app:layout_constraintEnd_toStartOf="@+id/rem_hand_locS"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/usernameTV"
+            app:layout_constraintTop_toBottomOf="@+id/countryTV"
             />
 
         <Switch

@@ -19,11 +19,13 @@ import com.google.android.gms.location.Geofence
 import com.google.android.gms.location.GeofencingClient
 import com.google.android.gms.location.GeofencingRequest
 import com.google.android.gms.location.LocationServices
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.android.support.DaggerFragment
 import it.weMake.covid19Companion.R
 import it.weMake.covid19Companion.broadcastReceivers.GeofenceBroadcastReceiver
 import it.weMake.covid19Companion.databinding.FragmentSettingsBinding
 import it.weMake.covid19Companion.models.washHandsReminderLocations.WashHandsReminderLocation
+import it.weMake.covid19Companion.ui.landing.settings.usernameBottomDialog.UsernameBottomDialogFragment
 import it.weMake.covid19Companion.ui.landing.settings.washHandsReminderLocation.WashHandsReminderLocationBottomDialogFragment
 import it.weMake.covid19Companion.utils.*
 import javax.inject.Inject
@@ -52,7 +54,32 @@ class SettingsFragment : DaggerFragment(),View.OnClickListener {
         savedInstanceState: Bundle?
     ): View? {
 
+
         binding = FragmentSettingsBinding.inflate(inflater, container, false)
+
+        //display the username
+        binding.displayUsernameTV.text = viewModel.getUsername()
+
+        // setting the country iso selected
+
+        binding.countryTV.setOnClickListener {
+                viewModel.countriesLiveData.observe(viewLifecycleOwner, Observer {countries->
+                    MaterialAlertDialogBuilder(requireContext())
+                        .setTitle("Welcome Survivor, choose where your Loyalties lie.")
+                        .setItems(countries.map { it.name }.toTypedArray()) {_, which ->
+                            viewModel.setUserCountryIso(countries[which].iso2!!)
+                            //setting the image of the country
+                            getFlagResourceId(requireContext(), countries[which].iso2!!)?.let {flagResId -> binding.countryIV.setImageResource(flagResId) }
+
+                        }
+                        .setCancelable(true)
+                        .create()
+                        .show()
+                })
+
+            }
+
+
         geofencingUtils = GeofencingUtils(requireContext())
 
         reminderLocationAdapter = ReminderLocationAdapter(
@@ -93,6 +120,20 @@ class SettingsFragment : DaggerFragment(),View.OnClickListener {
     }
 
     private fun attachObservers() {
+
+        // observe the country iso selected
+        viewModel.userCountryIso2LiveData.observe(viewLifecycleOwner, Observer {
+            getFlagResourceId(requireContext(), it)?.let {flagResId -> binding.countryIV.setImageResource(flagResId) }
+
+        })
+
+        //setting an OnClickListener on the username Textview
+        binding.usernameTV.setOnClickListener {
+                openUsernameBottomDialog()
+        }
+        //display the username
+        binding.displayUsernameTV.text = viewModel.getUsername()
+
 
         binding.remWashHandsS.setOnCheckedChangeListener { _, isChecked ->
 
@@ -370,7 +411,9 @@ class SettingsFragment : DaggerFragment(),View.OnClickListener {
 
     }
 
-    private fun openWashHandsReminderLocationDialog(isNewLocation: Boolean, reminderLocation: WashHandsReminderLocation = WashHandsReminderLocation()){
+    private fun openWashHandsReminderLocationDialog(isNewLocation: Boolean,
+                                                    reminderLocation: WashHandsReminderLocation = WashHandsReminderLocation()
+                                                    ){
         WashHandsReminderLocationBottomDialogFragment(
             isNewLocation,
             reminderLocation,
@@ -386,6 +429,19 @@ class SettingsFragment : DaggerFragment(),View.OnClickListener {
             }
         ).show(childFragmentManager, "WashHandsReminderLocation")
     }
+
+
+    private fun openUsernameBottomDialog() {
+        UsernameBottomDialogFragment(
+            viewModel.getUsername()
+        ) {
+            viewModel.setUsername(it!!)
+            //display the username
+            binding.displayUsernameTV.text = it
+        }.show(childFragmentManager, "Username")
+
+    }
+
 
 }
 
