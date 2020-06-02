@@ -61,6 +61,7 @@ class SplashScreenActivity : DaggerAppCompatActivity() {
                 .setItems(countries.map { it.name }.toTypedArray()) {_, which ->
                     viewModel.setUserCountryIso(countries[which].iso2!!)
                     openActivity(PreventionTipsActivity::class.java)
+
                 }
                 .setCancelable(false)
                 .create()
