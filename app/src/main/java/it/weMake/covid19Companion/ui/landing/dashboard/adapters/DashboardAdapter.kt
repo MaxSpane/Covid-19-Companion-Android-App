@@ -62,7 +62,10 @@ class DashboardAdapter(
         return CountryCaseHolder(ItemCountryCasesSummaryBinding.bind(view))
     }
 
-    override fun getItemCount(): Int = if (pageTop == 0){countryCases.size + VIEW_TYPE_USER_COUNTRY_CASES}else{countryCases.size}
+    override fun getItemCount(): Int = if (pageTop == 0){
+        countryCases.size + VIEW_TYPE_USER_COUNTRY_CASES
+    }else{
+        countryCases.size}
 
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
 
@@ -118,12 +121,18 @@ class DashboardAdapter(
 
         when{
 
-            pagedData.page == 0 && pagedData.data.size == 20 -> {
+            pagedData.page == 0 && pagedData.data.size == 20 &&  pageTop == 0-> {
                 if (countryCases.size > 1){
                     countryCases.subList(1, countryCases.size).clear()
                 }
                 countryCases.addAll(pagedData.data)
                 notifyDataSetChanged()
+            }
+
+            pagedData.page == 0 && pagedData.data.size == 20-> {
+                pageTop = 0
+                pageBottom = 1
+                refill(pagedData)
             }
 
             pagedData.page < pageTop ->{

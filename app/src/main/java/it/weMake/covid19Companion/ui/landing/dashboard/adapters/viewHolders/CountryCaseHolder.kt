@@ -33,8 +33,12 @@ class CountryCaseHolder(private val binding: ItemCountryCasesSummaryBinding): Re
         this.itemData = itemData
 
         binding.countryNameTV.text = itemData.displayName
+        if (itemData.countryInfo.iso2 == "DO"){
+            Log.d("problem child", "Here I am!!!!!")
+        }
         itemData.countryInfo.iso2.let {
-            getFlagResourceId(itemView.context, it)?.let {flagResId -> binding.flagIV.setImageResource(flagResId) }
+            getFlagResourceId(itemView.context, it)?.let {flagResId ->
+                binding.flagIV.setImageResource(flagResId) }
 
         }
         binding.confirmedValueTV.text = if(itemData.totalConfirmed == null){"Unknown"}else{itemData.totalConfirmed.numberWithCommas()}

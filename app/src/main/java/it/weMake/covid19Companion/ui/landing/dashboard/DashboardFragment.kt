@@ -44,11 +44,19 @@ class DashboardFragment : DaggerFragment(), View.OnClickListener {
         attachObservers()
 
         viewModel.updateCasesData()
-
+        binding.goUpFAB.setOnClickListener(this)
         return binding.root
     }
 
     override fun onClick(v: View) {
+        if (v.id == R.id.goUpFAB){
+            if(dashboardAdapter.pageTop == 0){
+                binding.dashboardRV.smoothScrollToPosition(0)
+            }else{
+                viewModel.loadPage(0, 20)
+                binding.dashboardRV.scrollToPosition(0)
+            }
+        }
     }
 
     private fun attachObservers(){
@@ -77,17 +85,23 @@ class DashboardFragment : DaggerFragment(), View.OnClickListener {
                 super.onScrolled(recyclerView, dx, dy)
 
                 if (dashboardAdapter.itemCount != 3){
+                    val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+
                     if(dy > 0){
                         Log.i("RecyclerView scrolled: ", "scroll up!")
-                        val layoutManager = recyclerView.layoutManager as LinearLayoutManager
                         if (layoutManager.findLastVisibleItemPosition() == 17)
                             viewModel.loadPage(dashboardAdapter.pageBottom + 1)
                     }
                     else{
                         Log.i("RecyclerView scrolled: ", "scroll down!")
-                        val layoutManager = recyclerView.layoutManager as LinearLayoutManager
                         if (layoutManager.findFirstVisibleItemPosition() == 3 && dashboardAdapter.pageTop != 0)
                             viewModel.loadPage(dashboardAdapter.pageTop - 1)
+                    }
+
+                    if(layoutManager.findFirstVisibleItemPosition() > 3 ){
+                        binding.goUpFAB.show()
+                    }else if(dashboardAdapter.pageTop == 0){
+                        binding.goUpFAB.makeDisappear()
                     }
                 }
 
