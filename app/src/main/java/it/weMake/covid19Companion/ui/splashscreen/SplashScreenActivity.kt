@@ -3,6 +3,7 @@ package it.weMake.covid19Companion.ui.splashscreen
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.view.HapticFeedbackConstants
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -22,6 +23,8 @@ class SplashScreenActivity : DaggerAppCompatActivity() {
     lateinit var viewModelFactory: ViewModelProvider.Factory
     protected val viewModel: SplashScreenViewModel by viewModels { viewModelFactory }
 
+    private var longPressed = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySplashScreenBinding.inflate(layoutInflater)
@@ -30,10 +33,20 @@ class SplashScreenActivity : DaggerAppCompatActivity() {
         binding.dailyMotivationTV.text = viewModel.getDailyMotivation()
         val handler = Handler()
         val runnable = Runnable {
-            observeUserCountryIso2()
+            if (!longPressed)
+                observeUserCountryIso2()
         }
 
         handler.postDelayed(runnable, 2 * ONE_SECOND_IN_MILLI)
+
+        binding.splashscreenCL.setOnLongClickListener {
+            longPressed = true
+            true
+        }
+
+        binding.splashscreenCL.setOnClickListener {
+            observeUserCountryIso2()
+        }
     }
 
     private fun openActivity(activityClass: Class<*>) {
