@@ -131,5 +131,10 @@
     <string name="update_app">Update App</string>
     <string name="placeholder_version_name">Version %s</string>
     <string name="what_s_new">What\'s new</string>
+    <string name="change_username">Change Username</string>
+    <string name="username">Username</string>
+    <string name="enter_username">Enter Username</string>
+    <string name="survivor">Survivor</string>
+    <string name="change_country">Change Country</string>
 
 </resources>

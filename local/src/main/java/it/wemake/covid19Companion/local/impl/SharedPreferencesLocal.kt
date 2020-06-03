@@ -80,4 +80,12 @@ class SharedPreferencesLocal @Inject constructor(
         covid19CompanionSharedPreferences.setAppUpdateDownloadId(downloadId)
     }
 
+    override fun getUsername(): String =
+        covid19CompanionSharedPreferences.getUsername()
+
+
+    override fun setUsername(username: String) =
+        covid19CompanionSharedPreferences.setUsername(username)
+
+
 }

@@ -69,4 +69,10 @@ class SharedPreferencesRepository @Inject constructor(
         sharedPreferencesLocal.setAppUpdateDownloadId(downloadId)
     }
 
+    override fun getUsername(): String =
+        sharedPreferencesLocal.getUsername()
+
+    override fun setUsername(username: String) =
+        sharedPreferencesLocal.setUsername(username)
+
 }

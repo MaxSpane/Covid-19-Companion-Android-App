@@ -46,4 +46,8 @@ interface ISharedPreferencesLocal {
 
     fun setAppUpdateDownloadId(downloadId: Long)
 
+    fun getUsername(): String
+
+    fun setUsername(username: String )
+
 }

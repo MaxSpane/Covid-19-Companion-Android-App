@@ -226,4 +226,18 @@ class DomainModule {
         return SetLatestVersionCodeUseCase(sharedPreferencesRepository)
     }
 
+    @Provides
+    fun provideSetUsernameUseCase(
+        sharedPreferencesRepository: SharedPreferencesRepository
+    ): SetUsernameUseCase {
+        return SetUsernameUseCase(sharedPreferencesRepository)
+    }
+
+    @Provides
+    fun provideGetUsernameStringUseCase(
+        sharedPreferencesRepository: SharedPreferencesRepository
+    ): GetUsernameUseCase {
+        return  GetUsernameUseCase(sharedPreferencesRepository)
+    }
+
 }
