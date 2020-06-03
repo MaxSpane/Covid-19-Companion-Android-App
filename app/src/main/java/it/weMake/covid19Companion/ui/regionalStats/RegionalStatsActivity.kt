@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -12,13 +11,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.android.support.DaggerAppCompatActivity
 import it.weMake.covid19Companion.R
 import it.weMake.covid19Companion.commons.Error
-import it.weMake.covid19Companion.commons.Loading
-import it.weMake.covid19Companion.commons.Success
 import it.weMake.covid19Companion.databinding.ActivityRegionalStatsBinding
 import it.weMake.covid19Companion.models.casesData.CountryCasesData
 import it.weMake.covid19Companion.utils.getFlagResourceId
 import it.weMake.covid19Companion.utils.numberWithCommas
-import it.weMake.covid19Companion.utils.showLongToast
+import it.weMake.covid19Companion.utils.showShortToast
 import javax.inject.Inject
 
 
@@ -89,7 +86,7 @@ class RegionalStatsActivity : DaggerAppCompatActivity() {
             when (it) {
 //                is Success -> binding.regionStatsSRL.isRefreshing = false
                 is Error -> {
-                    showLongToast(this, getString(R.string.error_update_regional_cases_data))
+                    showShortToast(this, getString(R.string.error_update_regional_cases_data))
                 }
 //                is Loading -> binding.regionStatsSRL.isRefreshing = true
             }

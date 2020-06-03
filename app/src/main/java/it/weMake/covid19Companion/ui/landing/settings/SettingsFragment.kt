@@ -1,8 +1,6 @@
 package it.weMake.covid19Companion.ui.landing.settings
 
 import android.Manifest
-import android.app.Activity.RESULT_OK
-import android.app.PendingIntent
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
@@ -15,14 +13,9 @@ import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.gms.location.Geofence
-import com.google.android.gms.location.GeofencingClient
-import com.google.android.gms.location.GeofencingRequest
-import com.google.android.gms.location.LocationServices
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.android.support.DaggerFragment
 import it.weMake.covid19Companion.R
-import it.weMake.covid19Companion.broadcastReceivers.GeofenceBroadcastReceiver
 import it.weMake.covid19Companion.databinding.FragmentSettingsBinding
 import it.weMake.covid19Companion.models.washHandsReminderLocations.WashHandsReminderLocation
 import it.weMake.covid19Companion.ui.landing.settings.usernameBottomDialog.UsernameBottomDialogFragment
@@ -236,7 +229,7 @@ class SettingsFragment : DaggerFragment(),View.OnClickListener {
                     }
                 }else{
                     binding.remHandLocS.isChecked = false
-                    showLongToast(requireContext(), getString(R.string.accept_permissions))
+                    showShortToast(requireContext(), getString(R.string.accept_permissions))
                 }
 
             MY_PERMISSIONS_REQUEST_BACKGROUND_LOCATION ->
@@ -247,7 +240,7 @@ class SettingsFragment : DaggerFragment(),View.OnClickListener {
                     openWashHandsReminderLocationDialog(true)
                 }else{
                     binding.remHandLocS.isChecked = false
-                    showLongToast(requireContext(), getString(R.string.accept_permissions))
+                    showShortToast(requireContext(), getString(R.string.accept_permissions))
                 }
 
         }

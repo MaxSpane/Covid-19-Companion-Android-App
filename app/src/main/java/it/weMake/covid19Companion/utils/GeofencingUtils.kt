@@ -4,7 +4,6 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import com.google.android.gms.location.Geofence
-import com.google.android.gms.location.GeofencingClient
 import com.google.android.gms.location.GeofencingRequest
 import com.google.android.gms.location.LocationServices
 import it.weMake.covid19Companion.broadcastReceivers.GeofenceBroadcastReceiver
@@ -38,12 +37,12 @@ class GeofencingUtils(private val context: Context) {
             addOnSuccessListener {
                 // Geofences added
                 // ...
-                showLongToast(context, "Added geofence!!!!")
+                showShortToast(context, "Added geofence!!!!")
             }
             addOnFailureListener {
                 // Failed to add geofences
                 // ...
-                showLongToast(context, "Failed to add geofence!!!!")
+                showShortToast(context, "Failed to add geofence!!!!")
                 it.printStackTrace()
             }
         }

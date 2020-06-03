@@ -240,4 +240,18 @@ class DomainModule {
         return  GetUsernameUseCase(sharedPreferencesRepository)
     }
 
+    @Provides
+    fun provideGetHasLongPressedSplashscreenUseCase(
+        sharedPreferencesRepository: SharedPreferencesRepository
+    ): GetHasLongPressedSplashscreenUseCase {
+        return  GetHasLongPressedSplashscreenUseCase(sharedPreferencesRepository)
+    }
+
+    @Provides
+    fun provideSetHasLongPressedSplashscreenUseCase(
+        sharedPreferencesRepository: SharedPreferencesRepository
+    ): SetHasLongPressedSplashscreenUseCase {
+        return  SetHasLongPressedSplashscreenUseCase(sharedPreferencesRepository)
+    }
+
 }

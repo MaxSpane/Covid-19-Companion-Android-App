@@ -15,13 +15,12 @@ import it.weMake.covid19Companion.R
 import it.weMake.covid19Companion.commons.Error
 import it.weMake.covid19Companion.commons.Success
 import it.weMake.covid19Companion.databinding.FragmentQuestionBinding
-import it.weMake.covid19Companion.ui.preventionTips.PreventionTipsViewPagerAdapter
 import it.weMake.covid19Companion.ui.screeningTool.ScreeningToolViewModel
 import it.weMake.covid19Companion.ui.screeningTool.adapters.QuestionItemsAdapter
 import it.weMake.covid19Companion.utils.QUESTION_TYPE_GROUP_MULTIPLE
 import it.weMake.covid19Companion.utils.QUESTION_TYPE_GROUP_SINGLE
 import it.weMake.covid19Companion.utils.QUESTION_TYPE_SINGLE
-import it.weMake.covid19Companion.utils.showLongToast
+import it.weMake.covid19Companion.utils.showShortToast
 import javax.inject.Inject
 
 /**
@@ -60,7 +59,7 @@ class QuestionFragment : DaggerFragment(), View.OnClickListener {
                 val evidence = questionItemsAdapter.getEvidence()
 
                 if (evidence.isEmpty()){
-                    showLongToast(requireContext(), getString(R.string.no_option_selected))
+                    showShortToast(requireContext(), getString(R.string.no_option_selected))
                 }else{
                     activityViewModel.nextQuestion(evidence)
                 }
@@ -82,7 +81,7 @@ class QuestionFragment : DaggerFragment(), View.OnClickListener {
                     findNavController().navigate(R.id.action_initialQuestionsFragment_to_questionFragment)
                 }
 
-                is Error -> showLongToast(requireContext(), getString(R.string.error_loading_question))
+                is Error -> showShortToast(requireContext(), getString(R.string.error_loading_question))
             }
         })
 

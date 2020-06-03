@@ -137,5 +137,7 @@
     <string name="survivor">Survivor</string>
     <string name="change_country">Change Country</string>
     <string name="title_daily_motivation">DAILY MOTIVATION</string>
+    <string name="instructions_long_press_splashscreen">Press and hold anywhere to pin the Splashscreen</string>
+    <string name="instructions_tap_splashscreen">"Tap anywhere to dismiss the Splashscreen"</string>
 
 </resources>

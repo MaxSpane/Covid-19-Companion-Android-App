@@ -127,4 +127,13 @@ class Covid19CompanionSharedPreferences constructor(
         editor.apply()
     }
 
+    fun getHasLongPressedSplashscreen(): Boolean =
+        covid19CompanionAppSharedPref.getBoolean(HAS_LONG_PRESSED_SPLASHSCREEN, false)
+
+    fun setHasLongPressedSplashscreen(hasLongPressedSplashscreen: Boolean) {
+        val editor = covid19CompanionAppSharedPref.edit()
+        editor.putBoolean(HAS_LONG_PRESSED_SPLASHSCREEN, hasLongPressedSplashscreen)
+        editor.apply()
+    }
+
 }

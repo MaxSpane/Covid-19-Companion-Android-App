@@ -6,12 +6,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
-import android.widget.EditText
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.Autocomplete
 import com.google.android.libraries.places.widget.AutocompleteActivity
@@ -20,7 +16,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import it.weMake.covid19Companion.R
 import it.weMake.covid19Companion.databinding.FragmentWashHandReminderLocationBinding
 import it.weMake.covid19Companion.models.washHandsReminderLocations.WashHandsReminderLocation
-import it.weMake.covid19Companion.utils.showLongToast
+import it.weMake.covid19Companion.utils.showShortToast
 
 /**
  * A simple [Fragment] subclass.
@@ -88,9 +84,9 @@ class WashHandsReminderLocationBottomDialogFragment(
                 val locationName = binding.locationNameET.text.toString().trim()
 
                 if (locationName.isEmpty()){
-                    showLongToast(requireContext(), "Enter a Name for the Location")
+                    showShortToast(requireContext(), "Enter a Name for the Location")
                 }else if(reminderLocation.address.isEmpty()){
-                    showLongToast(requireContext(), "Enter an Address for the Location")
+                    showShortToast(requireContext(), "Enter an Address for the Location")
                 }else{
                     reminderLocation.name = locationName
                     if (isNewLocation){

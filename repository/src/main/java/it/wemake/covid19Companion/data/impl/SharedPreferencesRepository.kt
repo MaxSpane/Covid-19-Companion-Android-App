@@ -75,4 +75,11 @@ class SharedPreferencesRepository @Inject constructor(
     override fun setUsername(username: String) =
         sharedPreferencesLocal.setUsername(username)
 
+    override fun getHasLongPressedSplashscreen(): Boolean =
+        sharedPreferencesLocal.getHasLongPressedSplashscreen()
+
+    override fun setHasLongPressedSplashscreen(hasLongPressedSplashscreen: Boolean) {
+        sharedPreferencesLocal.setHasLongPressedSplashscreen(hasLongPressedSplashscreen)
+    }
+
 }

@@ -102,7 +102,7 @@ class DashboardFragment : DaggerFragment(), View.OnClickListener {
                 is Success -> binding.dashboardSRL.isRefreshing = false
                 is Error -> {
                     binding.dashboardSRL.isRefreshing = false
-                    showLongToast(requireContext(), getString(R.string.error_update_cases_data))
+                    showShortToast(requireContext(), getString(R.string.error_update_cases_data))
                 }
                 is Loading -> binding.dashboardSRL.isRefreshing = true
             }

@@ -18,3 +18,4 @@ const val DEFAULT_DAILY_MOTIVATION = "Even a stopped clock is right twice a day.
 const val LATEST_VERSION_CODE = "Latest Version Code"
 const val APP_UPDATE_DOWNLOAD_ID = "App Update Download ID"
 const val USERNAME = "username"
+const val HAS_LONG_PRESSED_SPLASHSCREEN = "Has Long Pressed Splashscreen"

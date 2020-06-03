@@ -1,19 +1,16 @@
 package it.weMake.covid19Companion.ui.landing.help
 
-import android.Manifest
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
-import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.fragment.app.viewModels
@@ -124,7 +121,7 @@ class HelpFragment : DaggerFragment(), View.OnClickListener {
 
     private fun downloadHandHygienePDF(){
         binding.handHygienePB.show()
-        showLongToast(requireContext(), "Downloading Hand Hygiene Brochure(477kb)")
+        showShortToast(requireContext(), "Downloading Hand Hygiene Brochure(477kb)")
         DownloadManagerIntentService.startActionDownloadWHOHandHygieneBrochure(requireContext())
     }
 

@@ -46,5 +46,8 @@ interface ISharedPreferencesRepository {
 
     fun setUsername(username: String)
 
+    fun getHasLongPressedSplashscreen(): Boolean
+
+    fun setHasLongPressedSplashscreen(hasLongPressedSplashscreen: Boolean)
 
 }

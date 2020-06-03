@@ -13,11 +13,10 @@ import dagger.android.support.DaggerFragment
 
 import it.weMake.covid19Companion.R
 import it.weMake.covid19Companion.commons.Error
-import it.weMake.covid19Companion.commons.Loading
 import it.weMake.covid19Companion.commons.Success
 import it.weMake.covid19Companion.databinding.FragmentInitialQuestionsBinding
 import it.weMake.covid19Companion.ui.screeningTool.ScreeningToolViewModel
-import it.weMake.covid19Companion.utils.showLongToast
+import it.weMake.covid19Companion.utils.showShortToast
 import javax.inject.Inject
 
 /**
@@ -50,9 +49,9 @@ class InitialQuestionsFragment : DaggerFragment(), View.OnClickListener {
             R.id.nextMB -> {
 
                 if (!binding.maleRB.isChecked && !binding.femaleRB.isChecked){
-                    showLongToast(requireContext(), getString(R.string.select_gender))
+                    showShortToast(requireContext(), getString(R.string.select_gender))
                 }else if (binding.ageET.text.isEmpty()){
-                    showLongToast(requireContext(), getString(R.string.enter_age))
+                    showShortToast(requireContext(), getString(R.string.enter_age))
                 }else{
                     val gender = if (binding.maleRB.isChecked){ "male" } else { "female" }
                     val age = binding.ageET.text.toString().toInt()
@@ -76,7 +75,7 @@ class InitialQuestionsFragment : DaggerFragment(), View.OnClickListener {
                     findNavController().navigate(R.id.action_initialQuestionsFragment_to_questionFragment)
                 }
 
-                is Error -> showLongToast(requireContext(), getString(R.string.error_loading_question))
+                is Error -> showShortToast(requireContext(), getString(R.string.error_loading_question))
             }
         })
     }

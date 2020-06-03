@@ -33,7 +33,7 @@ fun RecyclerView.initRecyclerViewWithLineDecoration(context: Context) {
     addItemDecoration(itemDecoration)
 }
 
-fun showLongToast(context: Context, message: String){
+fun showShortToast(context: Context, message: String){
     Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
 }
 
