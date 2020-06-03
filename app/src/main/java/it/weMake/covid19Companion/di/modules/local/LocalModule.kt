@@ -24,4 +24,8 @@ abstract class LocalModule {
     internal abstract fun bindWashHandsReminderLocationsLocal( washHandsReminderLocationsLocal: WashHandsReminderLocationsLocal)
             : IWashHandsReminderLocationsLocal
 
+    @Binds
+    internal abstract fun bindAppReleasesLocal( appReleasesLocal: AppReleasesLocal)
+            : IAppReleasesLocal
+
 }

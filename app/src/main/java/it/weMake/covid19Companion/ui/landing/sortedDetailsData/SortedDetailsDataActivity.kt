@@ -85,7 +85,7 @@ class SortedDetailsDataActivity : DaggerAppCompatActivity() {
 
     fun callDeathCasesView (gloablDeathStats : Int){
         binding.detailsTitleTV.text = getString(R.string.total_deaths)
-        binding.detailsValueTV.setTextColor(ContextCompat.getColor(this, R.color.deaths))
+        binding.detailsValueTV.setTextColor(ContextCompat.getColor(this, R.color.red))
         binding.detailsValueTV.text = gloablDeathStats.numberWithCommas()
         binding.confirmedCasesTV.text = getString(R.string.deaths_by_country)
         binding.image.setImageResource(R.drawable.ic_vomit)

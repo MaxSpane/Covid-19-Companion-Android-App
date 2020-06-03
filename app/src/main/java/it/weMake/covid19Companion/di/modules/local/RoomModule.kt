@@ -4,11 +4,7 @@ import android.content.Context
 import dagger.Module
 import dagger.Provides
 import it.wemake.covid19Companion.local.room.AppDatabase
-import it.wemake.covid19Companion.local.room.dao.CountriesCasesDataDao
-import it.wemake.covid19Companion.local.room.dao.CountriesDao
-import it.wemake.covid19Companion.local.room.dao.PreventionTipsDao
-import it.wemake.covid19Companion.local.room.dao.WashHandsReminderLocationsDao
-import it.wemake.covid19Companion.local.room.dao.RegionsCasesDataDao
+import it.wemake.covid19Companion.local.room.dao.*
 import javax.inject.Named
 
 @Module
@@ -36,5 +32,9 @@ class RoomModule {
     @Provides
     fun provideRegionsCasesDataDao(database: AppDatabase): RegionsCasesDataDao =
         database.getRegionsCasesDataDao()
+
+    @Provides
+    fun provideAppReleasesDao(database: AppDatabase): AppReleasesDao =
+        database.getAppReleasesDao()
 
 }

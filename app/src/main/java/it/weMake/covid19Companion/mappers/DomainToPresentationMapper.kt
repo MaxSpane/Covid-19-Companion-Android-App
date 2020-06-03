@@ -1,6 +1,7 @@
 package it.weMake.covid19Companion.mappers
 
 import it.weMake.covid19Companion.models.*
+import it.weMake.covid19Companion.models.appReleases.AppRelease
 import it.weMake.covid19Companion.models.casesData.CountryCasesData
 import it.weMake.covid19Companion.models.casesData.GlobalStats
 import it.weMake.covid19Companion.models.casesData.RegionCasesData
@@ -8,6 +9,7 @@ import it.weMake.covid19Companion.models.preventionTips.PreventionTip
 import it.weMake.covid19Companion.models.screeningTool.*
 import it.weMake.covid19Companion.models.washHandsReminderLocations.WashHandsReminderLocation
 import it.wemake.covid19Companion.domain.models.*
+import it.wemake.covid19Companion.domain.models.appReleases.AppReleaseDomainModel
 import it.wemake.covid19Companion.domain.models.casesData.CountryCasesDomainModel
 import it.wemake.covid19Companion.domain.models.casesData.GlobalStatsDomainModel
 import it.wemake.covid19Companion.domain.models.casesData.RegionCasesDataDomainModel
@@ -120,4 +122,10 @@ fun RegionCasesDataDomainModel.toPresentation(): RegionCasesData =
         totalDeaths,
         totalRecovered,
         parentCountryName
+    )
+
+fun AppReleaseDomainModel.toPresentation(): AppRelease =
+    AppRelease(
+        versionName,
+        versionDetails
     )

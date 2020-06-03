@@ -34,4 +34,12 @@ interface ISharedPreferencesRepository {
 
     fun setDailyMotivation(dailyMotivation: String)
 
+    fun getLatestVersionCode(): Int
+
+    fun setLatestVersionCode(latestVersionCode: Int)
+
+    fun getAppUpdateDownloadId(): Long
+
+    fun setAppUpdateDownloadId(downloadId: Long)
+
 }

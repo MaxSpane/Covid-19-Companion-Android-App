@@ -42,10 +42,10 @@ class HelpFragment : DaggerFragment(), View.OnClickListener {
     lateinit var viewModelFactory: ViewModelProvider.Factory
     protected val viewModel: HelpViewModel by viewModels { viewModelFactory }
 
-    private val WRITE_EXTERNAL_STORAGE_PERMISSION_REQUEST = 1
     private val downloadManagerBroadcastReceiver = object : BroadcastReceiver(){
-        override fun onReceive(context: Context?, intent: Intent?) {
-            binding.handHygienePB.makeDisappear()
+        override fun onReceive(context: Context, intent: Intent) {
+            if (intent.getLongExtra(EXTRA_DOWNLOAD_ID, 0) == viewModel.getWHOHandHygieneBrochureDownloadId())
+                binding.handHygienePB.makeDisappear()
         }
     }
     private val downloadManagerIntentFilter = IntentFilter(ACTION_DOWNLOAD_STOPPED).apply {
@@ -131,21 +131,6 @@ class HelpFragment : DaggerFragment(), View.OnClickListener {
     private fun WHOHandHygieneBrochureExists(): Boolean{
         val file = File(ContextCompat.getExternalFilesDirs(requireContext(), Environment.DIRECTORY_DOCUMENTS)[0].path + "/" + WHO_HAND_HYGIENE_PDF)
         return file.exists()
-    }
-
-    private fun isStoragePermissionGranted(): Boolean{
-
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-            if(ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
-                return true
-            }else{
-                requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), WRITE_EXTERNAL_STORAGE_PERMISSION_REQUEST)
-                return false
-            }
-        }else{
-            return true
-        }
-
     }
 
     private fun attachObservers() {

@@ -22,12 +22,12 @@ class DomainModule {
     @Provides
     fun provideGetWHOHandHygieneBrochureDownloadIdLastUpdatedUseCase(
         sharedPreferencesRepository: SharedPreferencesRepository
-    ): GetWHOHandHygieneBrochureDownloadIdLastUpdatedUseCase = GetWHOHandHygieneBrochureDownloadIdLastUpdatedUseCase(sharedPreferencesRepository)
+    ): GetWHOHandHygieneBrochureDownloadIdUseCase = GetWHOHandHygieneBrochureDownloadIdUseCase(sharedPreferencesRepository)
 
     @Provides
     fun provideSetWHOHandHygieneBrochureDownloadIdLastUpdatedUseCase(
         sharedPreferencesRepository: SharedPreferencesRepository
-    ): SetWHOHandHygieneBrochureDownloadIdLastUpdatedUseCase = SetWHOHandHygieneBrochureDownloadIdLastUpdatedUseCase(sharedPreferencesRepository)
+    ): SetWHOHandHygieneBrochureDownloadIdUseCase = SetWHOHandHygieneBrochureDownloadIdUseCase(sharedPreferencesRepository)
 
     @Provides
     fun provideGetPagedCountriesCasesDataCasesUseCase(
@@ -196,6 +196,34 @@ class DomainModule {
         sharedPreferencesRepository: SharedPreferencesRepository
     ): SetDailyMotivationUseCase {
             return SetDailyMotivationUseCase(sharedPreferencesRepository)
+    }
+
+    @Provides
+    fun provideGetAppReleasesUseCase(
+        appReleasesRepository: AppReleasesRepository
+    ): GetAppReleasesUseCase {
+            return GetAppReleasesUseCase(appReleasesRepository)
+    }
+
+    @Provides
+    fun provideInsertAppReleaseUseCase(
+        appReleasesRepository: AppReleasesRepository
+    ): InsertAppReleaseUseCase {
+            return InsertAppReleaseUseCase(appReleasesRepository)
+    }
+
+    @Provides
+    fun provideGetLatestVersionCodeUseCase(
+        sharedPreferencesRepository: SharedPreferencesRepository
+    ): GetLatestVersionCodeUseCase {
+        return GetLatestVersionCodeUseCase(sharedPreferencesRepository)
+    }
+
+    @Provides
+    fun provideSetLatestVersionCodeUseCase(
+        sharedPreferencesRepository: SharedPreferencesRepository
+    ): SetLatestVersionCodeUseCase {
+        return SetLatestVersionCodeUseCase(sharedPreferencesRepository)
     }
 
 }

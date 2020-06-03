@@ -9,6 +9,7 @@ const val WHO_HAND_HYGIENE_PDF = "Hand Hygiene Why How and When Brochure.pdf"
 // Broadcast receiver Actions
 const val ACTION_DOWNLOAD_STOPPED = "it.weMake.covid19Companion.action.DOWNLOAD_STOPPED"
 const val ACTION_DOWNLOAD_COMPLETED = "it.weMake.covid19Companion.action.DOWNLOAD_COMPLETED"
+const val ACTION_DOWNLOAD_RUNNING = "it.weMake.covid19Companion.action.DOWNLOAD_RUNNING"
 
 const val PUBLIC_HEALTH_ON_CALL_FACEBOOK_PAGE_URL = "https://www.facebook.com/JohnsHopkinsSPH"
 const val PUBLIC_HEALTH_ON_CALL_TWITTER_HANDLE_URL = "http://twitter.com/PublicHealthPod"
@@ -46,6 +47,7 @@ const val WASH_HANDS_NOTIFICATION_ID = 101
 const val DRINK_WATER_NOTIFICATION_ID = 102
 const val LOCATION_WASH_HANDS_NOTIFICATION_ID = 103
 const val DAILY_MOTIVATION_NOTIFICATION_ID = 104
+const val APP_UPDATE_NOTIFICATION_ID = 104
 
 const val GEOFENCE_RADIUS_IN_METERS = 100.toFloat()
 const val GEOFENCE_EXPIRATION_IN_MILLISECONDS = -1
@@ -55,3 +57,10 @@ const val FCM_KEY_NOTIFICATION_TYPE = "notification_type"
 const val FCM_NOTIFICATION_TYPE_DAILY_MOTIVATION = "daily_motivation"
 const val FCM_NOTIFICATION_TYPE_APP_UPDATE_AVAILABLE = "app_update_available"
 const val FCM_KEY_DAILY_MOTIVATION_MESSAGE = "daily_motivation_message"
+const val FCM_KEY_LATEST_APP_VERSION_NAME = "latest_app_version_name"
+const val FCM_KEY_LATEST_APP_VERSION_CODE = "latest_app_version_code"
+const val FCM_KEY_LATEST_APP_VERSION_DETAILS = "latest_app_version_details"
+const val APP_DOWNLOAD_URL = "http://richardsaseun.com/Covid-19_Companion_debug.apk"
+
+
+const val WRITE_EXTERNAL_STORAGE_PERMISSION_REQUEST = 1

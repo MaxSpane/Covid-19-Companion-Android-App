@@ -11,10 +11,13 @@ import android.os.Build
 import android.os.SystemClock
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.app.TaskStackBuilder
 import androidx.core.content.ContextCompat
 import it.weMake.covid19Companion.R
 import it.weMake.covid19Companion.broadcastReceivers.DrinkWaterReminderBroadcast
 import it.weMake.covid19Companion.broadcastReceivers.WashHandsReminderBroadcast
+import it.weMake.covid19Companion.ui.about.AboutActivity
+import it.weMake.covid19Companion.ui.landing.MainActivity
 import it.weMake.covid19Companion.ui.splashscreen.SplashScreenActivity
 
 
@@ -136,17 +139,23 @@ fun showDefaultNotification(
     context: Context,
     notificationId: Int,
     title: String,
-    text: String
+    text: String,
+    intent: Intent? = null
 ) {
 
     createDefaultNotificationChannel(context)
 
     val channelId = DEFAULT_NOTIFICATION_CHANNEL_ID
 
-    val intent = Intent(context, SplashScreenActivity::class.java).apply {
-        flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-    }
-    val pendingIntent: PendingIntent = PendingIntent.getActivity(context, 0, intent, 0)
+    val pendingIntent: PendingIntent =
+        if (intent == null){
+            val intent = Intent(context, SplashScreenActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            }
+            PendingIntent.getActivity(context, 0, intent, 0)!!
+        }else{
+            TaskStackBuilder.create(context).addNextIntent(Intent(context, MainActivity::class.java)).addNextIntent(intent).getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT)!!
+        }
 
     val builder: NotificationCompat.Builder = NotificationCompat.Builder(context, channelId)
         .setSmallIcon(R.drawable.ic_virus)
@@ -169,7 +178,7 @@ fun createCancelWashHandsAlarm(context: Context, time : Long){
             context.applicationContext,
             WASH_HANDS_PENDING_INTENT_REQUEST_CODE,
             intent,
-            PendingIntent.FLAG_UPDATE_CURRENT)
+            0)
 
     if (time == 0L){
         cancelAlarm(context, pendingIntent)

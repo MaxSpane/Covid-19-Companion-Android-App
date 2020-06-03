@@ -125,5 +125,11 @@
     <string name="lorem_ipsum_paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sapien, pharetra, vitae eu, amet, pulvinar scelerisque et neque. At tellus, in faucibus auctor. Viverra ligula arcu, consequat scelerisque feugiat non. Et viverra massa nisi, tellus.</string>
     <string name="lorem_ipsum_quote">You are this because you are that. Only if you believe otherwise will you stay where you are. Start doing what you want to today and you will get where you are going</string>
     <string name="title_motivation_notification">Hang in there Survivor,</string>
+    <string name="title_app_update_notification">Good News Survivor,</string>
+    <string name="message_app_update_notification">An Update is available. Click here to download it.</string>
+    <string name="placeholder_app_version_file_name">Covid-19 Companion_v%s.apk</string>
+    <string name="update_app">Update App</string>
+    <string name="placeholder_version_name">Version %s</string>
+    <string name="what_s_new">What\'s new</string>
 
 </resources>

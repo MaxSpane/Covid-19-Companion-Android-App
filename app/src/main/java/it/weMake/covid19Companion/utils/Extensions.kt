@@ -1,6 +1,12 @@
 package it.weMake.covid19Companion.utils
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.os.Build
 import android.text.format.DateUtils
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.fragment.app.Fragment
 import java.text.DecimalFormat
 import java.text.ParseException
 import java.text.SimpleDateFormat
@@ -47,4 +53,34 @@ fun Long.getTimeFromToday(): String {
     calendar.time = date
 
     return DateUtils.getRelativeTimeSpanString(calendar.timeInMillis, Calendar.getInstance().timeInMillis, DateUtils.MINUTE_IN_MILLIS, DateUtils.FORMAT_ABBREV_RELATIVE).toString()
+}
+
+fun Fragment.isStoragePermissionGranted(): Boolean{
+
+    if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+        if(ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
+            return true
+        }else{
+            requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), WRITE_EXTERNAL_STORAGE_PERMISSION_REQUEST)
+            return false
+        }
+    }else{
+        return true
+    }
+
+}
+
+fun AppCompatActivity.isStoragePermissionGranted(): Boolean{
+
+    if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
+            return true
+        }else{
+            requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), WRITE_EXTERNAL_STORAGE_PERMISSION_REQUEST)
+            return false
+        }
+    }else{
+        return true
+    }
+
 }

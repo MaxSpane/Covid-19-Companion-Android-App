@@ -24,6 +24,7 @@ import it.weMake.covid19Companion.R
 import it.weMake.covid19Companion.broadcastReceivers.GeofenceBroadcastReceiver
 import it.weMake.covid19Companion.databinding.FragmentSettingsBinding
 import it.weMake.covid19Companion.models.washHandsReminderLocations.WashHandsReminderLocation
+import it.weMake.covid19Companion.ui.about.AboutActivity
 import it.weMake.covid19Companion.ui.landing.settings.washHandsReminderLocation.WashHandsReminderLocationBottomDialogFragment
 import it.weMake.covid19Companion.utils.*
 import javax.inject.Inject
@@ -80,6 +81,7 @@ class SettingsFragment : DaggerFragment(),View.OnClickListener {
         showHideWashHandsReminderLocations(remindUserToWashHandsWhenArrivedAtLocation)
 
         binding.addRemLocationTV.setOnClickListener(this)
+        binding.about.setOnClickListener(this)
         attachObservers()
         return binding.root
     }
@@ -88,6 +90,11 @@ class SettingsFragment : DaggerFragment(),View.OnClickListener {
         when(v.id){
 
             R.id.add_rem_location_TV -> openWashHandsReminderLocationDialog(true)
+
+            R.id.about -> {
+                val intent = Intent(requireContext(), AboutActivity::class.java)
+                startActivity(intent)
+            }
 
         }
     }

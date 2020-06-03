@@ -55,4 +55,18 @@ class SharedPreferencesRepository @Inject constructor(
     override fun setDailyMotivation(dailyMotivation: String) =
         sharedPreferencesLocal.setDailyMotivation(dailyMotivation)
 
+    override fun getLatestVersionCode(): Int =
+        sharedPreferencesLocal.getLatestVersionCode()
+
+    override fun setLatestVersionCode(latestVersionCode: Int) {
+        sharedPreferencesLocal.setLatestVersionCode(latestVersionCode)
+    }
+
+    override fun getAppUpdateDownloadId(): Long =
+        sharedPreferencesLocal.getAppUpdateDownloadId()
+
+    override fun setAppUpdateDownloadId(downloadId: Long) {
+        sharedPreferencesLocal.setAppUpdateDownloadId(downloadId)
+    }
+
 }

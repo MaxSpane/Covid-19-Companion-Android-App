@@ -100,4 +100,22 @@ class Covid19CompanionSharedPreferences constructor(
         editor.apply()
     }
 
+    fun getLatestVersionCode(): Int =
+        covid19CompanionAppSharedPref.getInt(LATEST_VERSION_CODE, 1)
+
+    fun setLatestVersionCode(latestVersionCode: Int) {
+        val editor = covid19CompanionAppSharedPref.edit()
+        editor.putInt(LATEST_VERSION_CODE, latestVersionCode)
+        editor.apply()
+    }
+
+    fun getAppUpdateDownloadId(): Long =
+        covid19CompanionAppSharedPref.getLong(APP_UPDATE_DOWNLOAD_ID, 0)
+
+    fun setAppUpdateDownloadId(downloadId: Long) {
+        val editor = covid19CompanionAppSharedPref.edit()
+        editor.putLong(APP_UPDATE_DOWNLOAD_ID, downloadId)
+        editor.apply()
+    }
+
 }

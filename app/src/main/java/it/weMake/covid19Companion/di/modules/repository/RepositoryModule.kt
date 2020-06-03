@@ -45,4 +45,10 @@ abstract class RepositoryModule {
         washHandsReminderLocationsRepository: WashHandsReminderLocationsRepository
     ): IWashHandsReminderLocationsRepository
 
+    @Singleton
+    @Binds
+    abstract fun bindAppReleasesRepository(
+        appReleasesRepository: AppReleasesRepository
+    ): IAppReleasesRepository
+
 }

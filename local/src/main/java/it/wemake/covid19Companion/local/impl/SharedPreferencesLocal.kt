@@ -66,4 +66,18 @@ class SharedPreferencesLocal @Inject constructor(
         covid19CompanionSharedPreferences.setDailyMotivation(dailyMotivation)
     }
 
+    override fun getLatestVersionCode(): Int =
+        covid19CompanionSharedPreferences.getLatestVersionCode()
+
+    override fun setLatestVersionCode(latestVersionCode: Int) {
+        covid19CompanionSharedPreferences.setLatestVersionCode(latestVersionCode)
+    }
+
+    override fun getAppUpdateDownloadId(): Long =
+        covid19CompanionSharedPreferences.getAppUpdateDownloadId()
+
+    override fun setAppUpdateDownloadId(downloadId: Long) {
+        covid19CompanionSharedPreferences.setAppUpdateDownloadId(downloadId)
+    }
+
 }
