@@ -18,10 +18,10 @@ class GlobalStatsHeaderHolder(private val binding: HeaderGlobalStatsDashboardBin
     private val autoScrollDelayedTime: Long = 2500
     private val autoScrollCountryStatsRunnable: Runnable = Runnable {
 
-        val firstVisibleItemPosition = (binding.casesStatsRV.layoutManager!! as LinearLayoutManager).findFirstVisibleItemPosition()
+        val visibleItemPosition = (binding.casesStatsRV.layoutManager!! as LinearLayoutManager).findLastVisibleItemPosition()
 
-        if (firstVisibleItemPosition != 2){
-            binding.casesStatsRV.smoothScrollToPosition(firstVisibleItemPosition + 1)
+        if (visibleItemPosition != 2){
+            binding.casesStatsRV.smoothScrollToPosition(visibleItemPosition + 1)
         }else{
             binding.casesStatsRV.smoothScrollToPosition(0)
         }
