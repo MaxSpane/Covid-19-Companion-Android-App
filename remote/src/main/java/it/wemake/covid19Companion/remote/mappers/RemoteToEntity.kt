@@ -3,10 +3,12 @@ package it.wemake.covid19Companion.remote.mappers
 import it.wemake.covid19Companion.data.models.casesData.CountryCasesDataEntity
 import it.wemake.covid19Companion.data.models.CountryInfoEntity
 import it.wemake.covid19Companion.data.models.casesData.NigeriaRegionCasesDataEntity
+import it.wemake.covid19Companion.data.models.casesData.USARegionCasesDataEntity
 import it.wemake.covid19Companion.data.models.screeningTool.*
 import it.wemake.covid19Companion.remote.models.casesData.CountryCasesDataRemoteModel
 import it.wemake.covid19Companion.remote.models.casesData.CountryInfoRemoteModel
 import it.wemake.covid19Companion.remote.models.casesData.NigeriaRegionCasesDataRemoteModel
+import it.wemake.covid19Companion.remote.models.casesData.USARegionCasesDataRemoteModel
 import it.wemake.covid19Companion.remote.models.screeningTool.*
 
 internal fun CountryCasesDataRemoteModel.toEntity(): CountryCasesDataEntity =
@@ -82,4 +84,19 @@ internal fun NigeriaRegionCasesDataRemoteModel.toEntity(): NigeriaRegionCasesDat
         cases,
         recovered,
         deaths
+    )
+
+internal fun USARegionCasesDataRemoteModel.toEntity(): USARegionCasesDataEntity =
+    USARegionCasesDataEntity(
+        updated,
+        state,
+        cases,
+        todayCases,
+        deaths,
+        todayDeaths,
+        recovered,
+        todayRecovered,
+        casesPerOneMillion,
+        deathsPerOneMillion,
+        recoveredPerOneMillion
     )

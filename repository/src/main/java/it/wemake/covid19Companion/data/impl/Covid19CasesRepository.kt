@@ -22,7 +22,7 @@ class Covid19CasesRepository @Inject constructor(
     private val sharedPreferencesLocal: ISharedPreferencesLocal
 ): ICovid19CasesRepository {
 
-    private val countriesWithRegionalCasesData = listOf("Nigeria")
+    private val countriesWithRegionalCasesData = listOf("Nigeria", "USA")
 
     override suspend fun updateCasesData() {
         covid19CasesRemote.getCasesSummary().collect {allData ->
@@ -80,6 +80,8 @@ class Covid19CasesRepository @Inject constructor(
 
             "Nigeria" -> updateNigeriaRegionsCasesData()
 
+            "USA" -> updateUSARegionsCasesData()
+
         }
     }
 
@@ -93,6 +95,28 @@ class Covid19CasesRepository @Inject constructor(
 
                 if (regionData.updated > localLatestUpdatedDate){
                     updatedRegionCasesData.add(regionData.toRegionDataEntity("Nigeria"))
+                    if (regionData.updated > remoteLatestUpdatedDate)
+                        remoteLatestUpdatedDate = regionData.updated
+                }
+
+            }
+
+            if (remoteLatestUpdatedDate != localLatestUpdatedDate)
+                casesDataLocal.insertRegionsCasesData(updatedRegionCasesData)
+
+        }
+    }
+
+    private suspend fun updateUSARegionsCasesData(){
+        covid19CasesRemote.getUSARegionsCasesDataSummary().collect { usaRegionCasesData ->
+            val localLatestUpdatedDate = casesDataLocal.getCountryLatestUpdatedDate("USA") ?: 0
+            var remoteLatestUpdatedDate = localLatestUpdatedDate
+            val updatedRegionCasesData = ArrayList<RegionCasesDataEntity>()
+
+            for (regionData in usaRegionCasesData){
+
+                if (regionData.updated > localLatestUpdatedDate){
+                    updatedRegionCasesData.add(regionData.toRegionDataEntity("USA"))
                     if (regionData.updated > remoteLatestUpdatedDate)
                         remoteLatestUpdatedDate = regionData.updated
                 }
