@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -17,8 +18,7 @@ import it.weMake.covid19Companion.commons.Success
 import it.weMake.covid19Companion.databinding.FragmentDiagnosisBinding
 import it.weMake.covid19Companion.ui.screeningTool.ScreeningToolViewModel
 import it.weMake.covid19Companion.ui.screeningTool.adapters.ObservationsAdapter
-import it.weMake.covid19Companion.utils.makeDisappear
-import it.weMake.covid19Companion.utils.show
+import it.weMake.covid19Companion.utils.*
 import javax.inject.Inject
 
 /**
@@ -70,7 +70,6 @@ class DiagnosisFragment : DaggerFragment() {
 
         activityViewModel.diagnosisLiveData.observe(viewLifecycleOwner, Observer {
 
-            Log.d("Shaba", it.label)
             binding.resultTV.text = it.label
             binding.descriptionTV.text = it.description
 
@@ -79,6 +78,35 @@ class DiagnosisFragment : DaggerFragment() {
             }else{
                 observationsAdapter.refill(it.observations)
                 binding.observationsRV.show()
+            }
+
+            val diagnosisLevelColor = when(it.diagnosisLevel){
+
+                //Green
+                DIAGNOSIS_LEVEL_NO_RISK -> R.color.green
+
+                //purple
+                DIAGNOSIS_LEVEL_SELF_MONITORING -> R.color.purple
+
+                //yellow
+                DIAGNOSIS_LEVEL_SELF_QUARANTINE -> R.color.yellow
+
+                //orange
+                DIAGNOSIS_LEVEL_ISOLATION_CALL -> R.color.orange
+
+                //blue
+                DIAGNOSIS_LEVEL_CALL_DOCTOR -> R.color.blue
+
+                //red
+                DIAGNOSIS_LEVEL_ISOLATION_AMBULANCE -> R.color.red
+
+                else -> R.color.black
+            }
+
+            binding.resultTV.setTextColor(ContextCompat.getColor(requireContext(), diagnosisLevelColor))
+
+            getDrawableResourceId(requireContext(), it.diagnosisLevel)?.let {
+                binding.resultIV.setImageResource(it)
             }
 
         })
