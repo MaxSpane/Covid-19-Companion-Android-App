@@ -33,9 +33,6 @@ class CountryCaseHolder(private val binding: ItemCountryCasesSummaryBinding): Re
         this.itemData = itemData
 
         binding.countryNameTV.text = itemData.displayName
-        if (itemData.countryInfo.iso2 == "DO"){
-            Log.d("problem child", "Here I am!!!!!")
-        }
         itemData.countryInfo.iso2.let {
             getFlagResourceId(itemView.context, it)?.let {flagResId ->
                 binding.flagIV.setImageResource(flagResId) }
@@ -64,6 +61,12 @@ class CountryCaseHolder(private val binding: ItemCountryCasesSummaryBinding): Re
             binding.deathsDeltaCP.text = context.getString(R.string.new_cases_placeholder, itemData.totalDeathsDelta.numberWithCommas())
         }else{
             binding.deathsDeltaCP.makeDisappear()
+        }
+
+        if (itemData.hasRegionalCasesData){
+            binding.arrowRightIV.show()
+        }else{
+            binding.arrowRightIV.makeDisappear()
         }
 
     }
