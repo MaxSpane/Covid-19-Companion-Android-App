@@ -19,7 +19,6 @@ import it.weMake.covid19Companion.R
 import it.weMake.covid19Companion.broadcastReceivers.BootReceiver
 import it.weMake.covid19Companion.broadcastReceivers.DrinkWaterReminderBroadcast
 import it.weMake.covid19Companion.broadcastReceivers.WashHandsReminderBroadcast
-import it.weMake.covid19Companion.ui.about.AboutActivity
 import it.weMake.covid19Companion.ui.landing.MainActivity
 import it.weMake.covid19Companion.ui.splashscreen.SplashScreenActivity
 
@@ -101,7 +100,8 @@ fun showReminderNotification(
     context: Context,
     notificationId: Int,
     text: String,
-    useCustomNotificationTone: Boolean
+    useCustomNotificationTone: Boolean,
+    username: String
 ) {
 
     createRemindersNotificationChannel(context, useCustomNotificationTone)
@@ -120,7 +120,7 @@ fun showReminderNotification(
 
     val builder: NotificationCompat.Builder = NotificationCompat.Builder(context, channelId)
         .setSmallIcon(R.drawable.ic_virus)
-        .setContentTitle(context.getString(R.string.title_notification))
+        .setContentTitle(context.getString(R.string.placeholder_title_notification, username))
         .setContentText(text)
         .setPriority(NotificationCompat.PRIORITY_HIGH)
         .setCategory(NotificationCompat.CATEGORY_REMINDER)

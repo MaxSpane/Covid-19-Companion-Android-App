@@ -8,7 +8,7 @@
     <TextView
         android:id="@+id/welcomeTextTV"
         style="@style/Covid19TextView"
-        android:text="Hello Survivor"
+        tools:text="Hello Survivor"
         android:textColor="#000000"
         android:textSize="16sp"
         android:textStyle="bold"

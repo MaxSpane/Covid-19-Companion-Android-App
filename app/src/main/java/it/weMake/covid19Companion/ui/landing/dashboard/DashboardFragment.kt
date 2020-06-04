@@ -37,7 +37,7 @@ class DashboardFragment : DaggerFragment(), View.OnClickListener {
     ): View? {
         binding = FragmentDashboardBinding.inflate(inflater, container, false)
 
-        dashboardAdapter = DashboardAdapter(search, sortBy)
+        dashboardAdapter = DashboardAdapter(search, sortBy, viewModel.getUsername())
 
         binding.dashboardRV.adapter = dashboardAdapter
 

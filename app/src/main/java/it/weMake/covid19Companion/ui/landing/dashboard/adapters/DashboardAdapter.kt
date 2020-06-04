@@ -17,7 +17,8 @@ import it.weMake.covid19Companion.ui.landing.dashboard.adapters.viewHolders.Glob
 
 class DashboardAdapter(
     private val search: (searchQuery: String) -> Unit,
-    private val sortBy: (sortBy: String) -> Unit
+    private val sortBy: (sortBy: String) -> Unit,
+    private val username: String
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var countryCases: ArrayList<CountryCasesData> = ArrayList()
@@ -73,7 +74,7 @@ class DashboardAdapter(
             when(getItemViewType(position)){
 
                 VIEW_TYPE_GLOBAL_STATS_HEADER->{
-                    globalCasesData?.let { (viewHolder as GlobalStatsHeaderHolder).bind(it) }
+                    globalCasesData?.let { (viewHolder as GlobalStatsHeaderHolder).bind(it, username) }
                 }
 
                 VIEW_TYPE_COUNTRY_CASES_HEADER->{

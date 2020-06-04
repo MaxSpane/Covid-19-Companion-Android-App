@@ -24,7 +24,8 @@ class DashboardViewModel
         val getCasesDataLastUpdatedUseCase: GetCasesDataLastUpdatedUseCase,
         val getGlobalCasesDataUseCase: GetGlobalCasesDataUseCase,
         val searchCountriesCasesDataUseCase: SearchCountriesCasesDataUseCase,
-        val getUserCountryCasesDataUseCase: GetUserCountryCasesDataUseCase
+        val getUserCountryCasesDataUseCase: GetUserCountryCasesDataUseCase,
+        val getUsernameUseCase: GetUsernameUseCase
     ) : UiStateViewModel() {
 
     val pagedCountriesCasesData: LiveData<PagedData<List<CountryCasesData>>>
@@ -142,5 +143,8 @@ class DashboardViewModel
         this.sortBy = sortBy
         loadPage(0, 20)
     }
+
+    fun getUsername(): String =
+        getUsernameUseCase()
 
 }

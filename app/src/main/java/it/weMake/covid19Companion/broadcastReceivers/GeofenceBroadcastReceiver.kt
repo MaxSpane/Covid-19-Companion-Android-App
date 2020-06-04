@@ -12,6 +12,7 @@ import it.weMake.covid19Companion.utils.DRINK_WATER_NOTIFICATION_ID
 import it.weMake.covid19Companion.utils.LOCATION_WASH_HANDS_NOTIFICATION_ID
 import it.weMake.covid19Companion.utils.showReminderNotification
 import it.wemake.covid19Companion.domain.usecases.GetUseCustomNotificationToneUseCase
+import it.wemake.covid19Companion.domain.usecases.GetUsernameUseCase
 import it.wemake.covid19Companion.domain.usecases.GetWashHandsReminderLocationUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -27,6 +28,9 @@ class GeofenceBroadcastReceiver : BroadcastReceiver() {
 
     @Inject
     lateinit var getUseCustomNotificationToneUseCase: GetUseCustomNotificationToneUseCase
+
+    @Inject
+    lateinit var getUsernameUseCase: GetUsernameUseCase
 
     override fun onReceive(context: Context, intent: Intent) {
 
@@ -62,7 +66,8 @@ class GeofenceBroadcastReceiver : BroadcastReceiver() {
                             context,
                             LOCATION_WASH_HANDS_NOTIFICATION_ID,
                             context.getString(R.string.placeholder_location_wash_hands_reminder, it.name),
-                            getUseCustomNotificationToneUseCase()
+                            getUseCustomNotificationToneUseCase(),
+                            getUsernameUseCase()
                         )
 
                     }
