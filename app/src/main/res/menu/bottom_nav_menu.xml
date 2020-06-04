@@ -6,10 +6,10 @@
         android:icon="@drawable/ic_virus"
         android:title="@string/title_dashboard" />
 
-    <item
-        android:id="@+id/navigation_podcast"
-        android:icon="@drawable/ic_podcast"
-        android:title="@string/title_podcast" />
+<!--    <item-->
+<!--        android:id="@+id/navigation_podcast"-->
+<!--        android:icon="@drawable/ic_podcast"-->
+<!--        android:title="@string/title_podcast" />-->
 
     <item
         android:id="@+id/navigation_help"
