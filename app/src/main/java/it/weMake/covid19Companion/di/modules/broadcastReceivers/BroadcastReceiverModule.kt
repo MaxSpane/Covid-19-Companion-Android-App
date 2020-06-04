@@ -2,6 +2,7 @@ package it.weMake.covid19Companion.di.modules.broadcastReceivers
 
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
+import it.weMake.covid19Companion.broadcastReceivers.BootReceiver
 import it.weMake.covid19Companion.broadcastReceivers.DrinkWaterReminderBroadcast
 import it.weMake.covid19Companion.broadcastReceivers.GeofenceBroadcastReceiver
 import it.weMake.covid19Companion.broadcastReceivers.WashHandsReminderBroadcast
@@ -22,5 +23,9 @@ abstract class BroadcastReceiverModule{
     @PerBroadcastReceiver
     @ContributesAndroidInjector
     internal abstract fun bindGeofenceBroadcastReceiver(): GeofenceBroadcastReceiver
+
+    @PerBroadcastReceiver
+    @ContributesAndroidInjector
+    internal abstract fun bindBootReceiver(): BootReceiver
 
 }
