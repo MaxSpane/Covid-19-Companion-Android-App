@@ -31,7 +31,7 @@
             android:layout_marginTop="14dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/preventionTipsTitleTV"
-            android:contentDescription="wash your hands" />
+            android:contentDescription="Prevention tip icon" />
 
         <TextView
             android:id="@+id/preventionTipsSummary1TV"

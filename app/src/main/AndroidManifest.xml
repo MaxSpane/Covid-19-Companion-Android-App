@@ -61,7 +61,7 @@
             android:name=".ui.landing.MainActivity"
             android:label="@string/app_name"/>
         <activity
-            android:name=".ui.preventionTips.PreventionTipsActivity" />
+            android:name=".ui.preventionTips.PreventionTipsActivity"/>
 
         <receiver android:name=".broadcastReceivers.WashHandsReminderBroadcast" />
         <receiver android:name=".broadcastReceivers.DrinkWaterReminderBroadcast" />
