@@ -51,4 +51,10 @@ abstract class RepositoryModule {
         appReleasesRepository: AppReleasesRepository
     ): IAppReleasesRepository
 
+    @Singleton
+    @Binds
+    abstract fun bindSourcesRepository(
+        sourcesRepository: SourcesRepository
+    ): ISourcesRepository
+
 }

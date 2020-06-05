@@ -17,7 +17,8 @@ import it.wemake.covid19Companion.local.utils.DB_NAME
         PreventionTipLocalModel::class,
         WashHandsReminderLocationLocalModel::class,
         RegionCasesDataLocalModel::class,
-        AppReleaseLocalModel::class
+        AppReleaseLocalModel::class,
+        SourceLocalModel::class
     ],
     version = 1,
     exportSchema = true)
@@ -29,6 +30,7 @@ abstract class AppDatabase: RoomDatabase() {
     abstract fun getWashHandsReminderLocationsDao(): WashHandsReminderLocationsDao
     abstract fun getRegionsCasesDataDao(): RegionsCasesDataDao
     abstract fun getAppReleasesDao(): AppReleasesDao
+    abstract fun getSourcesDao(): SourcesDao
 
     companion object {
         @Volatile

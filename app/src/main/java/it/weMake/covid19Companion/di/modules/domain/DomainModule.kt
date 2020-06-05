@@ -254,4 +254,11 @@ class DomainModule {
         return  SetHasLongPressedSplashscreenUseCase(sharedPreferencesRepository)
     }
 
+    @Provides
+    fun provideGetAllSourcesUseCase(
+        sourcesRepository: SourcesRepository
+    ): GetAllSourcesUseCase {
+        return  GetAllSourcesUseCase(sourcesRepository)
+    }
+
 }

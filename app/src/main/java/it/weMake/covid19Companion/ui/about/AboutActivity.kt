@@ -19,6 +19,7 @@ import it.weMake.covid19Companion.R
 import it.weMake.covid19Companion.databinding.ActivityAboutBinding
 import it.weMake.covid19Companion.services.DownloadManagerIntentService
 import it.weMake.covid19Companion.ui.about.adapters.AppReleasesAdapter
+import it.weMake.covid19Companion.ui.about.adapters.ResourcesAdapter
 import it.weMake.covid19Companion.utils.*
 import java.io.File
 import javax.inject.Inject
@@ -35,6 +36,7 @@ class AboutActivity : DaggerAppCompatActivity(), View.OnClickListener {
 
     private lateinit var appReleasesAdapter: AppReleasesAdapter
     private var updateAvailable: Boolean = false
+    private lateinit var resourcesAdapter: ResourcesAdapter
 
     private val downloadManagerBroadcastReceiver = object : BroadcastReceiver(){
         override fun onReceive(context: Context, intent: Intent) {
@@ -69,6 +71,7 @@ class AboutActivity : DaggerAppCompatActivity(), View.OnClickListener {
         updateAvailable = versionNumber < viewModel.getLatestVersionCode()
         appReleasesAdapter = AppReleasesAdapter(versionNumber)
         val isFromNotification = intent.getBooleanExtra(EXTRA_FROM_NOTIFICATION, false)
+        resourcesAdapter = ResourcesAdapter()
 
         binding.versionTV.text = BuildConfig.VERSION_NAME
         binding.releasesRV.adapter = appReleasesAdapter
@@ -76,10 +79,12 @@ class AboutActivity : DaggerAppCompatActivity(), View.OnClickListener {
             binding.newReleaseIV.show()
             binding.updateAppMB.show()
         }
+        binding.resourcesRV.adapter = resourcesAdapter
 
         attachObservers()
         binding.updateAppMB.setOnClickListener(this)
         binding.releasesCV.setOnClickListener(this)
+        binding.resourcesTV.setOnClickListener(this)
 
         if (isFromNotification){
             showHideReleases()
@@ -116,12 +121,18 @@ class AboutActivity : DaggerAppCompatActivity(), View.OnClickListener {
 
             R.id.releasesCV -> showHideReleases()
 
+            R.id.resourcesTV -> showHideResources()
+
         }
     }
 
     private fun attachObservers() {
         viewModel.appReleasesLiveData.observe(this, Observer {
             appReleasesAdapter.refill(it)
+        })
+
+        viewModel.sourcesLiveData.observe(this, Observer {
+            resourcesAdapter.refill(it)
         })
     }
 
@@ -152,12 +163,27 @@ class AboutActivity : DaggerAppCompatActivity(), View.OnClickListener {
 
         if (shouldShowReleases){
             binding.releasesRV.show()
+            binding.releasesIV.setImageResource(R.drawable.ic_keyboard_arrow_up_black_24dp)
             if (updateAvailable)
                 binding.whatsNewTV.show()
         }else{
             binding.releasesRV.makeDisappear()
+            binding.releasesIV.setImageResource(R.drawable.ic_keyboard_arrow_down_black_24dp)
             if (updateAvailable)
                 binding.whatsNewTV.makeDisappear()
+        }
+
+    }
+
+    private fun showHideResources(){
+        val shouldShowResources = binding.resourcesRV.visibility != View.VISIBLE
+
+        if (shouldShowResources){
+            binding.resourcesRV.show()
+            binding.resourcesTV.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_keyboard_arrow_up_black_24dp, 0)
+        }else{
+            binding.resourcesRV.makeDisappear()
+            binding.resourcesTV.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_keyboard_arrow_down_black_24dp, 0)
         }
 
     }
