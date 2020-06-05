@@ -30,9 +30,24 @@ interface ISharedPreferencesRepository {
 
     fun setRemindUserToWashHandsWhenArrivedAtLocation(remindUserToWashHandsWhenArrivedAtLocation: Boolean)
 
+    fun getDailyMotivation(): String
+
+    fun setDailyMotivation(dailyMotivation: String)
+
+    fun getLatestVersionCode(): Int
+
+    fun setLatestVersionCode(latestVersionCode: Int)
+
+    fun getAppUpdateDownloadId(): Long
+
+    fun setAppUpdateDownloadId(downloadId: Long)
+
     fun getUsername(): String
 
     fun setUsername(username: String)
 
+    fun getHasLongPressedSplashscreen(): Boolean
+
+    fun setHasLongPressedSplashscreen(hasLongPressedSplashscreen: Boolean)
 
 }

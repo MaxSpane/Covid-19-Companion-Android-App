@@ -1,6 +1,7 @@
 package it.wemake.covid19Companion.local.mappers
 
 import it.wemake.covid19Companion.data.models.*
+import it.wemake.covid19Companion.data.models.appReleases.AppReleaseEntity
 import it.wemake.covid19Companion.data.models.casesData.CountryCasesDataEntity
 import it.wemake.covid19Companion.data.models.casesData.GlobalStatsEntity
 import it.wemake.covid19Companion.data.models.casesData.RegionCasesDataEntity
@@ -71,4 +72,10 @@ internal fun RegionCasesDataLocalModel.toEntity(): RegionCasesDataEntity =
         totalDeaths,
         totalRecovered,
         parentCountryName
+    )
+
+internal fun AppReleaseLocalModel.toEntity(): AppReleaseEntity =
+    AppReleaseEntity(
+        versionName,
+        versionDetails
     )

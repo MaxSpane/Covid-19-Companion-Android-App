@@ -3,6 +3,7 @@ package it.weMake.covid19Companion
 import android.R.attr.apiKey
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.net.PlacesClient
+import com.google.firebase.messaging.FirebaseMessaging
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
 import dagger.android.DispatchingAndroidInjector
@@ -33,6 +34,7 @@ open class Application : DaggerApplication(), HasAndroidInjector {
         appComponent = DaggerAppComponent.builder().application(this).build()
         appComponent.inject(this)
 
+        FirebaseMessaging.getInstance().subscribeToTopic("all")
         // Initialize the SDK
         Places.initialize(applicationContext, getString(R.string.google_places_api_key))
 

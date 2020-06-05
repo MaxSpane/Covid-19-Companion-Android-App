@@ -22,12 +22,12 @@ class DomainModule {
     @Provides
     fun provideGetWHOHandHygieneBrochureDownloadIdLastUpdatedUseCase(
         sharedPreferencesRepository: SharedPreferencesRepository
-    ): GetWHOHandHygieneBrochureDownloadIdLastUpdatedUseCase = GetWHOHandHygieneBrochureDownloadIdLastUpdatedUseCase(sharedPreferencesRepository)
+    ): GetWHOHandHygieneBrochureDownloadIdUseCase = GetWHOHandHygieneBrochureDownloadIdUseCase(sharedPreferencesRepository)
 
     @Provides
     fun provideSetWHOHandHygieneBrochureDownloadIdLastUpdatedUseCase(
         sharedPreferencesRepository: SharedPreferencesRepository
-    ): SetWHOHandHygieneBrochureDownloadIdLastUpdatedUseCase = SetWHOHandHygieneBrochureDownloadIdLastUpdatedUseCase(sharedPreferencesRepository)
+    ): SetWHOHandHygieneBrochureDownloadIdUseCase = SetWHOHandHygieneBrochureDownloadIdUseCase(sharedPreferencesRepository)
 
     @Provides
     fun provideGetPagedCountriesCasesDataCasesUseCase(
@@ -185,6 +185,48 @@ class DomainModule {
     }
 
     @Provides
+    fun provideGetDailyMotivationUseCase(
+        sharedPreferencesRepository: SharedPreferencesRepository
+    ): GetDailyMotivationUseCase {
+            return GetDailyMotivationUseCase(sharedPreferencesRepository)
+    }
+
+    @Provides
+    fun provideSetDailyMotivationUseCase(
+        sharedPreferencesRepository: SharedPreferencesRepository
+    ): SetDailyMotivationUseCase {
+            return SetDailyMotivationUseCase(sharedPreferencesRepository)
+    }
+
+    @Provides
+    fun provideGetAppReleasesUseCase(
+        appReleasesRepository: AppReleasesRepository
+    ): GetAppReleasesUseCase {
+            return GetAppReleasesUseCase(appReleasesRepository)
+    }
+
+    @Provides
+    fun provideInsertAppReleaseUseCase(
+        appReleasesRepository: AppReleasesRepository
+    ): InsertAppReleaseUseCase {
+            return InsertAppReleaseUseCase(appReleasesRepository)
+    }
+
+    @Provides
+    fun provideGetLatestVersionCodeUseCase(
+        sharedPreferencesRepository: SharedPreferencesRepository
+    ): GetLatestVersionCodeUseCase {
+        return GetLatestVersionCodeUseCase(sharedPreferencesRepository)
+    }
+
+    @Provides
+    fun provideSetLatestVersionCodeUseCase(
+        sharedPreferencesRepository: SharedPreferencesRepository
+    ): SetLatestVersionCodeUseCase {
+        return SetLatestVersionCodeUseCase(sharedPreferencesRepository)
+    }
+
+    @Provides
     fun provideSetUsernameUseCase(
         sharedPreferencesRepository: SharedPreferencesRepository
     ): SetUsernameUseCase {
@@ -196,6 +238,20 @@ class DomainModule {
         sharedPreferencesRepository: SharedPreferencesRepository
     ): GetUsernameUseCase {
         return  GetUsernameUseCase(sharedPreferencesRepository)
+    }
+
+    @Provides
+    fun provideGetHasLongPressedSplashscreenUseCase(
+        sharedPreferencesRepository: SharedPreferencesRepository
+    ): GetHasLongPressedSplashscreenUseCase {
+        return  GetHasLongPressedSplashscreenUseCase(sharedPreferencesRepository)
+    }
+
+    @Provides
+    fun provideSetHasLongPressedSplashscreenUseCase(
+        sharedPreferencesRepository: SharedPreferencesRepository
+    ): SetHasLongPressedSplashscreenUseCase {
+        return  SetHasLongPressedSplashscreenUseCase(sharedPreferencesRepository)
     }
 
 }

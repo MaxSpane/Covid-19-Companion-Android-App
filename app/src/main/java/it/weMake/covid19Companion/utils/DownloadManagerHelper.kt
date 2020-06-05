@@ -10,19 +10,20 @@ import android.os.Environment
 import android.util.Log
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import dagger.android.DaggerIntentService
+import java.net.URLEncoder
 
+val EXTRA_DOWNLOAD_ID = "it.weMake.covid19Companion.extra.DOWNLOAD_ID"
 
 abstract class DownloadManagerHelper(val name: String): DaggerIntentService(name){
 
-    private val EXTRA_DOWNLOAD_ID = "it.weMake.covid19Companion.extra.DOWNLOAD_ID"
     private var contentObserver: ContentObserver? = null
 
-    fun startDownload(downloadUrl: String, subDirDestination: String): Long{
+    fun startDownload(downloadUrl: String, fileName: String): Long{
         val downloadManager = this.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
         val downloadRequest = DownloadManager.Request(Uri.parse(downloadUrl))
 
         downloadRequest.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE or DownloadManager.Request.NETWORK_WIFI)
-            .setDestinationInExternalFilesDir(this, Environment.DIRECTORY_DOCUMENTS, WHO_HAND_HYGIENE_PDF)
+            .setDestinationInExternalFilesDir(this, Environment.DIRECTORY_DOCUMENTS, fileName)
 
         val downloadId = downloadManager.enqueue(downloadRequest)
         registerContentObserver(downloadId)
@@ -99,6 +100,12 @@ abstract class DownloadManagerHelper(val name: String): DaggerIntentService(name
     }
 
     open fun downloadRunning(downloadId: Long) {
+        LocalBroadcastManager.getInstance(this).sendBroadcast(
+            Intent().also{
+                it.action = ACTION_DOWNLOAD_RUNNING
+                it.putExtra(EXTRA_DOWNLOAD_ID, downloadId)
+            }
+        )
     }
 
     open fun downloadSuccessful(downloadId: Long) {

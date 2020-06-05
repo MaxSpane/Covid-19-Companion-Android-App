@@ -35,7 +35,9 @@ class ReminderDialog(
             .setTitle("please survivor, pick the time Interval")
             .setNegativeButton(
                 "cancel"
-            ) { _, _ -> }
+            ) { _, _ ->
+                onDismissCancel()
+            }
             .setPositiveButton(
                 "ok"
             ) { _, _ ->
@@ -47,11 +49,6 @@ class ReminderDialog(
 
     private fun convertToMinutes(hour: Int, minute: Int): Int =
         (hour * 60) + minute
-
-    override fun onDismiss(dialog: DialogInterface) {
-        super.onDismiss(dialog)
-        onDismissCancel()
-    }
 
     override fun onCancel(dialog: DialogInterface) {
         super.onCancel(dialog)

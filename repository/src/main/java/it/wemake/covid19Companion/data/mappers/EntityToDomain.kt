@@ -1,6 +1,7 @@
 package it.wemake.covid19Companion.data.mappers
 
 import it.wemake.covid19Companion.data.models.*
+import it.wemake.covid19Companion.data.models.appReleases.AppReleaseEntity
 import it.wemake.covid19Companion.data.models.casesData.CountryCasesDataEntity
 import it.wemake.covid19Companion.data.models.casesData.GlobalStatsEntity
 import it.wemake.covid19Companion.data.models.casesData.RegionCasesDataEntity
@@ -14,6 +15,7 @@ import it.wemake.covid19Companion.domain.models.preventionTips.PreventionTipDoma
 import it.wemake.covid19Companion.domain.models.screeningTool.*
 import it.wemake.covid19Companion.domain.models.washHandsReminderLocations.WashHandsReminderLocationDomainModel
 import it.wemake.covid19Companion.data.models.washHandsReminderLocations.WashHandsReminderLocationEntity
+import it.wemake.covid19Companion.domain.models.appReleases.AppReleaseDomainModel
 
 
 internal fun CountryCasesDataEntity.toDomain(): CountryCasesDomainModel =
@@ -121,4 +123,10 @@ internal fun RegionCasesDataEntity.toDomain(): RegionCasesDataDomainModel =
         totalDeaths,
         totalRecovered,
         parentCountryName
+    )
+
+internal fun AppReleaseEntity.toDomain(): AppReleaseDomainModel =
+    AppReleaseDomainModel(
+        versionName,
+        versionDetails
     )

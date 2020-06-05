@@ -6,6 +6,7 @@ import dagger.Module
 import dagger.android.ContributesAndroidInjector
 import it.weMake.covid19Companion.di.modules.presentation.fragmentBuilders.MainActivityFragmentBuilder
 import it.weMake.covid19Companion.di.modules.presentation.fragmentBuilders.ScreeningToolActivityFragmentBuilder
+import it.weMake.covid19Companion.ui.about.AboutActivity
 import it.weMake.covid19Companion.ui.landing.MainActivity
 import it.weMake.covid19Companion.ui.landing.sortedDetailsData.SortedDetailsDataActivity
 import it.weMake.covid19Companion.ui.preventionTips.PreventionTipsActivity
@@ -37,8 +38,12 @@ abstract class ActivityBuilderModule {
     @ContributesAndroidInjector
     internal abstract fun provideRegionalStatsActivity(): RegionalStatsActivity
 
-      @ActivityScope
+    @ActivityScope
     @ContributesAndroidInjector
     internal abstract fun provideSortedDetailsDataActivity(): SortedDetailsDataActivity
+
+    @ActivityScope
+    @ContributesAndroidInjector
+    internal abstract fun provideAboutActivity(): AboutActivity
 
 }

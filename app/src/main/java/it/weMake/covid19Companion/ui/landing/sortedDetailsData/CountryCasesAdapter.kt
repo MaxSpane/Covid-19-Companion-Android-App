@@ -54,7 +54,7 @@ class CountryCasesAdapter(private val sortValue: String) : RecyclerView.Adapter<
                 )
 
                 SORT_BY_DEATHS -> populateCasesView(
-                    R.color.deaths,
+                    R.color.red,
                     current.totalDeaths?.numberWithCommas() ?: "Unknown"
                 )
 

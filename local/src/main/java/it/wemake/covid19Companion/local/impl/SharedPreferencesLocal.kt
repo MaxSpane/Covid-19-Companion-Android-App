@@ -59,12 +59,40 @@ class SharedPreferencesLocal @Inject constructor(
     ) =
         covid19CompanionSharedPreferences.setRemindUserToWashHandsWhenArrivedAtLocation(remindUserToWashHandsWhenArrivedAtLocation)
 
+    override fun getDailyMotivation(): String =
+        covid19CompanionSharedPreferences.getDailyMotivation()
+
+    override fun setDailyMotivation(dailyMotivation: String) {
+        covid19CompanionSharedPreferences.setDailyMotivation(dailyMotivation)
+    }
+
+    override fun getLatestVersionCode(): Int =
+        covid19CompanionSharedPreferences.getLatestVersionCode()
+
+    override fun setLatestVersionCode(latestVersionCode: Int) {
+        covid19CompanionSharedPreferences.setLatestVersionCode(latestVersionCode)
+    }
+
+    override fun getAppUpdateDownloadId(): Long =
+        covid19CompanionSharedPreferences.getAppUpdateDownloadId()
+
+    override fun setAppUpdateDownloadId(downloadId: Long) {
+        covid19CompanionSharedPreferences.setAppUpdateDownloadId(downloadId)
+    }
+
     override fun getUsername(): String =
         covid19CompanionSharedPreferences.getUsername()
 
 
     override fun setUsername(username: String) =
         covid19CompanionSharedPreferences.setUsername(username)
+
+    override fun getHasLongPressedSplashscreen(): Boolean =
+        covid19CompanionSharedPreferences.getHasLongPressedSplashscreen()
+
+    override fun setHasLongPressedSplashscreen(hasLongPressedSplashscreen: Boolean) {
+        covid19CompanionSharedPreferences.setHasLongPressedSplashscreen(hasLongPressedSplashscreen)
+    }
 
 
 }

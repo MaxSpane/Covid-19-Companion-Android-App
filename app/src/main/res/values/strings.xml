@@ -87,8 +87,10 @@
     <string name="text_drink_water_reminder">You should go drink water now!!!</string>
     <string name="channel_desc_reminders_default_tone">A channel for reminders to wash your hands and drink water using your default Notification Tone</string>
     <string name="channel_desc_reminders_custom_tone">A channel for reminders to wash your hands and drink water using custom Notification Tone</string>
+    <string name="channel_desc_default">A channel for Normal notifications</string>
     <string name="channel_name_reminders_default_tone">Reminders Channel with Default Notification Tone</string>
     <string name="channel_name_reminders_custom_tone">Reminders Channel with Custom Notification Tone</string>
+    <string name="channel_name_default">Default Channel</string>
     <string name="total_confirmed">Total Confirmed</string>
     <string name="confirmed_cases_country">Cofirmed Cases by Country</string>
     <string name="confirmed_cases_by_country">Confirmed Cases by Country</string>
@@ -120,10 +122,22 @@
     <string name="unknown">Unknown</string>
     <string name="error_update_regional_cases_data">Could not update Regional Cases Data. Please try again.</string>
     <string name="error_update_cases_data">Could not update Cases Data. Please try again.</string>
+    <string name="lorem_ipsum_paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sapien, pharetra, vitae eu, amet, pulvinar scelerisque et neque. At tellus, in faucibus auctor. Viverra ligula arcu, consequat scelerisque feugiat non. Et viverra massa nisi, tellus.</string>
+    <string name="lorem_ipsum_quote">You are this because you are that. Only if you believe otherwise will you stay where you are. Start doing what you want to today and you will get where you are going</string>
+    <string name="title_motivation_notification">Hang in there Survivor,</string>
+    <string name="title_app_update_notification">Good News Survivor,</string>
+    <string name="message_app_update_notification">An Update is available. Click here to download it.</string>
+    <string name="placeholder_app_version_file_name">Covid-19 Companion_v%s.apk</string>
+    <string name="update_app">Update App</string>
+    <string name="placeholder_version_name">Version %s</string>
+    <string name="what_s_new">What\'s new</string>
     <string name="change_username">Change Username</string>
     <string name="username">Username</string>
     <string name="enter_username">Enter Username</string>
     <string name="survivor">Survivor</string>
     <string name="change_country">Change Country</string>
+    <string name="title_daily_motivation">DAILY MOTIVATION</string>
+    <string name="instructions_long_press_splashscreen">Press and hold anywhere to pin the Splashscreen</string>
+    <string name="instructions_tap_splashscreen">"Tap anywhere to dismiss the Splashscreen"</string>
 
 </resources>

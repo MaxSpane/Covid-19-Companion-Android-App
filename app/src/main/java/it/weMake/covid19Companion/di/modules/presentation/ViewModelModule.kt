@@ -7,6 +7,7 @@ import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
 import it.weMake.covid19Companion.di.factory.ViewModelFactory
+import it.weMake.covid19Companion.ui.about.AboutViewModel
 import it.weMake.covid19Companion.ui.landing.dashboard.DashboardViewModel
 import it.weMake.covid19Companion.ui.landing.help.HelpViewModel
 import it.weMake.covid19Companion.ui.landing.settings.SettingsViewModel
@@ -61,5 +62,10 @@ abstract class ViewModelModule {
     @Binds
     @ViewModelKey(RegionalStatsViewModel::class)
     abstract fun bindRegionalStatsViewModel(regionalStatsViewModel: RegionalStatsViewModel): ViewModel
+
+    @IntoMap
+    @Binds
+    @ViewModelKey(AboutViewModel::class)
+    abstract fun bindAboutViewModel(aboutViewModel: AboutViewModel): ViewModel
 
 }

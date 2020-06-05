@@ -11,10 +11,14 @@ import android.os.Build
 import android.os.SystemClock
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.app.TaskStackBuilder
 import androidx.core.content.ContextCompat
 import it.weMake.covid19Companion.R
 import it.weMake.covid19Companion.broadcastReceivers.DrinkWaterReminderBroadcast
 import it.weMake.covid19Companion.broadcastReceivers.WashHandsReminderBroadcast
+import it.weMake.covid19Companion.ui.about.AboutActivity
+import it.weMake.covid19Companion.ui.landing.MainActivity
+import it.weMake.covid19Companion.ui.splashscreen.SplashScreenActivity
 
 
 fun minutesToMilliSecs(value: Int): Long = value * 60 * 1000.toLong()
@@ -66,6 +70,30 @@ fun createRemindersNotificationChannel(context: Context, useCustomNotificationTo
     }
 }
 
+fun createDefaultNotificationChannel(context: Context) {
+    // Create the NotificationChannel, but only on API 26+ because
+    // the NotificationChannel class is new and not in the support library
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        val name: CharSequence = "Default Notification Channel"
+        val importance = NotificationManager.IMPORTANCE_DEFAULT
+
+        val channel = NotificationChannel(
+            DEFAULT_NOTIFICATION_CHANNEL_ID,
+            context.getString(R.string.channel_name_default),
+            importance)
+            .apply {
+                this.description = context.getString(R.string.channel_desc_default)
+            }
+
+        // Register the channel with the system; you can't change the importance
+        // or other notification behaviors after this
+        val notificationManager: NotificationManager? = ContextCompat.getSystemService(context, NotificationManager::class.java)
+
+        notificationManager?.createNotificationChannel(channel)
+
+    }
+}
+
 fun showReminderNotification(
     context: Context,
     notificationId: Int,
@@ -82,12 +110,19 @@ fun showReminderNotification(
             REMINDERS_NOTIFICATION_DEFAULT_TONE_CHANNEL_ID
         }
 
+    val intent = Intent(context, SplashScreenActivity::class.java).apply {
+        flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+    }
+    val pendingIntent: PendingIntent = PendingIntent.getActivity(context, 0, intent, 0)
+
     val builder: NotificationCompat.Builder = NotificationCompat.Builder(context, channelId)
         .setSmallIcon(R.drawable.ic_virus)
         .setContentTitle(context.getString(R.string.title_notification))
         .setContentText(text)
         .setPriority(NotificationCompat.PRIORITY_HIGH)
         .setCategory(NotificationCompat.CATEGORY_REMINDER)
+        .setContentIntent(pendingIntent)
+        .setAutoCancel(true)
     val soundUri =
         if (useCustomNotificationTone){
             Uri.parse("android.resource://" + context.packageName + "/" + R.raw.cardi_b_corona_virus_alarm_tone)
@@ -96,6 +131,40 @@ fun showReminderNotification(
         }
     builder.setSound(soundUri)
 
+    val notificationManager = NotificationManagerCompat.from(context)
+    notificationManager.notify(notificationId, builder.build())
+}
+
+fun showDefaultNotification(
+    context: Context,
+    notificationId: Int,
+    title: String,
+    text: String,
+    intent: Intent? = null
+) {
+
+    createDefaultNotificationChannel(context)
+
+    val channelId = DEFAULT_NOTIFICATION_CHANNEL_ID
+
+    val pendingIntent: PendingIntent =
+        if (intent == null){
+            val intent = Intent(context, SplashScreenActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            }
+            PendingIntent.getActivity(context, 0, intent, 0)!!
+        }else{
+            TaskStackBuilder.create(context).addNextIntent(Intent(context, MainActivity::class.java)).addNextIntent(intent).getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT)!!
+        }
+
+    val builder: NotificationCompat.Builder = NotificationCompat.Builder(context, channelId)
+        .setSmallIcon(R.drawable.ic_virus)
+        .setContentTitle(title)
+        .setContentText(text)
+        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+        .setContentIntent(pendingIntent)
+        .setAutoCancel(true)
+        .setStyle(NotificationCompat.BigTextStyle().bigText(text))
     val notificationManager = NotificationManagerCompat.from(context)
     notificationManager.notify(notificationId, builder.build())
 }
@@ -109,7 +178,7 @@ fun createCancelWashHandsAlarm(context: Context, time : Long){
             context.applicationContext,
             WASH_HANDS_PENDING_INTENT_REQUEST_CODE,
             intent,
-            PendingIntent.FLAG_UPDATE_CURRENT)
+            0)
 
     if (time == 0L){
         cancelAlarm(context, pendingIntent)

@@ -8,10 +8,12 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.android.support.DaggerAppCompatActivity
+import it.weMake.covid19Companion.R
 import it.weMake.covid19Companion.databinding.ActivitySplashScreenBinding
 import it.weMake.covid19Companion.ui.landing.MainActivity
 import it.weMake.covid19Companion.ui.preventionTips.PreventionTipsActivity
 import it.weMake.covid19Companion.utils.ONE_SECOND_IN_MILLI
+import it.weMake.covid19Companion.utils.showShortToast
 import javax.inject.Inject
 
 class SplashScreenActivity : DaggerAppCompatActivity() {
@@ -22,17 +24,37 @@ class SplashScreenActivity : DaggerAppCompatActivity() {
     lateinit var viewModelFactory: ViewModelProvider.Factory
     protected val viewModel: SplashScreenViewModel by viewModels { viewModelFactory }
 
+    private var longPressed = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySplashScreenBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.dailyMotivationTV.text = viewModel.getDailyMotivation()
         val handler = Handler()
         val runnable = Runnable {
-            observeUserCountryIso2()
+            if (!longPressed)
+                observeUserCountryIso2()
         }
 
         handler.postDelayed(runnable, 2 * ONE_SECOND_IN_MILLI)
+
+        if(!viewModel.getHasLongPressedSplashscreen())
+            showShortToast(this, getString(R.string.instructions_long_press_splashscreen))
+
+        binding.splashscreenCL.setOnLongClickListener {
+            longPressed = true
+            if(!viewModel.getHasLongPressedSplashscreen()){
+                showShortToast(this, getString(R.string.instructions_tap_splashscreen))
+                viewModel.setHasLongPressedSplashscreen(true)
+            }
+            true
+        }
+
+        binding.splashscreenCL.setOnClickListener {
+            observeUserCountryIso2()
+        }
     }
 
     private fun openActivity(activityClass: Class<*>) {

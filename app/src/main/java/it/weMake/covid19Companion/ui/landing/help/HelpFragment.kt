@@ -1,19 +1,16 @@
 package it.weMake.covid19Companion.ui.landing.help
 
-import android.Manifest
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
-import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.fragment.app.viewModels
@@ -42,10 +39,10 @@ class HelpFragment : DaggerFragment(), View.OnClickListener {
     lateinit var viewModelFactory: ViewModelProvider.Factory
     protected val viewModel: HelpViewModel by viewModels { viewModelFactory }
 
-    private val WRITE_EXTERNAL_STORAGE_PERMISSION_REQUEST = 1
     private val downloadManagerBroadcastReceiver = object : BroadcastReceiver(){
-        override fun onReceive(context: Context?, intent: Intent?) {
-            binding.handHygienePB.makeDisappear()
+        override fun onReceive(context: Context, intent: Intent) {
+            if (intent.getLongExtra(EXTRA_DOWNLOAD_ID, 0) == viewModel.getWHOHandHygieneBrochureDownloadId())
+                binding.handHygienePB.makeDisappear()
         }
     }
     private val downloadManagerIntentFilter = IntentFilter(ACTION_DOWNLOAD_STOPPED).apply {
@@ -124,28 +121,13 @@ class HelpFragment : DaggerFragment(), View.OnClickListener {
 
     private fun downloadHandHygienePDF(){
         binding.handHygienePB.show()
-        showLongToast(requireContext(), "Downloading Hand Hygiene Brochure(477kb)")
+        showShortToast(requireContext(), "Downloading Hand Hygiene Brochure(477kb)")
         DownloadManagerIntentService.startActionDownloadWHOHandHygieneBrochure(requireContext())
     }
 
     private fun WHOHandHygieneBrochureExists(): Boolean{
         val file = File(ContextCompat.getExternalFilesDirs(requireContext(), Environment.DIRECTORY_DOCUMENTS)[0].path + "/" + WHO_HAND_HYGIENE_PDF)
         return file.exists()
-    }
-
-    private fun isStoragePermissionGranted(): Boolean{
-
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-            if(ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
-                return true
-            }else{
-                requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), WRITE_EXTERNAL_STORAGE_PERMISSION_REQUEST)
-                return false
-            }
-        }else{
-            return true
-        }
-
     }
 
     private fun attachObservers() {
