@@ -18,3 +18,13 @@ fun openAppUpdateApk(context: Context, versionName: String){
     intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_ACTIVITY_NEW_TASK
     context.startActivity(intent)
 }
+
+fun openHandsHygieneBrochure(context: Context){
+    val intent = Intent(Intent.ACTION_VIEW)
+    val file = File(context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)!!.path + File.pathSeparator + WHO_HAND_HYGIENE_PDF)
+    val data = FileProvider.getUriForFile(context.applicationContext, context.packageName +".fileprovider", file)
+    val type = "application/pdf"
+    intent.setDataAndType(data, type)
+    intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_ACTIVITY_NEW_TASK
+    context.startActivity(intent)
+}
