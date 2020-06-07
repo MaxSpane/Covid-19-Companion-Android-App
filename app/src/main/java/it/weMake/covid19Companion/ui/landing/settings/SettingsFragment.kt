@@ -321,7 +321,9 @@ class SettingsFragment : DaggerFragment(),View.OnClickListener {
                 setIntervalWashHand(intervalInMinutes)
             }, {
                 updateUIIntervalWashHand(0)
-            })
+            },
+            viewModel.getUsername())
+
         reminderDialog.show(childFragmentManager, "Select wash hands interval dialog")
     }
 
@@ -331,7 +333,8 @@ class SettingsFragment : DaggerFragment(),View.OnClickListener {
                 setIntervalDrinkWater(intervalInMinutes)
             }, {
                 updateUIIntervalDrinkWater(0)
-            })
+            },
+            viewModel.getUsername())
 
         reminderDialog.show(childFragmentManager, "Select drink water interval dialog")
     }
