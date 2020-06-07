@@ -38,7 +38,7 @@ class SplashScreenActivity : DaggerAppCompatActivity() {
                 observeUserCountryIso2()
         }
 
-        handler.postDelayed(runnable, 2 * ONE_SECOND_IN_MILLI)
+        handler.postDelayed(runnable, 3 * ONE_SECOND_IN_MILLI)
 
         if(!viewModel.getHasLongPressedSplashscreen())
             showShortToast(this, getString(R.string.instructions_long_press_splashscreen))
