@@ -8,6 +8,7 @@ import it.weMake.covid19Companion.R
 import it.weMake.covid19Companion.utils.*
 import it.wemake.covid19Companion.domain.usecases.GetDrinkWaterIntervalUseCase
 import it.wemake.covid19Companion.domain.usecases.GetUseCustomNotificationToneUseCase
+import it.wemake.covid19Companion.domain.usecases.GetUsernameUseCase
 import javax.inject.Inject
 
 class DrinkWaterReminderBroadcast : DaggerBroadcastReceiver(){
@@ -18,6 +19,9 @@ class DrinkWaterReminderBroadcast : DaggerBroadcastReceiver(){
     @Inject
     lateinit var getUseCustomNotificationToneUseCase: GetUseCustomNotificationToneUseCase
 
+    @Inject
+    lateinit var getUsernameUseCase: GetUsernameUseCase
+
     override fun onReceive(context: Context, intent: Intent) {
         super.onReceive(context, intent)
 
@@ -25,7 +29,8 @@ class DrinkWaterReminderBroadcast : DaggerBroadcastReceiver(){
             context,
             DRINK_WATER_NOTIFICATION_ID,
             context.getString(R.string.text_drink_water_reminder),
-            getUseCustomNotificationToneUseCase()
+            getUseCustomNotificationToneUseCase(),
+            getUsernameUseCase()
         )
 
         val time = minutesToMilliSecs(getDrinkWaterIntervalUseCase())

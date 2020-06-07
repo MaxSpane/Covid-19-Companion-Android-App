@@ -112,6 +112,8 @@ class DownloadManagerIntentService : DownloadManagerHelper("DownloadManagerInten
     override fun downloadSuccessful(downloadId: Long) {
         if (downloadId == getAppUpdateDownloadIdUseCase()){
             openAppUpdateApk(this, appUpdateVersionNumber!!)
+        }else if(downloadId == getWHOHandHygieneBrochureDownloadIdUseCase()){
+            openHandsHygieneBrochure(this)
         }
         super.downloadSuccessful(downloadId)
     }

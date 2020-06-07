@@ -12,4 +12,9 @@
     <color name="colorPrimaryDarkTransparent">#4D219653</color>
     <color name="radioButtonText">#CBCFD4</color>
     <color name="colorSecondary50">#707070</color>
+    <color name="green">#2e7d32</color>
+    <color name="purple">#6a1b9a</color>
+    <color name="yellow">#fbc02d</color>
+    <color name="orange">#ef6c00</color>
+    <color name="blue">#1565c0</color>
 </resources>

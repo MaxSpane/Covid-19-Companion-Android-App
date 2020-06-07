@@ -64,6 +64,7 @@ class RegionalStatsActivity : DaggerAppCompatActivity() {
             binding.countryFlagIV.setImageResource(flagResId)
         }
 
+        binding.countryNameTV.text = countryCasesData.displayName
         binding.countryCasesNumberTV.text = countryCasesData.totalConfirmed?.numberWithCommas() ?: getString(R.string.unknown)
         binding.countryRecoveryNumberTV.text = countryCasesData.totalRecovered?.numberWithCommas() ?: getString(R.string.unknown)
         binding.countryDeathNumberTV.text = countryCasesData.totalDeaths?.numberWithCommas() ?: getString(R.string.unknown)

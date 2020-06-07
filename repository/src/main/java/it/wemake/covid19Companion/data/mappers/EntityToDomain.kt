@@ -7,6 +7,7 @@ import it.wemake.covid19Companion.data.models.casesData.GlobalStatsEntity
 import it.wemake.covid19Companion.data.models.casesData.RegionCasesDataEntity
 import it.wemake.covid19Companion.data.models.preventionTips.PreventionTipEntity
 import it.wemake.covid19Companion.data.models.screeningTool.*
+import it.wemake.covid19Companion.data.models.sources.SourceEntity
 import it.wemake.covid19Companion.domain.models.*
 import it.wemake.covid19Companion.domain.models.casesData.CountryCasesDomainModel
 import it.wemake.covid19Companion.domain.models.casesData.GlobalStatsDomainModel
@@ -16,6 +17,7 @@ import it.wemake.covid19Companion.domain.models.screeningTool.*
 import it.wemake.covid19Companion.domain.models.washHandsReminderLocations.WashHandsReminderLocationDomainModel
 import it.wemake.covid19Companion.data.models.washHandsReminderLocations.WashHandsReminderLocationEntity
 import it.wemake.covid19Companion.domain.models.appReleases.AppReleaseDomainModel
+import it.wemake.covid19Companion.domain.models.sources.SourceDomainModel
 
 
 internal fun CountryCasesDataEntity.toDomain(): CountryCasesDomainModel =
@@ -129,4 +131,12 @@ internal fun AppReleaseEntity.toDomain(): AppReleaseDomainModel =
     AppReleaseDomainModel(
         versionName,
         versionDetails
+    )
+
+internal fun SourceEntity.toDomain(): SourceDomainModel =
+    SourceDomainModel(
+        sourceName,
+        sourceDescription,
+        resources,
+        sourceExternalLink
     )

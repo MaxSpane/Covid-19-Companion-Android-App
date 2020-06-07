@@ -7,6 +7,7 @@ import it.weMake.covid19Companion.models.casesData.GlobalStats
 import it.weMake.covid19Companion.models.casesData.RegionCasesData
 import it.weMake.covid19Companion.models.preventionTips.PreventionTip
 import it.weMake.covid19Companion.models.screeningTool.*
+import it.weMake.covid19Companion.models.sources.Source
 import it.weMake.covid19Companion.models.washHandsReminderLocations.WashHandsReminderLocation
 import it.wemake.covid19Companion.domain.models.*
 import it.wemake.covid19Companion.domain.models.appReleases.AppReleaseDomainModel
@@ -15,6 +16,7 @@ import it.wemake.covid19Companion.domain.models.casesData.GlobalStatsDomainModel
 import it.wemake.covid19Companion.domain.models.casesData.RegionCasesDataDomainModel
 import it.wemake.covid19Companion.domain.models.preventionTips.PreventionTipDomainModel
 import it.wemake.covid19Companion.domain.models.screeningTool.*
+import it.wemake.covid19Companion.domain.models.sources.SourceDomainModel
 import it.wemake.covid19Companion.domain.models.washHandsReminderLocations.WashHandsReminderLocationDomainModel
 
 fun CountryCasesDomainModel.toPresentation(): CountryCasesData =
@@ -128,4 +130,12 @@ fun AppReleaseDomainModel.toPresentation(): AppRelease =
     AppRelease(
         versionName,
         versionDetails
+    )
+
+fun SourceDomainModel.toPresentation(): Source =
+    Source(
+        sourceName,
+        sourceDescription,
+        resources,
+        sourceExternalLink
     )

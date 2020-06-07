@@ -6,6 +6,7 @@ import it.wemake.covid19Companion.data.models.casesData.CountryCasesDataEntity
 import it.wemake.covid19Companion.data.models.casesData.GlobalStatsEntity
 import it.wemake.covid19Companion.data.models.casesData.RegionCasesDataEntity
 import it.wemake.covid19Companion.data.models.preventionTips.PreventionTipEntity
+import it.wemake.covid19Companion.data.models.sources.SourceEntity
 import it.wemake.covid19Companion.data.models.washHandsReminderLocations.WashHandsReminderLocationEntity
 import it.wemake.covid19Companion.local.models.*
 
@@ -78,4 +79,12 @@ internal fun AppReleaseLocalModel.toEntity(): AppReleaseEntity =
     AppReleaseEntity(
         versionName,
         versionDetails
+    )
+
+internal fun SourceLocalModel.toEntity(): SourceEntity =
+    SourceEntity(
+        sourceName,
+        sourceDescription,
+        resources,
+        sourceExternalLink
     )

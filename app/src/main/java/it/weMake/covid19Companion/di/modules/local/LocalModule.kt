@@ -28,4 +28,8 @@ abstract class LocalModule {
     internal abstract fun bindAppReleasesLocal( appReleasesLocal: AppReleasesLocal)
             : IAppReleasesLocal
 
+    @Binds
+    internal abstract fun bindSourcesLocal( sourceLocal: SourcesLocal)
+            : ISourcesLocal
+
 }

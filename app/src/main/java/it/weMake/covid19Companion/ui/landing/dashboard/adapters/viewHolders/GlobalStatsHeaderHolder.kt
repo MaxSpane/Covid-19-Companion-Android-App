@@ -5,6 +5,7 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
+import it.weMake.covid19Companion.R
 import it.weMake.covid19Companion.databinding.HeaderGlobalStatsDashboardBinding
 import it.weMake.covid19Companion.models.casesData.GlobalStats
 import it.weMake.covid19Companion.ui.landing.dashboard.adapters.GlobalCasesStatsAdapter
@@ -18,10 +19,10 @@ class GlobalStatsHeaderHolder(private val binding: HeaderGlobalStatsDashboardBin
     private val autoScrollDelayedTime: Long = 2500
     private val autoScrollCountryStatsRunnable: Runnable = Runnable {
 
-        val firstVisibleItemPosition = (binding.casesStatsRV.layoutManager!! as LinearLayoutManager).findFirstVisibleItemPosition()
+        val visibleItemPosition = (binding.casesStatsRV.layoutManager!! as LinearLayoutManager).findLastVisibleItemPosition()
 
-        if (firstVisibleItemPosition != 2){
-            binding.casesStatsRV.smoothScrollToPosition(firstVisibleItemPosition + 1)
+        if (visibleItemPosition != 2){
+            binding.casesStatsRV.smoothScrollToPosition(visibleItemPosition + 1)
         }else{
             binding.casesStatsRV.smoothScrollToPosition(0)
         }
@@ -41,13 +42,18 @@ class GlobalStatsHeaderHolder(private val binding: HeaderGlobalStatsDashboardBin
     override fun onClick(v: View?) {
     }
 
-    fun bind(globalCasesData: GlobalStats) {
+    fun bind(
+        globalCasesData: GlobalStats,
+        username: String
+    ) {
         globalCasesStatsAdapter.updateGlobalCasesData(globalCasesData)
 
         if (globalCasesData.confirmed != 0 && !isAutoScrollRuning){
             autoScrollCountryStatsDelayed()
             isAutoScrollRuning = true
         }
+
+        binding.welcomeTextTV.text = itemView.context.getString(R.string.placeholder_hello_user, username)
     }
 
     private fun autoScrollCountryStatsDelayed(){

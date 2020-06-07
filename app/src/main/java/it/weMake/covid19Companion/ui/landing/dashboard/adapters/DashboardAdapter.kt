@@ -17,7 +17,8 @@ import it.weMake.covid19Companion.ui.landing.dashboard.adapters.viewHolders.Glob
 
 class DashboardAdapter(
     private val search: (searchQuery: String) -> Unit,
-    private val sortBy: (sortBy: String) -> Unit
+    private val sortBy: (sortBy: String) -> Unit,
+    private val username: String
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var countryCases: ArrayList<CountryCasesData> = ArrayList()
@@ -62,7 +63,10 @@ class DashboardAdapter(
         return CountryCaseHolder(ItemCountryCasesSummaryBinding.bind(view))
     }
 
-    override fun getItemCount(): Int = if (pageTop == 0){countryCases.size + VIEW_TYPE_USER_COUNTRY_CASES}else{countryCases.size}
+    override fun getItemCount(): Int = if (pageTop == 0){
+        countryCases.size + VIEW_TYPE_USER_COUNTRY_CASES
+    }else{
+        countryCases.size}
 
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
 
@@ -70,7 +74,7 @@ class DashboardAdapter(
             when(getItemViewType(position)){
 
                 VIEW_TYPE_GLOBAL_STATS_HEADER->{
-                    globalCasesData?.let { (viewHolder as GlobalStatsHeaderHolder).bind(it) }
+                    globalCasesData?.let { (viewHolder as GlobalStatsHeaderHolder).bind(it, username) }
                 }
 
                 VIEW_TYPE_COUNTRY_CASES_HEADER->{
@@ -118,12 +122,18 @@ class DashboardAdapter(
 
         when{
 
-            pagedData.page == 0 && pagedData.data.size == 20 -> {
+            pagedData.page == 0 && pagedData.data.size == 20 &&  pageTop == 0-> {
                 if (countryCases.size > 1){
                     countryCases.subList(1, countryCases.size).clear()
                 }
                 countryCases.addAll(pagedData.data)
                 notifyDataSetChanged()
+            }
+
+            pagedData.page == 0 && pagedData.data.size == 20-> {
+                pageTop = 0
+                pageBottom = 1
+                refill(pagedData)
             }
 
             pagedData.page < pageTop ->{

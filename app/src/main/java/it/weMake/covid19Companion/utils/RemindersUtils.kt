@@ -2,8 +2,10 @@ package it.weMake.covid19Companion.utils
 
 import android.app.*
 import android.app.AlarmManager.ELAPSED_REALTIME_WAKEUP
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.media.AudioAttributes
 import android.media.RingtoneManager
 import android.net.Uri
@@ -14,9 +16,9 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.core.app.TaskStackBuilder
 import androidx.core.content.ContextCompat
 import it.weMake.covid19Companion.R
+import it.weMake.covid19Companion.broadcastReceivers.BootReceiver
 import it.weMake.covid19Companion.broadcastReceivers.DrinkWaterReminderBroadcast
 import it.weMake.covid19Companion.broadcastReceivers.WashHandsReminderBroadcast
-import it.weMake.covid19Companion.ui.about.AboutActivity
 import it.weMake.covid19Companion.ui.landing.MainActivity
 import it.weMake.covid19Companion.ui.splashscreen.SplashScreenActivity
 
@@ -98,7 +100,8 @@ fun showReminderNotification(
     context: Context,
     notificationId: Int,
     text: String,
-    useCustomNotificationTone: Boolean
+    useCustomNotificationTone: Boolean,
+    username: String
 ) {
 
     createRemindersNotificationChannel(context, useCustomNotificationTone)
@@ -117,7 +120,7 @@ fun showReminderNotification(
 
     val builder: NotificationCompat.Builder = NotificationCompat.Builder(context, channelId)
         .setSmallIcon(R.drawable.ic_virus)
-        .setContentTitle(context.getString(R.string.title_notification))
+        .setContentTitle(context.getString(R.string.placeholder_title_notification, username))
         .setContentText(text)
         .setPriority(NotificationCompat.PRIORITY_HIGH)
         .setCategory(NotificationCompat.CATEGORY_REMINDER)
@@ -228,4 +231,30 @@ fun cancelAlarm (context: Context, pendingIntent: PendingIntent){
     alarmManager.cancel(pendingIntent)
     pendingIntent.cancel()
 
+}
+
+fun enableBootReceiver(context: Context){
+    val receiver = ComponentName(context, BootReceiver::class.java)
+
+    context.packageManager.setComponentEnabledSetting(
+        receiver,
+        PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+        PackageManager.DONT_KILL_APP
+    )
+}
+
+fun disableBootReceiver(context: Context){
+    val receiver = ComponentName(context, BootReceiver::class.java)
+
+    context.packageManager.setComponentEnabledSetting(
+        receiver,
+        PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+        PackageManager.DONT_KILL_APP
+    )
+}
+
+fun isBootReceiverEnabled(context: Context): Boolean{
+    val receiver = ComponentName(context, BootReceiver::class.java)
+
+    return context.packageManager.getComponentEnabledSetting(receiver) == PackageManager.COMPONENT_ENABLED_STATE_ENABLED
 }

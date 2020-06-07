@@ -5,7 +5,6 @@ import android.util.Log
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import dagger.android.AndroidInjection
-import dagger.android.DaggerService
 import it.weMake.covid19Companion.R
 import it.weMake.covid19Companion.ui.about.AboutActivity
 import it.weMake.covid19Companion.ui.about.EXTRA_FROM_NOTIFICATION
@@ -15,7 +14,6 @@ import it.wemake.covid19Companion.domain.usecases.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import java.util.logging.Handler
 import javax.inject.Inject
 
 
@@ -37,6 +35,9 @@ class MyFirebaseMessagingService : FirebaseMessagingService(){
     @Inject
     lateinit var insertAppReleaseUseCase: InsertAppReleaseUseCase
 
+    @Inject
+    lateinit var getUsernameUseCase: GetUsernameUseCase
+
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
 
         Log.d(TAG, "From: " + remoteMessage.from)
@@ -55,7 +56,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService(){
                     showDefaultNotification(
                         this,
                         DAILY_MOTIVATION_NOTIFICATION_ID,
-                        getString(R.string.title_motivation_notification),
+                        getString(R.string.placeholder_title_motivation_notification, getUsernameUseCase()),
                         dailyMotivation)
                 }
 
@@ -76,7 +77,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService(){
                     showDefaultNotification(
                         this,
                         APP_UPDATE_NOTIFICATION_ID,
-                        getString(R.string.title_app_update_notification),
+                        getString(R.string.placeholder_title_app_update_notification, getUsernameUseCase()),
                         getString(R.string.message_app_update_notification),
                         intent
                     )

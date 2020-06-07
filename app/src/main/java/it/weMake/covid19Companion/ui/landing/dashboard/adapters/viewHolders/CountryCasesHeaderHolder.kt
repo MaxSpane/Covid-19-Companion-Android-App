@@ -4,6 +4,7 @@ import android.graphics.Typeface
 import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.RecyclerView
 import it.weMake.covid19Companion.R
@@ -43,15 +44,14 @@ class CountryCasesHeaderHolder(
 
                 if (binding.searchET.visibility == View.GONE){
 
+                    if (binding.filterLL.isVisible)
+                        closeFilter()
+
                     binding.searchET.show()
                     binding.searchIV.setImageResource(R.drawable.ic_close_ash_24dp)
 
                 }else{
-
-                    binding.searchET.makeDisappear()
-                    binding.searchIV.setImageResource(R.drawable.ic_search)
-                    binding.searchET.setText("")
-
+                    closeSearch()
                 }
 
             }
@@ -59,11 +59,14 @@ class CountryCasesHeaderHolder(
             R.id.filterIV -> {
 
                 if (binding.filterLL.visibility == View.GONE){
+
+                    if (binding.searchET.isVisible)
+                        closeSearch()
+
                     binding.filterLL.show()
                     binding.filterIV.setImageResource(R.drawable.ic_close_ash_24dp)
                 }else{
                     closeFilter()
-                    binding.searchET.setText("")
                 }
 
             }
@@ -109,10 +112,16 @@ class CountryCasesHeaderHolder(
     }
 
     private fun closeFilter(){
-
+        binding.searchET.setText("")
         binding.filterLL.makeDisappear()
         binding.filterIV.setImageResource(R.drawable.ic_filter)
 
+    }
+
+    private fun closeSearch(){
+        binding.searchET.makeDisappear()
+        binding.searchIV.setImageResource(R.drawable.ic_search)
+        binding.searchET.setText("")
     }
 
 }

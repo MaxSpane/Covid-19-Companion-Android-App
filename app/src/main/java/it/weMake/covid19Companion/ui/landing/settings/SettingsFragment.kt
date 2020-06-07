@@ -251,7 +251,7 @@ class SettingsFragment : DaggerFragment(),View.OnClickListener {
         updateUIIntervalWashHand(intervalInMinutes)
 
         createCancelWashHandsAlarm(requireContext(), minutesToMilliSecs(intervalInMinutes))
-
+        shouldEnableDisableBootReceiver()
     }
 
     private fun updateUIIntervalWashHand(intervalInMinutes: Int) {
@@ -272,6 +272,7 @@ class SettingsFragment : DaggerFragment(),View.OnClickListener {
         updateUIIntervalDrinkWater(intervalInMinutes)
 
         createCancelDrinkWaterAlarm(requireContext(), minutesToMilliSecs(intervalInMinutes))
+        shouldEnableDisableBootReceiver()
     }
 
     private fun updateUIIntervalDrinkWater(intervalInMinutes: Int) {
@@ -442,6 +443,13 @@ class SettingsFragment : DaggerFragment(),View.OnClickListener {
 
     }
 
+    fun shouldEnableDisableBootReceiver(){
+        if (isBootReceiverEnabled(requireContext())){
+            disableBootReceiver(requireContext())
+        }else if(!isBootReceiverEnabled(requireContext()) && (viewModel.getWashHandsInterval() != 0 || viewModel.getDrinkWaterInterval() != 0)){
+            enableBootReceiver(requireContext())
+        }
+    }
 
 }
 

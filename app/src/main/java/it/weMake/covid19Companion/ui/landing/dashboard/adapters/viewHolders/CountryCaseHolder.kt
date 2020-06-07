@@ -34,7 +34,8 @@ class CountryCaseHolder(private val binding: ItemCountryCasesSummaryBinding): Re
 
         binding.countryNameTV.text = itemData.displayName
         itemData.countryInfo.iso2.let {
-            getFlagResourceId(itemView.context, it)?.let {flagResId -> binding.flagIV.setImageResource(flagResId) }
+            getFlagResourceId(itemView.context, it)?.let {flagResId ->
+                binding.flagIV.setImageResource(flagResId) }
 
         }
         binding.confirmedValueTV.text = if(itemData.totalConfirmed == null){"Unknown"}else{itemData.totalConfirmed.numberWithCommas()}
@@ -60,6 +61,12 @@ class CountryCaseHolder(private val binding: ItemCountryCasesSummaryBinding): Re
             binding.deathsDeltaCP.text = context.getString(R.string.new_cases_placeholder, itemData.totalDeathsDelta.numberWithCommas())
         }else{
             binding.deathsDeltaCP.makeDisappear()
+        }
+
+        if (itemData.hasRegionalCasesData){
+            binding.arrowRightIV.show()
+        }else{
+            binding.arrowRightIV.makeDisappear()
         }
 
     }

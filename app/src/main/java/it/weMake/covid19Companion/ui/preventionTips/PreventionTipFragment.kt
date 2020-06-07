@@ -8,6 +8,7 @@ import android.view.ViewGroup
 
 import it.weMake.covid19Companion.databinding.FragmentPreventionTipBinding
 import it.weMake.covid19Companion.models.preventionTips.PreventionTip
+import it.weMake.covid19Companion.utils.getDrawableResourceId
 
 /**
  * A simple [Fragment] subclass.
@@ -43,6 +44,10 @@ class PreventionTipFragment : Fragment() {
         binding.preventionTipsTitleTV.text = preventionTip.title
         binding.preventionTipsSummary3TV.text = preventionTip.preventionTipWhy
         binding.preventionTipsSummary1TV.text = preventionTip.preventionTip
+
+        getDrawableResourceId(requireContext(), preventionTip.iconId)?.let {
+            binding.preventionTipsIV.setImageResource(it)
+        }
 
         return binding.root
 
