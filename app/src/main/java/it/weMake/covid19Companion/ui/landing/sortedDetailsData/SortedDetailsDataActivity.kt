@@ -31,6 +31,9 @@ class SortedDetailsDataActivity : DaggerAppCompatActivity() {
         binding = ActivitySortedDetailsDataBinding.inflate(layoutInflater)
         val view = binding.root
 
+        binding.backButtonIV.setOnClickListener {
+            finish()
+        }
         // Create an Intent and get the string extra and pass it to the viewmodel
         val intent = intent
         val sortValue = intent.getStringExtra(SORT_VALUE_EXTRA)

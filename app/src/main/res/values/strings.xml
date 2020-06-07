@@ -142,5 +142,7 @@
     <string name="placeholder_hello_user">Hello %s</string>
     <string name="accept_permission_hand_hygiene">Please accept the permission request in other to download the Hand Hygiene Brochure</string>
     <string name="storage_permission_request_app_update">Please grant Covid-19 Companion Storage permissions so that it can download App updates</string>
+    <string name="hours">Hrs</string>
+    <string name="minutes">Mins</string>
 
 </resources>

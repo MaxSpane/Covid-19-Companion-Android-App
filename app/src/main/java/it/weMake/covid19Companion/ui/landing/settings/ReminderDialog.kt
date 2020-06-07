@@ -12,7 +12,8 @@ import it.weMake.covid19Companion.R
 
 class ReminderDialog(
     val intervalSet: (intervalInMinutes: Int) -> Unit,
-    val onDismissCancel: () -> Unit
+    val onDismissCancel: () -> Unit,
+    val username : String
 ) : AppCompatDialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -32,7 +33,7 @@ class ReminderDialog(
         minuteNP.minValue = 0
 
         builder.setView(view)
-            .setTitle("please survivor, pick the time Interval")
+            .setTitle("please $username, pick the time Interval")
             .setNegativeButton(
                 "cancel"
             ) { _, _ ->
