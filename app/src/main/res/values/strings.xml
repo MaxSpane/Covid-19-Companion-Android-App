@@ -140,5 +140,7 @@
     <string name="instructions_long_press_splashscreen">Press and hold anywhere to pin the Splashscreen</string>
     <string name="instructions_tap_splashscreen">"Tap anywhere to dismiss the Splashscreen"</string>
     <string name="placeholder_hello_user">Hello %s</string>
+    <string name="hours">Hrs</string>
+    <string name="minutes">Mins</string>
 
 </resources>
