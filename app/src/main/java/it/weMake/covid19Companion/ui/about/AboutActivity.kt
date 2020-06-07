@@ -110,6 +110,8 @@ class AboutActivity : DaggerAppCompatActivity(), View.OnClickListener {
 
         if (requestCode == WRITE_EXTERNAL_STORAGE_PERMISSION_REQUEST && grantResults[0] == PackageManager.PERMISSION_GRANTED){
             updateApp()
+        }else{
+            showLongToast(this, getString(R.string.storage_permission_request_app_update))
         }
 
     }

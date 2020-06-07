@@ -140,5 +140,7 @@
     <string name="instructions_long_press_splashscreen">Press and hold anywhere to pin the Splashscreen</string>
     <string name="instructions_tap_splashscreen">"Tap anywhere to dismiss the Splashscreen"</string>
     <string name="placeholder_hello_user">Hello %s</string>
+    <string name="accept_permission_hand_hygiene">Please accept the permission request in other to download the Hand Hygiene Brochure</string>
+    <string name="storage_permission_request_app_update">Please grant Covid-19 Companion Storage permissions so that it can download App updates</string>
 
 </resources>

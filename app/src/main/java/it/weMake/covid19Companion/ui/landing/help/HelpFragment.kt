@@ -86,6 +86,8 @@ class HelpFragment : DaggerFragment(), View.OnClickListener {
 
         if (requestCode == WRITE_EXTERNAL_STORAGE_PERMISSION_REQUEST && grantResults[0] == PackageManager.PERMISSION_GRANTED){
             downloadHandHygienePDF()
+        }else{
+            showLongToast(requireContext(), getString(R.string.accept_permission_hand_hygiene))
         }
 
     }

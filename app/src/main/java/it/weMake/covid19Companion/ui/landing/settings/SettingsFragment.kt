@@ -59,7 +59,7 @@ class SettingsFragment : DaggerFragment(),View.OnClickListener {
         binding.countryTV.setOnClickListener {
                 viewModel.countriesLiveData.observe(viewLifecycleOwner, Observer {countries->
                     MaterialAlertDialogBuilder(requireContext())
-                        .setTitle("Welcome Survivor, choose where your Loyalties lie.")
+                        .setTitle("Hey ${viewModel.getUsername()}, choose where your Loyalties lie.")
                         .setItems(countries.map { it.name }.toTypedArray()) {_, which ->
                             viewModel.setUserCountryIso(countries[which].iso2!!)
                             //setting the image of the country
