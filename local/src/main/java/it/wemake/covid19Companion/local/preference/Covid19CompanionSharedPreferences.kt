@@ -119,7 +119,7 @@ class Covid19CompanionSharedPreferences constructor(
     }
 
     fun getUsername(): String =
-        covid19CompanionAppSharedPref.getString(USERNAME, "Survivor")!!
+        covid19CompanionAppSharedPref.getString(USERNAME, "Survivor \uD83D\uDCAA\uD83D\uDCAA\uD83D\uDCAA")!!
 
     fun setUsername(username: String) {
         val editor = covid19CompanionAppSharedPref.edit()
