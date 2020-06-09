@@ -42,7 +42,6 @@ fun String.getDateFromISOString(): Date {
     return date!!
 }
 
-
 fun Long.getTimeFromToday(): String {
 
     val calendar = Calendar.getInstance(
@@ -83,4 +82,11 @@ fun AppCompatActivity.isStoragePermissionGranted(): Boolean{
         return true
     }
 
+}
+
+fun Long.getTimeDayDateFromTimestamp(): String {
+    val dateFormat =
+        SimpleDateFormat(TIME_DAY_DATE_DATE_FORMAT, Locale.getDefault())
+    val date = Date(this)
+    return dateFormat.format(date)
 }

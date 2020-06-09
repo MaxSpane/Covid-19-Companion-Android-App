@@ -42,10 +42,18 @@
         <item name="font">@font/proxima_nova_bold</item>
     </style>
 
+    <style name="Covid19TextView.Head.Title.Light" parent="Covid19TextView">
+        <item name="android:textSize">32sp</item>
+    </style>
+
     <style name="Covid19TextView.Body.Title" parent="Covid19TextView">
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">18sp</item>
         <item name="font">@font/proxima_nova_bold</item>
+    </style>
+
+    <style name="Covid19TextView.Body.Title.Light" parent="Covid19TextView">
+        <item name="android:textSize">18sp</item>
     </style>
 
     <style name="Covid19TextView.Body.Paragraph" parent="Covid19TextView">

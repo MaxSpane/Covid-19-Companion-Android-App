@@ -14,10 +14,8 @@ import it.weMake.covid19Companion.commons.Error
 import it.weMake.covid19Companion.commons.Success
 import it.weMake.covid19Companion.databinding.ActivityRegionalStatsBinding
 import it.weMake.covid19Companion.models.casesData.CountryCasesData
-import it.weMake.covid19Companion.utils.getFlagResourceId
-import it.weMake.covid19Companion.utils.numberWithCommas
-import it.weMake.covid19Companion.utils.showLongToast
-import it.weMake.covid19Companion.utils.showShortToast
+import it.weMake.covid19Companion.utils.*
+import java.util.*
 import javax.inject.Inject
 
 
@@ -51,12 +49,12 @@ class RegionalStatsActivity : DaggerAppCompatActivity() {
 
         countryCasesData = intent.getParcelableExtra(EXTRA_COUNTRY_CASES_DATA)!!
         viewModel.getAllCountryRegionsCasesData(countryCasesData.displayName)
-        viewModel.updateCountryRegionsCasesData(countryCasesData.displayName)
+        updateCountryRegionsCasesData()
 
         val regionsRecycler = binding.regionStatsRV
         val dividerItemDecoration = DividerItemDecoration(
             regionsRecycler.context,
-            LinearLayoutManager.VERTICAL        )
+            LinearLayoutManager.VERTICAL)
         regionsRecycler.addItemDecoration(dividerItemDecoration)
         regionalCasesStatsAdapter =
             RegionalCasesStatsAdapter()
@@ -78,7 +76,7 @@ class RegionalStatsActivity : DaggerAppCompatActivity() {
         binding.backButtonIV.setOnClickListener { finish() }
         binding.regionalStatsSRL.isRefreshing = true
 
-        binding.regionalStatsSRL.setOnRefreshListener { viewModel.updateCountryRegionsCasesData(countryCasesData.displayName) }
+        binding.regionalStatsSRL.setOnRefreshListener { updateCountryRegionsCasesData() }
 
         attachObservers()
     }
@@ -90,14 +88,29 @@ class RegionalStatsActivity : DaggerAppCompatActivity() {
 
         viewModel.uiState.observe(this, Observer {
             when (it) {
-                is Success -> binding.regionalStatsSRL.isRefreshing = false
+                is Success ->{
+                    updateRegionalCasesDataLastUpdated()
+                }
                 is Error -> {
+                    binding.regionalStatsSRL.isRefreshing = false
                     showLongToast(this, getString(R.string.error_update_regional_cases_data))
                 }
 //                is Loading -> binding.regionStatsSRL.isRefreshing = true
             }
         })
 
+        viewModel.countryRegionsCasesDataLatestUpdatedDateLiveData.observe(this, Observer {
+            binding.lastUpdatedDateTV.text = it?.getTimeDayDateFromTimestamp() ?: "Never"
+        })
+
+    }
+
+    private fun updateRegionalCasesDataLastUpdated(){
+        viewModel.getCountryRegionsCasesDataLatestUpdatedDate(countryCasesData.displayName)
+    }
+
+    private fun updateCountryRegionsCasesData(){
+        viewModel.updateCountryRegionsCasesData(countryCasesData.displayName)
     }
 
 }

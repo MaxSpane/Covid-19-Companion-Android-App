@@ -65,7 +65,7 @@ class CasesDataLocal @Inject constructor(
             it.toLocal()
         })
 
-    override suspend fun getCountryLatestUpdatedDate(countryName: String): Long? =
+    override suspend fun getCountryRegionsCasesDataLatestUpdatedDate(countryName: String): Long? =
         regionsCasesDataDao.getCountryLatestUpdatedDate(countryName)
 
     override suspend fun getAllCountriesCasesData(sortBy: String): Flow<List<CountryCasesDataEntity>> =

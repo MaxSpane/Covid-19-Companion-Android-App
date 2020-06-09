@@ -10,6 +10,7 @@ import it.weMake.covid19Companion.mappers.toPresentation
 import it.weMake.covid19Companion.models.casesData.RegionCasesData
 import it.weMake.covid19Companion.utils.SORT_BY_CONFIRMED
 import it.wemake.covid19Companion.domain.usecases.GetAllCountryRegionsCasesDataUseCase
+import it.wemake.covid19Companion.domain.usecases.GetCountryRegionsCasesDataLatestUpdatedDateUseCase
 import it.wemake.covid19Companion.domain.usecases.UpdateCountryRegionsCasesDataUseCase
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
@@ -18,12 +19,17 @@ import javax.inject.Inject
 
 class RegionalStatsViewModel @Inject constructor(
     private val getAllCountryRegionsCasesDataUseCase: GetAllCountryRegionsCasesDataUseCase,
-    private val updateCountryRegionsCasesDataUseCase: UpdateCountryRegionsCasesDataUseCase
+    private val updateCountryRegionsCasesDataUseCase: UpdateCountryRegionsCasesDataUseCase,
+    private val getCountryRegionsCasesDataLatestUpdatedDateUseCase: GetCountryRegionsCasesDataLatestUpdatedDateUseCase
 ) : UiStateViewModel(){
 
     private val _countryRegionsCasesDataLiveData = MutableLiveData<List<RegionCasesData>>()
     val countryRegionsCasesDataLiveData: LiveData<List<RegionCasesData>>
         get() = _countryRegionsCasesDataLiveData
+
+    private val _countryRegionsCasesDataLatestUpdatedDateLiveData = MutableLiveData<Long?>()
+    val countryRegionsCasesDataLatestUpdatedDateLiveData: LiveData<Long?>
+        get() = _countryRegionsCasesDataLatestUpdatedDateLiveData
 
     fun getAllCountryRegionsCasesData(countryName: String){
         viewModelScope.launch {
@@ -31,6 +37,7 @@ class RegionalStatsViewModel @Inject constructor(
                 _countryRegionsCasesDataLiveData.value = it
             }
         }
+
     }
 
     fun updateCountryRegionsCasesData(countryName: String){
@@ -38,6 +45,12 @@ class RegionalStatsViewModel @Inject constructor(
         viewModelScope.launch(handler) {
             updateCountryRegionsCasesDataUseCase(countryName)
             _uiState.value = Success
+        }
+    }
+
+    fun getCountryRegionsCasesDataLatestUpdatedDate(countryName: String){
+        viewModelScope.launch {
+            _countryRegionsCasesDataLatestUpdatedDateLiveData.value = getCountryRegionsCasesDataLatestUpdatedDateUseCase(countryName)
         }
     }
 

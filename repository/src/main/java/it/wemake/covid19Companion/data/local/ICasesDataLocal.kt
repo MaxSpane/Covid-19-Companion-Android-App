@@ -21,7 +21,7 @@ interface ICasesDataLocal {
 
     suspend fun insertRegionsCasesData(regionsCasesData: List<RegionCasesDataEntity>)
 
-    suspend fun getCountryLatestUpdatedDate(countryName: String): Long?
+    suspend fun getCountryRegionsCasesDataLatestUpdatedDate(countryName: String): Long?
 
     suspend fun getAllCountriesCasesData(sortBy: String): Flow<List<CountryCasesDataEntity>>
 

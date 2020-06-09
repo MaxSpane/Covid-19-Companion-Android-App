@@ -87,7 +87,7 @@ class Covid19CasesRepository @Inject constructor(
 
     private suspend fun updateNigeriaRegionsCasesData(){
         covid19CasesRemote.getNigeriaRegionsCasesDataSummary().collect { nigeriaRegionCasesData ->
-            val localLatestUpdatedDate = casesDataLocal.getCountryLatestUpdatedDate("Nigeria") ?: 0
+            val localLatestUpdatedDate = casesDataLocal.getCountryRegionsCasesDataLatestUpdatedDate("Nigeria") ?: 0
             var remoteLatestUpdatedDate = localLatestUpdatedDate
             val updatedRegionCasesData = ArrayList<RegionCasesDataEntity>()
 
@@ -109,7 +109,7 @@ class Covid19CasesRepository @Inject constructor(
 
     private suspend fun updateUSARegionsCasesData(){
         covid19CasesRemote.getUSARegionsCasesDataSummary().collect { usaRegionCasesData ->
-            val localLatestUpdatedDate = casesDataLocal.getCountryLatestUpdatedDate("USA") ?: 0
+            val localLatestUpdatedDate = casesDataLocal.getCountryRegionsCasesDataLatestUpdatedDate("USA") ?: 0
             var remoteLatestUpdatedDate = localLatestUpdatedDate
             val updatedRegionCasesData = ArrayList<RegionCasesDataEntity>()
 
@@ -139,6 +139,9 @@ class Covid19CasesRepository @Inject constructor(
                     it.toDomain()
                 }
             }
+
+    override suspend fun getCountryRegionsCasesDataLatestUpdatedDate(countryName: String): Long? =
+        casesDataLocal.getCountryRegionsCasesDataLatestUpdatedDate(countryName)
 
     override suspend fun getAllCountriesCasesData(sortBy: String): Flow<List<CountryCasesDomainModel>> =
         casesDataLocal.getAllCountriesCasesData(sortBy).map { countriesCasesData->

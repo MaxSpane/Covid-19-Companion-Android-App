@@ -50,7 +50,7 @@
 
                 <TextView
                     android:id="@+id/countryNameTV"
-                    style="@style/Covid19TextView"
+                    style="@style/Covid19TextView.Head.Title.Light"
                     android:text="@string/nigeria"
                     android:textColor="#219653"
                     android:layout_marginStart="20dp"
@@ -60,17 +60,27 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_chainStyle="packed"
                     />
+
+                <TextView
+                    android:id="@+id/lastUpdatedDateTV"
+                    style="@style/Covid19TextView.Body.Title.Light"
+                    android:textColor="@color/black"
+                    app:layout_constraintTop_toBottomOf="@id/countryNameTV"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="20dp"
+                    tools:text="02/14/2020" />
+
                 <!--       beginning of  cardview 1-->
 
                 <androidx.cardview.widget.CardView
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/countryNameTV"
+                    app:layout_constraintTop_toBottomOf="@id/lastUpdatedDateTV"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="20dp"
                     android:layout_marginBottom="8dp"
                     app:cardCornerRadius="8dp"
                     android:id="@+id/countryCasesCV">

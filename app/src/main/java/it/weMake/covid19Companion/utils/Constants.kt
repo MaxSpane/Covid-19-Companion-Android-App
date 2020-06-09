@@ -62,5 +62,6 @@ const val FCM_KEY_LATEST_APP_VERSION_CODE = "latest_app_version_code"
 const val FCM_KEY_LATEST_APP_VERSION_DETAILS = "latest_app_version_details"
 const val APP_DOWNLOAD_URL = "http://richardsaseun.com/Covid_19_Companion.apk"
 
-
 const val WRITE_EXTERNAL_STORAGE_PERMISSION_REQUEST = 1
+
+const val TIME_DAY_DATE_DATE_FORMAT = "hh:mm a EEE, dd MMMM yyyy"

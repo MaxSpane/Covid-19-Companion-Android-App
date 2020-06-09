@@ -23,4 +23,6 @@ interface ICovid19CasesRepository {
 
     suspend fun getAllCountryRegionsCasesData(countryName: String, sortBy: String): Flow<List<RegionCasesDataDomainModel>>
 
+    suspend fun getCountryRegionsCasesDataLatestUpdatedDate(countryName: String): Long?
+
 }
