@@ -1,27 +1,23 @@
 package it.weMake.covid19Companion.broadcastReceivers
 
-import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import com.google.android.gms.location.Geofence
-import com.google.android.gms.location.GeofenceStatusCodes
 import com.google.android.gms.location.GeofencingEvent
+import dagger.android.DaggerBroadcastReceiver
 import it.weMake.covid19Companion.R
-import it.weMake.covid19Companion.utils.DRINK_WATER_NOTIFICATION_ID
 import it.weMake.covid19Companion.utils.LOCATION_WASH_HANDS_NOTIFICATION_ID
 import it.weMake.covid19Companion.utils.showReminderNotification
 import it.wemake.covid19Companion.domain.usecases.GetUseCustomNotificationToneUseCase
 import it.wemake.covid19Companion.domain.usecases.GetUsernameUseCase
 import it.wemake.covid19Companion.domain.usecases.GetWashHandsReminderLocationUseCase
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class GeofenceBroadcastReceiver : BroadcastReceiver() {
+class GeofenceBroadcastReceiver : DaggerBroadcastReceiver() {
 
     @Inject
     lateinit var getWashHandsReminderLocationUseCase: GetWashHandsReminderLocationUseCase
@@ -33,6 +29,7 @@ class GeofenceBroadcastReceiver : BroadcastReceiver() {
     lateinit var getUsernameUseCase: GetUsernameUseCase
 
     override fun onReceive(context: Context, intent: Intent) {
+        super.onReceive(context, intent)
 
         val geofencingEvent = GeofencingEvent.fromIntent(intent)
         if (geofencingEvent.hasError()) {
