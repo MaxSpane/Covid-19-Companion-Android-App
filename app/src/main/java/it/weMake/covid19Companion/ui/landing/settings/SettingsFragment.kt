@@ -41,6 +41,7 @@ class SettingsFragment : DaggerFragment(),View.OnClickListener {
     private val MY_PERMISSIONS_REQUEST_FINE_LOCATION = 2
     private val MY_PERMISSIONS_REQUEST_BACKGROUND_LOCATION = 3
     lateinit var geofencingUtils: GeofencingUtils
+    lateinit var username: String
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,14 +53,15 @@ class SettingsFragment : DaggerFragment(),View.OnClickListener {
         binding = FragmentSettingsBinding.inflate(inflater, container, false)
 
         //display the username
-        binding.displayUsernameTV.text = viewModel.getUsername()
+        username = viewModel.getUsername()
+        binding.displayUsernameTV.text = username
 
         // setting the country iso selected
 
         binding.countryTV.setOnClickListener {
                 viewModel.countriesLiveData.observe(viewLifecycleOwner, Observer {countries->
                     MaterialAlertDialogBuilder(requireContext())
-                        .setTitle("Welcome Survivor, choose where your Loyalties lie.")
+                        .setTitle("Welcome $username, choose where your Loyalties lie.")
                         .setItems(countries.map { it.name }.toTypedArray()) {_, which ->
                             viewModel.setUserCountryIso(countries[which].iso2!!)
                             //setting the image of the country
