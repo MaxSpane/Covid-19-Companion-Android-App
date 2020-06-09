@@ -11,10 +11,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.android.support.DaggerAppCompatActivity
 import it.weMake.covid19Companion.R
 import it.weMake.covid19Companion.commons.Error
+import it.weMake.covid19Companion.commons.Success
 import it.weMake.covid19Companion.databinding.ActivityRegionalStatsBinding
 import it.weMake.covid19Companion.models.casesData.CountryCasesData
 import it.weMake.covid19Companion.utils.getFlagResourceId
 import it.weMake.covid19Companion.utils.numberWithCommas
+import it.weMake.covid19Companion.utils.showLongToast
 import it.weMake.covid19Companion.utils.showShortToast
 import javax.inject.Inject
 
@@ -74,6 +76,9 @@ class RegionalStatsActivity : DaggerAppCompatActivity() {
         binding.deathsPerMillionValueTV.text = countryCasesData.deathsPerOneMillion.toString()
 
         binding.backButtonIV.setOnClickListener { finish() }
+        binding.regionalStatsSRL.isRefreshing = true
+
+        binding.regionalStatsSRL.setOnRefreshListener { viewModel.updateCountryRegionsCasesData(countryCasesData.displayName) }
 
         attachObservers()
     }
@@ -85,9 +90,9 @@ class RegionalStatsActivity : DaggerAppCompatActivity() {
 
         viewModel.uiState.observe(this, Observer {
             when (it) {
-//                is Success -> binding.regionStatsSRL.isRefreshing = false
+                is Success -> binding.regionalStatsSRL.isRefreshing = false
                 is Error -> {
-                    showShortToast(this, getString(R.string.error_update_regional_cases_data))
+                    showLongToast(this, getString(R.string.error_update_regional_cases_data))
                 }
 //                is Loading -> binding.regionStatsSRL.isRefreshing = true
             }
