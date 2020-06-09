@@ -60,7 +60,7 @@ const val FCM_KEY_DAILY_MOTIVATION_MESSAGE = "daily_motivation_message"
 const val FCM_KEY_LATEST_APP_VERSION_NAME = "latest_app_version_name"
 const val FCM_KEY_LATEST_APP_VERSION_CODE = "latest_app_version_code"
 const val FCM_KEY_LATEST_APP_VERSION_DETAILS = "latest_app_version_details"
-const val APP_DOWNLOAD_URL = "http://richardsaseun.com/Covid_19_Companion.apk"
+const val APP_DOWNLOAD_URL = "http://richardsaseun.com/covid_19_companion.apk"
 
 const val WRITE_EXTERNAL_STORAGE_PERMISSION_REQUEST = 1
 
