@@ -89,6 +89,7 @@ class RegionalStatsActivity : DaggerAppCompatActivity() {
         viewModel.uiState.observe(this, Observer {
             when (it) {
                 is Success ->{
+                    binding.regionalStatsSRL.isRefreshing = false
                     updateRegionalCasesDataLastUpdated()
                 }
                 is Error -> {
