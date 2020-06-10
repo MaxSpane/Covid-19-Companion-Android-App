@@ -13,6 +13,7 @@ import it.weMake.covid19Companion.databinding.ActivitySplashScreenBinding
 import it.weMake.covid19Companion.ui.landing.MainActivity
 import it.weMake.covid19Companion.ui.preventionTips.PreventionTipsActivity
 import it.weMake.covid19Companion.utils.ONE_SECOND_IN_MILLI
+import it.weMake.covid19Companion.utils.showLongToast
 import it.weMake.covid19Companion.utils.showShortToast
 import javax.inject.Inject
 
@@ -38,15 +39,15 @@ class SplashScreenActivity : DaggerAppCompatActivity() {
                 observeUserCountryIso2()
         }
 
-        handler.postDelayed(runnable, 3 * ONE_SECOND_IN_MILLI)
+        handler.postDelayed(runnable, 35 * ONE_SECOND_IN_MILLI / 10)
 
         if(!viewModel.getHasLongPressedSplashscreen())
-            showShortToast(this, getString(R.string.instructions_long_press_splashscreen))
+            showLongToast(this, getString(R.string.instructions_long_press_splashscreen))
 
         binding.splashscreenCL.setOnLongClickListener {
             longPressed = true
             if(!viewModel.getHasLongPressedSplashscreen()){
-                showShortToast(this, getString(R.string.instructions_tap_splashscreen))
+                showLongToast(this, getString(R.string.instructions_tap_splashscreen))
                 viewModel.setHasLongPressedSplashscreen(true)
             }
             true
