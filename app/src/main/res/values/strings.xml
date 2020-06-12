@@ -144,5 +144,6 @@
     <string name="storage_permission_request_app_update">Please grant Covid-19 Companion Storage permissions so that it can download App updates</string>
     <string name="hours">Hrs</string>
     <string name="minutes">Mins</string>
+    <string name="screening_tool_description">Answer the questions that follow anonymously to check if you have been exhibiting symptoms relating to Covid-19 and get advice on the next step you should take.</string>
 
 </resources>
