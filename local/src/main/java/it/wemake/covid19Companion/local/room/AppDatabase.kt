@@ -18,9 +18,10 @@ import it.wemake.covid19Companion.local.utils.DB_NAME
         WashHandsReminderLocationLocalModel::class,
         RegionCasesDataLocalModel::class,
         AppReleaseLocalModel::class,
-        SourceLocalModel::class
+        SourceLocalModel::class,
+        TeamMemberLocalModel::class
     ],
-    version = 2,
+    version = 3,
     exportSchema = true)
 abstract class AppDatabase: RoomDatabase() {
 
@@ -31,6 +32,7 @@ abstract class AppDatabase: RoomDatabase() {
     abstract fun getRegionsCasesDataDao(): RegionsCasesDataDao
     abstract fun getAppReleasesDao(): AppReleasesDao
     abstract fun getSourcesDao(): SourcesDao
+    abstract fun getDevelopmentTeamDao(): DevelopmentTeamDao
 
     companion object {
         @Volatile
@@ -41,6 +43,13 @@ abstract class AppDatabase: RoomDatabase() {
             override fun migrate(database: SupportSQLiteDatabase) {
                 database.execSQL("UPDATE `prevention_tips` SET `preventionTip` = 'Maintain at least 2 metre (6 feet) distance between yourself and anyone who is coughing or sneezing.' WHERE `iconId` = 'maintain_social_distancing'")
                 database.execSQL("UPDATE `prevention_tips` SET `preventionTip` = 'Avoid crowded places, especially if you are over 60 or have an underlying health condition such as high blood pressure, diabetes, heart and lung diseases or cancer.' WHERE `iconId` = 'avoid_crowded_places'")
+            }
+        }
+
+        val MIGRATION_2_3 = object : Migration(2, 3) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL("CREATE TABLE `development_team` (`name` TEXT NOT NULL, `role` TEXT NOT NULL, `about` TEXT NOT NULL, `externalLink` TEXT NOT NULL, PRIMARY KEY(`name`))")
+                database.execSQL("INSERT OR IGNORE INTO `development_team` (`name`, `role`, `about`, `externalLink`) VALUES ('Richard Saseun', 'UI, UX Designer', 'A graphics guru with a penchant for coding; who loves solving problems and creating products to make people lives easier.', 'http://richardsaseun.com'), ('Mohammed Adetunji', 'Native Mobile App Developer', 'A skilled Mobile App sculptor with a love for Technology; out to solve the Worlds problems one App at a time.', 'https://github.com/MaxSpane'), ('David Idowu', 'Native Android Developer', 'A versed programmer; trying to learn the language of the future.', 'https://github.com/Marshall-D')")
             }
         }
 
@@ -61,6 +70,7 @@ abstract class AppDatabase: RoomDatabase() {
         )
             .createFromAsset("databases/covid_19_companion.db")
             .addMigrations(MIGRATION_1_2)
+            .addMigrations(MIGRATION_2_3)
             .build()
     }
 

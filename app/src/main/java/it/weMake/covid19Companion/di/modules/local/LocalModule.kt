@@ -32,4 +32,8 @@ abstract class LocalModule {
     internal abstract fun bindSourcesLocal( sourceLocal: SourcesLocal)
             : ISourcesLocal
 
+    @Binds
+    internal abstract fun bindDevelopmentTeamLocal( developmentTeamLocal: DevelopmentTeamLocal)
+            : IDevelopmentTeamLocal
+
 }

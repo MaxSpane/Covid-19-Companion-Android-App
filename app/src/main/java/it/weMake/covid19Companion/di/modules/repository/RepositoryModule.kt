@@ -57,4 +57,10 @@ abstract class RepositoryModule {
         sourcesRepository: SourcesRepository
     ): ISourcesRepository
 
+    @Singleton
+    @Binds
+    abstract fun bindDevelopmentTeamRepository(
+        developmentTeamRepository: DevelopmentTeamRepository
+    ): IDevelopmentTeamRepository
+
 }

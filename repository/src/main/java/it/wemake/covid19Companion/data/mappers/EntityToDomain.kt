@@ -5,6 +5,7 @@ import it.wemake.covid19Companion.data.models.appReleases.AppReleaseEntity
 import it.wemake.covid19Companion.data.models.casesData.CountryCasesDataEntity
 import it.wemake.covid19Companion.data.models.casesData.GlobalStatsEntity
 import it.wemake.covid19Companion.data.models.casesData.RegionCasesDataEntity
+import it.wemake.covid19Companion.data.models.developmentTeam.TeamMemberEntity
 import it.wemake.covid19Companion.data.models.preventionTips.PreventionTipEntity
 import it.wemake.covid19Companion.data.models.screeningTool.*
 import it.wemake.covid19Companion.data.models.sources.SourceEntity
@@ -17,6 +18,7 @@ import it.wemake.covid19Companion.domain.models.screeningTool.*
 import it.wemake.covid19Companion.domain.models.washHandsReminderLocations.WashHandsReminderLocationDomainModel
 import it.wemake.covid19Companion.data.models.washHandsReminderLocations.WashHandsReminderLocationEntity
 import it.wemake.covid19Companion.domain.models.appReleases.AppReleaseDomainModel
+import it.wemake.covid19Companion.domain.models.developmentTeam.TeamMemberDomainModel
 import it.wemake.covid19Companion.domain.models.sources.SourceDomainModel
 
 
@@ -139,4 +141,12 @@ internal fun SourceEntity.toDomain(): SourceDomainModel =
         sourceDescription,
         resources,
         sourceExternalLink
+    )
+
+internal fun TeamMemberEntity.toDomain(): TeamMemberDomainModel =
+    TeamMemberDomainModel(
+        name,
+        role,
+        about,
+        externalLink
     )

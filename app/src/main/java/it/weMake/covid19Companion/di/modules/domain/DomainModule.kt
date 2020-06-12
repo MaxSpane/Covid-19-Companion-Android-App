@@ -268,4 +268,11 @@ class DomainModule {
         return  GetCountryRegionsCasesDataLatestUpdatedDateUseCase(covid19CasesRepository)
     }
 
+    @Provides
+    fun provideGetDevelopmentTeamMembersUseCase(
+        developmentTeamRepository: DevelopmentTeamRepository
+    ): GetDevelopmentTeamMembersUseCase {
+        return  GetDevelopmentTeamMembersUseCase(developmentTeamRepository)
+    }
+
 }

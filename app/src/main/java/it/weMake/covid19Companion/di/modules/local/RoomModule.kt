@@ -41,4 +41,8 @@ class RoomModule {
     fun provideSourcesDao(database: AppDatabase): SourcesDao =
         database.getSourcesDao()
 
+    @Provides
+    fun provideDevelopmentTeamDao(database: AppDatabase): DevelopmentTeamDao =
+        database.getDevelopmentTeamDao()
+
 }

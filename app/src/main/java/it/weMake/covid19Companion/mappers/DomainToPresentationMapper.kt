@@ -5,6 +5,7 @@ import it.weMake.covid19Companion.models.appReleases.AppRelease
 import it.weMake.covid19Companion.models.casesData.CountryCasesData
 import it.weMake.covid19Companion.models.casesData.GlobalStats
 import it.weMake.covid19Companion.models.casesData.RegionCasesData
+import it.weMake.covid19Companion.models.developmentTeam.TeamMember
 import it.weMake.covid19Companion.models.preventionTips.PreventionTip
 import it.weMake.covid19Companion.models.screeningTool.*
 import it.weMake.covid19Companion.models.sources.Source
@@ -14,6 +15,7 @@ import it.wemake.covid19Companion.domain.models.appReleases.AppReleaseDomainMode
 import it.wemake.covid19Companion.domain.models.casesData.CountryCasesDomainModel
 import it.wemake.covid19Companion.domain.models.casesData.GlobalStatsDomainModel
 import it.wemake.covid19Companion.domain.models.casesData.RegionCasesDataDomainModel
+import it.wemake.covid19Companion.domain.models.developmentTeam.TeamMemberDomainModel
 import it.wemake.covid19Companion.domain.models.preventionTips.PreventionTipDomainModel
 import it.wemake.covid19Companion.domain.models.screeningTool.*
 import it.wemake.covid19Companion.domain.models.sources.SourceDomainModel
@@ -138,4 +140,12 @@ fun SourceDomainModel.toPresentation(): Source =
         sourceDescription,
         resources,
         sourceExternalLink
+    )
+
+fun TeamMemberDomainModel.toPresentation(): TeamMember =
+    TeamMember(
+        name,
+        role,
+        about,
+        externalLink
     )
