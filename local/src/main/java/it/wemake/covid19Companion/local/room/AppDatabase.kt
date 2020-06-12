@@ -20,7 +20,7 @@ import it.wemake.covid19Companion.local.utils.DB_NAME
         AppReleaseLocalModel::class,
         SourceLocalModel::class
     ],
-    version = 1,
+    version = 2,
     exportSchema = true)
 abstract class AppDatabase: RoomDatabase() {
 
@@ -36,6 +36,13 @@ abstract class AppDatabase: RoomDatabase() {
         @Volatile
         private var instance: AppDatabase? = null
         private val LOCK = Any()
+
+        private val MIGRATION_1_2 = object : Migration(1, 2) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL("UPDATE `prevention_tips` SET `preventionTip` = 'Maintain at least 2 metre (6 feet) distance between yourself and anyone who is coughing or sneezing.' WHERE `iconId` = 'maintain_social_distancing'")
+                database.execSQL("UPDATE `prevention_tips` SET `preventionTip` = 'Avoid crowded places, especially if you are over 60 or have an underlying health condition such as high blood pressure, diabetes, heart and lung diseases or cancer.' WHERE `iconId` = 'avoid_crowded_places'")
+            }
+        }
 
         //MOCK MIGRATION
 //        val MIGRATION_1_2 = object : Migration(1, 2) {
@@ -53,6 +60,7 @@ abstract class AppDatabase: RoomDatabase() {
             AppDatabase::class.java, DB_NAME
         )
             .createFromAsset("databases/covid_19_companion.db")
+            .addMigrations(MIGRATION_1_2)
             .build()
     }
 
