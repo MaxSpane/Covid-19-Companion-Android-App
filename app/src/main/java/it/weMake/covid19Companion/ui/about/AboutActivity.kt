@@ -202,7 +202,7 @@ class AboutActivity : DaggerAppCompatActivity(), View.OnClickListener {
     }
 
     private fun showHideDevelopmentTeam(){
-        val shouldShowResources = binding.resourcesRV.visibility != View.VISIBLE
+        val shouldShowResources = binding.developmentTeamRV.visibility != View.VISIBLE
 
         if (shouldShowResources){
             binding.developmentTeamRV.show()
