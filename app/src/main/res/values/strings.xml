@@ -146,5 +146,6 @@
     <string name="minutes">Mins</string>
     <string name="screening_tool_description">Answer the questions that follow anonymously to check if you have been exhibiting symptoms relating to Covid-19 and get advice on the next step you should take.</string>
     <string name="about_app">CoVID-19 Companion is a handy tool that lets you keep up with the daily changes in the number of the COVID-19 cases in the world. It is an opensource project that was created for the current pandemic we face as a planet; Our own little way of contributing to society. \nMade with love in Nigeria.</string>
+    <string name="regional_data_unavailable">States Data not yet available. Stay tuned.</string>
 
 </resources>

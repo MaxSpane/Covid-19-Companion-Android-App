@@ -8,10 +8,7 @@ import it.weMake.covid19Companion.databinding.ItemCountryCasesSummaryBinding
 import it.weMake.covid19Companion.models.casesData.CountryCasesData
 import it.weMake.covid19Companion.models.casesData.RegionCasesData
 import it.weMake.covid19Companion.ui.regionalStats.RegionalStatsActivity
-import it.weMake.covid19Companion.utils.getFlagResourceId
-import it.weMake.covid19Companion.utils.makeDisappear
-import it.weMake.covid19Companion.utils.numberWithCommas
-import it.weMake.covid19Companion.utils.show
+import it.weMake.covid19Companion.utils.*
 
 
 class CountryCaseHolder(private val binding: ItemCountryCasesSummaryBinding): RecyclerView.ViewHolder(binding.root), View.OnClickListener{
@@ -23,8 +20,11 @@ class CountryCaseHolder(private val binding: ItemCountryCasesSummaryBinding): Re
     }
 
     override fun onClick(v: View) {
+        val context = itemView.context
         if (itemData.hasRegionalCasesData){
-            RegionalStatsActivity.open(itemView.context, itemData)
+            RegionalStatsActivity.open(context, itemData)
+        }else{
+            showShortToast(context, context.getString(R.string.regional_data_unavailable))
         }
     }
 
@@ -64,9 +64,9 @@ class CountryCaseHolder(private val binding: ItemCountryCasesSummaryBinding): Re
         }
 
         if (itemData.hasRegionalCasesData){
-            binding.arrowRightIV.show()
+            binding.regionalDataAvailabilityIV.setImageResource(R.drawable.ic_arrow_right)
         }else{
-            binding.arrowRightIV.makeDisappear()
+            binding.regionalDataAvailabilityIV.setImageResource(R.drawable.ic_block_black_24dp)
         }
 
     }
