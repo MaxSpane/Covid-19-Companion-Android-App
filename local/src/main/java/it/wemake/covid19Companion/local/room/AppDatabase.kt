@@ -50,6 +50,7 @@ abstract class AppDatabase: RoomDatabase() {
             override fun migrate(database: SupportSQLiteDatabase) {
                 database.execSQL("CREATE TABLE `development_team` (`name` TEXT NOT NULL, `role` TEXT NOT NULL, `about` TEXT NOT NULL, `externalLink` TEXT NOT NULL, PRIMARY KEY(`name`))")
                 database.execSQL("INSERT OR IGNORE INTO `development_team` (`name`, `role`, `about`, `externalLink`) VALUES ('Richard Saseun', 'UI, UX Designer', 'A graphics guru with a penchant for coding; who loves solving problems and creating products to make people lives easier.', 'http://richardsaseun.com'), ('Mohammed Adetunji', 'Native Mobile App Developer', 'A skilled Mobile App sculptor with a love for Technology; out to solve the Worlds problems one App at a time.', 'https://github.com/MaxSpane'), ('David Idowu', 'Native Android Developer', 'A versed programmer; trying to learn the language of the future.', 'https://github.com/Marshall-D')")
+                database.execSQL("INSERT OR IGNORE INTO `app_releases` (`versionName`, `versionDetails`) VALUES ('1.1', 'Added development team to about\nAdded about app text\nUpdated about page design\nShowing icon for countries whose regional data are not available\nShowing toast when country card with unavailable regional data is clicked.')")
             }
         }
 
